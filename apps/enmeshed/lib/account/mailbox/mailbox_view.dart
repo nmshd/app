@@ -379,30 +379,14 @@ class _MessageListView extends StatelessWidget {
                   return const Divider(indent: 16, height: 1);
                 }
 
-                return Container(
-                  alignment: Alignment.centerLeft,
-                  height: 40,
-                  padding: const EdgeInsets.only(left: 16),
-                  child: Text(
-                    createdDayText(itemCreatedAt: DateTime.parse(messages[index + 1].createdAt).toLocal(), context: context),
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                );
+                return _DateTextDivider(createdAt: messages[index + 1].createdAt);
               },
               itemBuilder: (context, index) {
                 if (index == 0) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        height: 40,
-                        padding: const EdgeInsets.only(left: 16),
-                        child: Text(
-                          createdDayText(itemCreatedAt: DateTime.parse(messages[index].createdAt).toLocal(), context: context),
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ),
+                      _DateTextDivider(createdAt: messages[index].createdAt),
                       MessageListTile(message: messages[index], accountId: accountId),
                     ],
                   );
@@ -411,6 +395,25 @@ class _MessageListView extends StatelessWidget {
                 return MessageListTile(message: messages[index], accountId: accountId);
               },
             ),
+    );
+  }
+}
+
+class _DateTextDivider extends StatelessWidget {
+  final String createdAt;
+
+  const _DateTextDivider({required this.createdAt});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      height: 40,
+      padding: const EdgeInsets.only(left: 16),
+      child: Text(
+        createdDayText(itemCreatedAt: DateTime.parse(createdAt).toLocal(), context: context),
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
     );
   }
 }
