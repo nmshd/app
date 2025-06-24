@@ -122,7 +122,7 @@ class _MailboxViewState extends State<MailboxView> {
         query['content.@type'] = QueryValue.string('Request');
       case MailboxFilterOption.unread:
         query['createdBy'] = QueryValue.string('!$ownAddress');
-      // TODO: how to implement unread filter?
+        query['wasReadAt'] = QueryValue.string('!');
       case MailboxFilterOption.withAttachment:
         query['createdBy'] = QueryValue.string('!$ownAddress');
         query['attachments'] = QueryValue.string('+');
