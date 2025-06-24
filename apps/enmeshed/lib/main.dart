@@ -38,12 +38,10 @@ void main() async {
   timeago.setLocaleMessages('en', timeago.EnMessages());
 
   final logPath = '${(await getApplicationDocumentsDirectory()).path}/logs';
+  final output = kDebugMode ? MultiOutput([ConsoleOutput(), AdvancedFileOutput(path: logPath)]) : AdvancedFileOutput(path: logPath);
   final logger = Logger(
     printer: SimplePrinter(colors: false),
-    output: MultiOutput([
-      if (kDebugMode) ConsoleOutput(),
-      AdvancedFileOutput(path: logPath),
-    ]),
+    output: output,
   );
   GetIt.I.registerSingleton(logger);
 
