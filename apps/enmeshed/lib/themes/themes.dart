@@ -51,7 +51,12 @@ ThemeData _generateColorScheme({
     tones: tonesConstructor(brightness),
   );
 
-  final appBarTheme = AppBarTheme(titleTextStyle: textTheme.titleLarge!.copyWith(color: colorScheme.primary), titleSpacing: 6, centerTitle: false);
+  final appBarTheme = AppBarTheme(
+    titleTextStyle: textTheme.titleLarge!.copyWith(color: colorScheme.primary),
+    titleSpacing: 6,
+    centerTitle: false,
+    actionsPadding: const EdgeInsets.symmetric(horizontal: 4),
+  );
 
   return ThemeData(
     colorScheme: colorScheme,
