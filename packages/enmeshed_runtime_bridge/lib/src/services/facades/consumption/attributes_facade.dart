@@ -457,4 +457,18 @@ class AttributesFacade {
     final json = result.valueToMap();
     return Result.fromJson(json, (value) => AttributeTagCollectionDTO.fromJson(value));
   }
+
+  Future<Result<LocalAttributeDTO>> markAttributeAsViewed({required String attributeId}) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.consumptionServices.attributes.markAttributeAsViewed(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {'id': attributeId},
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => LocalAttributeDTO.fromJson(value));
+  }
 }
