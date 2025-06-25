@@ -81,7 +81,7 @@ class _SelectContactFilterModalState extends State<_SelectContactFilterModal> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       if (widget.contacts.isEmpty)
-                        EmptyListIndicator(icon: Icons.contacts, text: context.l10n.contacts_empty)
+                        EmptyListIndicator(icon: Icons.person, text: context.l10n.mailbox_filterByContact_noContacts)
                       else
                         ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),

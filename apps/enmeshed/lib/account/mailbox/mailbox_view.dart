@@ -9,11 +9,15 @@ import '/core/core.dart';
 import 'modals/select_contact_filter.dart';
 
 enum MailboxFilterOption {
-  incoming,
-  actionRequired,
-  unread,
-  withAttachment,
-  outgoing,
+  incoming(Icons.mail),
+  actionRequired(Icons.chat_bubble),
+  unread(Icons.mark_email_unread),
+  withAttachment(Icons.attachment),
+  outgoing(Icons.send);
+
+  final IconData associatedIcon;
+
+  const MailboxFilterOption(this.associatedIcon);
 }
 
 class MailboxView extends StatefulWidget {
@@ -204,40 +208,40 @@ class _FilterChipBar extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 12),
-                child: _CustomSelectionChip(
-                  icon: Icons.mail,
-                  label: 'Eingang',
+                child: _FilterOptionChip(
+                  option: MailboxFilterOption.incoming,
+                  setFilter: setFilter,
+                  label: context.l10n.mailbox_filterOption_incoming,
                   isSelected: selectedFilterOption == MailboxFilterOption.incoming,
-                  onPressed: () => setFilter(MailboxFilterOption.incoming),
                   backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
                   foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
                 ),
               ),
-              _CustomSelectionChip(
-                icon: Icons.chat_bubble,
-                label: 'Anfragen',
+              _FilterOptionChip(
+                option: MailboxFilterOption.actionRequired,
+                setFilter: setFilter,
+                label: context.l10n.mailbox_filterOption_actionRequired,
                 isSelected: selectedFilterOption == MailboxFilterOption.actionRequired,
-                onPressed: () => setFilter(MailboxFilterOption.actionRequired),
                 backgroundColor: Theme.of(context).colorScheme.errorContainer,
                 foregroundColor: Theme.of(context).colorScheme.onErrorContainer,
               ),
-              _CustomSelectionChip(
-                icon: Icons.mark_email_unread,
-                label: 'Ungelesen',
+              _FilterOptionChip(
+                option: MailboxFilterOption.unread,
+                setFilter: setFilter,
+                label: context.l10n.mailbox_filterOption_unread,
                 isSelected: selectedFilterOption == MailboxFilterOption.unread,
-                onPressed: () => setFilter(MailboxFilterOption.unread),
               ),
-              _CustomSelectionChip(
-                icon: Icons.attachment,
-                label: 'Anhang',
+              _FilterOptionChip(
+                option: MailboxFilterOption.withAttachment,
+                setFilter: setFilter,
+                label: context.l10n.mailbox_filterOption_withAttachment,
                 isSelected: selectedFilterOption == MailboxFilterOption.withAttachment,
-                onPressed: () => setFilter(MailboxFilterOption.withAttachment),
               ),
-              _CustomSelectionChip(
-                icon: Icons.send,
-                label: 'Gesendet',
+              _FilterOptionChip(
+                option: MailboxFilterOption.outgoing,
+                setFilter: setFilter,
+                label: context.l10n.mailbox_filterOption_outgoing,
                 isSelected: selectedFilterOption == MailboxFilterOption.outgoing,
-                onPressed: () => setFilter(MailboxFilterOption.outgoing),
               ),
               _ContactSelectionChip(contacts: contacts, filteredContactId: filteredContactId, setFilteredContactId: setFilteredContactId),
               const SizedBox(width: 52),
@@ -263,19 +267,19 @@ class _FilterChipBar extends StatelessWidget {
   }
 }
 
-class _CustomSelectionChip extends StatelessWidget {
-  final IconData icon;
+class _FilterOptionChip extends StatelessWidget {
+  final MailboxFilterOption option;
+  final void Function(MailboxFilterOption option) setFilter;
   final String label;
   final bool isSelected;
-  final VoidCallback onPressed;
   final Color? backgroundColor;
   final Color? foregroundColor;
 
-  const _CustomSelectionChip({
-    required this.icon,
+  const _FilterOptionChip({
+    required this.option,
+    required this.setFilter,
     required this.label,
     required this.isSelected,
-    required this.onPressed,
     this.backgroundColor,
     this.foregroundColor,
   });
@@ -289,8 +293,8 @@ class _CustomSelectionChip extends StatelessWidget {
       return Theme(
         data: Theme.of(context).copyWith(splashColor: Colors.transparent),
         child: RawChip(
-          label: Icon(icon, size: 24, color: foregroundColor),
-          onPressed: onPressed,
+          label: Icon(option.associatedIcon, size: 24, color: foregroundColor),
+          onPressed: () => setFilter(option),
           backgroundColor: backgroundColor,
           padding: const EdgeInsets.all(2),
           side: const BorderSide(color: Colors.transparent),
@@ -299,7 +303,7 @@ class _CustomSelectionChip extends StatelessWidget {
     }
 
     return RawChip(
-      avatar: Icon(icon, size: 24, color: foregroundColor),
+      avatar: Icon(option.associatedIcon, size: 24, color: foregroundColor),
       label: Text(label, style: TextStyle(color: foregroundColor)),
       backgroundColor: backgroundColor,
       padding: const EdgeInsets.all(2),
