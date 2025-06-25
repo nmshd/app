@@ -9,7 +9,7 @@ export class AppLanguageProvider implements IAppLanguageProvider {
       return Result.fail(
         new ApplicationError(
           "error.appRuntimeBridge.invalidLanguageType",
-          `Invalid language '${language}' received for getAppLanguage. Expected a ISO639 language.`
+          `Invalid language '${language}' received for getAppLanguage. Expected an ISO639 language.`
         )
       );
     }
