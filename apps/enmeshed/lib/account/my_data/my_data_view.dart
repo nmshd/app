@@ -25,6 +25,7 @@ class _MyDataViewState extends State<MyDataView> {
   bool _personalDataExisting = true;
   bool _addressDataExisting = true;
   bool _communicationDataExisting = true;
+  int _numberOfUnviewedFiles = 0;
 
   @override
   void initState() {
@@ -109,10 +110,19 @@ class _MyDataViewState extends State<MyDataView> {
                 ),
                 const Divider(indent: 16, height: 2),
                 ListTile(
-                  leading: const Icon(Icons.folder),
+                  leading: Badge(
+                    isLabelVisible: _numberOfUnviewedFiles > 0,
+                    textColor: Theme.of(context).colorScheme.onPrimary,
+                    label: Text(_numberOfUnviewedFiles.toString()),
+                    backgroundColor: Theme.of(context).colorScheme.error,
+                    child: const Icon(Icons.folder),
+                  ),
                   title: Text(context.l10n.files),
                   trailing: const Icon(Icons.chevron_right),
-                  onTap: () => context.push('/account/${widget.accountId}/my-data/files'),
+                  onTap: () async {
+                    await context.push('/account/${widget.accountId}/my-data/files');
+                    await _loadUnviewedFiles();
+                  },
                 ),
                 const Divider(indent: 16, height: 2),
                 ListTile(
@@ -139,6 +149,7 @@ class _MyDataViewState extends State<MyDataView> {
     }
 
     await _updateDataExisting();
+    await _loadUnviewedFiles();
   }
 
   Future<void> _updateDataExisting() async {
@@ -152,5 +163,17 @@ class _MyDataViewState extends State<MyDataView> {
         _communicationDataExisting = existingData.communicationData;
       });
     }
+  }
+
+  Future<void> _loadUnviewedFiles() async {
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+
+    await session.transportServices.account.syncEverything();
+
+    if (!mounted) return;
+
+    final unviewedFiles = await getUnviewedFiles(session: session, context: context);
+
+    setState(() => _numberOfUnviewedFiles = unviewedFiles.length);
   }
 }
