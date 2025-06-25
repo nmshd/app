@@ -9,15 +9,16 @@ import '/core/core.dart';
 import 'modals/select_contact_filter.dart';
 
 enum MailboxFilterOption {
-  incoming(Icons.mail),
-  actionRequired(Icons.chat_bubble),
-  unread(Icons.mark_email_unread),
-  withAttachment(Icons.attachment),
-  outgoing(Icons.send);
+  incoming(Icons.mail, Icons.mail_outline),
+  actionRequired(Icons.chat_bubble, Icons.chat_bubble_outline),
+  unread(Icons.mark_email_unread, Icons.mark_email_unread_outlined),
+  withAttachment(Icons.attachment, Icons.attachment_outlined),
+  outgoing(Icons.send, Icons.send_outlined);
 
-  final IconData associatedIcon;
+  final IconData filterIcon;
+  final IconData emptyListIcon;
 
-  const MailboxFilterOption(this.associatedIcon);
+  const MailboxFilterOption(this.filterIcon, this.emptyListIcon);
 }
 
 class MailboxView extends StatefulWidget {
@@ -293,7 +294,7 @@ class _FilterOptionChip extends StatelessWidget {
       return Theme(
         data: Theme.of(context).copyWith(splashColor: Colors.transparent),
         child: RawChip(
-          label: Icon(option.associatedIcon, size: 24, color: foregroundColor),
+          label: Icon(option.filterIcon, size: 24, color: foregroundColor),
           onPressed: () => setFilter(option),
           backgroundColor: backgroundColor,
           padding: const EdgeInsets.all(2),
@@ -303,7 +304,7 @@ class _FilterOptionChip extends StatelessWidget {
     }
 
     return RawChip(
-      avatar: Icon(option.associatedIcon, size: 24, color: foregroundColor),
+      avatar: Icon(option.filterIcon, size: 24, color: foregroundColor),
       label: Text(label, style: TextStyle(color: foregroundColor)),
       backgroundColor: backgroundColor,
       padding: const EdgeInsets.all(2),
@@ -365,15 +366,19 @@ class _MessageListView extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: onRefresh,
       child: (messages.isEmpty)
-          ? EmptyListIndicator(
-              icon: Icons.mail_outline,
-              text: context.l10n.mailbox_empty,
-              wrapInListView: true,
-
-              // TODO: add filter text
-              // ignore: avoid_redundant_argument_values
-              isFiltered: false,
-              filteredText: context.l10n.mailbox_filtered_noResults,
+          ? Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: EmptyListIndicator(
+                icon: filterOption.emptyListIcon,
+                wrapInListView: true,
+                text: switch (filterOption) {
+                  MailboxFilterOption.incoming => context.l10n.mailbox_empty_incoming,
+                  MailboxFilterOption.actionRequired => context.l10n.mailbox_empty_actionRequired,
+                  MailboxFilterOption.unread => context.l10n.mailbox_empty_unread,
+                  MailboxFilterOption.withAttachment => context.l10n.mailbox_empty_withAttachment,
+                  MailboxFilterOption.outgoing => context.l10n.mailbox_empty_outgoing,
+                },
+              ),
             )
           : ListView.separated(
               itemCount: messages.length,
