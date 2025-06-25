@@ -15,8 +15,8 @@
     "@js-soft/logging-abstractions": "^1.0.1",
     "@js-soft/simple-logger": "^1.0.5",
     "@js-soft/ts-utils": "^2.3.3",
-    "@nmshd/app-runtime": "6.56.0",
-    "@nmshd/runtime": "6.56.0",
+    "@nmshd/app-runtime": "6.58.0",
+    "@nmshd/runtime": "6.58.0",
     "js-logger": "^1.6.1",
     "json-stringify-safe": "^5.0.1",
     "lodash": "^4.17.21"
@@ -25,10 +25,10 @@
     "@types/json-stringify-safe": "^5.0.3",
     "@types/lodash": "^4.17.18",
     "@types/luxon": "^3.6.2",
-    "@types/node": "^22.15.33",
+    "@types/node": "^24.0.4",
     "esbuild": "^0.25.5",
     "luxon": "^3.6.1",
-    "prettier": "^3.6.0",
+    "prettier": "^3.6.1",
     "typescript": "^5.8.3"
   }
 }
