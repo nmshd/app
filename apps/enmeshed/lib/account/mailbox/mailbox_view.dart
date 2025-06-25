@@ -214,7 +214,7 @@ class _FilterChipBar extends StatelessWidget {
                   label: context.l10n.mailbox_filterOption_incoming,
                   isSelected: selectedFilterOption == MailboxFilterOption.incoming,
                   backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-                  foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                  foregroundColor: Theme.of(context).colorScheme.secondary,
                 ),
               ),
               _FilterOptionChip(
@@ -223,7 +223,7 @@ class _FilterChipBar extends StatelessWidget {
                 label: context.l10n.mailbox_filterOption_actionRequired,
                 isSelected: selectedFilterOption == MailboxFilterOption.actionRequired,
                 backgroundColor: Theme.of(context).colorScheme.errorContainer,
-                foregroundColor: Theme.of(context).colorScheme.onErrorContainer,
+                foregroundColor: Theme.of(context).colorScheme.error,
               ),
               _FilterOptionChip(
                 option: MailboxFilterOption.unread,
