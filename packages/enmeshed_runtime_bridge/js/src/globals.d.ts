@@ -8,8 +8,9 @@ declare global {
     runtime: AppRuntime;
     flutter_inappwebview: FlutterInAppWebView;
     registerUIBridge: () => void;
-    triggerRemoteNotificationRegistrationEvent: (token: string) => Promise<void>;
-    triggerRemoteNotificationEvent: (notification: RemoteNotification) => Promise<void>;
+    triggerRemoteNotificationRegistrationEvent: (token: string) => void;
+    triggerAppLanguageChangedEvent: (language: string) => void;
+    triggerRemoteNotificationEvent: (notification: RemoteNotification) => void;
     runtimeVersion: string;
     NMSHDContent: typeof import("@nmshd/content");
     getHints: (valueType: string) => Result<{ renderHints: RenderHintsJSON; valueHints: ValueHintsJSON }>;
