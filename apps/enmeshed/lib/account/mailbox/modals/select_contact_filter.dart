@@ -52,13 +52,12 @@ class _SelectContactFilterModalState extends State<_SelectContactFilterModal> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
             contentPadding: const EdgeInsets.only(left: 16, right: 16, top: 8),
             title: Text(
-              context.l10n.mailbox_filter_header,
+              context.l10n.mailbox_filterByContact_header,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.titleLarge,
@@ -81,7 +80,6 @@ class _SelectContactFilterModalState extends State<_SelectContactFilterModal> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ListTile(title: Text(context.l10n.mailbox_filter_byContacts, style: Theme.of(context).textTheme.titleMedium)),
                       if (widget.contacts.isEmpty)
                         EmptyListIndicator(icon: Icons.contacts, text: context.l10n.contacts_empty)
                       else
