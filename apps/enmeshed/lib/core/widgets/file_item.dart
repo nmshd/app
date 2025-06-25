@@ -1,4 +1,3 @@
-import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -28,7 +27,7 @@ class FileItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fileNameStyle = fileRecord.file.wasViewed != true
+    final fileNameStyle = fileRecord.fileReferenceAttribute?.wasViewedAt == null
         ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
         : Theme.of(context).textTheme.bodyLarge;
 
@@ -62,7 +61,7 @@ class FileItem extends StatelessWidget {
           HighlightText(text: getFileExtension(fileRecord.file.filename), query: query),
         ],
       ),
-      leading: _FileCircleAvatar(file: fileRecord.file),
+      leading: _FileCircleAvatar(fileRecord: fileRecord),
       trailing: trailing,
       onTap:
           onTap ??
@@ -75,9 +74,9 @@ class FileItem extends StatelessWidget {
 }
 
 class _FileCircleAvatar extends StatelessWidget {
-  final FileDVO file;
+  final FileRecord fileRecord;
 
-  const _FileCircleAvatar({required this.file});
+  const _FileCircleAvatar({required this.fileRecord});
 
   @override
   Widget build(BuildContext context) {
@@ -85,11 +84,11 @@ class _FileCircleAvatar extends StatelessWidget {
     Color? iconColor;
     Color? borderColor;
 
-    if (DateTime.parse(file.expiresAt).isBefore(DateTime.now())) {
+    if (DateTime.parse(fileRecord.file.expiresAt).isBefore(DateTime.now())) {
       backgroundColor = Theme.of(context).colorScheme.errorContainer;
       iconColor = Theme.of(context).colorScheme.onErrorContainer;
       borderColor = Theme.of(context).colorScheme.error;
-    } else if (file.wasViewed != true) {
+    } else if (fileRecord.fileReferenceAttribute?.wasViewedAt == null) {
       backgroundColor = Theme.of(context).colorScheme.secondaryContainer;
       iconColor = Theme.of(context).colorScheme.onSecondaryContainer;
       borderColor = Theme.of(context).colorScheme.secondary;
@@ -100,7 +99,7 @@ class _FileCircleAvatar extends StatelessWidget {
 
     final circleAvatar = CircleAvatar(
       backgroundColor: backgroundColor,
-      child: FileIcon(filename: file.filename, color: iconColor),
+      child: FileIcon(filename: fileRecord.file.filename, color: iconColor),
     );
 
     if (borderColor == null) return circleAvatar;
