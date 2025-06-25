@@ -3,6 +3,7 @@ export 'app_runtime/external_event_received_event.dart';
 export 'app_runtime/local_account_deletion_date_changed_event.dart';
 export 'consumption/attribute_created_event.dart';
 export 'consumption/attribute_deleted_event.dart';
+export 'consumption/attribute_was_viewed_at_changed_event.dart';
 export 'consumption/incoming_request_received_event.dart';
 export 'consumption/incoming_request_status_changed_event.dart';
 export 'consumption/outgoing_request_created_event.dart';
@@ -15,7 +16,6 @@ export 'consumption/third_party_relationship_attribute_deleted_by_peer_event.dar
 export 'consumption/third_party_relationship_attribute_succeeded_event.dart';
 export 'event.dart';
 export 'transport/datawallet_synchronized_event.dart';
-export 'transport/file_was_viewed_event.dart';
 export 'transport/identity_deletion_process_status_changed_event.dart';
 export 'transport/message_received_event.dart';
 export 'transport/message_sent_event.dart';

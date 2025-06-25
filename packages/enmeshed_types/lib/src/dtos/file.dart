@@ -20,7 +20,6 @@ class FileDTO extends Equatable {
   final String title;
   final String? description;
   final ObjectReferenceDTO reference;
-  final bool? wasViewed;
 
   const FileDTO({
     required this.id,
@@ -36,7 +35,6 @@ class FileDTO extends Equatable {
     required this.title,
     this.description,
     required this.reference,
-    this.wasViewed,
   });
 
   factory FileDTO.fromJson(Map json) => _$FileDTOFromJson(Map<String, dynamic>.from(json));
@@ -57,6 +55,5 @@ class FileDTO extends Equatable {
     title,
     description,
     reference,
-    wasViewed,
   ];
 }

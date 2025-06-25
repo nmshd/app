@@ -133,18 +133,4 @@ class FilesFacade {
 
     return VoidResult.fromJson(result.valueToMap());
   }
-
-  Future<Result<FileDTO>> markFileAsViewed({required String id}) async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.files.markFileAsViewed(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {'id': id},
-      },
-    );
-
-    final value = result.valueToMap();
-    return Result.fromJson(value, (x) => FileDTO.fromJson(x));
-  }
 }

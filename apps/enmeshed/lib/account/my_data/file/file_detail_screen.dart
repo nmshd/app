@@ -48,7 +48,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: TranslatedText(_fileDVO!.title, style: Theme.of(context).textTheme.titleLarge)),
+      appBar: AppBar(title: TranslatedText(_fileDVO!.title)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 8),

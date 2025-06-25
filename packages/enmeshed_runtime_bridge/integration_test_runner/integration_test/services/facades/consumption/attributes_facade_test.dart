@@ -1860,4 +1860,16 @@ void run(EnmeshedRuntime runtime) {
       expect(tagCollection.supportedLanguages, isNotEmpty);
     });
   });
+
+  group('[AttributesFacade] markAttributeAsViewed', () {
+    test('should mark an Attribute as viewed', () async {
+      final attribute = (await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const SurnameAttributeValue(value: 'aSurname'),
+      )).value;
+
+      final result = await sender.consumptionServices.attributes.markAttributeAsViewed(attributeId: attribute.id);
+      expect(result, isSuccessful<LocalAttributeDTO>());
+      expect(result.value.wasViewedAt, isNotNull);
+    });
+  });
 }

@@ -49,7 +49,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(title: Text(context.l10n.drawer_manageProfiles, style: Theme.of(context).textTheme.titleMedium));
+    final appBar = AppBar(title: Text(context.l10n.drawer_manageProfiles));
 
     if (_accounts == null || _accountsInDeletion == null) {
       return Scaffold(

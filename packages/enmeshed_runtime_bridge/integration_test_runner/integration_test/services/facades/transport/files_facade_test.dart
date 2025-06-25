@@ -244,27 +244,4 @@ void run(EnmeshedRuntime runtime) {
       expect(getFileAfterDeletionResult.error.code, 'error.runtime.recordNotFound');
     });
   });
-
-  group('[FilesFacade] markFileAsViewed', () {
-    test('should mark a file as viewed', () async {
-      final expiresAt = generateExpiryString();
-      final bytes = Uint8List.fromList(utf8.encode('a String')).toList();
-
-      final uploadFileResult = await session.transportServices.files.uploadOwnFile(
-        content: bytes,
-        filename: 'facades/test.txt',
-        mimetype: 'plain',
-        expiresAt: expiresAt,
-        title: 'aTitle',
-      );
-      final fileId = uploadFileResult.value.id;
-
-      final getFileResult = await session.transportServices.files.getFile(fileId: fileId);
-      expect(getFileResult.value.wasViewed, null);
-
-      final markFileAsViewedResult = await session.transportServices.files.markFileAsViewed(id: fileId);
-      expect(markFileAsViewedResult, isSuccessful<FileDTO>());
-      expect(markFileAsViewedResult.value.wasViewed, true);
-    });
-  });
 }

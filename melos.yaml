@@ -38,3 +38,7 @@ scripts:
   generate_translations:
     run: melos exec --dir-exists=lib/l10n --flutter -- "flutter gen-l10n && dart format lib/generated/l10n"
     description: Generate translations in all packages
+
+  clean_generated_translations:
+    run: melos exec --dir-exists=lib/generated/l10n --flutter -- "rm -rf lib/generated/l10n"
+    description: Clean translation built files in all packages
