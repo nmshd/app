@@ -303,10 +303,10 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
   }
 
   Future<void> _markFileAsViewed() async {
-    if (_fileDVO?.wasViewed ?? false) return;
+    if (widget.fileReferenceAttribute?.wasViewedAt != null) return;
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
-    await session.transportServices.files.markFileAsViewed(id: _fileDVO!.id);
+    await session.consumptionServices.attributes.markAttributeAsViewed(attributeId: widget.fileReferenceAttribute!.id);
   }
 }
 
