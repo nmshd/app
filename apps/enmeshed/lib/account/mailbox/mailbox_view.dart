@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:enmeshed/account/mailbox/modals/mailbox_filter_help.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
@@ -247,7 +248,10 @@ class _FilterChipBar extends StatelessWidget {
 
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: IconButton(onPressed: () {}, icon: const Icon(Icons.info)),
+              child: IconButton(
+                onPressed: () => showMailboxFilterHelpModal(context: context),
+                icon: const Icon(Icons.info),
+              ),
             ),
           ),
         ),
