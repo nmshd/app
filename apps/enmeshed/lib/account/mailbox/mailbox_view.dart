@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:enmeshed/account/mailbox/modals/mailbox_filter_help.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:get_it/get_it.dart';
 
 import '/core/core.dart';
 import 'mailbox_filter_option.dart';
+import 'modals/mailbox_filter_help.dart';
 import 'modals/select_contact_filter.dart';
 
 class MailboxView extends StatefulWidget {
