@@ -43,7 +43,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
   LocalAccountDTO? _account;
   int _numberOfOpenContactRequests = 0;
   int _unreadMessagesCount = 0;
-  final int _numberOfNewFiles = 0;
+  int _numberOfUnviewedFiles = 0;
 
   @override
   void initState() {
@@ -78,7 +78,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     _loadAccount();
     _reloadContactRequests();
     _loadUnreadMessages();
-    _loadNewFiles();
+    _loadUnviewedFiles();
   }
 
   @override
@@ -159,9 +159,9 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
           NavigationDestination(
             label: context.l10n.myData,
             icon: Badge(
-              isLabelVisible: _numberOfNewFiles > 0,
+              isLabelVisible: _numberOfUnviewedFiles > 0,
               textColor: Theme.of(context).colorScheme.onPrimary,
-              label: Text(_numberOfNewFiles.toString()),
+              label: Text(_numberOfUnviewedFiles.toString()),
               backgroundColor: Theme.of(context).colorScheme.error,
               child: const Icon(Icons.person),
             ),
@@ -271,7 +271,11 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     setState(() => _unreadMessagesCount = messages.length);
   }
 
-  Future<void> _loadNewFiles() async {
+  Future<void> _loadUnviewedFiles() async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+
+    final unviewedFiles = await getUnviewedFiles(session: session, context: context);
+
+    setState(() => _numberOfUnviewedFiles = unviewedFiles.length);
   }
 }
