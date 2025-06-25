@@ -29,6 +29,10 @@ Future<void> setupPush(EnmeshedRuntime runtime) async {
 
   Push.instance.addOnNotificationTap((data) {
     logger.i('Notification was tapped:\nData: $data');
+
+    final content = extractContentFromMessageData(data);
+    if (content == null) return;
+    runtime.triggerRemoteNotificationEvent(content: content);
   });
 
   Push.instance.addOnMessage((message) {
@@ -43,14 +47,13 @@ Future<void> setupPush(EnmeshedRuntime runtime) async {
 }
 
 Future<void> triggerRemoteNotificationEvent(EnmeshedRuntime runtime, RemoteMessage message) async {
-  final content = extractContentFromMessage(message);
+  final content = extractContentFromMessageData(message.data);
   if (content == null) return;
 
   await runtime.triggerRemoteNotificationEvent(content: content);
 }
 
-Map<String, dynamic>? extractContentFromMessage(RemoteMessage message) {
-  final data = message.data;
+Map<String, dynamic>? extractContentFromMessageData(Map<String?, Object?>? data) {
   if (data == null) return null;
 
   final content = data['content'];
