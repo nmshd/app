@@ -34,7 +34,6 @@ An example is adding a property to a DVO.
 For this to work, `@JsonSerializable(includeIfNull: false)` must be written above the class declaration.
 Then, run `melos build_runner` from anywhere in the project.
 This will create a file with the same name, but `.g.dart` as ending.
-It is advisable to format the files of the package thereafter, e.g. by running `dart format .`.
 
 ## Moving patches to other apps
 
