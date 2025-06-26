@@ -150,7 +150,7 @@ class _Subtitle extends StatelessWidget {
           ),
           Gaps.h4,
           Text(
-            context.l10n.contacts_requestWithExpiryDate(DateTime.parse(item.openRequests.firstOrNull?.content.expiresAt ?? '').toLocal()),
+            context.l10n.contacts_requestWithExpiryDate(DateTime.parse(expiresAt).toLocal()),
             style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Theme.of(context).colorScheme.error),
           ),
         ],
