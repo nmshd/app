@@ -572,6 +572,26 @@ class _RequestStatusCard extends StatelessWidget {
 
     final expiresAt = DateTime.parse(request.content.expiresAt!).toLocal();
 
+    final expiryIsMoreThanAWeek = expiresAt.isAfter(DateTime.now().add(const Duration(days: 7)));
+    if (expiryIsMoreThanAWeek) {
+      return Container(
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Icon(Icons.info_rounded, color: textColor, size: 24),
+            Gaps.w8,
+            Expanded(
+              child: Text(
+                context.l10n.request_status_expiring_longTerm(expiresAt),
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Container(
       decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
       padding: const EdgeInsets.all(16),
