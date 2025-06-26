@@ -768,7 +768,7 @@
   "request_status_accepted": "Sie haben diese Anfrage angenommen.",
   "request_status_declinedBySystem": "Diese Anfrage wurde automatisch abgelehnt.",
   "request_status_declined": "Sie haben diese Anfrage abgelehnt.",
-  "request_status_expiring": "Diese Anfrage ist mit einem Ablaufdatum versehen.",
+  "request_status_expiring": "Diese Anfrage läuft demnächst ab!",
   "request_status_expiring_description": "Sie können diese Anfrage bis zum {date}, {time} bearbeiten.",
   "@request_status_expiring_description": {
     "placeholders": {
