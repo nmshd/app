@@ -133,10 +133,10 @@ class _Subtitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isExpiringRequest =
-        item.openRequests.firstOrNull?.status != LocalRequestStatus.Expired && item.openRequests.firstOrNull?.content.expiresAt != null;
+    final expiresAt = item.openRequests.firstOrNull?.content.expiresAt;
+    final isExpiringRequest = item.openRequests.firstOrNull?.status != LocalRequestStatus.Expired && expiresAt != null;
 
-    if (isExpiringRequest) {
+    if (isExpiringRequest && DateTime.parse(expiresAt).isBefore(DateTime.now().add(const Duration(days: 7)))) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
