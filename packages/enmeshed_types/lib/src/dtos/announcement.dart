@@ -13,12 +13,35 @@ class AnnouncementDTO extends Equatable {
   final AnnouncementSeverity severity;
   final String title;
   final String body;
+  final List<AnnouncementActionDTO> actions;
 
-  const AnnouncementDTO({required this.id, required this.createdAt, this.expiresAt, required this.severity, required this.title, required this.body});
+  const AnnouncementDTO({
+    required this.id,
+    required this.createdAt,
+    this.expiresAt,
+    required this.severity,
+    required this.title,
+    required this.body,
+    required this.actions,
+  });
 
   factory AnnouncementDTO.fromJson(Map json) => _$AnnouncementDTOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$AnnouncementDTOToJson(this);
 
   @override
   List<Object?> get props => [id, createdAt, expiresAt, severity, title, body];
+}
+
+@JsonSerializable(includeIfNull: false)
+class AnnouncementActionDTO extends Equatable {
+  final String displayName;
+  final String link;
+
+  const AnnouncementActionDTO({required this.displayName, required this.link});
+
+  factory AnnouncementActionDTO.fromJson(Map json) => _$AnnouncementActionDTOFromJson(Map<String, dynamic>.from(json));
+  Map<String, dynamic> toJson() => _$AnnouncementActionDTOToJson(this);
+
+  @override
+  List<Object?> get props => [displayName, link];
 }
