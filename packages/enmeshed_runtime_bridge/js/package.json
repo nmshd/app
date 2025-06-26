@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@types/json-stringify-safe": "^5.0.3",
-    "@types/lodash": "^4.17.18",
+    "@types/lodash": "^4.17.19",
     "@types/luxon": "^3.6.2",
     "@types/node": "^24.0.4",
     "esbuild": "^0.25.5",
