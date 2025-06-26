@@ -189,12 +189,13 @@ class _FilterChipBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: Alignment.centerLeft,
       children: [
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           physics: const ScrollPhysics(),
           child: Row(
-            spacing: 4,
+            spacing: 8,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 12),
@@ -282,26 +283,26 @@ class _FilterOptionChip extends StatelessWidget {
     final backgroundColor = this.backgroundColor ?? Theme.of(context).colorScheme.surfaceContainerHighest;
     final foregroundColor = this.foregroundColor ?? Theme.of(context).colorScheme.onSurface;
 
-    if (!isSelected) {
-      return Theme(
-        data: Theme.of(context).copyWith(splashColor: Colors.transparent),
-        child: RawChip(
-          label: Icon(option.filterIcon, size: 24, color: foregroundColor),
-          onPressed: () => setFilter(option),
-          backgroundColor: backgroundColor,
-          padding: const EdgeInsets.all(2),
-          side: const BorderSide(color: Colors.transparent),
+    final icon = Icon(option.filterIcon, size: 18, color: foregroundColor);
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 200),
+      child: GestureDetector(
+        onTap: isSelected ? null : () => setFilter(option),
+        child: Container(
+          decoration: BoxDecoration(color: backgroundColor, borderRadius: BorderRadius.circular(8)),
+          padding: const EdgeInsets.all(8),
+          child: isSelected
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 8,
+                  children: [
+                    icon,
+                    Text(label, style: TextStyle(color: foregroundColor)),
+                  ],
+                )
+              : icon,
         ),
-      );
-    }
-
-    return RawChip(
-      avatar: Icon(option.filterIcon, size: 24, color: foregroundColor),
-      label: Text(label, style: TextStyle(color: foregroundColor)),
-      backgroundColor: backgroundColor,
-      padding: const EdgeInsets.all(2),
-      labelPadding: const EdgeInsets.only(left: 4, right: 8),
-      side: const BorderSide(color: Colors.transparent),
+      ),
     );
   }
 }
@@ -319,28 +320,41 @@ class _ContactSelectionChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final backgroundColor = Theme.of(context).colorScheme.surfaceContainerHighest;
+
     if (filteredContactId != null) {
-      return RawChip(
-        labelPadding: EdgeInsets.zero,
-        label: ContactCircleAvatar(contact: contacts.singleWhere((v) => v.id == filteredContactId), radius: 14),
-        onDeleted: () => setFilteredContactId(null),
-        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-        padding: const EdgeInsets.only(left: 4),
-        side: const BorderSide(color: Colors.transparent),
+      return Container(
+        decoration: BoxDecoration(color: backgroundColor, borderRadius: BorderRadius.circular(8)),
+        padding: const EdgeInsets.only(left: 4, top: 1, bottom: 1),
+        child: Row(
+          children: [
+            ContactCircleAvatar(contact: contacts.singleWhere((v) => v.id == filteredContactId), radius: 14),
+            IconButton(
+              onPressed: () => setFilteredContactId(null),
+              icon: const Icon(Icons.cancel, size: 16),
+              constraints: const BoxConstraints(minHeight: 34, minWidth: 34),
+              style: const ButtonStyle(
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                padding: WidgetStatePropertyAll(EdgeInsets.all(8)),
+              ),
+            ),
+          ],
+        ),
       );
     }
 
-    return RawChip(
-      label: Icon(Icons.person, size: 24, color: Theme.of(context).colorScheme.onSurface),
-      onPressed: () async {
+    return GestureDetector(
+      onTap: () async {
         final contact = await showSelectContactFilterModal(context: context, contacts: contacts);
         if (contact == null) return;
 
         setFilteredContactId(contact.id);
       },
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-      padding: const EdgeInsets.all(2),
-      side: const BorderSide(color: Colors.transparent),
+      child: Container(
+        decoration: BoxDecoration(color: backgroundColor, borderRadius: BorderRadius.circular(8)),
+        padding: const EdgeInsets.all(8),
+        child: Icon(Icons.person, size: 18, color: Theme.of(context).colorScheme.onSurface),
+      ),
     );
   }
 }
