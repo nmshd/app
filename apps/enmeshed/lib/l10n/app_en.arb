@@ -782,6 +782,15 @@
       }
     }
   },
+  "request_status_expiring_longTerm": "This request expires on {date}.",
+  "@request_status_expiring_longTerm": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
   "request_status_expired": "This request has expired.",
   "request_status_expired_description": "You can no longer respond to this request.",
   "mailbox_noSubject": "No Subject",

@@ -782,6 +782,15 @@
       }
     }
   },
+  "request_status_expiring_longTerm": "Diese Anfrage läuft am {date} ab.",
+  "@request_status_expiring_longTerm": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
   "request_status_expired": "Diese Anfrage ist abgelaufen.",
   "request_status_expired_description": "Sie können auf diese Anfrage nicht mehr antworten.",
   "mailbox_noSubject": "Kein Betreff",
