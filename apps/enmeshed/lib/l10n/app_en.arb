@@ -762,7 +762,7 @@
   "mailbox_filterOption_outgoing": "Outgoing",
   "mailbox_filter_infoSheet_title": "About filtering your mailbox",
   "mailbox_filter_infoSheet_description": "In your mailbox you will find incoming messages, requests from contacts and your sent messages. You can easily filter using the categories.",
-  "mailbox_filter_infoSheet_incoming": "Your incoming messages are summarized here. For example, there are currently 32 messages in your mailbox, 5 of which are unread.",
+  "mailbox_filter_infoSheet_incoming": "Your incoming messages, read and unread, are summarized here. You can also filter for unread messages or specific senders.",
   "mailbox_filter_infoSheet_actionRequired": "You can find answered and pending requests here. Requests usually have an expiration date and can be accepted or rejected.",
   "mailbox_empty_incoming": "No incoming messages",
   "mailbox_empty_actionRequired": "No requests",

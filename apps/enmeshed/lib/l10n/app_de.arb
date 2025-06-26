@@ -762,7 +762,7 @@
   "mailbox_filterOption_outgoing": "Gesendet",
   "mailbox_filter_infoSheet_title": "Über Postfach filtern",
   "mailbox_filter_infoSheet_description": "In Ihrem Postfach finden Sie eingegangene Nachrichten, Anfragen von Kontakten und Ihre gesendeten Nachrichten. Über die Kategorien können Sie bequem filtern.",
-  "mailbox_filter_infoSheet_incoming": "Ihre eingegangen Nachrichten sind hier zusammengefasst. In Ihrem Postfach befinden sich beispielsweise aktuell 32 Nachrichten, davon 5 ungelesen.",
+  "mailbox_filter_infoSheet_incoming": "Ihre eingegangen Nachrichten, gelesene und ungelesene, sind hier zusammengefasst. Sie können auch gezielt nach ungelesenen Nachrichten oder bestimmten Absendern filtern.",
   "mailbox_filter_infoSheet_actionRequired": "Beantwortete sowie noch offene Anfragen finden Sie hier. Anfragen haben meist ein Ablaufdatum und können angenommen oder abgelehnt werden.",
   "mailbox_empty_incoming": "Keine Eingänge vorhanden",
   "mailbox_empty_actionRequired": "Keine Anfragen vorhanden",
