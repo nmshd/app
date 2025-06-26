@@ -23,6 +23,7 @@ class _HomeViewState extends State<HomeView> {
   late final ScrollController _scrollController;
 
   int _unreadMessagesCount = 0;
+  int _unviewedFilesCount = 0;
   List<MessageDVO>? _messages;
   List<LocalRequestDVO>? _requests;
   bool _isCompleteProfileContainerShown = false;
@@ -46,6 +47,7 @@ class _HomeViewState extends State<HomeView> {
       ..add(runtime.eventBus.on<IncomingRequestReceivedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _reload().catchError((_) {})))
+      ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reload().catchError((_) {})));
   }
 
@@ -85,14 +87,16 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 if (_isCompleteProfileContainerShown)
                   CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: BannerCard(
-                    title: 'Neue Dateien in Ihrer Wallet',
-                    type: BannerCardType.info,
-                    actionButton: (onPressed: () => {}, title: context.l10n.show),
+
+                if (_unviewedFilesCount > 0)
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: BannerCard(
+                      title: 'Neue Dateien in Ihrer Wallet',
+                      type: BannerCardType.info,
+                      actionButton: (onPressed: () => context.push('/account/${widget.accountId}/my-data/files'), title: context.l10n.show),
+                    ),
                   ),
-                ),
                 if (_showRecoveryKitWasUsedContainer)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -154,12 +158,17 @@ class _HomeViewState extends State<HomeView> {
     );
 
     if (!mounted) return;
+
+    final unviewedFiles = await getUnviewedFiles(session: session, context: context);
+
+    if (!mounted) return;
     setState(() {
       _unreadMessagesCount = messages.length;
       _messages = messageDVOs;
       _requests = requests;
       _isCompleteProfileContainerShown = isCompleteProfileContainerShown;
       _showRecoveryKitWasUsedContainer = showRecoveryKitWasUsedContainer;
+      _unviewedFilesCount = unviewedFiles.length;
     });
   }
 

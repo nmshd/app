@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
@@ -95,4 +96,15 @@ Future<FileDVO> expandFileReference({required String accountId, required String 
 
 String getFileExtension(String filePath) {
   return path.extension(filePath).isEmpty ? '' : path.extension(filePath).substring(1).toUpperCase();
+}
+
+Future<List<LocalAttributeDTO?>> getUnviewedFiles({required Session session, required BuildContext context}) async {
+  final filesResults = await session.consumptionServices.attributes.getRepositoryAttributes(
+    query: {
+      'content.value.@type': QueryValue.string('IdentityFileReference'),
+    },
+  );
+
+  final attributes = filesResults.value.where((a) => a.wasViewedAt == null).toList();
+  return attributes;
 }

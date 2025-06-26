@@ -57,10 +57,24 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _loadAccount().catchError((_) {})))
       ..add(runtime.eventBus.on<IncomingRequestReceivedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
       ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
-      ..add(runtime.eventBus.on<MessageWasReadAtChangedEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
-      ..add(runtime.eventBus.on<MessageReceivedEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
+      ..add(
+        runtime.eventBus.on<MessageWasReadAtChangedEvent>().listen((_) {
+          _loadUnreadMessages().catchError((_) {});
+        }),
+      )
+      ..add(
+        runtime.eventBus.on<MessageReceivedEvent>().listen((_) {
+          _loadUnreadMessages().catchError((_) {});
+          _loadUnviewedFiles().catchError((_) {});
+        }),
+      )
       ..add(runtime.eventBus.on<RelationshipDecomposedBySelfEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
+      ..add(
+        runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) {
+          _loadUnviewedFiles().catchError((_) {});
+        }),
+      )
       ..add(
         runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>(eventTargetAddress: _account?.address).listen((event) {
           if (!mounted || event.data.deletionDate == null) return;
@@ -273,6 +287,10 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
 
   Future<void> _loadUnviewedFiles() async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+
+    await session.transportServices.account.syncEverything();
+
+    if (!mounted) return;
 
     final unviewedFiles = await getUnviewedFiles(session: session, context: context);
 

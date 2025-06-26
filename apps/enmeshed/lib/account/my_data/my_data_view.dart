@@ -36,7 +36,13 @@ class _MyDataViewState extends State<MyDataView> {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     _subscriptions
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _reload().catchError((_) {})))
-      ..add(runtime.eventBus.on<AttributeCreatedEvent>().listen((_) => _reload().catchError((_) {})));
+      ..add(runtime.eventBus.on<AttributeCreatedEvent>().listen((_) => _reload().catchError((_) {})))
+      ..add(
+        runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) {
+          print('my data view: attribute was viewed changed');
+          _reload().catchError((_) {});
+        }),
+      );
   }
 
   @override
