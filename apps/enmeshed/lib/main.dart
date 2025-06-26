@@ -59,7 +59,6 @@ Future<LogOutput> getLogOutput() async {
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
-final _mailboxFilterController = MailboxFilterController();
 final _contactsFilterController = ContactsFilterController();
 
 final ValueNotifier<SuggestionsBuilder?> _suggestionsBuilder = ValueNotifier(null);
@@ -275,7 +274,6 @@ final _router = GoRouter(
             suggestionsBuilder: _suggestionsBuilder,
             accountId: state.pathParameters['accountId']!,
             location: state.fullPath!,
-            mailboxFilterController: _mailboxFilterController,
             contactsFilterController: _contactsFilterController,
             child: child,
           ),
@@ -453,7 +451,6 @@ final _router = GoRouter(
                 key: state.pageKey,
                 child: MailboxView(
                   accountId: state.pathParameters['accountId']!,
-                  mailboxFilterController: _mailboxFilterController,
                   setSuggestionsBuilder: (s) => _suggestionsBuilder.value = s,
                   filteredContactId: state.extra is String ? state.extra! as String : null,
                 ),
