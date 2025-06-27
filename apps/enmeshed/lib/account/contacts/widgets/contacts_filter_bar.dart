@@ -23,17 +23,14 @@ class ContactsFilterBar extends StatelessWidget {
             label: switch (option) {
               ContactsFilterOption.all => context.l10n.contacts_filterOption_all,
               ContactsFilterOption.active => context.l10n.contacts_filterOption_active,
-              ContactsFilterOption.unconfirmed => context.l10n.contacts_filterOption_unconfirmed,
               ContactsFilterOption.actionRequired => context.l10n.contacts_filterOption_actionRequired,
             },
             isSelected: selectedFilterOption == option,
             foregroundColor: switch (option) {
-              ContactsFilterOption.unconfirmed => Theme.of(context).colorScheme.secondary,
               ContactsFilterOption.actionRequired => Theme.of(context).colorScheme.error,
               _ => null,
             },
             backgroundColor: switch (option) {
-              ContactsFilterOption.unconfirmed => Theme.of(context).colorScheme.secondaryContainer,
               ContactsFilterOption.actionRequired => Theme.of(context).colorScheme.errorContainer,
               _ => null,
             },
