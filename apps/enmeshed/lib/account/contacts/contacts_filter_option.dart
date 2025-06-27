@@ -1,38 +1,13 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
-sealed class ContactsFilterOption {
-  const ContactsFilterOption();
-}
+enum ContactsFilterOption {
+  all(Icons.contacts, Icons.contacts_outlined),
+  active(Icons.check_circle, Icons.check_circle_outline),
+  unconfirmed(Icons.sms, Icons.sms_outlined),
+  actionRequired(Icons.error, Icons.error_outline);
 
-@immutable
-class ActionRequiredContactsFilterOption extends ContactsFilterOption {
-  const ActionRequiredContactsFilterOption();
+  final IconData filterIcon;
+  final IconData emptyListIcon;
 
-  @override
-  bool operator ==(Object other) => other is ActionRequiredContactsFilterOption;
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-}
-
-@immutable
-class ActiveContactsFilterOption extends ContactsFilterOption {
-  const ActiveContactsFilterOption();
-
-  @override
-  bool operator ==(Object other) => other is ActiveContactsFilterOption;
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-}
-
-@immutable
-class PendingContactsFilterOption extends ContactsFilterOption {
-  const PendingContactsFilterOption();
-
-  @override
-  bool operator ==(Object other) => other is PendingContactsFilterOption;
-
-  @override
-  int get hashCode => runtimeType.hashCode;
+  const ContactsFilterOption(this.filterIcon, this.emptyListIcon);
 }
