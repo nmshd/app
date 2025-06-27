@@ -116,7 +116,7 @@ class _TrailingIcon extends StatelessWidget {
       return IconButton(icon: const Icon(Icons.cancel_outlined), onPressed: onDeletePressed);
     }
 
-    if (!item.contact.hasRelationship) return Padding(padding: const EdgeInsets.all(8).copyWith(right: 12), child: const Icon(Icons.edit_outlined));
+    if (!item.contact.hasRelationship) return const Padding(padding: EdgeInsets.all(12), child: Icon(Icons.edit_outlined));
 
     return IconButton(
       icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),

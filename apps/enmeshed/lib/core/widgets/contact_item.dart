@@ -37,7 +37,7 @@ class ContactItem extends StatelessWidget {
 
     return ListTile(
       enabled: enabled,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8).copyWith(right: trailing != null ? 12 : null),
       leading: ContactCircleAvatar(
         contact: contact,
         radius: iconSize / 2,
