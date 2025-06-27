@@ -59,8 +59,6 @@ Future<LogOutput> getLogOutput() async {
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
-final _contactsFilterController = ContactsFilterController();
-
 final ValueNotifier<SuggestionsBuilder?> _suggestionsBuilder = ValueNotifier(null);
 
 final _router = GoRouter(
@@ -274,7 +272,6 @@ final _router = GoRouter(
             suggestionsBuilder: _suggestionsBuilder,
             accountId: state.pathParameters['accountId']!,
             location: state.fullPath!,
-            contactsFilterController: _contactsFilterController,
             child: child,
           ),
           routes: [
