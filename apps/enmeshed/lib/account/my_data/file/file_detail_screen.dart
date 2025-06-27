@@ -307,6 +307,17 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
     await session.consumptionServices.attributes.markAttributeAsViewed(attributeId: widget.fileReferenceAttribute!.id);
+
+    if (widget.fileReferenceAttribute! is SharedToPeerAttributeDVO) {
+      final attribute = widget.fileReferenceAttribute! as SharedToPeerAttributeDVO;
+      await session.consumptionServices.attributes.markAttributeAsViewed(attributeId: attribute.sourceAttribute!);
+    } else if (widget.fileReferenceAttribute is RepositoryAttributeDVO) {
+      final attribute = widget.fileReferenceAttribute! as RepositoryAttributeDVO;
+
+      for (final sharedToPeerAttribute in attribute.sharedWith) {
+        await session.consumptionServices.attributes.markAttributeAsViewed(attributeId: sharedToPeerAttribute.id);
+      }
+    }
   }
 }
 
