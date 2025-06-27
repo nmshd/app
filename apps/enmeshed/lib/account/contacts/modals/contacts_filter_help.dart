@@ -35,8 +35,8 @@ class _ContactsFilterHelpModal extends StatelessWidget {
               children: [
                 Text(context.l10n.contacts_filter_infoSheet_description),
                 InformationCard(
-                  title: context.l10n.contacts_filter_infoSheet_unconfirmed,
-                  icon: Icon(ContactsFilterOption.unconfirmed.filterIcon, size: 24, color: Theme.of(context).colorScheme.secondary),
+                  title: context.l10n.contacts_filter_infoSheet_active,
+                  icon: Icon(ContactsFilterOption.active.filterIcon, size: 24, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 InformationCard(
                   title: context.l10n.contacts_filter_infoSheet_actionRequired,
