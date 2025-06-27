@@ -9,20 +9,15 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
 import '/core/core.dart';
-import 'contacts_filter_controller.dart';
 import 'contacts_filter_option.dart';
-import 'modals/select_contacts_filters.dart';
 import 'widgets/discoverable_identities.dart';
 import 'widgets/widgets.dart';
 
-enum _ContactsSortingType { date, name }
-
 class ContactsView extends StatefulWidget {
   final String accountId;
-  final ContactsFilterController contactsFilterController;
   final void Function(SuggestionsBuilder?) setSuggestionsBuilder;
 
-  const ContactsView({required this.accountId, required this.setSuggestionsBuilder, required this.contactsFilterController, super.key});
+  const ContactsView({required this.accountId, required this.setSuggestionsBuilder, super.key});
 
   @override
   State<ContactsView> createState() => _ContactsViewState();
@@ -35,10 +30,9 @@ class _ContactsViewState extends State<ContactsView> {
   List<IdentityWithOpenRequests> _filteredContacts = [];
   List<PublicRelationshipTemplateReferenceDTO> _matchingPublicRelationshipTemplateReferences = [];
 
-  List<IdentityDVO> _favorites = [];
+  ContactsFilterOption _option = ContactsFilterOption.all;
 
-  _ContactsSortingType _sortingType = _ContactsSortingType.name;
-  bool _isSortedAscending = true;
+  List<IdentityDVO> _favorites = [];
 
   final List<StreamSubscription<void>> _subscriptions = [];
 
@@ -46,12 +40,7 @@ class _ContactsViewState extends State<ContactsView> {
   void initState() {
     super.initState();
 
-    widget.contactsFilterController.onOpenContactsFilter = _onOpenFilterPressed;
     _reload(syncBefore: true, isFirstTime: true);
-
-    widget.contactsFilterController.value = {};
-
-    widget.contactsFilterController.addListener(_reload);
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     _subscriptions
@@ -68,8 +57,6 @@ class _ContactsViewState extends State<ContactsView> {
   void dispose() {
     widget.setSuggestionsBuilder(null);
 
-    widget.contactsFilterController.removeListener(_reload);
-
     for (final subscription in _subscriptions) {
       subscription.cancel();
     }
@@ -85,127 +72,103 @@ class _ContactsViewState extends State<ContactsView> {
 
     return RefreshIndicator(
       onRefresh: _reload,
-      child: CustomScrollView(
-        slivers: [
-          if (_matchingPublicRelationshipTemplateReferences.isNotEmpty)
-            SliverToBoxAdapter(
-              child: DiscoverableIdentities(
-                accountId: widget.accountId,
-                publicRelationshipTemplateReferences: _matchingPublicRelationshipTemplateReferences,
+      child: Scrollbar(
+        child: CustomScrollView(
+          slivers: [
+            if (_matchingPublicRelationshipTemplateReferences.isNotEmpty)
+              SliverToBoxAdapter(
+                child: DiscoverableIdentities(
+                  accountId: widget.accountId,
+                  publicRelationshipTemplateReferences: _matchingPublicRelationshipTemplateReferences,
+                ),
               ),
-            ),
-          if (!widget.contactsFilterController.isContactsFilterSet && _getNumberOfContactsRequiringAttention() > 0)
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: BannerCard(
-                  title: context.l10n.contacts_require_attention(_getNumberOfContactsRequiringAttention()),
-                  type: BannerCardType.info,
-                  actionButton: (
-                    onPressed: () => widget.contactsFilterController.value = {const ActionRequiredContactsFilterOption()},
-                    title: context.l10n.show,
+            if (_getNumberOfContactsRequiringAttention() > 0)
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: BannerCard(
+                    title: context.l10n.contacts_require_attention(_getNumberOfContactsRequiringAttention()),
+                    type: BannerCardType.info,
+                    actionButton: (
+                      onPressed: () {
+                        if (_option == ContactsFilterOption.actionRequired) return;
+
+                        setState(() {
+                          _option = ContactsFilterOption.actionRequired;
+                          _filterAndSort();
+                        });
+                      },
+                      title: context.l10n.show,
+                    ),
                   ),
                 ),
               ),
-            ),
-          if (_favorites.isNotEmpty && !widget.contactsFilterController.isContactsFilterSet) ...[
-            SliverToBoxAdapter(
-              child: ContactHeadline(text: context.l10n.favorites, icon: const Icon(Icons.star)),
-            ),
-            SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.75),
-              delegate: SliverChildBuilderDelegate((context, index) {
-                final contact = _favorites[index];
-                return ContactFavorite(contact: contact, onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'));
-              }, childCount: _favorites.length),
-            ),
-          ],
-          SliverToBoxAdapter(
-            child: SortBar<_ContactsSortingType>(
-              sortingType: _sortingType,
-              isSortedAscending: _isSortedAscending,
-              translate: (s) => switch (s) {
-                _ContactsSortingType.name => context.l10n.sortedByName,
-                _ContactsSortingType.date => context.l10n.sortedByDate,
-              },
-              sortMenuItem: [
-                (value: _ContactsSortingType.name, label: context.l10n.name),
-                (value: _ContactsSortingType.date, label: context.l10n.contacts_date),
-              ],
-              onSortingConditionChanged: ({required type, required isSortedAscending}) {
-                _isSortedAscending = isSortedAscending;
-                _sortingType = type;
-
-                _filterAndSort();
-              },
-            ),
-          ),
-          if (widget.contactsFilterController.isContactsFilterSet)
+            if (_favorites.isNotEmpty) ...[
+              SliverGrid(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.85),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final contact = _favorites[index];
+                  return ContactFavorite(contact: contact, onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'));
+                }, childCount: _favorites.length),
+              ),
+            ],
             SliverToBoxAdapter(
               child: ContactsFilterBar(
-                selectedFilterOptions: widget.contactsFilterController.value,
-                removeFilter: (filter) => widget.contactsFilterController.removeFilter(filter),
-                resetFilters: () => widget.contactsFilterController.value = {},
+                selectedFilterOption: _option,
+                setFilter: (filter) {
+                  setState(() {
+                    _option = filter;
+                    _filterAndSort();
+                  });
+                },
               ),
             ),
-          if (_contacts!.isEmpty)
-            _EmptyContactsIndicator(accountId: widget.accountId)
-          else
-            SliverList.separated(
-              itemCount: _filteredContacts.length,
-              itemBuilder: (context, index) {
-                final item = _filteredContacts[index];
-                final isFavoriteContact = _favorites.any((favorite) => favorite.id == item.contact.id);
+            if (_filteredContacts.isEmpty)
+              _EmptyContactsIndicator(accountId: widget.accountId, option: _option)
+            else
+              SliverList.separated(
+                itemCount: _filteredContacts.length,
+                itemBuilder: (context, index) {
+                  final item = _filteredContacts[index];
+                  final isFavoriteContact = _favorites.any((favorite) => favorite.id == item.contact.id);
 
-                final contactItem = _ContactItem(
-                  accountId: widget.accountId,
-                  item: item,
-                  isFavoriteContact: isFavoriteContact,
-                  reload: _reload,
-                  toggleContactFavorite: _toggleContactFavorite,
-                );
+                  final contactItem = _ContactItem(
+                    accountId: widget.accountId,
+                    item: item,
+                    isFavoriteContact: isFavoriteContact,
+                    reload: _reload,
+                    toggleContactFavorite: _toggleContactFavorite,
+                  );
 
-                if (index != 0 ||
-                    widget.contactsFilterController.isContactsFilterSet ||
-                    (item.contact.isUnknown && _sortingType == _ContactsSortingType.name)) {
-                  return contactItem;
-                }
+                  if (index != 0 || item.contact.isUnknown) return contactItem;
 
-                return Column(
-                  children: [
-                    ContactHeadline(text: _contactToCategory(item)),
-                    contactItem,
-                  ],
-                );
-              },
-              separatorBuilder: (context, index) {
-                final currentCategory = _contactToCategory(_filteredContacts[index]);
-                final nextCategory = _contactToCategory(_filteredContacts[index + 1]);
+                  return Column(
+                    children: [
+                      ContactHeadline(text: _contactToCategory(item)),
+                      contactItem,
+                    ],
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  final currentCategory = _contactToCategory(_filteredContacts[index]);
+                  final nextCategory = _contactToCategory(_filteredContacts[index + 1]);
 
-                if (currentCategory == nextCategory || widget.contactsFilterController.isContactsFilterSet) {
-                  return const Divider(indent: 16, height: 2);
-                }
+                  if (currentCategory == nextCategory || _option != ContactsFilterOption.all) {
+                    return const Divider(indent: 16, height: 2);
+                  }
 
-                return ContactHeadline(text: nextCategory);
-              },
-            ),
-        ],
+                  return ContactHeadline(text: nextCategory);
+                },
+              ),
+            const SliverToBoxAdapter(child: SizedBox(height: 80)),
+          ],
+        ),
       ),
     );
   }
 
-  Future<void> _onOpenFilterPressed() async {
-    final options = await showSelectContactsFiltersModal(contactsFilterController: widget.contactsFilterController, context: context);
-
-    if (options == null) return;
-
-    widget.contactsFilterController.value = options;
-  }
-
-  String _contactToCategory(IdentityWithOpenRequests requestOrRelationship) => switch (_sortingType) {
-    _ContactsSortingType.date => simpleTimeago(context, requestOrRelationship.sortingDate),
-    _ContactsSortingType.name => requestOrRelationship.contact.isUnknown ? '' : requestOrRelationship.contact.initials[0].toUpperCase(),
-  };
+  String _contactToCategory(IdentityWithOpenRequests requestOrRelationship) =>
+      requestOrRelationship.contact.isUnknown ? '' : requestOrRelationship.contact.initials[0].toUpperCase();
 
   Future<void> _reload({bool syncBefore = false, bool isFirstTime = false}) async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
@@ -293,53 +256,21 @@ class _ContactsViewState extends State<ContactsView> {
   int _getNumberOfContactsRequiringAttention() => _contacts!.where((contact) => contact.requiresAttention).length;
 
   void _filterAndSort() {
-    if (!widget.contactsFilterController.isContactsFilterSet) {
-      final sorted = _contacts!..sort(_compareFunction(_sortingType, _isSortedAscending));
-      setState(() => _filteredContacts = sorted);
-      return;
-    }
+    final filtered =
+        switch (_option) {
+          ContactsFilterOption.all => _contacts!,
+          ContactsFilterOption.actionRequired => _contacts!.where((contact) => contact.requiresAttention).toList(),
+          ContactsFilterOption.active => _contacts!.where((contact) => contact.contact.relationship?.status == RelationshipStatus.Active).toList(),
+        }..sort((a, b) {
+          // Sort 'i18n://dvo.identity.unknown' to the top
+          if (a.contact.name == unknownContactName) return -1;
+          if (b.contact.name == unknownContactName) return 1;
 
-    final selectedFilterOptions = widget.contactsFilterController.value;
+          return a.contact.name.toLowerCase().compareTo(b.contact.name.toLowerCase());
+        });
 
-    final filteredContacts = _contacts!.where((contact) {
-      if (contact.requiresAttention && selectedFilterOptions.contains(const ActionRequiredContactsFilterOption())) {
-        return true;
-      }
-      return switch (contact.contact.relationship?.status) {
-        RelationshipStatus.Terminated => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
-        RelationshipStatus.DeletionProposed => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
-        RelationshipStatus.Active => selectedFilterOptions.contains(const ActiveContactsFilterOption()),
-        RelationshipStatus.Pending => selectedFilterOptions.contains(const PendingContactsFilterOption()),
-        RelationshipStatus.Revoked => false,
-        RelationshipStatus.Rejected => false,
-        null => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
-      };
-    }).toList()..sort(_compareFunction(_sortingType, _isSortedAscending));
-
-    setState(() => _filteredContacts = filteredContacts);
+    setState(() => _filteredContacts = filtered);
   }
-
-  int Function(IdentityWithOpenRequests, IdentityWithOpenRequests) _compareFunction(_ContactsSortingType type, bool isSortedAscending) {
-    return (a, b) {
-      if (_sortingType == _ContactsSortingType.name) {
-        // Sort 'i18n://dvo.identity.unknown' to the top
-        if (a.contact.name == unknownContactName) return -1;
-        if (b.contact.name == unknownContactName) return 1;
-      }
-
-      return switch (type) {
-        _ContactsSortingType.date => isSortedAscending ? b.sortingDate.compareTo(a.sortingDate) : a.sortingDate.compareTo(b.sortingDate),
-        _ContactsSortingType.name =>
-          isSortedAscending
-              ? a.contact.name.toLowerCase().compareTo(b.contact.name.toLowerCase())
-              : b.contact.name.toLowerCase().compareTo(a.contact.name.toLowerCase()),
-      };
-    };
-  }
-}
-
-extension on IdentityWithOpenRequests {
-  DateTime get sortingDate => DateTime.parse(openRequests.firstOrNull?.createdAt ?? contact.date ?? '0000-01-01');
 }
 
 class _ContactItem extends StatelessWidget {
@@ -441,19 +372,32 @@ class _ContactItem extends StatelessWidget {
 
 class _EmptyContactsIndicator extends StatelessWidget {
   final String accountId;
+  final ContactsFilterOption option;
 
-  const _EmptyContactsIndicator({required this.accountId});
+  const _EmptyContactsIndicator({required this.accountId, required this.option});
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: EmptyListIndicator(
-        icon: Icons.contacts,
-        text: context.l10n.contacts_empty,
-        description: context.l10n.contacts_emptyDescription,
-        action: TextButton(
-          onPressed: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: ScannerType.addContact, context: context),
-          child: Text(context.l10n.contacts_addContact),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 24),
+        child: EmptyListIndicator(
+          icon: option.emptyListIcon,
+          text: switch (option) {
+            ContactsFilterOption.all => context.l10n.contacts_empty,
+            ContactsFilterOption.active => context.l10n.contacts_empty_active,
+            ContactsFilterOption.actionRequired => context.l10n.contacts_empty_actionRequired,
+          },
+          description: switch (option) {
+            ContactsFilterOption.all => context.l10n.contacts_emptyDescription,
+            ContactsFilterOption.actionRequired || ContactsFilterOption.active => null,
+          },
+          action: option != ContactsFilterOption.all
+              ? null
+              : TextButton(
+                  onPressed: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: ScannerType.addContact, context: context),
+                  child: Text(context.l10n.contacts_addContact),
+                ),
         ),
       ),
     );
