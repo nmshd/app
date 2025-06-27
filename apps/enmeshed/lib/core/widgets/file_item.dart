@@ -13,12 +13,10 @@ class FileItem extends StatelessWidget {
   final Widget? trailing;
   final String? query;
   final void Function()? onTap;
-  final void Function() onAfterFileViewed;
 
   const FileItem({
     required this.accountId,
     required this.fileRecord,
-    required this.onAfterFileViewed,
     this.trailing,
     this.query,
     this.onTap,
@@ -63,12 +61,7 @@ class FileItem extends StatelessWidget {
       ),
       leading: _FileCircleAvatar(fileRecord: fileRecord),
       trailing: trailing,
-      onTap:
-          onTap ??
-          () async {
-            await context.push('/account/$accountId/my-data/files/${fileRecord.file.id}', extra: fileRecord);
-            onAfterFileViewed();
-          },
+      onTap: onTap ?? () => context.push('/account/$accountId/my-data/files/${fileRecord.file.id}', extra: fileRecord),
     );
   }
 }

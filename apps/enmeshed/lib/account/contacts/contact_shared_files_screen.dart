@@ -43,7 +43,6 @@ class _ContactSharedFilesScreenState extends State<ContactSharedFilesScreen> wit
                     accountId: widget.accountId,
                     fileRecord: sharedFiles!.elementAt(index),
                     trailing: const Icon(Icons.chevron_right),
-                    onAfterFileViewed: loadSharedFiles,
                   ),
                   itemCount: sharedFiles!.length,
                   separatorBuilder: (context, index) => const Divider(height: 2),

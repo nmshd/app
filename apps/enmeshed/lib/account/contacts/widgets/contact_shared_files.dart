@@ -45,7 +45,6 @@ class ContactSharedFiles extends StatelessWidget {
                     accountId: accountId,
                     fileRecord: sharedFiles!.elementAt(index),
                     trailing: const Icon(Icons.chevron_right),
-                    onAfterFileViewed: () {},
                   ),
                   itemCount: sharedFiles!.length,
                   separatorBuilder: (context, index) => const Divider(height: 2),

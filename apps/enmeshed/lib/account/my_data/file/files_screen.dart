@@ -143,7 +143,6 @@ class _FilesScreenState extends State<FilesScreen> {
                       accountId: widget.accountId,
                       fileRecord: _filteredFileRecords[index],
                       trailing: const Icon(Icons.chevron_right),
-                      onAfterFileViewed: _loadFiles,
                     );
                   },
                 ),
@@ -270,7 +269,6 @@ class _FilesScreenState extends State<FilesScreen> {
         fileRecord: item,
         query: keyword,
         accountId: widget.accountId,
-        onAfterFileViewed: _loadFiles,
         onTap: () {
           controller
             ..clear()
