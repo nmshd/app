@@ -449,7 +449,7 @@
   "contacts_filterOption_actionRequired": "Aktion erforderlich",
   "contacts_filter_infoSheet_title": "Über Kontakte filtern",
   "contacts_filter_infoSheet_description": "In Ihrer Kontaktliste finden Sie all Ihre Kontakte. Über die Kategorien können Sie bequem filtern.",
-  "contacts_filter_infoSheet_active": "Mit Ihren aktiven Kontakte können Sie Dokumente und Daten teilen und austauschen.",
+  "contacts_filter_infoSheet_active": "Mit Ihren aktiven Kontakten können Sie Dokumente und Daten teilen und austauschen.",
   "contacts_filter_infoSheet_actionRequired": "Kontakte, die Ihre Aufmerksamkeit benötigen, sind unter Aktion zusammengefasst. Beziehungen zu Kontakten können von Ihnen oder von den jeweiligen Kontakten beendet werden.",
   "contacts_delete_deleteContact": "Kontakt löschen",
   "contacts_require_attention": "{count, plural, =1{1 Kontakt erfordert Ihre Aufmerksamkeit.} other{{count} Kontakte erfordern Ihre Aufmerksamkeit.}}",
