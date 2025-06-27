@@ -192,16 +192,13 @@ class _FilterChipBar extends StatelessWidget {
     return FilterChipBar(
       onInfoPressed: () => showMailboxFilterHelpModal(context: context),
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 12),
-          child: CondensedFilterChip(
-            onPressed: () => setFilter(MailboxFilterOption.incoming),
-            icon: MailboxFilterOption.incoming.filterIcon,
-            label: context.l10n.mailbox_filterOption_incoming,
-            isSelected: selectedFilterOption == MailboxFilterOption.incoming,
-            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-            foregroundColor: Theme.of(context).colorScheme.secondary,
-          ),
+        CondensedFilterChip(
+          onPressed: () => setFilter(MailboxFilterOption.incoming),
+          icon: MailboxFilterOption.incoming.filterIcon,
+          label: context.l10n.mailbox_filterOption_incoming,
+          isSelected: selectedFilterOption == MailboxFilterOption.incoming,
+          backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+          foregroundColor: Theme.of(context).colorScheme.secondary,
         ),
         CondensedFilterChip(
           onPressed: () => setFilter(MailboxFilterOption.actionRequired),

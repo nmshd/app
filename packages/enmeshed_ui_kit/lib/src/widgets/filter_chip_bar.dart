@@ -4,7 +4,7 @@ class FilterChipBar extends StatelessWidget {
   final List<Widget> children;
   final VoidCallback onInfoPressed;
 
-  const FilterChipBar({required this.children, required this.onInfoPressed, super.key});
+  const FilterChipBar({required this.children, required this.onInfoPressed, super.key}) : assert(children.length != 0, 'children must not be empty');
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,14 @@ class FilterChipBar extends StatelessWidget {
       children: [
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(spacing: 8, children: [...children, const SizedBox(width: 52)]),
+          child: Row(
+            spacing: 8,
+            children: [
+              Padding(padding: const EdgeInsets.only(left: 12), child: children.first),
+              ...children.skip(1),
+              const SizedBox(width: 52),
+            ],
+          ),
         ),
         Align(
           alignment: Alignment.centerRight,
