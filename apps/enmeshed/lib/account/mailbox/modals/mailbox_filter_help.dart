@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import '/core/core.dart';
 import '../mailbox_filter_option.dart';
 
-Future<void> showMailboxFilterHelpModal({
-  required BuildContext context,
-}) {
-  final options = showModalBottomSheet<void>(
+Future<void> showMailboxFilterHelpModal({required BuildContext context}) async {
+  await showModalBottomSheet<void>(
     useRootNavigator: true,
     context: context,
     isScrollControlled: true,
@@ -17,8 +15,6 @@ Future<void> showMailboxFilterHelpModal({
       child: const _MailboxFilterHelpModal(),
     ),
   );
-
-  return options;
 }
 
 class _MailboxFilterHelpModal extends StatelessWidget {
