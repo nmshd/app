@@ -153,9 +153,7 @@ class _ContactsViewState extends State<ContactsView> {
                   final currentCategory = _contactToCategory(_filteredContacts[index]);
                   final nextCategory = _contactToCategory(_filteredContacts[index + 1]);
 
-                  if (currentCategory == nextCategory || _option != ContactsFilterOption.all) {
-                    return const Divider(indent: 16, height: 2);
-                  }
+                  if (currentCategory == nextCategory) return const Divider(indent: 16, height: 2);
 
                   return ContactHeadline(text: nextCategory);
                 },
