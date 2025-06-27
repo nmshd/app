@@ -5,7 +5,7 @@ typedef IdentityWithOpenRequests = ({IdentityDVO contact, List<LocalRequestDVO> 
 extension IdentityWithOpenRequestsExtension on IdentityWithOpenRequests {
   bool get requiresAttention {
     return switch (this.contact.relationship?.status) {
-      null => false,
+      null => true,
       RelationshipStatus.Terminated || RelationshipStatus.DeletionProposed => true,
       _ => this.openRequests.isNotEmpty,
     };
