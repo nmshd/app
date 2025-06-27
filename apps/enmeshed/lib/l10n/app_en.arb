@@ -714,10 +714,7 @@
   "qrSafetyInformation_environment": "that you are in a secure network environment.",
   "qrSafetyInformation_access": " that nobody can look at your screen without authorisation.",
   "qrSafetyInformation_show": "Show QR code",
-  "mailbox_empty": "No messages available.",
   "mailbox_technicalMessage": "Technical message",
-  "mailbox_incoming": "Inbox",
-  "mailbox_outgoing": "Sent",
   "mailbox_today": "Today",
   "mailbox_yesterday": "Yesterday",
   "mailbox_message": "Message",
@@ -756,19 +753,29 @@
   "mailbox_choose_contact": "Select recipient",
   "mailbox_choose_contact_description": "Select a contact to send the message to.",
   "mailbox_choose_contact_sendMailDenied": "This contact cannot receive messages from you",
-  "mailbox_filter_actionRequired": "Open tasks",
-  "mailbox_filter_header": "Filter messages",
-  "mailbox_filter_unread": "New",
-  "mailbox_filter_withAttachment": "Attachment",
-  "mailbox_filter_byContacts": "By contact",
-  "mailbox_filtered_noResults": "There are no messages for the filters you have set.",
+  "mailbox_filterByContact_header": "Filter by contact",
+  "mailbox_filterByContact_noContacts": "No contacts available",
+  "mailbox_filterOption_incoming": "Incoming",
+  "mailbox_filterOption_actionRequired": "Request",
+  "mailbox_filterOption_unread": "Unread",
+  "mailbox_filterOption_withAttachment": "Attachment",
+  "mailbox_filterOption_outgoing": "Outgoing",
+  "mailbox_filter_infoSheet_title": "About filtering your mailbox",
+  "mailbox_filter_infoSheet_description": "In your mailbox you will find incoming messages, requests from contacts and your sent messages. You can easily filter using the categories.",
+  "mailbox_filter_infoSheet_incoming": "Your incoming messages, read and unread, are summarized here. You can also filter for unread messages or specific senders.",
+  "mailbox_filter_infoSheet_actionRequired": "You can find answered and pending requests here. Requests usually have an expiration date and can be accepted or rejected.",
+  "mailbox_empty_incoming": "No incoming messages",
+  "mailbox_empty_actionRequired": "No requests",
+  "mailbox_empty_unread": "No unread messages",
+  "mailbox_empty_withAttachment": "No messages with attachments",
+  "mailbox_empty_outgoing": "No outgoing messages",
   "request_accepting": "Accepting request.",
   "request_rejecting": "Rejecting request.",
   "request_status_acceptedBySystem": "This request was automatically accepted.",
   "request_status_accepted": "You have accepted this request.",
   "request_status_declinedBySystem": "This request was automatically rejected.",
   "request_status_declined": "You have rejected this request.",
-  "request_status_expiring": "This request has an expiration date.",
+  "request_status_expiring": "This request will expire soon!",
   "request_status_expiring_description": "You can respond to this request until {date}, {time}.",
   "@request_status_expiring_description": {
     "placeholders": {
@@ -779,6 +786,15 @@
       "time": {
         "type": "DateTime",
         "format": "Hm"
+      }
+    }
+  },
+  "request_status_expiring_longTerm": "This request expires on {date}.",
+  "@request_status_expiring_longTerm": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
       }
     }
   },

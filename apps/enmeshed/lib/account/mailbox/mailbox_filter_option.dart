@@ -1,51 +1,14 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
-sealed class MailboxFilterOption {
-  const MailboxFilterOption();
-}
+enum MailboxFilterOption {
+  incoming(Icons.mail, Icons.mail_outline),
+  actionRequired(Icons.chat_bubble, Icons.chat_bubble_outline),
+  unread(Icons.mark_email_unread, Icons.mark_email_unread_outlined),
+  withAttachment(Icons.attachment, Icons.attachment_outlined),
+  outgoing(Icons.send, Icons.send_outlined);
 
-@immutable
-class ActionRequiredFilterOption extends MailboxFilterOption {
-  const ActionRequiredFilterOption();
+  final IconData filterIcon;
+  final IconData emptyListIcon;
 
-  @override
-  bool operator ==(Object other) => other is ActionRequiredFilterOption;
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-}
-
-@immutable
-class UnreadFilterOption extends MailboxFilterOption {
-  const UnreadFilterOption();
-
-  @override
-  bool operator ==(Object other) => other is UnreadFilterOption;
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-}
-
-@immutable
-class WithAttachmentFilterOption extends MailboxFilterOption {
-  const WithAttachmentFilterOption();
-
-  @override
-  bool operator ==(Object other) => other is WithAttachmentFilterOption;
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-}
-
-@immutable
-class ContactFilterOption extends MailboxFilterOption {
-  final String contactId;
-
-  const ContactFilterOption(this.contactId);
-
-  @override
-  bool operator ==(Object other) => identical(this, other) || other is ContactFilterOption && contactId == other.contactId;
-
-  @override
-  int get hashCode => runtimeType.hashCode ^ contactId.hashCode;
+  const MailboxFilterOption(this.filterIcon, this.emptyListIcon);
 }
