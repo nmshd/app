@@ -126,7 +126,6 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
                               ),
                             ),
                             onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'),
-                            trailing: const Icon(Icons.chevron_right),
                           );
                         },
                         separatorBuilder: (context, index) => const Divider(indent: 16),
