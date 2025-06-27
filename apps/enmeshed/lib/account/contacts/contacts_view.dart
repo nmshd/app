@@ -105,7 +105,7 @@ class _ContactsViewState extends State<ContactsView> {
               ),
             if (_favorites.isNotEmpty) ...[
               SliverGrid(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.85),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, mainAxisExtent: 145),
                 delegate: SliverChildBuilderDelegate((context, index) {
                   final contact = _favorites[index];
                   return ContactFavorite(contact: contact, onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'));
