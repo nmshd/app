@@ -294,7 +294,6 @@ final _router = GoRouter(
                 child: ContactsView(
                   accountId: state.pathParameters['accountId']!,
                   setSuggestionsBuilder: (s) => _suggestionsBuilder.value = s,
-                  contactsFilterController: _contactsFilterController,
                 ),
               ),
               routes: [
