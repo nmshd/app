@@ -450,7 +450,7 @@
   "contacts_filter_infoSheet_title": "About filtering contacts",
   "contacts_filter_infoSheet_description": "You will find all your contacts in your contact list. You can easily filter them using the categories.",
   "contacts_filter_infoSheet_active": "You can share and exchange documents and data with your active contacts.",
-  "contacts_filter_infoSheet_actionRequired": "Contacts that require your attention are summarized under Action. Relationships with contacts can be terminated by you or by the respective contacts.",
+  "contacts_filter_infoSheet_actionRequired": "Contacts that require your attention are summarized here. These can be open contact requests or terminated relationships.",
   "contacts_delete_deleteContact": "Delete Contact",
   "contacts_require_attention": "{count, plural, =1{1 contact requires your attention.} other{{count} contacts require your attention.}}",
   "@contacts_require_attention": {
