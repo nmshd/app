@@ -31,7 +31,7 @@ class FileItem extends StatelessWidget {
 
     final fileIsExpired = DateTime.parse(fileRecord.file.expiresAt).isBefore(DateTime.now());
 
-    final date = DateFormat.yMd(Localizations.localeOf(context).languageCode).format(DateTime.parse(fileRecord.file.createdAt));
+    final creationDate = DateFormat.yMd(Localizations.localeOf(context).languageCode).format(DateTime.parse(fileRecord.file.createdAt));
 
     return ListTile(
       contentPadding: const EdgeInsets.only(left: 16, right: 24, top: 12, bottom: 12),
@@ -40,11 +40,10 @@ class FileItem extends StatelessWidget {
         children: [
           Row(
             children: [
-              HighlightText(
-                query: query,
-                text: date,
+              Text(
+                creationDate,
                 maxLines: 1,
-                textStyle: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
               ),
               if (fileIsExpired) ...[
                 Gaps.w4,
