@@ -250,7 +250,6 @@ class _FilesScreenState extends State<FilesScreen> {
     bool containsKeyword(FileDVO file, String keyword) {
       return [
         file.name.toLowerCase(),
-        file.filename.toLowerCase(),
         getFileExtension(file.filename).toLowerCase(),
       ].any((element) => element.contains(keyword.toLowerCase()));
     }
