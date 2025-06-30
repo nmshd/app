@@ -105,6 +105,6 @@ Future<List<LocalAttributeDTO?>> getUnviewedFiles({required Session session, req
     },
   );
 
-  final attributes = filesResults.value.where((a) => a.wasViewedAt == null).toList();
-  return attributes;
+  final unviewedFiles = filesResults.value.where((a) => a.wasViewedAt == null).toList();
+  return unviewedFiles;
 }
