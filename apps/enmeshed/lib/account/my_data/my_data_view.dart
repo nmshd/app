@@ -119,10 +119,7 @@ class _MyDataViewState extends State<MyDataView> {
                   ),
                   title: Text(context.l10n.files),
                   trailing: const Icon(Icons.chevron_right),
-                  onTap: () async {
-                    await context.push('/account/${widget.accountId}/my-data/files');
-                    await _loadUnviewedFiles();
-                  },
+                  onTap: () => context.push('/account/${widget.accountId}/my-data/files'),
                 ),
                 const Divider(indent: 16, height: 2),
                 ListTile(
