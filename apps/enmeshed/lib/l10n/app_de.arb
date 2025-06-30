@@ -700,6 +700,7 @@
   "files_fileType_word": "Word-Dokumente",
   "files_fileType_powerPoint": "PowerPoint-Dokumente",
   "files_fileType_other": "Andere ...",
+  "files_fileExpired": "abgelaufen",
   "files_fileSize": "Größe",
   "files_tag": "Tag",
   "filter": "Filter",

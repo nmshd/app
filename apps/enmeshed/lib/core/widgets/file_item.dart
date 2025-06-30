@@ -46,8 +46,13 @@ class FileItem extends StatelessWidget {
                 maxLines: 1,
                 textStyle: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
               ),
-              if (fileIsExpired)
-                Text(' abgelaufen', style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.error)),
+              if (fileIsExpired) ...[
+                Gaps.w4,
+                Text(
+                  context.l10n.files_fileExpired,
+                  style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.error),
+                ),
+              ],
             ],
           ),
           HighlightText(query: query, text: fileRecord.file.name, maxLines: 1, textStyle: fileNameStyle),
