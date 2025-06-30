@@ -78,9 +78,10 @@ class _FileCircleAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color? backgroundColor;
-    Color? iconColor;
     Color? borderColor;
+
+    var iconColor = Theme.of(context).colorScheme.onSurfaceVariant;
+    var backgroundColor = Theme.of(context).colorScheme.surfaceContainer;
 
     if (DateTime.parse(fileRecord.file.expiresAt).isBefore(DateTime.now())) {
       backgroundColor = Theme.of(context).colorScheme.errorContainer;
@@ -90,9 +91,6 @@ class _FileCircleAvatar extends StatelessWidget {
       backgroundColor = Theme.of(context).colorScheme.secondaryContainer;
       iconColor = Theme.of(context).colorScheme.onSecondaryContainer;
       borderColor = Theme.of(context).colorScheme.secondary;
-    } else {
-      iconColor = Theme.of(context).colorScheme.onSurfaceVariant;
-      backgroundColor = Theme.of(context).colorScheme.surfaceContainer;
     }
 
     final circleAvatar = CircleAvatar(
