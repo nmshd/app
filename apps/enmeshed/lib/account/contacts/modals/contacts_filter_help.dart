@@ -2,9 +2,9 @@ import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '/core/core.dart';
-import '../mailbox_filter_option.dart';
+import '../contacts_filter_option.dart';
 
-Future<void> showMailboxFilterHelpModal({required BuildContext context}) async {
+Future<void> showContactsFilterHelpModal({required BuildContext context}) async {
   await showModalBottomSheet<void>(
     useRootNavigator: true,
     context: context,
@@ -12,13 +12,13 @@ Future<void> showMailboxFilterHelpModal({required BuildContext context}) async {
     elevation: 0,
     builder: (context) => ConstrainedBox(
       constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.75),
-      child: const _MailboxFilterHelpModal(),
+      child: const _ContactsFilterHelpModal(),
     ),
   );
 }
 
-class _MailboxFilterHelpModal extends StatelessWidget {
-  const _MailboxFilterHelpModal();
+class _ContactsFilterHelpModal extends StatelessWidget {
+  const _ContactsFilterHelpModal();
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +26,21 @@ class _MailboxFilterHelpModal extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          BottomSheetHeader(title: context.l10n.mailbox_filter_infoSheet_title),
+          BottomSheetHeader(title: context.l10n.contacts_filter_infoSheet_title),
           Padding(
             padding: const EdgeInsetsGeometry.symmetric(horizontal: 24, vertical: 8),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 32,
               children: [
-                Text(context.l10n.mailbox_filter_infoSheet_description),
+                Text(context.l10n.contacts_filter_infoSheet_description),
                 InformationCard(
-                  title: context.l10n.mailbox_filter_infoSheet_incoming,
-                  icon: Icon(MailboxFilterOption.incoming.filterIcon, size: 24, color: Theme.of(context).colorScheme.secondary),
+                  title: context.l10n.contacts_filter_infoSheet_active,
+                  icon: Icon(ContactsFilterOption.active.filterIcon, size: 24, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 InformationCard(
-                  title: context.l10n.mailbox_filter_infoSheet_actionRequired,
-                  icon: Icon(MailboxFilterOption.actionRequired.filterIcon, size: 24, color: Theme.of(context).colorScheme.error),
+                  title: context.l10n.contacts_filter_infoSheet_actionRequired,
+                  icon: Icon(ContactsFilterOption.actionRequired.filterIcon, size: 24, color: Theme.of(context).colorScheme.error),
                 ),
               ],
             ),

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -188,124 +189,45 @@ class _FilterChipBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.centerLeft,
+    return FilterChipBar(
+      onInfoPressed: () => showMailboxFilterHelpModal(context: context),
       children: [
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          physics: const ScrollPhysics(),
-          child: Row(
-            spacing: 8,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 12),
-                child: _FilterOptionChip(
-                  option: MailboxFilterOption.incoming,
-                  setFilter: setFilter,
-                  label: context.l10n.mailbox_filterOption_incoming,
-                  isSelected: selectedFilterOption == MailboxFilterOption.incoming,
-                  backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-                  foregroundColor: Theme.of(context).colorScheme.secondary,
-                ),
-              ),
-              _FilterOptionChip(
-                option: MailboxFilterOption.actionRequired,
-                setFilter: setFilter,
-                label: context.l10n.mailbox_filterOption_actionRequired,
-                isSelected: selectedFilterOption == MailboxFilterOption.actionRequired,
-                backgroundColor: Theme.of(context).colorScheme.errorContainer,
-                foregroundColor: Theme.of(context).colorScheme.error,
-              ),
-              _FilterOptionChip(
-                option: MailboxFilterOption.unread,
-                setFilter: setFilter,
-                label: context.l10n.mailbox_filterOption_unread,
-                isSelected: selectedFilterOption == MailboxFilterOption.unread,
-              ),
-              _FilterOptionChip(
-                option: MailboxFilterOption.withAttachment,
-                setFilter: setFilter,
-                label: context.l10n.mailbox_filterOption_withAttachment,
-                isSelected: selectedFilterOption == MailboxFilterOption.withAttachment,
-              ),
-              _FilterOptionChip(
-                option: MailboxFilterOption.outgoing,
-                setFilter: setFilter,
-                label: context.l10n.mailbox_filterOption_outgoing,
-                isSelected: selectedFilterOption == MailboxFilterOption.outgoing,
-              ),
-              _ContactSelectionChip(contacts: contacts, filteredContactId: filteredContactId, setFilteredContactId: setFilteredContactId),
-              const SizedBox(width: 52),
-            ],
-          ),
+        CondensedFilterChip(
+          onPressed: () => setFilter(MailboxFilterOption.incoming),
+          icon: MailboxFilterOption.incoming.filterIcon,
+          label: context.l10n.mailbox_filterOption_incoming,
+          isSelected: selectedFilterOption == MailboxFilterOption.incoming,
+          backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+          foregroundColor: Theme.of(context).colorScheme.secondary,
         ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), bottomLeft: Radius.circular(16)),
-              color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.8),
-            ),
-
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: IconButton(
-                onPressed: () => showMailboxFilterHelpModal(context: context),
-                icon: const Icon(Icons.info),
-              ),
-            ),
-          ),
+        CondensedFilterChip(
+          onPressed: () => setFilter(MailboxFilterOption.actionRequired),
+          icon: MailboxFilterOption.actionRequired.filterIcon,
+          label: context.l10n.mailbox_filterOption_actionRequired,
+          isSelected: selectedFilterOption == MailboxFilterOption.actionRequired,
+          backgroundColor: Theme.of(context).colorScheme.errorContainer,
+          foregroundColor: Theme.of(context).colorScheme.error,
         ),
+        CondensedFilterChip(
+          onPressed: () => setFilter(MailboxFilterOption.unread),
+          icon: MailboxFilterOption.unread.filterIcon,
+          label: context.l10n.mailbox_filterOption_unread,
+          isSelected: selectedFilterOption == MailboxFilterOption.unread,
+        ),
+        CondensedFilterChip(
+          onPressed: () => setFilter(MailboxFilterOption.withAttachment),
+          icon: MailboxFilterOption.withAttachment.filterIcon,
+          label: context.l10n.mailbox_filterOption_withAttachment,
+          isSelected: selectedFilterOption == MailboxFilterOption.withAttachment,
+        ),
+        CondensedFilterChip(
+          onPressed: () => setFilter(MailboxFilterOption.outgoing),
+          icon: MailboxFilterOption.outgoing.filterIcon,
+          label: context.l10n.mailbox_filterOption_outgoing,
+          isSelected: selectedFilterOption == MailboxFilterOption.outgoing,
+        ),
+        _ContactSelectionChip(contacts: contacts, filteredContactId: filteredContactId, setFilteredContactId: setFilteredContactId),
       ],
-    );
-  }
-}
-
-class _FilterOptionChip extends StatelessWidget {
-  final MailboxFilterOption option;
-  final void Function(MailboxFilterOption option) setFilter;
-  final String label;
-  final bool isSelected;
-  final Color? backgroundColor;
-  final Color? foregroundColor;
-
-  const _FilterOptionChip({
-    required this.option,
-    required this.setFilter,
-    required this.label,
-    required this.isSelected,
-    this.backgroundColor,
-    this.foregroundColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final backgroundColor = this.backgroundColor ?? Theme.of(context).colorScheme.surfaceContainerHighest;
-    final foregroundColor = this.foregroundColor ?? Theme.of(context).colorScheme.onSurface;
-
-    final icon = Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Icon(option.filterIcon, size: 18, color: foregroundColor),
-    );
-    return AnimatedSize(
-      duration: const Duration(milliseconds: 200),
-      child: GestureDetector(
-        onTap: isSelected ? null : () => setFilter(option),
-        child: Container(
-          decoration: BoxDecoration(color: backgroundColor, borderRadius: BorderRadius.circular(8)),
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: isSelected
-              ? Row(
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 8,
-                  children: [
-                    icon,
-                    Text(label, style: Theme.of(context).textTheme.labelLarge!.copyWith(color: foregroundColor)),
-                  ],
-                )
-              : icon,
-        ),
-      ),
     );
   }
 }

@@ -8,20 +8,17 @@ import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 import 'app_drawer/app_drawer.dart';
-import 'contacts/contacts_filter_controller.dart';
 
 class AccountScreen extends StatefulWidget {
   final String accountId;
   final ValueNotifier<SuggestionsBuilder?> suggestionsBuilder;
   final String location;
-  final ContactsFilterController contactsFilterController;
   final Widget child;
 
   const AccountScreen({
     required this.accountId,
     required this.suggestionsBuilder,
     required this.location,
-    required this.contactsFilterController,
     required this.child,
     super.key,
   });
@@ -204,13 +201,6 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
         },
         suggestionsBuilder: (context, controller) =>
             widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
-      ),
-      ValueListenableBuilder(
-        valueListenable: widget.contactsFilterController,
-        builder: (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
-          icon: const Icon(Icons.filter_list),
-          onPressed: () => widget.contactsFilterController.openContactsFilter(),
-        ),
       ),
     ],
     3 => [
