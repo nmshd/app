@@ -114,7 +114,6 @@ class _MyDataViewState extends State<MyDataView> {
                   leading: Badge(
                     isLabelVisible: _numberOfUnviewedFiles > 0,
                     textColor: Theme.of(context).colorScheme.onPrimary,
-                    label: Text(_numberOfUnviewedFiles.toString()),
                     backgroundColor: Theme.of(context).colorScheme.error,
                     child: const Icon(Icons.folder),
                   ),
