@@ -41,6 +41,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     } else {
       _loadSharedWith();
     }
+
     _markFileAsViewed();
   }
 
