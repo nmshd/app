@@ -39,11 +39,8 @@ class _ContactSharedFilesScreenState extends State<ContactSharedFilesScreen> wit
           child: sharedFiles!.isEmpty
               ? EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.files_noFilesAvailable, wrapInListView: true)
               : ListView.separated(
-                  itemBuilder: (context, index) => FileItem(
-                    accountId: widget.accountId,
-                    fileRecord: sharedFiles!.elementAt(index),
-                    trailing: const Icon(Icons.chevron_right),
-                  ),
+                  itemBuilder: (context, index) =>
+                      FileItem(accountId: widget.accountId, fileRecord: sharedFiles!.elementAt(index), trailing: const Icon(Icons.chevron_right)),
                   itemCount: sharedFiles!.length,
                   separatorBuilder: (context, index) => const Divider(height: 2),
                 ),

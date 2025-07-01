@@ -142,15 +142,14 @@ class _FilesScreenState extends State<FilesScreen> {
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () => _loadFiles(syncBefore: true),
-                child: ListView.builder(
+                child: ListView.separated(
+                  itemBuilder: (context, index) => FileItem(
+                    accountId: widget.accountId,
+                    fileRecord: _filteredFileRecords[index],
+                    trailing: const Icon(Icons.chevron_right),
+                  ),
                   itemCount: _filteredFileRecords.length,
-                  itemBuilder: (context, index) {
-                    return FileItem(
-                      accountId: widget.accountId,
-                      fileRecord: _filteredFileRecords[index],
-                      trailing: const Icon(Icons.chevron_right),
-                    );
-                  },
+                  separatorBuilder: (context, index) => const Divider(height: 2, indent: 16),
                 ),
               ),
             ),
