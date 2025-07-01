@@ -116,7 +116,7 @@ class _TrailingIcon extends StatelessWidget {
       return IconButton(icon: const Icon(Icons.cancel_outlined), onPressed: onDeletePressed);
     }
 
-    if (!item.contact.hasRelationship) return const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit));
+    if (!item.contact.hasRelationship) return const Padding(padding: EdgeInsets.all(12), child: Icon(Icons.edit_outlined));
 
     return IconButton(
       icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
@@ -133,10 +133,10 @@ class _Subtitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isExpiringRequest =
-        item.openRequests.firstOrNull?.status != LocalRequestStatus.Expired && item.openRequests.firstOrNull?.content.expiresAt != null;
+    final expiresAt = item.openRequests.firstOrNull?.content.expiresAt;
+    final isExpiringRequest = item.openRequests.firstOrNull?.status != LocalRequestStatus.Expired && expiresAt != null;
 
-    if (isExpiringRequest) {
+    if (isExpiringRequest && DateTime.parse(expiresAt).isBefore(DateTime.now().add(const Duration(days: 7)))) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -150,7 +150,7 @@ class _Subtitle extends StatelessWidget {
           ),
           Gaps.h4,
           Text(
-            context.l10n.contacts_requestWithExpiryDate(DateTime.parse(item.openRequests.firstOrNull?.content.expiresAt ?? '').toLocal()),
+            context.l10n.contacts_requestWithExpiryDate(DateTime.parse(expiresAt).toLocal()),
             style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Theme.of(context).colorScheme.error),
           ),
         ],

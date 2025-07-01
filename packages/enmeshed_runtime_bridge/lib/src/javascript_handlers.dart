@@ -75,6 +75,10 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
     ),
     'consumption.attributeCreated' => AttributeCreatedEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
     'consumption.attributeDeleted' => AttributeDeletedEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
+    'consumption.attributeWasViewedAtChanged' => AttributeWasViewedAtChangedEvent(
+      eventTargetAddress: eventTargetAddress,
+      data: LocalAttributeDTO.fromJson(data),
+    ),
     'consumption.ownSharedAttributeDeletedByOwner' => OwnSharedAttributeDeletedByOwnerEvent(
       eventTargetAddress: eventTargetAddress,
       data: LocalAttributeDTO.fromJson(data),

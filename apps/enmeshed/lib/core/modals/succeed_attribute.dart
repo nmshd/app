@@ -135,6 +135,7 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
                         chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
                         openFileDetails: (file) =>
                             context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
+                        mustBeFilledOut: true,
                       ),
                       if (_errorText != null) ...[
                         if (widget.attribute.renderHints.editType != RenderHintsEditType.InputLike) Gaps.h16 else Gaps.h8,
