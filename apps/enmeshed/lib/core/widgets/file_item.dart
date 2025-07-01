@@ -1,3 +1,4 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -71,18 +72,20 @@ class _FileCircleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? borderColor;
-
-    var iconColor = Theme.of(context).colorScheme.onSurfaceVariant;
-    var backgroundColor = Theme.of(context).colorScheme.surfaceContainer;
+    Color? iconColor;
+    Color? backgroundColor;
 
     if (DateTime.parse(fileRecord.file.expiresAt).isBefore(DateTime.now())) {
       backgroundColor = Theme.of(context).colorScheme.errorContainer;
       iconColor = Theme.of(context).colorScheme.onErrorContainer;
       borderColor = Theme.of(context).colorScheme.error;
-    } else if (fileRecord.fileReferenceAttribute?.wasViewedAt == null) {
+    } else if (fileRecord.fileReferenceAttribute is RepositoryAttributeDVO && fileRecord.fileReferenceAttribute?.wasViewedAt == null) {
       backgroundColor = Theme.of(context).colorScheme.secondaryContainer;
       iconColor = Theme.of(context).colorScheme.onSecondaryContainer;
       borderColor = Theme.of(context).colorScheme.secondary;
+    } else {
+      iconColor = Theme.of(context).colorScheme.onSurfaceVariant;
+      backgroundColor = Theme.of(context).colorScheme.surfaceContainer;
     }
 
     final circleAvatar = CircleAvatar(
