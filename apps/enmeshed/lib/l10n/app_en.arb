@@ -162,6 +162,7 @@
   "home_identityRecoverKitWasUsed_description": "Your recovery kit has been used and has expired. Create a new one to ensure continued access to your data. You can also do this later in the profile management.",
   "home_closeHint": "Close hint",
   "home_create": "Create",
+  "home_newFiles": "New files in your wallet",
   "drawer_manageProfiles": "Manage profiles",
   "drawer_title": "Information & help",
   "drawer_notifications": "Notifications",
