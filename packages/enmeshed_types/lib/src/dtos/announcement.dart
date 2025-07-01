@@ -29,7 +29,7 @@ class AnnouncementDTO extends Equatable {
   Map<String, dynamic> toJson() => _$AnnouncementDTOToJson(this);
 
   @override
-  List<Object?> get props => [id, createdAt, expiresAt, severity, title, body];
+  List<Object?> get props => [id, createdAt, expiresAt, severity, title, body, actions];
 }
 
 @JsonSerializable(includeIfNull: false)
