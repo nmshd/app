@@ -113,7 +113,6 @@ class _MyDataViewState extends State<MyDataView> {
                 ListTile(
                   leading: Badge(
                     isLabelVisible: _numberOfUnviewedFiles > 0,
-                    textColor: Theme.of(context).colorScheme.onPrimary,
                     backgroundColor: Theme.of(context).colorScheme.error,
                     child: const Icon(Icons.folder),
                   ),
