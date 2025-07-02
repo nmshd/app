@@ -23,20 +23,20 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should be able to get capabilities', () async {
-      final cal.ProviderImplConfig implConfig = cal.ProviderImplConfig(additionalConfig: [cal.AdditionalConfig.storageConfigPass('test')]);
+      final cal.ProviderImplConfig implConfig = cal.ProviderImplConfig(additionalConfig: []);
       final caps = await CryptoFacade(evaluator).getProviderCapabilities(implConfig);
       print('caps: $caps');
       expect(caps, isNotEmpty);
     });
 
     test('should create Provider from name SoftwareProvider', () async {
-      final cal.ProviderImplConfig implConfig = cal.ProviderImplConfig(additionalConfig: [cal.AdditionalConfig.storageConfigPass('test')]);
+      final cal.ProviderImplConfig implConfig = cal.ProviderImplConfig(additionalConfig: []);
       final provider = await CryptoFacade(evaluator).createProviderFromName('SoftwareProvider', implConfig);
       expect(provider, isNotNull);
     });
 
     test('sign and verify data with SoftwareProvider', () async {
-      final cal.ProviderImplConfig implConfig = cal.ProviderImplConfig(additionalConfig: [cal.AdditionalConfig.storageConfigPass('test')]);
+      final cal.ProviderImplConfig implConfig = cal.ProviderImplConfig(additionalConfig: []);
       final facade = CryptoFacade(evaluator);
       final provider = await facade.createProviderFromName('SoftwareProvider', implConfig);
       print('got provider: $provider');

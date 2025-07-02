@@ -1,9 +1,9 @@
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:cal_flutter_plugin/cal_flutter_plugin.dart';
 import 'package:enmeshed_runtime_bridge/src/services/services.dart';
+import 'package:path_provider/path_provider.dart';
 
 class TsDartCryptoBridgeException implements Exception {
   final String value;
@@ -26,7 +26,6 @@ class TsDartCryptoBridgeException implements Exception {
 class CryptoHandler {
   static CryptoHandler? _instance;
   final AbstractEvaluator _evaluator;
-  final store = KVStore();
 
   factory CryptoHandler(AbstractEvaluator evaluator) => _instance ??= CryptoHandler._internal(evaluator);
 
@@ -601,18 +600,14 @@ class CryptoHandler {
   }
 
   Future<ProviderImplConfig> decodeProviderImplConfig(Map<String, dynamic> map) async {
-    final additionalConfig = map['additional_config'].map((e) => decodeAdditionalConfig(e)).toList().cast<AdditionalConfig>();
+    final List<AdditionalConfig> additionalConfigs = map['additional_config'].map((e) => decodeAdditionalConfig(e)).toList().cast<AdditionalConfig>();
 
-    // inject KV store config. This has to be done on the Dart side, because the JS side cannot access the KV functions.
-    final implConfig = await createWithKvConfig(
-      getFn: store.get,
-      storeFn: store.store,
-      deleteFn: store.delete,
-      allKeysFn: store.allKeys,
-      additionalConfig: additionalConfig,
-    );
+    // inject DB store config. This has to be done on the Dart side, because the JS side cannot get the right Paths.
+    final dir = await getApplicationSupportDirectory();
 
-    return implConfig;
+    additionalConfigs.add(AdditionalConfig_FileStoreConfig(dbDir: dir.path));
+
+    return ProviderImplConfig(additionalConfig: additionalConfigs);
   }
 
   Map<String, dynamic> encodeProviderImplConfig(ProviderImplConfig config) {
@@ -628,8 +623,12 @@ class CryptoHandler {
     } else if (map['StorageConfigDSA'] != null) {
       final keyPairHandle = _keyPairHandles[map['StorageConfigDSA']]!;
       return AdditionalConfig.storageConfigDsa(keyPairHandle);
-    } else if (map['StorageConfigPass'] != null) {
-      return AdditionalConfig.storageConfigPass(map['StorageConfigPass']);
+    } else if (map['StorageConfigSymmetricEncryption'] != null) {
+      final keyHandle = _keyHandles[map['StorageConfigSymmetricEncryption']]!;
+      return AdditionalConfig.storageConfigSymmetricEncryption(keyHandle);
+    } else if (map['StorageConfigAsymmetricEncryption'] != null) {
+      final keyPairHandle = _keyPairHandles[map['StorageConfigSymmetricEncryption']]!;
+      return AdditionalConfig.storageConfigAsymmetricEncryption(keyPairHandle);
     } else {
       throw TsDartCryptoBridgeException('Unknown additional config type', map.keys.toString());
     }
@@ -643,8 +642,10 @@ class CryptoHandler {
         return {'StorageConfigHMAC': field0};
       case AdditionalConfig_StorageConfigDSA(:final field0):
         return {'StorageConfigDSA': field0};
-      case AdditionalConfig_StorageConfigPass(:final field0):
-        return {'StorageConfigPass': field0};
+      case AdditionalConfig_StorageConfigSymmetricEncryption(:final field0):
+        return {'StorageConfigSymmetricEncryption': field0};
+      case AdditionalConfig_StorageConfigAsymmetricEncryption(:final field0):
+        return {'StorageConfigAsymmetricEncryption': field0};
       default:
         throw TsDartCryptoBridgeException('Unknown additional config type', config.runtimeType.toString());
     }
@@ -715,35 +716,5 @@ class CryptoHandler {
       case KDF_Argon2i(:final field0):
         return {'Argon2d': encodeArgon2Options(field0)};
     }
-  }
-}
-
-// TODO: Where should this be?
-class KVStore {
-  HashMap<String, Uint8List> inner = HashMap<String, Uint8List>();
-
-  bool store(String key, Uint8List value) {
-    inner.addAll({key: value});
-    return true;
-  }
-
-  Uint8List? get(String key) {
-    return inner[key];
-  }
-
-  void delete(String key) {
-    inner.remove(key);
-  }
-
-  List<String> allKeys() {
-    return inner.entries.map((e) => e.key).toList();
-  }
-
-  int count() {
-    return inner.length;
-  }
-
-  void clear() {
-    inner.clear();
   }
 }
