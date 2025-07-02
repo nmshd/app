@@ -9,25 +9,19 @@ import 'package:logger/logger.dart';
 import '/core/core.dart';
 import 'deletion_type.dart';
 
-class DeleteProfileAndChooseNext extends StatefulWidget {
+class DeletingProfile extends StatefulWidget {
   final Session session;
   final LocalAccountDTO localAccount;
   final DeletionType deletionType;
   final String inProgressText;
 
-  const DeleteProfileAndChooseNext({
-    required this.session,
-    required this.localAccount,
-    required this.deletionType,
-    required this.inProgressText,
-    super.key,
-  });
+  const DeletingProfile({required this.session, required this.localAccount, required this.deletionType, required this.inProgressText, super.key});
 
   @override
-  State<DeleteProfileAndChooseNext> createState() => _DeleteProfileAndChooseNextState();
+  State<DeletingProfile> createState() => _DeletingProfileState();
 }
 
-class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext> {
+class _DeletingProfileState extends State<DeletingProfile> {
   Exception? _exception;
 
   @override
@@ -43,7 +37,7 @@ class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext>
       canClose: false,
       child: switch (_exception) {
         Exception() => _Error(onRetry: _runDeletion),
-        _ => _Loading(inProgressText: widget.inProgressText),
+        _ => ModalLoadingOverlay(text: widget.inProgressText, expand: false, padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48)),
       },
     );
   }
@@ -92,7 +86,6 @@ class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext>
         DeletionType.profile => context.l10n.profile_delete_success(widget.localAccount.name),
         DeletionType.identity => context.l10n.identity_delete_success(widget.localAccount.name),
       },
-      showCloseIcon: true,
     );
 
     if (accounts.isEmpty) {
@@ -137,31 +130,6 @@ class _Error extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _Loading extends StatelessWidget {
-  final String inProgressText;
-
-  const _Loading({required this.inProgressText});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Padding(
-        padding: EdgeInsets.only(left: 24, right: 24, top: 60, bottom: MediaQuery.viewPaddingOf(context).bottom + 60),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(inProgressText, style: Theme.of(context).textTheme.headlineSmall),
-            Gaps.h24,
-            const SizedBox(child: CircularProgressIndicator()),
-          ],
-        ),
       ),
     );
   }

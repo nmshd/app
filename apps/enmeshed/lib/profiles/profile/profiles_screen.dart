@@ -49,7 +49,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(title: Text(context.l10n.drawer_manageProfiles, style: Theme.of(context).textTheme.titleMedium));
+    final appBar = AppBar(title: Text(context.l10n.drawer_manageProfiles));
 
     if (_accounts == null || _accountsInDeletion == null) {
       return Scaffold(
@@ -174,7 +174,7 @@ class _CurrentProfileHeader extends StatelessWidget {
                 style: TextButton.styleFrom(padding: const EdgeInsets.all(8), minimumSize: Size.zero),
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: selectedAccount.address!));
-                  showSuccessSnackbar(context: context, text: context.l10n.profiles_copiedAddressToClipboard, showCloseIcon: true);
+                  showSuccessSnackbar(context: context, text: context.l10n.profiles_copiedAddressToClipboard);
                 },
                 child: Text(
                   selectedAccount.address!,
@@ -338,7 +338,7 @@ class _MoreProfiles extends StatelessWidget {
 
     if (context.mounted) {
       context.go('/account/${account.id}');
-      showSuccessSnackbar(context: context, text: context.l10n.profiles_switchedToProfile(account.name), showCloseIcon: true);
+      showSuccessSnackbar(context: context, text: context.l10n.profiles_switchedToProfile(account.name));
     }
   }
 }

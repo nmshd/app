@@ -1,2 +1,2 @@
+export 'contacts_filter_help.dart';
 export 'rename_contact.dart';
-export 'select_contacts_filters.dart';

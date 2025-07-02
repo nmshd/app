@@ -104,11 +104,6 @@ class _EditProfileState extends State<_EditProfile> {
                             Gaps.h32,
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 24),
-                              child: Text(context.l10n.mandatoryField, style: Theme.of(context).textTheme.bodyMedium),
-                            ),
-                            Gaps.h24,
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 24),
                               child: TextField(
                                 controller: _controller,
                                 maxLength: MaxLength.profileName,
@@ -149,7 +144,7 @@ class _EditProfileState extends State<_EditProfile> {
                 ],
               ),
             ),
-            if (_loading) ModalLoadingOverlay(text: context.l10n.profile_edit_inProgress, isDialog: false),
+            if (_loading) ModalLoadingOverlay(text: context.l10n.profile_edit_inProgress),
           ],
         ),
       ),

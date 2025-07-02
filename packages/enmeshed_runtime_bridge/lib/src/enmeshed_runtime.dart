@@ -5,6 +5,7 @@ import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_runtime_bridge/src/crypto_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:logger/logger.dart';
 
@@ -15,9 +16,18 @@ import 'services/services.dart';
 import 'string_processor.dart';
 import 'webview_constants.dart' as webview_constants;
 
-typedef RuntimeConfig = ({String baseUrl, String clientId, String clientSecret, String applicationId, bool useAppleSandbox, String databaseFolder});
+typedef RuntimeConfig = ({
+  String baseUrl,
+  String clientId,
+  String clientSecret,
+  String applicationId,
+  bool useAppleSandbox,
+  String databaseFolder,
+  Color? androidNotificationColor,
+  Map<String, dynamic>? deciderModuleConfig,
+});
 
-class EnmeshedRuntime {
+class EnmeshedRuntime with WidgetsBindingObserver {
   bool _isReady = false;
 
   bool get isReady => _isReady;
@@ -77,6 +87,7 @@ class EnmeshedRuntime {
       RegExp(r'runtimeReady'),
       RegExp(r'onReceivedServerTrustAuthRequest'),
       RegExp(r'getRuntimeConfig'),
+      RegExp(r'getAppLanguage'),
       RegExp(r'uibridge_'),
       RegExp(r'notifications_'),
       RegExp(r'.*File'),
@@ -170,15 +181,17 @@ class EnmeshedRuntime {
           'platformClientSecret': runtimeConfig.clientSecret,
         },
         'databaseFolder': runtimeConfig.databaseFolder,
-        if (Platform.isWindows)
-          'modules': {
-            'pushNotification': {'enabled': false},
-            'sse': {'enabled': true},
-          },
+        'modules': {
+          if (Platform.isWindows) 'pushNotification': {'enabled': false},
+          if (Platform.isWindows) 'sse': {'enabled': true},
+          'decider': ?runtimeConfig.deciderModuleConfig,
+        },
       },
     );
 
-    await controller.addLocalNotificationsJavaScriptHandlers();
+    controller.addJavaScriptHandler(handlerName: 'getAppLanguage', callback: (_) => WidgetsBinding.instance.platformDispatcher.locale.languageCode);
+
+    await controller.addLocalNotificationsJavaScriptHandlers(runtimeConfig.androidNotificationColor);
   }
 
   /// Register the [UIBridge] to communicate with the native UI.
@@ -204,6 +217,8 @@ class EnmeshedRuntime {
   }
 
   Future<VoidResult> run() async {
+    WidgetsBinding.instance.addObserver(this);
+
     try {
       await _headlessWebView.run();
       await _runtimeReadyCompleter.future;
@@ -215,6 +230,8 @@ class EnmeshedRuntime {
   }
 
   Future<void> dispose() async {
+    WidgetsBinding.instance.removeObserver(this);
+
     _isReady = false;
     _controller.dispose();
     await _headlessWebView.dispose();
@@ -278,7 +295,7 @@ class EnmeshedRuntime {
   Future<void> triggerRemoteNotificationRegistrationEvent(String token) async {
     assert(_isReady, 'Runtime not ready');
 
-    final result = await _evaluateJavaScript('await window.triggerRemoteNotificationRegistrationEvent(token)', arguments: {'token': token});
+    final result = await _evaluateJavaScript('window.triggerRemoteNotificationRegistrationEvent(token)', arguments: {'token': token});
     result.throwOnError();
   }
 
@@ -291,18 +308,11 @@ class EnmeshedRuntime {
     assert(_isReady, 'Runtime not ready');
 
     final result = await _evaluateJavaScript(
-      'await window.triggerRemoteNotificationEvent(notification)',
+      'window.triggerRemoteNotificationEvent(notification)',
       arguments: {
         'notification': {'content': content, 'id': id, 'foreground': foreground, 'limitedProcessingTime': limitedProcessingTime},
       },
     );
-    result.throwOnError();
-  }
-
-  Future<void> triggerAppReadyEvent() async {
-    assert(_isReady, 'Runtime not ready');
-
-    final result = await _evaluateJavaScript('await window.triggerAppReadyEvent()');
     result.throwOnError();
   }
 
@@ -325,6 +335,15 @@ class EnmeshedRuntime {
 
     final json = result.valueToMap();
     return Result.fromJson(json, (value) => GetHintsResponse.fromJson(value));
+  }
+
+  @override
+  @protected
+  void didChangeLocales(List<Locale>? locales) async {
+    if (_isReady || locales == null || locales.isEmpty) return;
+
+    final result = await _evaluateJavaScript('window.triggerAppLanguageChangedEvent(language)', arguments: {'language': locales.first.languageCode});
+    result.throwOnError();
   }
 }
 

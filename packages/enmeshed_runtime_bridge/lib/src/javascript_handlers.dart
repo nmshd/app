@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
@@ -74,6 +75,10 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
     ),
     'consumption.attributeCreated' => AttributeCreatedEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
     'consumption.attributeDeleted' => AttributeDeletedEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
+    'consumption.attributeWasViewedAtChanged' => AttributeWasViewedAtChangedEvent(
+      eventTargetAddress: eventTargetAddress,
+      data: LocalAttributeDTO.fromJson(data),
+    ),
     'consumption.ownSharedAttributeDeletedByOwner' => OwnSharedAttributeDeletedByOwnerEvent(
       eventTargetAddress: eventTargetAddress,
       data: LocalAttributeDTO.fromJson(data),
@@ -330,9 +335,9 @@ extension Filesystem on InAppWebViewController {
 }
 
 extension LocalNotifications on InAppWebViewController {
-  Future<void> addLocalNotificationsJavaScriptHandlers() async {
+  Future<void> addLocalNotificationsJavaScriptHandlers(Color? androidNotificationColor) async {
     if (Platform.isAndroid || Platform.isIOS || Platform.isLinux || Platform.isMacOS) {
-      await _addLocalNotificationsJavaScriptHandlers();
+      await _addLocalNotificationsJavaScriptHandlers(androidNotificationColor);
     } else if (Platform.isWindows) {
       _addWindowsNotificationsJavaScriptHandlers();
     } else {
@@ -340,7 +345,7 @@ extension LocalNotifications on InAppWebViewController {
     }
   }
 
-  Future<void> _addLocalNotificationsJavaScriptHandlers() async {
+  Future<void> _addLocalNotificationsJavaScriptHandlers(Color? androidNotificationColor) async {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     await flutterLocalNotificationsPlugin.initialize(
@@ -352,7 +357,13 @@ extension LocalNotifications on InAppWebViewController {
     );
 
     final notificationDetails = NotificationDetails(
-      android: AndroidNotificationDetails('all_local_notifications', 'Notifications', importance: Importance.max, priority: Priority.high),
+      android: AndroidNotificationDetails(
+        'all_local_notifications',
+        'Notifications',
+        importance: Importance.max,
+        priority: Priority.high,
+        color: androidNotificationColor,
+      ),
       iOS: DarwinNotificationDetails(),
     );
 

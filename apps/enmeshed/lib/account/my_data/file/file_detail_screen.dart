@@ -47,7 +47,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: TranslatedText(_fileDVO!.title, style: Theme.of(context).textTheme.titleLarge)),
+      appBar: AppBar(title: TranslatedText(_fileDVO!.title)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 8),
@@ -117,16 +117,23 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                                   ),
                                 ],
                               ),
-                              Gaps.w24,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(context.i18nTranslate(_fileDVO!.createdBy.name), style: Theme.of(context).textTheme.bodyMedium),
-                                  Text(
-                                    context.i18nTranslate(_formatDate(context, _fileDVO!.createdAt)),
-                                    style: Theme.of(context).textTheme.bodyMedium,
-                                  ),
-                                ],
+                              Gaps.w8,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      context.i18nTranslate(_fileDVO!.createdBy.name),
+                                      style: Theme.of(context).textTheme.bodyMedium,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      context.i18nTranslate(_formatDate(context, _fileDVO!.createdAt)),
+                                      style: Theme.of(context).textTheme.bodyMedium,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -201,7 +208,6 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                                       ),
                                     ),
                                     onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'),
-                                    trailing: const Icon(Icons.chevron_right),
                                   );
                                 },
                                 separatorBuilder: (context, index) => const Divider(indent: 16),

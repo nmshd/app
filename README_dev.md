@@ -20,8 +20,8 @@ For an overview of all available melos scripts, run `melos run` or `melos run --
 ## Update the Runtime
 
 Basically, the whole enmeshed Runtime is written in the file `packages/enmeshed_runtime_bridge/assets/index.js`.
-Its respective version is specified in [`packages/enmeshed_runtime_bridge/natives/package.json`](packages/enmeshed_runtime_bridge/natives/package.json).
-In order to update it, you must adjust the version there, navigate to `packages/enmeshed_runtime_bridge/natives` and run `npm i`.
+Its respective version is specified in [`packages/enmeshed_runtime_bridge/js/package.json`](packages/enmeshed_runtime_bridge/js/package.json).
+In order to update it, you must adjust the version there, navigate to `packages/enmeshed_runtime_bridge/js` and run `npm i`.
 Afterwards, run `npm run build` in the same location, which will update the `index.js` file.
 
 Now, to make the changes accessible for the App, all adjustments that are exposed, e.g. DTOs, DVOs, use cases and events, need to be adjusted in their respective places.
@@ -32,9 +32,8 @@ Don't forget to test every function you add to a facade.
 Sometimes, a part of adding a new or adjusting an existing data object can be automated.
 An example is adding a property to a DVO.
 For this to work, `@JsonSerializable(includeIfNull: false)` must be written above the class declaration.
-Then, run `dart run build_runner build` from the respective package.
+Then, run `melos build_runner` from anywhere in the project.
 This will create a file with the same name, but `.g.dart` as ending.
-It is advisable to format the files of the package thereafter, e.g. by running `dart format .`.
 
 ## Moving patches to other apps
 

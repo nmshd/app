@@ -4,8 +4,8 @@ publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: ^3.8.0
-  flutter: ">=3.32.0"
+  sdk: "^3.8.1"
+  flutter: ">=3.32.5"
 
 dependencies:
   enmeshed_runtime_bridge: ^1.0.0
@@ -18,9 +18,10 @@ dependencies:
       url: https://github.com/nmshd/rust-crypto.git
       path: cal_flutter_plugin/
       ref: 9b4b256
+  logger: ^2.6.0
 
 dev_dependencies:
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
   integration_test:

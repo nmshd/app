@@ -6,9 +6,11 @@ import 'package:go_router/go_router.dart';
 import '/core/core.dart';
 
 class OnboardingLegalTexts extends StatefulWidget {
-  final VoidCallback goToOnboardingCreateAccount;
+  final VoidCallback cancel;
+  final VoidCallback next;
+  final bool appLinkAvailable;
 
-  const OnboardingLegalTexts({required this.goToOnboardingCreateAccount, super.key});
+  const OnboardingLegalTexts({required this.cancel, required this.next, required this.appLinkAvailable, super.key});
 
   @override
   State<OnboardingLegalTexts> createState() => _OnboardingLegalTextsState();
@@ -20,12 +22,13 @@ class _OnboardingLegalTextsState extends State<OnboardingLegalTexts> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      maintainBottomViewPadding: true,
       minimum: const EdgeInsets.only(bottom: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(top: 16),
             child: Text(
               context.l10n.onboarding_yourConsent,
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
@@ -73,11 +76,20 @@ class _OnboardingLegalTextsState extends State<OnboardingLegalTexts> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-            child: Align(
-              child: FilledButton(
-                onPressed: isLegalAgreementCompleted ? widget.goToOnboardingCreateAccount : null,
-                child: Text(context.l10n.onboarding_yourConsent_acceptAndContinue),
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              spacing: 4,
+              children: [
+                OutlinedButton(onPressed: widget.cancel, child: Text(context.l10n.cancel)),
+                FilledButton(
+                  onPressed: isLegalAgreementCompleted ? widget.next : null,
+                  child: Text(
+                    widget.appLinkAvailable
+                        ? context.l10n.onboarding_appLinkAvailable_acceptAndContinue
+                        : context.l10n.onboarding_yourConsent_acceptAndContinue,
+                  ),
+                ),
+              ],
             ),
           ),
         ],

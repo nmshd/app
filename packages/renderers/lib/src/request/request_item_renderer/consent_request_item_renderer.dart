@@ -5,6 +5,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
+import 'package:styled_text/styled_text.dart';
 
 import '../../abstract_url_launcher.dart';
 import '../request_item_index.dart';
@@ -118,7 +119,17 @@ class _ConsentBox extends StatelessWidget {
                   verticalAlignment: TableCellVerticalAlignment.middle,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Text(item.consent, maxLines: 4, overflow: TextOverflow.ellipsis),
+                    child: StyledText(
+                      text: item.consent.replaceAllMapped(RegExp(r'(https?:\/\/[^\s\\]+)'), (match) => '<link>${match.group(1)}</link>'),
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                      tags: {
+                        'link': StyledTextActionTag(
+                          (link, _) async => await GetIt.I.get<AbstractUrlLauncher>().launchSafe(Uri.parse(link!)),
+                          style: const TextStyle(decoration: TextDecoration.underline),
+                        ),
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -203,7 +214,7 @@ class _FullConsentDialog extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
-          title: Text('Einverständniserklärung'),
+          title: TranslatedText('i18n://requestRenderer.consent.title'),
         ),
         body: Scrollbar(
           thumbVisibility: true,
@@ -213,7 +224,16 @@ class _FullConsentDialog extends StatelessWidget {
               spacing: 32,
               children: [
                 if (description != null) Text(description!, style: Theme.of(context).textTheme.bodyMedium),
-                Text(consent, style: Theme.of(context).textTheme.bodyMedium),
+                StyledText(
+                  text: consent.replaceAllMapped(RegExp(r'(https?:\/\/[^\s\\]+)'), (match) => '<link>${match.group(1)}</link>'),
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  tags: {
+                    'link': StyledTextActionTag(
+                      (link, _) async => await GetIt.I.get<AbstractUrlLauncher>().launchSafe(Uri.parse(link!)),
+                      style: const TextStyle(decoration: TextDecoration.underline),
+                    ),
+                  },
+                ),
               ],
             ),
           ),

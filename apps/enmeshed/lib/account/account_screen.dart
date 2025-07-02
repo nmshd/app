@@ -7,25 +7,18 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
-import 'account_tab_controller.dart';
 import 'app_drawer/app_drawer.dart';
-import 'contacts/contacts_filter_controller.dart';
-import 'mailbox/mailbox_filter_controller.dart';
 
 class AccountScreen extends StatefulWidget {
   final String accountId;
   final ValueNotifier<SuggestionsBuilder?> suggestionsBuilder;
   final String location;
-  final MailboxFilterController mailboxFilterController;
-  final ContactsFilterController contactsFilterController;
   final Widget child;
 
   const AccountScreen({
     required this.accountId,
     required this.suggestionsBuilder,
     required this.location,
-    required this.mailboxFilterController,
-    required this.contactsFilterController,
     required this.child,
     super.key,
   });
@@ -94,6 +87,10 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: AppDrawer(accountId: widget.accountId),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => goToInstructionsOrScanScreen(accountId: widget.accountId, instructionsType: ScannerType.addContact, context: context),
+        child: const Icon(Icons.qr_code_scanner),
+      ),
       appBar: AppBar(
         title: Text(switch (_selectedIndex) {
           0 => context.l10n.home_title,
@@ -101,11 +98,11 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
           2 => context.l10n.myData,
           3 => context.l10n.mailbox,
           _ => throw Exception('Unknown index: $_selectedIndex'),
-        }, style: _selectedIndex == 0 ? Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.primary) : null),
+        }),
         actions: [
-          ..._actions ?? [],
+          ...?_actions,
           Padding(
-            padding: const EdgeInsets.only(left: 6, right: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 6),
             child: Badge(
               isLabelVisible: _accountsInDeletion.isNotEmpty,
               child: AutoLoadingProfilePicture(
@@ -124,17 +121,6 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
         notificationPredicate: (notification) => switch (_selectedIndex) {
           3 => notification.depth == 1,
           _ => notification.depth == 0,
-        },
-        bottom: switch (_selectedIndex) {
-          3 => TabBar(
-            controller: _tabController,
-            indicatorSize: TabBarIndicatorSize.tab,
-            tabs: [
-              Tab(child: Text(context.l10n.mailbox_incoming, style: Theme.of(context).textTheme.titleSmall)),
-              Tab(child: Text(context.l10n.mailbox_outgoing, style: Theme.of(context).textTheme.titleSmall)),
-            ],
-          ),
-          _ => null,
         },
       ),
       bottomNavigationBar: NavigationBar(
@@ -177,7 +163,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
         },
         selectedIndex: _selectedIndex,
       ),
-      body: AccountTabController(tabController: _tabController, child: widget.child),
+      body: widget.child,
     );
   }
 
@@ -199,17 +185,6 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
         suggestionsBuilder: (context, controller) =>
             widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
       ),
-      ValueListenableBuilder(
-        valueListenable: widget.contactsFilterController,
-        builder: (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
-          icon: const Icon(Icons.filter_list),
-          onPressed: () => widget.contactsFilterController.openContactsFilter(),
-        ),
-      ),
-      IconButton(
-        icon: const Icon(Icons.person_add),
-        onPressed: () => goToInstructionsOrScanScreen(accountId: widget.accountId, instructionsType: ScannerType.addContact, context: context),
-      ),
     ],
     3 => [
       SearchAnchor(
@@ -218,13 +193,6 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
         },
         suggestionsBuilder: (context, controller) =>
             widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
-      ),
-      ValueListenableBuilder(
-        valueListenable: widget.mailboxFilterController,
-        builder: (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
-          icon: const Icon(Icons.filter_list),
-          onPressed: () => widget.mailboxFilterController.openMailboxFilter(),
-        ),
       ),
       IconButton(icon: const Icon(Icons.add), onPressed: () => context.go('/account/${widget.accountId}/mailbox/send')),
     ],

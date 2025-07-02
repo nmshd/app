@@ -3,8 +3,8 @@ description: A new Flutter package project.
 version: 1.0.0
 
 environment:
-  sdk: "^3.8.0"
-  flutter: ">=3.32.0"
+  sdk: "^3.8.1"
+  flutter: ">=3.32.5"
 
 dependencies:
   collection: any
@@ -17,9 +17,9 @@ dependencies:
   get_it: ^8.0.3
   i18n_translated_text: ^1.0.2
   intl: any
-  logger: ^2.5.0
+  logger: ^2.6.0
 
 dev_dependencies:
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter

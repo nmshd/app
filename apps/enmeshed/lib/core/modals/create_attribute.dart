@@ -249,10 +249,6 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (addressDataInitialAttributeTypes.contains(widget.valueType)) ...[
-                      Text(context.l10n.mandatoryField, style: Theme.of(context).textTheme.bodyMedium),
-                      Gaps.h24,
-                    ],
                     ValueRenderer(
                       renderHints: widget.renderHints,
                       valueHints: widget.valueHints,

@@ -125,10 +125,6 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (addressDataInitialAttributeTypes.contains(widget.attribute.valueType)) ...[
-                        Text(context.l10n.mandatoryField, style: const TextStyle(fontSize: 14)),
-                        Gaps.h24,
-                      ],
                       ValueRenderer(
                         renderHints: widget.attribute.renderHints,
                         valueHints: widget.attribute.valueHints,
@@ -139,6 +135,7 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
                         chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
                         openFileDetails: (file) =>
                             context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
+                        mustBeFilledOut: true,
                       ),
                       if (_errorText != null) ...[
                         if (widget.attribute.renderHints.editType != RenderHintsEditType.InputLike) Gaps.h16 else Gaps.h8,

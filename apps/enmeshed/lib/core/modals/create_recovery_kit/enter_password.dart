@@ -119,7 +119,7 @@ class _EnterPasswordState extends State<EnterPassword> {
             ),
           ],
         ),
-        if (_loading) ModalLoadingOverlay(text: context.l10n.identityRecovery_generatingInProgress, isDialog: false),
+        if (_loading) ModalLoadingOverlay(text: context.l10n.identityRecovery_generatingInProgress),
       ],
     );
   }

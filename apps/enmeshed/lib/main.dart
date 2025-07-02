@@ -6,12 +6,14 @@ import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:feature_flags/feature_flags.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:renderers/renderers.dart' show AbstractUrlLauncher;
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:vector_graphics/vector_graphics.dart';
@@ -35,8 +37,10 @@ void main() async {
   timeago.setLocaleMessages('de', timeago.DeMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
 
-  final logger = Logger(printer: SimplePrinter(colors: false));
+  final output = await getLogOutput();
+  final logger = Logger(printer: SimplePrinter(colors: false), filter: ProductionFilter(), output: output);
   GetIt.I.registerSingleton(logger);
+
   GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
 
   GetIt.I.registerSingleton(await ThemeModeModel.create());
@@ -44,11 +48,16 @@ void main() async {
   runApp(const EnmeshedApp());
 }
 
+Future<LogOutput> getLogOutput() async {
+  final logPath = '${(await getApplicationDocumentsDirectory()).path}/logs';
+
+  if (kDebugMode) return MultiOutput([ConsoleOutput(), FileOutput(file: File('$logPath/debug.log'))]);
+
+  return AdvancedFileOutput(path: logPath, maxRotatedFilesCount: 20);
+}
+
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
-
-final _mailboxFilterController = MailboxFilterController();
-final _contactsFilterController = ContactsFilterController();
 
 final ValueNotifier<SuggestionsBuilder?> _suggestionsBuilder = ValueNotifier(null);
 
@@ -60,7 +69,12 @@ final _router = GoRouter(
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/onboarding',
-      builder: (context, state) => OnboardingScreen(skipIntroduction: state.uri.queryParameters['skipIntroduction'] == 'true'),
+      builder: (context, state) {
+        return OnboardingScreen(
+          skipIntroduction: state.uri.queryParameters['skipIntroduction'] == 'true',
+          appLink: state.extra is String ? state.extra! as String : null,
+        );
+      },
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
@@ -258,8 +272,6 @@ final _router = GoRouter(
             suggestionsBuilder: _suggestionsBuilder,
             accountId: state.pathParameters['accountId']!,
             location: state.fullPath!,
-            mailboxFilterController: _mailboxFilterController,
-            contactsFilterController: _contactsFilterController,
             child: child,
           ),
           routes: [
@@ -279,7 +291,6 @@ final _router = GoRouter(
                 child: ContactsView(
                   accountId: state.pathParameters['accountId']!,
                   setSuggestionsBuilder: (s) => _suggestionsBuilder.value = s,
-                  contactsFilterController: _contactsFilterController,
                 ),
               ),
               routes: [
@@ -436,7 +447,6 @@ final _router = GoRouter(
                 key: state.pageKey,
                 child: MailboxView(
                   accountId: state.pathParameters['accountId']!,
-                  mailboxFilterController: _mailboxFilterController,
                   setSuggestionsBuilder: (s) => _suggestionsBuilder.value = s,
                   filteredContactId: state.extra is String ? state.extra! as String : null,
                 ),
