@@ -25,7 +25,7 @@ class _MyDataViewState extends State<MyDataView> {
   bool _personalDataExisting = true;
   bool _addressDataExisting = true;
   bool _communicationDataExisting = true;
-  int _numberOfUnviewedFiles = 0;
+  int _numberOfUnviewedIdentityFileReferenceAttributes = 0;
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _MyDataViewState extends State<MyDataView> {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     _subscriptions
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _reload().catchError((_) {})))
-      ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _loadUnviewedFiles().catchError((_) {})))
+      ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _loadUnviewedIdentityFileReferenceAttributes().catchError((_) {})))
       ..add(runtime.eventBus.on<AttributeCreatedEvent>().listen((_) => _reload().catchError((_) {})));
   }
 
@@ -112,7 +112,7 @@ class _MyDataViewState extends State<MyDataView> {
                 const Divider(indent: 16, height: 2),
                 ListTile(
                   leading: Badge(
-                    isLabelVisible: _numberOfUnviewedFiles > 0,
+                    isLabelVisible: _numberOfUnviewedIdentityFileReferenceAttributes > 0,
                     backgroundColor: Theme.of(context).colorScheme.error,
                     child: const Icon(Icons.folder),
                   ),
@@ -145,7 +145,7 @@ class _MyDataViewState extends State<MyDataView> {
     }
 
     await _updateDataExisting();
-    await _loadUnviewedFiles();
+    await _loadUnviewedIdentityFileReferenceAttributes();
   }
 
   Future<void> _updateDataExisting() async {
@@ -161,15 +161,15 @@ class _MyDataViewState extends State<MyDataView> {
     }
   }
 
-  Future<void> _loadUnviewedFiles() async {
+  Future<void> _loadUnviewedIdentityFileReferenceAttributes() async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
     await session.transportServices.account.syncEverything();
 
     if (!mounted) return;
 
-    final unviewedFiles = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
+    final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
 
-    setState(() => _numberOfUnviewedFiles = unviewedFiles.length);
+    setState(() => _numberOfUnviewedIdentityFileReferenceAttributes = unviewedIdentityFileReferenceAttributes.length);
   }
 }

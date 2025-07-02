@@ -42,7 +42,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
       _loadSharedWith();
     }
 
-    _markFileAsViewed();
+    _markIdentityFileReferenceAttributeAsViewed();
   }
 
   @override
@@ -302,7 +302,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     if (mounted) setState(() => _isOpeningFile = false);
   }
 
-  Future<void> _markFileAsViewed() async {
+  Future<void> _markIdentityFileReferenceAttributeAsViewed() async {
     if (widget.fileReferenceAttribute is! RepositoryAttributeDVO || widget.fileReferenceAttribute!.wasViewedAt != null) return;
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);

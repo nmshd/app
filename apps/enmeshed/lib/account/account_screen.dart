@@ -36,7 +36,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
   LocalAccountDTO? _account;
   int _numberOfOpenContactRequests = 0;
   int _unreadMessagesCount = 0;
-  int _numberOfUnviewedFiles = 0;
+  int _numberOfUnviewedIdentityFileReferenceAttributes = 0;
 
   @override
   void initState() {
@@ -50,12 +50,12 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _loadAccount().catchError((_) {})))
       ..add(runtime.eventBus.on<IncomingRequestReceivedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
       ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
-      ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _loadUnviewedFiles().catchError((_) {})))
+      ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _loadUnviewedIdentityFileReferenceAttributes().catchError((_) {})))
       ..add(runtime.eventBus.on<MessageWasReadAtChangedEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
       ..add(
         runtime.eventBus.on<MessageReceivedEvent>().listen((_) {
           _loadUnreadMessages().catchError((_) {});
-          _loadUnviewedFiles().catchError((_) {});
+          _loadUnviewedIdentityFileReferenceAttributes().catchError((_) {});
         }),
       )
       ..add(runtime.eventBus.on<RelationshipDecomposedBySelfEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
@@ -77,7 +77,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     _loadAccount();
     _reloadContactRequests();
     _loadUnreadMessages();
-    _loadUnviewedFiles();
+    _loadUnviewedIdentityFileReferenceAttributes();
   }
 
   @override
@@ -147,9 +147,9 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
           NavigationDestination(
             label: context.l10n.myData,
             icon: Badge(
-              isLabelVisible: _numberOfUnviewedFiles > 0,
+              isLabelVisible: _numberOfUnviewedIdentityFileReferenceAttributes > 0,
               textColor: Theme.of(context).colorScheme.onPrimary,
-              label: Text(_numberOfUnviewedFiles.toString()),
+              label: Text(_numberOfUnviewedIdentityFileReferenceAttributes.toString()),
               backgroundColor: Theme.of(context).colorScheme.error,
               child: const Icon(Icons.person),
             ),
@@ -245,15 +245,15 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     setState(() => _unreadMessagesCount = messages.length);
   }
 
-  Future<void> _loadUnviewedFiles() async {
+  Future<void> _loadUnviewedIdentityFileReferenceAttributes() async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
     await session.transportServices.account.syncEverything();
 
     if (!mounted) return;
 
-    final unviewedFiles = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
+    final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
 
-    setState(() => _numberOfUnviewedFiles = unviewedFiles.length);
+    setState(() => _numberOfUnviewedIdentityFileReferenceAttributes = unviewedIdentityFileReferenceAttributes.length);
   }
 }
