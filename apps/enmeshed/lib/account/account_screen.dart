@@ -252,7 +252,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
 
     if (!mounted) return;
 
-    final unviewedFiles = await getUnviewedFiles(session: session, context: context);
+    final unviewedFiles = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
 
     setState(() => _numberOfUnviewedFiles = unviewedFiles.length);
   }

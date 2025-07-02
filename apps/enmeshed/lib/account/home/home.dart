@@ -159,7 +159,7 @@ class _HomeViewState extends State<HomeView> {
 
     if (!mounted) return;
 
-    final unviewedFiles = await getUnviewedFiles(session: session, context: context);
+    final unviewedFiles = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
 
     if (!mounted) return;
     setState(() {
