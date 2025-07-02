@@ -1,8 +1,15 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '/core/core.dart';
@@ -91,6 +98,23 @@ class _DrawerMainPageState extends State<DrawerMainPage> {
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 title: Text(context.l10n.imprint, style: Theme.of(context).textTheme.labelLarge),
               ),
+              const Divider(indent: 16, endIndent: 16),
+              ListTile(
+                onTap: () => BetterFeedback.of(context).show((feedback) async {
+                  final screenshotFilePath = await writeImageToStorage(feedback.screenshot);
+
+                  final email = Email(
+                    body: feedback.text,
+                    subject: 'enmeshed App Feedback',
+                    recipients: ['info@enmeshed.eu'],
+                    attachmentPaths: [screenshotFilePath],
+                  );
+
+                  await FlutterEmailSender.send(email);
+                }),
+                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                title: Text('Feedback geben', style: Theme.of(context).textTheme.labelLarge),
+              ),
             ],
           ),
         ),
@@ -123,6 +147,14 @@ class _DrawerMainPageState extends State<DrawerMainPage> {
         ),
       ],
     );
+  }
+
+  Future<String> writeImageToStorage(Uint8List feedbackScreenshot) async {
+    final output = await getTemporaryDirectory();
+    final screenshotFilePath = '${output.path}/feedback.png';
+    final screenshotFile = File(screenshotFilePath);
+    await screenshotFile.writeAsBytes(feedbackScreenshot);
+    return screenshotFilePath;
   }
 
   Future<void> _checkNotificationPermission() async {
