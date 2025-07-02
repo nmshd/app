@@ -13,10 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   cal_flutter_plugin:
-    git:
-      url: https://github.com/nmshd/rust-crypto.git
-      path: cal_flutter_plugin/
-      ref: 9b4b256
+    path: ../../../../rust-crypto/cal_flutter_plugin
   logger: ^2.6.0
 
 dev_dependencies:

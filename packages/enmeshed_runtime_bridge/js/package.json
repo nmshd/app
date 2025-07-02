@@ -4,24 +4,27 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild src/index.ts src/cryptoBridge.ts --bundle --minify --keep-names --target=chrome60,firefox60,safari11,edge18 --external:https-proxy-agent --outdir=../assets --tsconfig=tsconfig.esbuild.json",
+    "build": "esbuild src/index.ts --bundle --minify --keep-names --target=chrome60,firefox60,safari11,edge18 --external:https-proxy-agent --outdir=../assets --tsconfig=tsconfig.esbuild.json",
     "build:watch": "npm run build -- --watch",
     "lint": "npm run lint:prettier && npm run lint:ts",
     "lint:prettier": "prettier --check .",
-    "lint:ts": "tsc --noEmit",
-    "postinstall": "npm run build"
+    "lint:ts": "tsc --noEmit"
   },
   "dependencies": {
     "@js-soft/logging-abstractions": "^1.0.1",
     "@js-soft/simple-logger": "^1.0.5",
+    "@js-soft/ts-serval": "^2.0.12",
     "@js-soft/ts-utils": "^2.3.3",
-    "@nmshd/rs-crypto-types": "0.10.0",
-    "@nmshd/crypto": "2.2.0-alpha.1",
-    "@nmshd/app-runtime": "6.59.0",
-    "@nmshd/runtime": "6.59.0",
+    "@nmshd/app-runtime": "file:../../../../runtime/packages/app-runtime",
+    "@nmshd/content": "file:../../../../runtime/packages/content",
+    "@nmshd/core-types": "file:../../../../runtime/packages/core-types",
+    "@nmshd/crypto": "2.2.0-alpha.3",
+    "@nmshd/rs-crypto-types": "0.11.0",
+    "@nmshd/runtime": "file:../../../../runtime/packages/runtime",
     "js-logger": "^1.6.1",
     "json-stringify-safe": "^5.0.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "lokijs": "^1.5.12"
   },
   "devDependencies": {
     "@types/json-stringify-safe": "^5.0.3",

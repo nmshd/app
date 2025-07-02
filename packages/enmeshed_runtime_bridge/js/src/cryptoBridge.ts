@@ -1,4 +1,4 @@
-import { initCryptoLayerProviders } from "@nmshd/crypto";
+// import { initCryptoLayerProviders } from "@nmshd/crypto";
 import * as types from "@nmshd/rs-crypto-types";
 
 class TsDartBridgeError extends Error {
@@ -709,16 +709,16 @@ const f: types.ProviderFactoryFunctions = {
 };
 
 function initializeCrypto(providerName: string) {
-  const implConfig: types.ProviderImplConfig = {
-    additional_config: [{ StorageConfigPass: "testpass" }]
-  };
-  initCryptoLayerProviders({
-    factoryFunctions: f,
-    providersToBeInitialized: [[{ providerName: "SoftwareProvider" }, implConfig]]
-  });
+  // const implConfig: types.ProviderImplConfig = {
+  //   additional_config: []
+  // };
+  // initCryptoLayerProviders({
+  //   factoryFunctions: f,
+  //   providersToBeInitialized: [[{ providerName: "SoftwareProvider" }, implConfig]]
+  // });
 }
 
-type CryptoInit = {
+export type CryptoInit = {
   initializeCrypto: typeof initializeCrypto;
   createProvider: types.CreateProviderFunc;
   createProviderFromName: types.CreateProviderFromNameFunc;
@@ -730,7 +730,7 @@ type CryptoInit = {
   dhKeyExchange: typeof newDhKeyExchange;
 };
 
-const cryptoInit: CryptoInit = {
+export const cryptoInit: CryptoInit = {
   initializeCrypto: initializeCrypto,
   createProvider: createProvider,
   createProviderFromName: createProviderFromName,
@@ -742,5 +742,4 @@ const cryptoInit: CryptoInit = {
   dhKeyExchange: newDhKeyExchange
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (window as any).cryptoInit = cryptoInit;

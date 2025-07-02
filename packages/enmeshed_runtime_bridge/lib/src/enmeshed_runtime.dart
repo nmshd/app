@@ -49,6 +49,9 @@ class EnmeshedRuntime with WidgetsBindingObserver {
   late final AnonymousServices _anonymousServices;
   AnonymousServices get anonymousServices => _anonymousServices;
 
+  late final CryptoHandler _cryptoHandler;
+  CryptoHandler get cryptoHandler => _cryptoHandler;
+
   late final StringProcessor _stringProcessor;
   StringProcessor get stringProcessor {
     assert(_isReady, 'Runtime not ready');
@@ -114,6 +117,7 @@ class EnmeshedRuntime with WidgetsBindingObserver {
     _accountServices = AccountServices(anonymousEvaluator);
     _anonymousServices = AnonymousServices(anonymousEvaluator);
     _stringProcessor = StringProcessor(anonymousEvaluator);
+    _cryptoHandler = CryptoHandler();
   }
 
   Session getSession(String accountReference) => Session(Evaluator.account(this, accountReference));
@@ -148,7 +152,7 @@ class EnmeshedRuntime with WidgetsBindingObserver {
 
     controller.addJavaScriptHandler(handlerName: 'handleRuntimeEvent', callback: (args) => handleRuntimeEventCallback(args, eventBus, _logger));
 
-    controller.addJavaScriptHandler(handlerName: 'handleCryptoEvent', callback: (args) => CryptoHandler(Evaluator.anonymous(this)).handleCall(args));
+    controller.addJavaScriptHandler(handlerName: 'handleCryptoEvent', callback: (args) => _cryptoHandler.handleCall(args));
 
     controller.addFilesystemJavaScriptHandlers(_filesystemAdapter);
 
@@ -213,7 +217,6 @@ class EnmeshedRuntime with WidgetsBindingObserver {
 
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/loki.js');
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
-    await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/cryptoBridge.js');
   }
 
   Future<VoidResult> run() async {

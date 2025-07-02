@@ -20,7 +20,7 @@ class CryptoFacade {
   final AbstractEvaluator _evaluator;
   late final CryptoHandler _handler;
   CryptoFacade(this._evaluator) {
-    _handler = CryptoHandler(_evaluator);
+    _handler = CryptoHandler();
   }
 
   Future<CryptoFacadeProvider> createProvider(cal.ProviderConfig config, cal.ProviderImplConfig implConfig) async {
@@ -97,8 +97,6 @@ class CryptoFacadeProvider {
   final String _id;
   final CryptoHandler _handler;
   CryptoFacadeProvider(this._evaluator, this._id, this._handler);
-
-  CryptoFacade get crypto => CryptoFacade(_evaluator);
 
   Future<cal.ProviderConfig> getCapabilities() async {
     final result = await _evaluator.evaluateJavaScript(

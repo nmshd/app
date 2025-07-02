@@ -1,8 +1,8 @@
+import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 
 import 'package:cal_flutter_plugin/cal_flutter_plugin.dart';
-import 'package:enmeshed_runtime_bridge/src/services/services.dart';
 import 'package:path_provider/path_provider.dart';
 
 class TsDartCryptoBridgeException implements Exception {
@@ -25,19 +25,11 @@ class TsDartCryptoBridgeException implements Exception {
 
 class CryptoHandler {
   static CryptoHandler? _instance;
-  final AbstractEvaluator _evaluator;
 
-  factory CryptoHandler(AbstractEvaluator evaluator) => _instance ??= CryptoHandler._internal(evaluator);
+  factory CryptoHandler() => _instance ??= CryptoHandler._internal();
 
-  CryptoHandler._internal(this._evaluator) {
+  CryptoHandler._internal() {
     RustLib.init();
-    // TODO: find out if running on Android or iOS and initialize the crypto provider accordingly
-    _evaluator.evaluateJavaScript(
-      '''
-      await window.cryptoInit.initializeCrypto(providerName);
-    ''',
-      arguments: {'providerName': 'AndroidProvider'},
-    );
   }
 
   final HashMap<String, Provider> _providers = HashMap();
