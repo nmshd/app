@@ -21,6 +21,7 @@ sealed class LocalAttributeDVO extends DataViewObject {
   final bool isValid;
 
   final String createdAt;
+  final String? wasViewedAt;
   final String? succeeds;
   final String? succeededBy;
 
@@ -45,6 +46,7 @@ sealed class LocalAttributeDVO extends DataViewObject {
     required this.isOwn,
     required this.isValid,
     required this.createdAt,
+    this.wasViewedAt,
     this.succeeds,
     this.succeededBy,
     this.tags,
@@ -80,6 +82,7 @@ sealed class IdentityAttributeDVO extends LocalAttributeDVO {
     required super.isDraft,
     required super.isValid,
     required super.createdAt,
+    super.wasViewedAt,
     super.succeeds,
     super.succeededBy,
     super.tags,
@@ -117,6 +120,7 @@ class RepositoryAttributeDVO extends IdentityAttributeDVO {
     required super.isDraft,
     required super.isValid,
     required super.createdAt,
+    super.wasViewedAt,
     super.succeeds,
     super.succeededBy,
     required this.sharedWith,
@@ -155,6 +159,7 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
     required super.isDraft,
     required super.isValid,
     required super.createdAt,
+    super.wasViewedAt,
     super.succeeds,
     super.succeededBy,
     required this.peer,
@@ -195,6 +200,7 @@ class PeerAttributeDVO extends LocalAttributeDVO {
     required super.isDraft,
     required super.isValid,
     required super.createdAt,
+    super.wasViewedAt,
     super.succeeds,
     super.succeededBy,
     required this.peer,
@@ -241,6 +247,7 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
     required super.isOwn,
     required super.isValid,
     required super.createdAt,
+    super.wasViewedAt,
     super.succeeds,
     super.succeededBy,
     required this.key,
@@ -283,6 +290,7 @@ class OwnRelationshipAttributeDVO extends RelationshipAttributeDVO {
     required super.isDraft,
     required super.isValid,
     required super.createdAt,
+    super.wasViewedAt,
     super.succeeds,
     super.succeededBy,
     required super.key,
@@ -321,6 +329,7 @@ class PeerRelationshipAttributeDVO extends RelationshipAttributeDVO {
     required super.isDraft,
     required super.isValid,
     required super.createdAt,
+    super.wasViewedAt,
     super.succeeds,
     super.succeededBy,
     required super.key,

@@ -78,9 +78,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         createProfileButtonText: widget.appLink == null ? null : context.l10n.onboarding_appLinkAvailable_profileCreating_button,
         onProfileCreated: (account) async {
           context.go('/account/${account.id}');
+          await GetIt.I<EnmeshedRuntime>().selectAccount(account.id);
           if (widget.appLink != null) {
             final url = widget.appLink!;
             final result = await GetIt.I<EnmeshedRuntime>().stringProcessor.processURL(url: url, account: account);
+
+            if (result.isSuccess) return;
+
             GetIt.I.get<Logger>().e('Error while processing url $url: ${result.error.message}');
 
             if (!mounted) return;

@@ -3,6 +3,7 @@ export 'app_runtime/external_event_received_event.dart';
 export 'app_runtime/local_account_deletion_date_changed_event.dart';
 export 'consumption/attribute_created_event.dart';
 export 'consumption/attribute_deleted_event.dart';
+export 'consumption/attribute_was_viewed_at_changed_event.dart';
 export 'consumption/incoming_request_received_event.dart';
 export 'consumption/incoming_request_status_changed_event.dart';
 export 'consumption/outgoing_request_created_event.dart';

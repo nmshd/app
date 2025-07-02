@@ -19,6 +19,7 @@ class ContactFavorite extends StatelessWidget {
         child: Column(
           children: [
             _ContactFavoriteIcon(contact: contact),
+            Gaps.h4,
             SizedBox(
               width: 72,
               child: Text(

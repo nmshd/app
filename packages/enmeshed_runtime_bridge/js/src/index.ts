@@ -3,6 +3,7 @@ import { Serializable } from "@js-soft/ts-serval";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
 import {
   AppConfigOverwrite,
+  AppLanguageChangedEvent,
   AppRuntime,
   RemoteNotification,
   RemoteNotificationEvent,
@@ -10,8 +11,10 @@ import {
 } from "@nmshd/app-runtime";
 import * as contentLib from "@nmshd/content";
 import { RenderHints, RenderHintsJSON, ValueHints, ValueHintsJSON } from "@nmshd/content";
+import { LanguageISO639 } from "@nmshd/core-types";
 import { buildInformation } from "@nmshd/runtime";
 import { LogLevel } from "typescript-logging";
+import { AppLanguageProvider } from "./AppLanguageProvider";
 import { DatabaseFactory } from "./DatabaseFactory";
 import { FileAccess } from "./FileAccess";
 import { NotificationAccess } from "./NotificationAccess";
@@ -42,11 +45,11 @@ window.registerUIBridge = function () {
   window.runtime.registerUIBridge(new UIBridge());
 };
 
-window.triggerRemoteNotificationRegistrationEvent = async function (token: string) {
+window.triggerRemoteNotificationRegistrationEvent = function (token: string) {
   window.runtime.eventBus.publish(new RemoteNotificationRegistrationEvent(token));
 };
 
-window.triggerRemoteNotificationEvent = async function (notification: RemoteNotification) {
+window.triggerRemoteNotificationEvent = function (notification: RemoteNotification) {
   window.runtime.eventBus.publish(new RemoteNotificationEvent(notification));
 };
 
@@ -58,11 +61,13 @@ async function main() {
   const loggerFactory = new SimpleLoggerFactory(LogLevel.Info);
   const fileAccess = new FileAccess();
   const notificationAccess = new NotificationAccess(loggerFactory);
+  const languageProvider = new AppLanguageProvider();
 
   const runtime = await AppRuntime.create(
     config,
     loggerFactory,
     notificationAccess,
+    languageProvider,
     undefined,
     new DatabaseFactory(fileAccess)
   );
@@ -78,6 +83,16 @@ async function main() {
   });
 
   window.runtime = runtime;
+
+  window.triggerAppLanguageChangedEvent = function (language: unknown) {
+    runtimeBridgeLogger.error(language);
+    if (typeof language !== "string" || !Object.keys(LanguageISO639).includes(language)) {
+      runtimeBridgeLogger.warn("Invalid language type received for triggerAppLanguageChangedEvent", language);
+      return;
+    }
+
+    window.runtime.eventBus.publish(new AppLanguageChangedEvent(language as LanguageISO639));
+  };
 }
 
 main()
