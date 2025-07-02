@@ -33,19 +33,18 @@ class FileItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            spacing: 4,
             children: [
               Text(
                 creationDate,
                 maxLines: 1,
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
               ),
-              if (fileIsExpired) ...[
-                Gaps.w4,
+              if (fileIsExpired)
                 Text(
                   context.l10n.files_fileExpired,
                   style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.error),
                 ),
-              ],
             ],
           ),
           HighlightText(query: query, text: fileRecord.file.name, maxLines: 1, textStyle: fileNameStyle),
