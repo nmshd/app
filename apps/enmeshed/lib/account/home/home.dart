@@ -23,7 +23,7 @@ class _HomeViewState extends State<HomeView> {
   late final ScrollController _scrollController;
 
   int _unreadMessagesCount = 0;
-  int _unviewedFilesCount = 0;
+  int _unviewedIdentityFileReferenceAttributesCount = 0;
   List<MessageDVO>? _messages;
   List<LocalRequestDVO>? _requests;
   bool _isCompleteProfileContainerShown = false;
@@ -87,7 +87,7 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 if (_isCompleteProfileContainerShown)
                   CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
-                if (_unviewedFilesCount > 0)
+                if (_unviewedIdentityFileReferenceAttributesCount > 0)
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: BannerCard(
@@ -159,7 +159,7 @@ class _HomeViewState extends State<HomeView> {
 
     if (!mounted) return;
 
-    final unviewedFiles = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
+    final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
 
     if (!mounted) return;
     setState(() {
@@ -168,7 +168,7 @@ class _HomeViewState extends State<HomeView> {
       _requests = requests;
       _isCompleteProfileContainerShown = isCompleteProfileContainerShown;
       _showRecoveryKitWasUsedContainer = showRecoveryKitWasUsedContainer;
-      _unviewedFilesCount = unviewedFiles.length;
+      _unviewedIdentityFileReferenceAttributesCount = unviewedIdentityFileReferenceAttributes.length;
     });
   }
 
