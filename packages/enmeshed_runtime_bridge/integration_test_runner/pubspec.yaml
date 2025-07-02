@@ -12,7 +12,6 @@ dependencies:
   enmeshed_types: ^1.0.0
   flutter:
     sdk: flutter
-  logger: ^2.5.0
   cal_flutter_plugin:
     git:
       url: https://github.com/nmshd/rust-crypto.git
