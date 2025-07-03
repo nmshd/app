@@ -19,6 +19,11 @@ dependencies:
   logger: ^2.6.0
   path_provider: ^2.1.5
   windows_notification: ^1.3.0
+  cal_flutter_plugin:
+    git:
+      url: https://github.com/nmshd/rust-crypto.git
+      path: cal_flutter_plugin/
+      ref: 9b4b256
 
 dev_dependencies:
   flutter_lints: ^6.0.0
@@ -35,3 +40,4 @@ flutter:
   assets:
     - assets/loki.js
     - assets/index.js
+    - assets/cryptoBridge.js

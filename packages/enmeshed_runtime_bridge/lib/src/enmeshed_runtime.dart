@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:enmeshed_runtime_bridge/src/crypto_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -147,6 +148,8 @@ class EnmeshedRuntime with WidgetsBindingObserver {
 
     controller.addJavaScriptHandler(handlerName: 'handleRuntimeEvent', callback: (args) => handleRuntimeEventCallback(args, eventBus, _logger));
 
+    controller.addJavaScriptHandler(handlerName: 'handleCryptoEvent', callback: (args) => CryptoHandler(Evaluator.anonymous(this)).handleCall(args));
+
     controller.addFilesystemJavaScriptHandlers(_filesystemAdapter);
 
     controller.addJavaScriptHandler(
@@ -210,6 +213,7 @@ class EnmeshedRuntime with WidgetsBindingObserver {
 
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/loki.js');
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
+    await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/cryptoBridge.js');
   }
 
   Future<VoidResult> run() async {
