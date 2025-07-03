@@ -8,6 +8,8 @@ import '../types/types.dart';
 import '../utils/utils.dart';
 import 'highlight_text.dart';
 
+enum FileRecordStatus { fileExpired, unviewedRepositoryAttribute, viewed }
+
 class FileItem extends StatelessWidget {
   final String accountId;
   final FileRecord fileRecord;
@@ -70,37 +72,44 @@ class _FileCircleAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color? borderColor;
-    Color? iconColor;
-    Color? backgroundColor;
-
-    if (DateTime.parse(fileRecord.file.expiresAt).isBefore(DateTime.now())) {
-      backgroundColor = Theme.of(context).colorScheme.errorContainer;
-      iconColor = Theme.of(context).colorScheme.onErrorContainer;
-      borderColor = Theme.of(context).colorScheme.error;
-    } else if (fileRecord.fileReferenceAttribute is RepositoryAttributeDVO && fileRecord.fileReferenceAttribute?.wasViewedAt == null) {
-      backgroundColor = Theme.of(context).colorScheme.secondaryContainer;
-      iconColor = Theme.of(context).colorScheme.onSecondaryContainer;
-      borderColor = Theme.of(context).colorScheme.secondary;
-    } else {
-      iconColor = Theme.of(context).colorScheme.onSurfaceVariant;
-      backgroundColor = Theme.of(context).colorScheme.surfaceContainer;
-    }
+    final fileRecordStatus = _getFileRecordStatus();
 
     final circleAvatar = CircleAvatar(
-      backgroundColor: backgroundColor,
-      child: FileIcon(filename: fileRecord.file.filename, color: iconColor),
+      backgroundColor: switch (fileRecordStatus) {
+        FileRecordStatus.fileExpired => Theme.of(context).colorScheme.errorContainer,
+        FileRecordStatus.unviewedRepositoryAttribute => Theme.of(context).colorScheme.secondaryContainer,
+        FileRecordStatus.viewed => Theme.of(context).colorScheme.surfaceContainer,
+      },
+      child: FileIcon(
+        filename: fileRecord.file.filename,
+        color: switch (fileRecordStatus) {
+          FileRecordStatus.fileExpired => Theme.of(context).colorScheme.onErrorContainer,
+          FileRecordStatus.unviewedRepositoryAttribute => Theme.of(context).colorScheme.onSecondaryContainer,
+          FileRecordStatus.viewed => Theme.of(context).colorScheme.onSurfaceVariant,
+        },
+      ),
     );
 
-    if (borderColor == null) return circleAvatar;
+    if (fileRecordStatus == FileRecordStatus.viewed) return circleAvatar;
 
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: borderColor, width: 3),
+        border: Border.all(
+          color: fileRecordStatus == FileRecordStatus.fileExpired ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.secondary,
+          width: 3,
+        ),
       ),
       padding: const EdgeInsets.all(1),
       child: circleAvatar,
     );
+  }
+
+  FileRecordStatus _getFileRecordStatus() {
+    if (DateTime.parse(fileRecord.file.expiresAt).isBefore(DateTime.now())) return FileRecordStatus.fileExpired;
+    if (fileRecord.fileReferenceAttribute is RepositoryAttributeDVO && fileRecord.fileReferenceAttribute?.wasViewedAt == null) {
+      return FileRecordStatus.unviewedRepositoryAttribute;
+    }
+    return FileRecordStatus.viewed;
   }
 }
