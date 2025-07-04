@@ -46,6 +46,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
       ..add(runtime.eventBus.on<MessageReceivedEvent>().listen((_) => _reloadMessages()))
       ..add(runtime.eventBus.on<MessageSentEvent>().listen((_) => _reloadMessages()))
       ..add(runtime.eventBus.on<MessageWasReadAtChangedEvent>().listen((_) => _reloadMessages()))
+      ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => loadSharedFiles()))
       ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reloadMessages()))
       ..add(runtime.eventBus.on<RelationshipChangedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reload().catchError((_) {})))

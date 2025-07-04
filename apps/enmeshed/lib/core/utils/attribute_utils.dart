@@ -1,5 +1,6 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:flutter/material.dart';
 
 final List<String> personalDataInitialAttributeTypes = [
   'HonorificPrefix',
@@ -34,4 +35,15 @@ Future<({bool personalData, bool addressData, bool communicationData})> getDataE
     addressData: addressDataResult.isError || addressDataResult.value.isNotEmpty,
     communicationData: communicationDataResult.isError || communicationDataResult.value.isNotEmpty,
   );
+}
+
+Future<List<LocalAttributeDTO?>> getUnviewedIdentityFileReferenceAttributes({required Session session, required BuildContext context}) async {
+  final unviewedIdentityFileReferenceAttributes = await session.consumptionServices.attributes.getRepositoryAttributes(
+    query: {
+      'content.value.@type': QueryValue.string('IdentityFileReference'),
+      'wasViewedAt': QueryValue.string('!'),
+    },
+  );
+
+  return unviewedIdentityFileReferenceAttributes.value;
 }

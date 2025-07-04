@@ -25,6 +25,7 @@ class _MyDataViewState extends State<MyDataView> {
   bool _personalDataExisting = true;
   bool _addressDataExisting = true;
   bool _communicationDataExisting = true;
+  int _numberOfUnviewedIdentityFileReferenceAttributes = 0;
 
   @override
   void initState() {
@@ -35,6 +36,7 @@ class _MyDataViewState extends State<MyDataView> {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     _subscriptions
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _reload().catchError((_) {})))
+      ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _loadUnviewedIdentityFileReferenceAttributes().catchError((_) {})))
       ..add(runtime.eventBus.on<AttributeCreatedEvent>().listen((_) => _reload().catchError((_) {})));
   }
 
@@ -109,7 +111,11 @@ class _MyDataViewState extends State<MyDataView> {
                 ),
                 const Divider(indent: 16, height: 2),
                 ListTile(
-                  leading: const Icon(Icons.folder),
+                  leading: Badge(
+                    isLabelVisible: _numberOfUnviewedIdentityFileReferenceAttributes > 0,
+                    backgroundColor: Theme.of(context).colorScheme.error,
+                    child: const Icon(Icons.folder),
+                  ),
                   title: Text(context.l10n.files),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () => context.push('/account/${widget.accountId}/my-data/files'),
@@ -139,6 +145,7 @@ class _MyDataViewState extends State<MyDataView> {
     }
 
     await _updateDataExisting();
+    await _loadUnviewedIdentityFileReferenceAttributes();
   }
 
   Future<void> _updateDataExisting() async {
@@ -152,5 +159,17 @@ class _MyDataViewState extends State<MyDataView> {
         _communicationDataExisting = existingData.communicationData;
       });
     }
+  }
+
+  Future<void> _loadUnviewedIdentityFileReferenceAttributes() async {
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+
+    await session.transportServices.account.syncEverything();
+
+    if (!mounted) return;
+
+    final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
+
+    setState(() => _numberOfUnviewedIdentityFileReferenceAttributes = unviewedIdentityFileReferenceAttributes.length);
   }
 }
