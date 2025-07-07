@@ -51,6 +51,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
       ..add(runtime.eventBus.on<IncomingRequestReceivedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
       ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
       ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _loadUnviewedIdentityFileReferenceAttributes().catchError((_) {})))
+      ..add(runtime.eventBus.on<AttributeCreatedEvent>().listen((_) => _loadUnviewedIdentityFileReferenceAttributes().catchError((_) {})))
       ..add(runtime.eventBus.on<MessageWasReadAtChangedEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
       ..add(
         runtime.eventBus.on<MessageReceivedEvent>().listen((_) {
