@@ -31,20 +31,26 @@ class _FilesScreenState extends State<FilesScreen> {
   _FilesSortingType _sortingType = _FilesSortingType.date;
   bool _isSortedAscending = false;
 
-  late final StreamSubscription<void> _subscription;
+  late final List<StreamSubscription<void>> _subscriptions = [];
 
   @override
   void initState() {
     super.initState();
 
-    _subscription = GetIt.I.get<EnmeshedRuntime>().eventBus.on<AttributeDeletedEvent>().listen((_) => _loadFiles().catchError((_) {}));
+    final runtime = GetIt.I.get<EnmeshedRuntime>();
+
+    _subscriptions
+      ..add(runtime.eventBus.on<AttributeDeletedEvent>().listen((_) => _loadFiles().catchError((_) {})))
+      ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _loadFiles().catchError((_) {})));
 
     _loadFiles().then((_) => widget.initialCreation ? _uploadFile() : null);
   }
 
   @override
   void dispose() {
-    _subscription.cancel();
+    for (final subscription in _subscriptions) {
+      subscription.cancel();
+    }
 
     super.dispose();
   }
@@ -240,7 +246,6 @@ class _FilesScreenState extends State<FilesScreen> {
     bool containsKeyword(FileDVO file, String keyword) {
       return [
         file.name.toLowerCase(),
-        file.filename.toLowerCase(),
         getFileExtension(file.filename).toLowerCase(),
       ].any((element) => element.contains(keyword.toLowerCase()));
     }

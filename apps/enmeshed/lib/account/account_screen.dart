@@ -8,20 +8,17 @@ import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 import 'app_drawer/app_drawer.dart';
-import 'contacts/contacts_filter_controller.dart';
 
 class AccountScreen extends StatefulWidget {
   final String accountId;
   final ValueNotifier<SuggestionsBuilder?> suggestionsBuilder;
   final String location;
-  final ContactsFilterController contactsFilterController;
   final Widget child;
 
   const AccountScreen({
     required this.accountId,
     required this.suggestionsBuilder,
     required this.location,
-    required this.contactsFilterController,
     required this.child,
     super.key,
   });
@@ -39,6 +36,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
   LocalAccountDTO? _account;
   int _numberOfOpenContactRequests = 0;
   int _unreadMessagesCount = 0;
+  int _numberOfUnviewedIdentityFileReferenceAttributes = 0;
 
   @override
   void initState() {
@@ -52,8 +50,15 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _loadAccount().catchError((_) {})))
       ..add(runtime.eventBus.on<IncomingRequestReceivedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
       ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
+      ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _loadUnviewedIdentityFileReferenceAttributes().catchError((_) {})))
+      ..add(runtime.eventBus.on<AttributeCreatedEvent>().listen((_) => _loadUnviewedIdentityFileReferenceAttributes().catchError((_) {})))
       ..add(runtime.eventBus.on<MessageWasReadAtChangedEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
-      ..add(runtime.eventBus.on<MessageReceivedEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
+      ..add(
+        runtime.eventBus.on<MessageReceivedEvent>().listen((_) {
+          _loadUnreadMessages().catchError((_) {});
+          _loadUnviewedIdentityFileReferenceAttributes().catchError((_) {});
+        }),
+      )
       ..add(runtime.eventBus.on<RelationshipDecomposedBySelfEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
       ..add(
@@ -73,6 +78,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     _loadAccount();
     _reloadContactRequests();
     _loadUnreadMessages();
+    _loadUnviewedIdentityFileReferenceAttributes();
   }
 
   @override
@@ -139,7 +145,16 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
               child: const Icon(Icons.contacts),
             ),
           ),
-          NavigationDestination(icon: const Icon(Icons.person), label: context.l10n.myData),
+          NavigationDestination(
+            label: context.l10n.myData,
+            icon: Badge(
+              isLabelVisible: _numberOfUnviewedIdentityFileReferenceAttributes > 0,
+              textColor: Theme.of(context).colorScheme.onPrimary,
+              label: Text(_numberOfUnviewedIdentityFileReferenceAttributes.toString()),
+              backgroundColor: Theme.of(context).colorScheme.error,
+              child: const Icon(Icons.person),
+            ),
+          ),
           NavigationDestination(
             label: context.l10n.mailbox,
             icon: Badge(
@@ -188,13 +203,6 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
         suggestionsBuilder: (context, controller) =>
             widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
       ),
-      ValueListenableBuilder(
-        valueListenable: widget.contactsFilterController,
-        builder: (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
-          icon: const Icon(Icons.filter_list),
-          onPressed: () => widget.contactsFilterController.openContactsFilter(),
-        ),
-      ),
     ],
     3 => [
       SearchAnchor(
@@ -236,5 +244,17 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     if (!mounted) return;
 
     setState(() => _unreadMessagesCount = messages.length);
+  }
+
+  Future<void> _loadUnviewedIdentityFileReferenceAttributes() async {
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+
+    await session.transportServices.account.syncEverything();
+
+    if (!mounted) return;
+
+    final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
+
+    setState(() => _numberOfUnviewedIdentityFileReferenceAttributes = unviewedIdentityFileReferenceAttributes.length);
   }
 }

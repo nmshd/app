@@ -41,6 +41,8 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     } else {
       _loadSharedWith();
     }
+
+    _markIdentityFileReferenceAttributeAsViewed();
   }
 
   @override
@@ -208,7 +210,6 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                                       ),
                                     ),
                                     onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'),
-                                    trailing: const Icon(Icons.chevron_right),
                                   );
                                 },
                                 separatorBuilder: (context, index) => const Divider(indent: 16),
@@ -299,6 +300,13 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     );
 
     if (mounted) setState(() => _isOpeningFile = false);
+  }
+
+  Future<void> _markIdentityFileReferenceAttributeAsViewed() async {
+    if (widget.fileReferenceAttribute is! RepositoryAttributeDVO || widget.fileReferenceAttribute!.wasViewedAt != null) return;
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    await session.consumptionServices.attributes.markAttributeAsViewed(attributeId: widget.fileReferenceAttribute!.id);
   }
 }
 
