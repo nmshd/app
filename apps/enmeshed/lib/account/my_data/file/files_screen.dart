@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +13,17 @@ import 'file_filter_type.dart';
 import 'modals/select_file_filters.dart';
 
 enum _FilesSortingType { date, name, type, size }
+
+enum FilesSortingOption {
+  all(Icons.format_list_bulleted, Icons.format_list_bulleted),
+  unviewed(Icons.new_releases, Icons.new_releases_outlined),
+  expired(Icons.error, Icons.error_outline);
+
+  final IconData filterIcon;
+  final IconData emptyListIcon;
+
+  const FilesSortingOption(this.filterIcon, this.emptyListIcon);
+}
 
 class FilesScreen extends StatefulWidget {
   final String accountId;
@@ -30,6 +42,7 @@ class _FilesScreenState extends State<FilesScreen> {
   Set<FileFilterType> _activeFilters = {};
   _FilesSortingType _sortingType = _FilesSortingType.date;
   bool _isSortedAscending = false;
+  FilesSortingOption _filterOption = FilesSortingOption.all;
 
   late final List<StreamSubscription<void>> _subscriptions = [];
 
@@ -90,16 +103,6 @@ class _FilesScreenState extends State<FilesScreen> {
       );
     }
 
-    if (_fileRecords!.isEmpty) {
-      return Scaffold(
-        appBar: appBar,
-        body: RefreshIndicator(
-          onRefresh: () => _loadFiles(syncBefore: true),
-          child: EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.files_noFilesAvailable, wrapInListView: true),
-        ),
-      );
-    }
-
     return Scaffold(
       appBar: appBar,
       body: SafeArea(
@@ -126,6 +129,12 @@ class _FilesScreenState extends State<FilesScreen> {
 
                 _filterAndSort();
               },
+            _FilesFilterChipBar(
+              selectedFilterOption: _filterOption,
+              setFilter: (filter) {
+                setState(() => _filterOption = filter);
+                _loadFiles();
+              },
             ),
             if (_activeFilters.isNotEmpty)
               _FilterBar(
@@ -139,17 +148,20 @@ class _FilesScreenState extends State<FilesScreen> {
                   _filterAndSort();
                 },
               ),
-            Expanded(
-              child: RefreshIndicator(
-                onRefresh: () => _loadFiles(syncBefore: true),
-                child: ListView.separated(
-                  itemBuilder: (context, index) =>
-                      FileItem(accountId: widget.accountId, fileRecord: _filteredFileRecords[index], trailing: const Icon(Icons.chevron_right)),
-                  itemCount: _filteredFileRecords.length,
-                  separatorBuilder: (context, index) => const Divider(height: 2, indent: 16),
+            if (_fileRecords!.isEmpty)
+              _EmptyFilesIndicator(accountId: widget.accountId, filterOption: _filterOption, uploadFile: _uploadFile)
+            else
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: () => _loadFiles(syncBefore: true),
+                  child: ListView.separated(
+                    itemBuilder: (context, index) =>
+                        FileItem(accountId: widget.accountId, fileRecord: _filteredFileRecords[index], trailing: const Icon(Icons.chevron_right)),
+                    itemCount: _filteredFileRecords.length,
+                    separatorBuilder: (context, index) => const Divider(height: 2, indent: 16),
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),
@@ -163,7 +175,10 @@ class _FilesScreenState extends State<FilesScreen> {
     if (syncBefore) await session.transportServices.account.syncEverything();
 
     final result = await session.consumptionServices.attributes.getRepositoryAttributes(
-      query: {'content.value.@type': QueryValue.string('IdentityFileReference')},
+      query: {
+        'content.value.@type': QueryValue.string('IdentityFileReference'),
+        if (_filterOption == FilesSortingOption.unviewed) 'wasViewedAt': QueryValue.string('!'),
+      },
     );
 
     if (result.isError) {
@@ -189,7 +204,12 @@ class _FilesScreenState extends State<FilesScreen> {
     for (final fileReferenceAttribute in fileReferenceAttributes) {
       final fileReference = fileReferenceAttribute.value as IdentityFileReferenceAttributeValue;
       final file = await expandFileReference(accountId: widget.accountId, fileReference: fileReference.value);
-      fileRecords.add(createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute as RepositoryAttributeDVO));
+
+      if (_filterOption != FilesSortingOption.expired || DateTime.parse(file.expiresAt).isBefore(DateTime.now())) {
+        fileRecords.add(
+          createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute as RepositoryAttributeDVO),
+        );
+      }
     }
     _fileRecords = fileRecords;
     _filterAndSort();
@@ -327,6 +347,73 @@ class _FilterBar extends StatelessWidget {
             IconButton(onPressed: onResetFilters, icon: const Icon(Icons.close)),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _FilesFilterChipBar extends StatelessWidget {
+  final FilesSortingOption selectedFilterOption;
+  final void Function(FilesSortingOption option) setFilter;
+
+  const _FilesFilterChipBar({required this.selectedFilterOption, required this.setFilter});
+
+  @override
+  Widget build(BuildContext context) {
+    return FilterChipBar(
+      onInfoPressed: () => (),
+      children: [
+        for (final option in FilesSortingOption.values)
+          CondensedFilterChip(
+            onPressed: () => setFilter(option),
+            icon: option.filterIcon,
+            label: switch (option) {
+              FilesSortingOption.all => context.l10n.files_filterOption_all,
+              FilesSortingOption.unviewed => context.l10n.files_filterOption_new,
+              FilesSortingOption.expired => context.l10n.files_filterOption_expired,
+            },
+            isSelected: selectedFilterOption == option,
+            foregroundColor: switch (option) {
+              FilesSortingOption.all => Theme.of(context).colorScheme.onSurface,
+              FilesSortingOption.unviewed => Theme.of(context).colorScheme.secondary,
+              FilesSortingOption.expired => Theme.of(context).colorScheme.error,
+            },
+            backgroundColor: switch (option) {
+              FilesSortingOption.all => Theme.of(context).colorScheme.surfaceContainerHighest,
+              FilesSortingOption.unviewed => Theme.of(context).colorScheme.secondaryContainer,
+              FilesSortingOption.expired => Theme.of(context).colorScheme.errorContainer,
+            },
+          ),
+      ],
+    );
+  }
+}
+
+class _EmptyFilesIndicator extends StatelessWidget {
+  final String accountId;
+  final FilesSortingOption filterOption;
+  final VoidCallback uploadFile;
+
+  const _EmptyFilesIndicator({required this.accountId, required this.filterOption, required this.uploadFile});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 24),
+      child: EmptyListIndicator(
+        icon: filterOption.emptyListIcon,
+        text: switch (filterOption) {
+          FilesSortingOption.all => context.l10n.files_noFilesAvailable,
+          FilesSortingOption.unviewed => context.l10n.files_noNewFiles,
+          FilesSortingOption.expired => context.l10n.files_noExpiredFiles,
+        },
+        description: switch (filterOption) {
+          FilesSortingOption.all => context.l10n.files_noFilesAvailable_description,
+          FilesSortingOption.unviewed || FilesSortingOption.expired => null,
+        },
+        action: filterOption != FilesSortingOption.all
+            ? null
+            : TextButton(onPressed: uploadFile, child: Text(context.l10n.files_noFilesAvailable_addFiles)),
       ),
     );
   }
