@@ -26,7 +26,7 @@ Map<String, dynamic> _$AnnouncementDTOToJson(AnnouncementDTO instance) => <Strin
   'actions': instance.actions.map((e) => e.toJson()).toList(),
 };
 
-const _$AnnouncementSeverityEnumMap = {AnnouncementSeverity.low: 'low', AnnouncementSeverity.medium: 'medium', AnnouncementSeverity.high: 'high'};
+const _$AnnouncementSeverityEnumMap = {AnnouncementSeverity.Low: 'Low', AnnouncementSeverity.Medium: 'Medium', AnnouncementSeverity.High: 'High'};
 
 AnnouncementActionDTO _$AnnouncementActionDTOFromJson(Map<String, dynamic> json) =>
     AnnouncementActionDTO(displayName: json['displayName'] as String, link: json['link'] as String);
