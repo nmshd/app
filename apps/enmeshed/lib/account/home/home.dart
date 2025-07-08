@@ -28,6 +28,7 @@ class _HomeViewState extends State<HomeView> {
   List<LocalRequestDVO>? _requests;
   bool _isCompleteProfileContainerShown = false;
   bool _showRecoveryKitWasUsedContainer = false;
+  List<AnnouncementDTO> _announcements = [];
 
   final List<StreamSubscription<void>> _subscriptions = [];
 
@@ -97,6 +98,9 @@ class _HomeViewState extends State<HomeView> {
                       actionButton: (onPressed: () => context.push('/account/${widget.accountId}/my-data/files'), title: context.l10n.show),
                     ),
                   ),
+
+                if (_announcements.isNotEmpty) AnnouncementContainer(announcements: _announcements),
+
                 if (_showRecoveryKitWasUsedContainer)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -157,6 +161,10 @@ class _HomeViewState extends State<HomeView> {
       ignoreRecordNotFoundError: true,
     );
 
+    final language = WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+    final annoucementsResult = await session.transportServices.announcements.getAnnouncements(language: language);
+    final announcements = annoucementsResult.value;
+
     if (!mounted) return;
 
     final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
@@ -169,6 +177,7 @@ class _HomeViewState extends State<HomeView> {
       _isCompleteProfileContainerShown = isCompleteProfileContainerShown;
       _showRecoveryKitWasUsedContainer = showRecoveryKitWasUsedContainer;
       _unviewedIdentityFileReferenceAttributesCount = unviewedIdentityFileReferenceAttributes.length;
+      _announcements = announcements.where((a) => a.title == 'Vielen Dank!').toList();
     });
   }
 
@@ -176,5 +185,58 @@ class _HomeViewState extends State<HomeView> {
     if (mounted) setState(() => _isCompleteProfileContainerShown = false);
 
     await upsertCompleteProfileContainerSetting(accountId: widget.accountId, value: false);
+  }
+}
+
+class AnnouncementContainer extends StatelessWidget {
+  final List<AnnouncementDTO> announcements;
+
+  const AnnouncementContainer({required this.announcements, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          const Text('Announcements'),
+          SizedBox(
+            height: 210,
+            child: CarouselView.weighted(
+              flexWeights: const [2, 1],
+              onTap: (index) {
+                final announcement = announcements[index];
+                GetIt.I.get<AbstractUrlLauncher>().launchUrl(Uri.parse(announcement.actions[0].link));
+              },
+              children: announcements.map((announcement) => AnnouncementCard(announcement: announcement)).toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AnnouncementCard extends StatelessWidget {
+  final AnnouncementDTO announcement;
+
+  const AnnouncementCard({required this.announcement, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ComplexInformationCard(
+      icon: const Icon(Icons.announcement),
+      title: announcement.title,
+      description: announcement.body,
+      actionButtons: [
+        if (announcement.actions.isNotEmpty)
+          ...announcement.actions.map(
+            (action) => FilledButton(
+              onPressed: () => GetIt.I.get<AbstractUrlLauncher>().launchUrl(Uri.parse(action.link)),
+              child: Text(action.displayName),
+            ),
+          ),
+      ],
+    );
   }
 }
