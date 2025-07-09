@@ -346,6 +346,7 @@ class _FilterBar extends StatelessWidget {
                 return Chip(
                   label: Text(e.label, style: Theme.of(context).textTheme.labelSmall),
                   padding: EdgeInsets.zero,
+                  shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.transparent)),
                   labelPadding: const EdgeInsets.only(left: 8),
                   deleteIcon: const Icon(Icons.close, size: 16),
                   onDeleted: () => onRemoveFilter(e.filter),
