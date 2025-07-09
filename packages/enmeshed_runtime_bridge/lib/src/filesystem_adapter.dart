@@ -7,6 +7,7 @@ class FilesystemAdapter {
   Future<Directory> getDirectoryForStorage(String storageName) async => switch (storageName) {
     'data' || 'app' => await getApplicationDocumentsDirectory(),
     'temp' => await getTemporaryDirectory(),
+    'cal' => await getApplicationSupportDirectory(),
     _ => throw Exception('Unknown storage name: $storageName'),
   };
 

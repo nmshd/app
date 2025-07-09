@@ -170,12 +170,15 @@ class EnmeshedRuntime with WidgetsBindingObserver {
 
     controller.addJavaScriptHandler(
       handlerName: 'runtimeInitFailed',
-      callback: (_) => _runtimeReadyCompleter.completeError(Exception('Runtime init failed')),
+      callback: (e) {
+        print('Runtime init failed: $e');
+        _runtimeReadyCompleter.completeError(Exception('Runtime init failed'));
+      },
     );
 
     controller.addJavaScriptHandler(
       handlerName: 'getRuntimeConfig',
-      callback: (_) => {
+      callback: (_) async => {
         'applicationId': runtimeConfig.applicationId,
         if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
         if (Platform.isIOS || Platform.isMacOS) 'pushService': 'apns' else if (Platform.isAndroid) 'pushService': 'fcm' else 'pushService': 'none',
@@ -190,6 +193,7 @@ class EnmeshedRuntime with WidgetsBindingObserver {
           if (Platform.isWindows) 'sse': {'enabled': true},
           'decider': ?runtimeConfig.deciderModuleConfig,
         },
+        'calStoragePath': (await _filesystemAdapter.getDirectoryForStorage('cal')).path,
       },
     );
 

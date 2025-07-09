@@ -18,7 +18,7 @@
     "@nmshd/app-runtime": "file:../../../../runtime/packages/app-runtime",
     "@nmshd/content": "file:../../../../runtime/packages/content",
     "@nmshd/core-types": "file:../../../../runtime/packages/core-types",
-    "@nmshd/crypto": "2.2.0-alpha.3",
+    "@nmshd/crypto": "2.2.0-alpha.6",
     "@nmshd/rs-crypto-types": "0.11.0",
     "@nmshd/runtime": "file:../../../../runtime/packages/runtime",
     "js-logger": "^1.6.1",

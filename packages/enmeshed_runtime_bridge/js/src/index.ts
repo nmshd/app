@@ -12,7 +12,6 @@ import {
 import * as contentLib from "@nmshd/content";
 import { RenderHints, RenderHintsJSON, ValueHints, ValueHintsJSON } from "@nmshd/content";
 import { LanguageISO639 } from "@nmshd/core-types";
-import { CryptoLayerConfig } from "@nmshd/crypto";
 import { buildInformation } from "@nmshd/runtime";
 import { LogLevel } from "typescript-logging";
 import { AppLanguageProvider } from "./AppLanguageProvider";
@@ -67,19 +66,11 @@ async function main() {
 
   const runtimeBridgeLogger = loggerFactory.getLogger("RuntimeBridge");
 
-  if (config.transportLibrary) {
-    const calConfig: CryptoLayerConfig = {
-      factoryFunctions: cryptoInit,
-      providersToBeInitialized: [
-        [{ providerName: "SoftwareProvider" }, { additional_config: [] }],
-        [{ providerName: "ANDROID_PROVIDER" }, { additional_config: [] }]
-      ]
-    };
-
-    config.transportLibrary.calConfig = calConfig;
-    runtimeBridgeLogger.warn("Crypto layer initialized.");
+  if (config.databaseFolder === undefined) {
+    runtimeBridgeLogger.warn("No database folder provided, not initializing CAL");
   } else {
-    runtimeBridgeLogger.warn("Transport library configuration is missing. Crypto layer will not be initialized.");
+    config.calFactory = cryptoInit;
+    config.calStorageConfig = { FileStoreConfig: { db_dir: (config as any).calStoragePath } };
   }
 
   const runtime = await AppRuntime.create(

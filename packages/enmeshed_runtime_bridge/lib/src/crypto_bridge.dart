@@ -3,7 +3,6 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:cal_flutter_plugin/cal_flutter_plugin.dart';
-import 'package:path_provider/path_provider.dart';
 
 class TsDartCryptoBridgeException implements Exception {
   final String value;
@@ -79,8 +78,12 @@ class CryptoHandler {
       return jsonEncode({'status': 'ok', 'data': returnedMap});
     } on TsDartCryptoBridgeException catch (e) {
       e.addJsonContext(callObj);
+      print('CryptoHandler.handleCall: $args');
+      print('CryptoHandler.handleCall: TsDartCryptoBridgeException: $e');
       return jsonEncode({'status': 'error', 'message': e.toString()});
     } catch (e) {
+      print('CryptoHandler.handleCall: $args');
+      print('CryptoHandler.handleCall: Exception: $e');
       return jsonEncode({'status': 'error', 'message': e.toString()});
     }
   }
@@ -98,7 +101,10 @@ class CryptoHandler {
         final String name = objMap['args'][0];
         final implConfig = await decodeProviderImplConfig(objMap['args'][1]);
         final provider = await createProviderFromName(name: name, implConf: implConfig);
-        final providerName = await provider!.providerName();
+        if (provider == null) {
+          throw TsDartCryptoBridgeException('Provider not found', name);
+        }
+        final providerName = await provider.providerName();
         _providers[providerName] = provider;
         return providerName;
       case 'get_all_providers':
@@ -222,7 +228,7 @@ class CryptoHandler {
         return base64Encode(hash);
       case 'get_random':
         final len = objMap['args'][0];
-        final random = await provider.getRandom(len: len);
+        final random = await provider.getRandom(len: BigInt.from(len));
         return base64Encode(random);
       default:
         throw TsDartCryptoBridgeException('Unknown method', objMap['method']);
@@ -244,7 +250,7 @@ class CryptoHandler {
         final iv = base64Decode(ivBase64);
         final (dataOut, ivOut) = await key.encryptData(data: data, iv: iv);
         return {'data': base64Encode(dataOut), 'iv': base64Encode(ivOut)};
-      case 'decrypt':
+      case 'encrypt':
         final dataBase64 = objMap['args'][0];
         final data = base64Decode(dataBase64);
         final (dataOut, ivOut) = await key.encrypt(data: data);
@@ -255,11 +261,12 @@ class CryptoHandler {
         final data = base64Decode(dataBase64);
         final iv = base64Decode(ivBase64);
         final dataOut = await key.encryptWithIv(data: data, iv: iv);
-        return {'data': base64Encode(dataOut)};
+        return base64Encode(dataOut);
       case 'decrypt_data':
         final dataBase64 = objMap['args'][0];
-        final iv = objMap['args'][1];
+        final ivBase64 = objMap['args'][1];
         final data = base64Decode(dataBase64);
+        final iv = base64Decode(ivBase64);
         final dataOut = await key.decryptData(encryptedData: data, iv: iv);
         return base64Encode(dataOut);
       case 'hmac':
@@ -274,6 +281,13 @@ class CryptoHandler {
         final hmac = base64Decode(hmacBase64);
         final verified = await key.verifyHmac(data: data, hmac: hmac);
         return verified;
+      case 'derive_key':
+        final nonceBase64 = objMap['args'][0];
+        final nonce = base64Decode(nonceBase64);
+        final derivedKey = await key.deriveKey(nonce: nonce);
+        final derivedKeyId = await derivedKey.id();
+        _keyHandles[derivedKeyId] = derivedKey;
+        return derivedKeyId;
       case 'delete':
         await key.delete();
         _keyHandles.remove(objMap['object_id']);
@@ -399,11 +413,11 @@ class CryptoHandler {
 
   SecurityLevel decodeSecurityLevel(String json) {
     switch (json) {
-      case 'HARDWARE':
+      case 'Hardware':
         return SecurityLevel.hardware;
-      case 'SOFTWARE':
+      case 'Software':
         return SecurityLevel.software;
-      case 'NETWORK':
+      case 'Network':
         return SecurityLevel.network;
       default:
         throw TsDartCryptoBridgeException('Unknown security level', json);
@@ -413,11 +427,11 @@ class CryptoHandler {
   String encodeSecurityLevel(SecurityLevel level) {
     switch (level) {
       case SecurityLevel.hardware:
-        return 'HARDWARE';
+        return 'Hardware';
       case SecurityLevel.software:
-        return 'SOFTWARE';
+        return 'Software';
       case SecurityLevel.network:
-        return 'NETWORK';
+        return 'Network';
       default:
         throw TsDartCryptoBridgeException('Unknown security level', level.toString());
     }
@@ -425,17 +439,17 @@ class CryptoHandler {
 
   Cipher decodeCipher(String json) {
     switch (json) {
-      case 'aesGcm128':
+      case 'AesGcm128':
         return Cipher.aesGcm128;
-      case 'aesGcm256':
+      case 'AesGcm256':
         return Cipher.aesGcm256;
-      case 'aesCbc128':
+      case 'AesCbc128':
         return Cipher.aesCbc128;
-      case 'aesCbc256':
+      case 'AesCbc256':
         return Cipher.aesCbc256;
-      case 'chaCha20Poly1305':
+      case 'ChaCha20Poly1305':
         return Cipher.chaCha20Poly1305;
-      case 'xChaCha20Poly1305':
+      case 'XChaCha20Poly1305':
         return Cipher.xChaCha20Poly1305;
       default:
         throw TsDartCryptoBridgeException('Unknown cipher', json);
@@ -445,43 +459,43 @@ class CryptoHandler {
   String encodeCipher(Cipher cipher) {
     switch (cipher) {
       case Cipher.aesGcm128:
-        return 'aesGcm128';
+        return 'AesGcm128';
       case Cipher.aesGcm256:
-        return 'aesGcm256';
+        return 'AesGcm256';
       case Cipher.aesCbc128:
-        return 'aesCbc128';
+        return 'AesCbc128';
       case Cipher.aesCbc256:
-        return 'aesCbc256';
+        return 'AesCbc256';
       case Cipher.chaCha20Poly1305:
-        return 'chaCha20Poly1305';
+        return 'ChaCha20Poly1305';
       case Cipher.xChaCha20Poly1305:
-        return 'xChaCha20Poly1305';
+        return 'XChaCha20Poly1305';
     }
   }
 
   CryptoHash decodeCryptoHash(String json) {
     switch (json) {
-      case 'sha2224':
+      case 'Sha2_224':
         return CryptoHash.sha2224;
-      case 'sha2256':
+      case 'Sha2_256':
         return CryptoHash.sha2256;
-      case 'sha2384':
+      case 'Sha2_384':
         return CryptoHash.sha2384;
-      case 'sha2512':
+      case 'Sha2_512':
         return CryptoHash.sha2512;
-      case 'sha2512224':
+      case 'Sha2_512_224':
         return CryptoHash.sha2512224;
-      case 'sha2512256':
+      case 'Sha2_512_256':
         return CryptoHash.sha2512256;
-      case 'sha3224':
+      case 'Sha3_224':
         return CryptoHash.sha3224;
-      case 'sha3256':
+      case 'Sha3_256':
         return CryptoHash.sha3256;
-      case 'sha3384':
+      case 'Sha3_384':
         return CryptoHash.sha3384;
-      case 'sha3512':
+      case 'Sha3_512':
         return CryptoHash.sha3512;
-      case 'blake2B':
+      case 'Blake2B':
         return CryptoHash.blake2B;
       default:
         throw TsDartCryptoBridgeException('Unknown hash', json);
@@ -491,63 +505,63 @@ class CryptoHandler {
   String encodeCryptoHash(CryptoHash hash) {
     switch (hash) {
       case CryptoHash.sha2224:
-        return 'sha2224';
+        return 'Sha2_224';
       case CryptoHash.sha2256:
-        return 'sha2256';
+        return 'Sha2_256';
       case CryptoHash.sha2384:
-        return 'sha2384';
+        return 'Sha2_384';
       case CryptoHash.sha2512:
-        return 'sha2512';
+        return 'Sha2_512';
       case CryptoHash.sha2512224:
-        return 'sha2512224';
+        return 'sha2_512_224';
       case CryptoHash.sha2512256:
-        return 'sha2512256';
+        return 'sha2_512_256';
       case CryptoHash.sha3224:
-        return 'sha3224';
+        return 'Sha3_224';
       case CryptoHash.sha3256:
-        return 'sha3256';
+        return 'Sha3_256';
       case CryptoHash.sha3384:
-        return 'sha3384';
+        return 'Sha3_384';
       case CryptoHash.sha3512:
-        return 'sha3512';
+        return 'Sha3_512';
       case CryptoHash.blake2B:
-        return 'blake2B';
+        return 'Blake2B';
     }
   }
 
   AsymmetricKeySpec decodeAsymmetricKeySpec(String json) {
     switch (json) {
-      case 'rsa1024':
+      case 'RSA1024':
         return AsymmetricKeySpec.rsa1024;
-      case 'rsa2048':
+      case 'RSA2048':
         return AsymmetricKeySpec.rsa2048;
-      case 'rsa3072':
+      case 'RSA3072':
         return AsymmetricKeySpec.rsa3072;
-      case 'rsa4096':
+      case 'RSA4096':
         return AsymmetricKeySpec.rsa4096;
-      case 'rsa8192':
+      case 'RSA8192':
         return AsymmetricKeySpec.rsa8192;
-      case 'p256':
+      case 'P256':
         return AsymmetricKeySpec.p256;
-      case 'p384':
+      case 'P384':
         return AsymmetricKeySpec.p384;
-      case 'p521':
+      case 'P521':
         return AsymmetricKeySpec.p521;
-      case 'secp256K1':
+      case 'Secp256K1':
         return AsymmetricKeySpec.secp256K1;
-      case 'brainpoolP256R1':
+      case 'BrainpoolP256R1':
         return AsymmetricKeySpec.brainpoolP256R1;
-      case 'brainpoolP384R1':
+      case 'BrainpoolP384R1':
         return AsymmetricKeySpec.brainpoolP384R1;
-      case 'brainpoolP512R1':
+      case 'BrainpoolP512R1':
         return AsymmetricKeySpec.brainpoolP512R1;
-      case 'brainpoolP638':
+      case 'BrainpoolP638':
         return AsymmetricKeySpec.brainpoolP638;
-      case 'curve25519':
+      case 'Curve25519':
         return AsymmetricKeySpec.curve25519;
-      case 'curve448':
+      case 'Curve448':
         return AsymmetricKeySpec.curve448;
-      case 'frp256V1':
+      case 'Frp256V1':
         return AsymmetricKeySpec.frp256V1;
       default:
         throw TsDartCryptoBridgeException('Unknown asymmetric key spec', json);
@@ -557,37 +571,37 @@ class CryptoHandler {
   String encodeAsymmetricKeySpec(AsymmetricKeySpec spec) {
     switch (spec) {
       case AsymmetricKeySpec.rsa1024:
-        return 'rsa1024';
+        return 'RSA1024';
       case AsymmetricKeySpec.rsa2048:
-        return 'rsa2048';
+        return 'RSA2048';
       case AsymmetricKeySpec.rsa3072:
-        return 'rsa3072';
+        return 'RSA3072';
       case AsymmetricKeySpec.rsa4096:
-        return 'rsa4096';
+        return 'RSA4096';
       case AsymmetricKeySpec.rsa8192:
-        return 'rsa8192';
+        return 'RSA8192';
       case AsymmetricKeySpec.p256:
-        return 'p256';
+        return 'P256';
       case AsymmetricKeySpec.p384:
-        return 'p384';
+        return 'P384';
       case AsymmetricKeySpec.p521:
-        return 'p521';
+        return 'P521';
       case AsymmetricKeySpec.secp256K1:
-        return 'secp256K1';
+        return 'Secp256K1';
       case AsymmetricKeySpec.brainpoolP256R1:
-        return 'brainpoolP256R1';
+        return 'BrainpoolP256R1';
       case AsymmetricKeySpec.brainpoolP384R1:
-        return 'brainpoolP384R1';
+        return 'BrainpoolP384R1';
       case AsymmetricKeySpec.brainpoolP512R1:
-        return 'brainpoolP512R1';
+        return 'BrainpoolP512R1';
       case AsymmetricKeySpec.brainpoolP638:
-        return 'brainpoolP638';
+        return 'BrainpoolP638';
       case AsymmetricKeySpec.curve25519:
-        return 'curve25519';
+        return 'Curve25519';
       case AsymmetricKeySpec.curve448:
-        return 'curve448';
+        return 'Curve448';
       case AsymmetricKeySpec.frp256V1:
-        return 'frp256V1';
+        return 'Frp256V1';
     }
   }
 
@@ -595,9 +609,9 @@ class CryptoHandler {
     final List<AdditionalConfig> additionalConfigs = map['additional_config'].map((e) => decodeAdditionalConfig(e)).toList().cast<AdditionalConfig>();
 
     // inject DB store config. This has to be done on the Dart side, because the JS side cannot get the right Paths.
-    final dir = await getApplicationSupportDirectory();
+    // final dir = await getApplicationSupportDirectory();
 
-    additionalConfigs.add(AdditionalConfig_FileStoreConfig(dbDir: dir.path));
+    // additionalConfigs.add(AdditionalConfig_FileStoreConfig(dbDir: dir.path));
 
     return ProviderImplConfig(additionalConfig: additionalConfigs);
   }
@@ -610,16 +624,16 @@ class CryptoHandler {
     if (map['FileStoreConfig'] != null) {
       return AdditionalConfig.fileStoreConfig(dbDir: map['FileStoreConfig']['db_dir']);
     } else if (map['StorageConfigHMAC'] != null) {
-      final keyHandle = _keyHandles[map['StorageConfigHMAC']]!;
+      final keyHandle = _keyHandles[map['StorageConfigHMAC']['_id']]!;
       return AdditionalConfig.storageConfigHmac(keyHandle);
     } else if (map['StorageConfigDSA'] != null) {
-      final keyPairHandle = _keyPairHandles[map['StorageConfigDSA']]!;
+      final keyPairHandle = _keyPairHandles[map['StorageConfigDSA']['_id']]!;
       return AdditionalConfig.storageConfigDsa(keyPairHandle);
     } else if (map['StorageConfigSymmetricEncryption'] != null) {
-      final keyHandle = _keyHandles[map['StorageConfigSymmetricEncryption']]!;
+      final keyHandle = _keyHandles[map['StorageConfigSymmetricEncryption']['_id']]!;
       return AdditionalConfig.storageConfigSymmetricEncryption(keyHandle);
     } else if (map['StorageConfigAsymmetricEncryption'] != null) {
-      final keyPairHandle = _keyPairHandles[map['StorageConfigSymmetricEncryption']]!;
+      final keyPairHandle = _keyPairHandles[map['StorageConfigSymmetricEncryption']['_id']]!;
       return AdditionalConfig.storageConfigAsymmetricEncryption(keyPairHandle);
     } else {
       throw TsDartCryptoBridgeException('Unknown additional config type', map.keys.toString());
