@@ -46,13 +46,7 @@ void main() async {
 
   GetIt.I.registerSingleton(await ThemeModeModel.create());
 
-  runApp(
-    BetterFeedback(
-      theme: feedbackLightTheme,
-      darkTheme: feedbackDarkTheme,
-      child: const EnmeshedApp(),
-    ),
-  );
+  runApp(const EnmeshedApp());
 }
 
 Future<LogOutput> getLogOutput() async {
@@ -498,41 +492,46 @@ class EnmeshedApp extends StatelessWidget with WatchItMixin {
 
     final themeSetting = watchValue((ThemeModeModel x) => x.notifier);
 
-    return Features(
-      child: MaterialApp.router(
-        routerConfig: _router,
-        debugShowCheckedModeBanner: false,
-        themeMode: themeSetting.themeMode,
-        theme: lightTheme,
-        darkTheme: themeSetting.amoled ? amoledTheme : darkTheme,
-        highContrastTheme: highContrastTheme,
-        highContrastDarkTheme: highContrastDarkTheme,
-        scaffoldMessengerKey: snackbarKey,
-        localizationsDelegates: [
-          CroppyLocalizations.delegate,
-          FlutterI18nDelegate(
-            translationLoader: FileTranslationLoader(basePath: 'assets/i18n'),
-            missingTranslationHandler: (key, locale) {
-              GetIt.I.get<Logger>().e('Missing Key: $key, locale: $locale');
-            },
-          ),
-          ...AppLocalizations.localizationsDelegates,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        builder: (context, child) {
-          return AnnotatedRegion<SystemUiOverlayStyle>(
-            value: SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              systemNavigationBarDividerColor: Colors.transparent,
-              systemNavigationBarColor: Colors.transparent,
-              systemNavigationBarContrastEnforced: false,
-              systemNavigationBarIconBrightness: Theme.of(context).brightness.opposite,
-              statusBarBrightness: Theme.of(context).brightness,
-              statusBarIconBrightness: Theme.of(context).brightness.opposite,
+    return BetterFeedback(
+      themeMode: themeSetting.themeMode,
+      theme: feedbackLightTheme,
+      darkTheme: feedbackDarkTheme,
+      child: Features(
+        child: MaterialApp.router(
+          routerConfig: _router,
+          debugShowCheckedModeBanner: false,
+          themeMode: themeSetting.themeMode,
+          theme: lightTheme,
+          darkTheme: themeSetting.amoled ? amoledTheme : darkTheme,
+          highContrastTheme: highContrastTheme,
+          highContrastDarkTheme: highContrastDarkTheme,
+          scaffoldMessengerKey: snackbarKey,
+          localizationsDelegates: [
+            CroppyLocalizations.delegate,
+            FlutterI18nDelegate(
+              translationLoader: FileTranslationLoader(basePath: 'assets/i18n'),
+              missingTranslationHandler: (key, locale) {
+                GetIt.I.get<Logger>().e('Missing Key: $key, locale: $locale');
+              },
             ),
-            child: child!,
-          );
-        },
+            ...AppLocalizations.localizationsDelegates,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          builder: (context, child) {
+            return AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                systemNavigationBarDividerColor: Colors.transparent,
+                systemNavigationBarColor: Colors.transparent,
+                systemNavigationBarContrastEnforced: false,
+                systemNavigationBarIconBrightness: Theme.of(context).brightness.opposite,
+                statusBarBrightness: Theme.of(context).brightness,
+                statusBarIconBrightness: Theme.of(context).brightness.opposite,
+              ),
+              child: child!,
+            );
+          },
+        ),
       ),
     );
   }
