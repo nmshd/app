@@ -78,12 +78,8 @@ class CryptoHandler {
       return jsonEncode({'status': 'ok', 'data': returnedMap});
     } on TsDartCryptoBridgeException catch (e) {
       e.addJsonContext(callObj);
-      print('CryptoHandler.handleCall: $args');
-      print('CryptoHandler.handleCall: TsDartCryptoBridgeException: $e');
       return jsonEncode({'status': 'error', 'message': e.toString()});
     } catch (e) {
-      print('CryptoHandler.handleCall: $args');
-      print('CryptoHandler.handleCall: Exception: $e');
       return jsonEncode({'status': 'error', 'message': e.toString()});
     }
   }

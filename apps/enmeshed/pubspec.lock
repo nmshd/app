@@ -108,9 +108,11 @@ packages:
   cal_flutter_plugin:
     dependency: transitive
     description:
-      path: "../../../rust-crypto/cal_flutter_plugin"
-      relative: true
-    source: path
+      path: cal_flutter_plugin
+      ref: fd50127
+      resolved-ref: fd50127f9a9a6a3922e21e198639aa8d93ee5d25
+      url: "https://github.com/nmshd/rust-crypto"
+    source: git
     version: "0.0.1"
   cassowary:
     dependency: transitive
