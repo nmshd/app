@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'custom_colors.dart';
 import 'text_styles.dart';
 
+export 'feedback_theme.dart';
+
 const _primarySeedColor = Color(0xFF17428D);
 const _secondarySeedColor = Color(0xFF1A80D9);
 const _tertiarySeedColor = Color(0xFFFF7600);

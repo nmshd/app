@@ -48,26 +48,8 @@ void main() async {
 
   runApp(
     BetterFeedback(
-      theme: FeedbackThemeData(
-        background: Colors.white,
-        dragHandleColor: Colors.black38,
-        feedbackSheetColor: const Color(0xFFF5F5F5),
-        bottomSheetDescriptionStyle: const TextStyle(
-          color: Colors.black87,
-        ),
-        bottomSheetTextInputStyle: const TextStyle(color: Colors.black87),
-        colorScheme: lightTheme.colorScheme,
-      ),
-      darkTheme: FeedbackThemeData(
-        background: Colors.grey.shade700,
-        dragHandleColor: Colors.white38,
-        feedbackSheetColor: const Color(0xFF303030),
-        bottomSheetDescriptionStyle: const TextStyle(
-          color: Colors.white,
-        ),
-        bottomSheetTextInputStyle: const TextStyle(color: Colors.white),
-        colorScheme: darkTheme.colorScheme,
-      ),
+      theme: feedbackLightTheme,
+      darkTheme: feedbackDarkTheme,
       child: const EnmeshedApp(),
     ),
   );
@@ -513,8 +495,6 @@ class EnmeshedApp extends StatelessWidget with WatchItMixin {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     unawaited(SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge));
-
-    // TODO(jkoenig134): add shake here?
 
     final themeSetting = watchValue((ThemeModeModel x) => x.notifier);
 
