@@ -1,10 +1,14 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../types/types.dart';
 import '../utils/utils.dart';
 import 'highlight_text.dart';
+
+enum FileRecordStatus { fileExpired, unviewedRepositoryAttribute, viewed }
 
 class FileItem extends StatelessWidget {
   final String accountId;
@@ -17,19 +21,35 @@ class FileItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fileNameStyle = fileRecord.fileReferenceAttribute?.wasViewedAt == null
+        ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
+        : Theme.of(context).textTheme.bodyLarge;
+
+    final fileIsExpired = DateTime.parse(fileRecord.file.expiresAt).isBefore(DateTime.now());
+
+    final creationDate = DateFormat.yMd(Localizations.localeOf(context).languageCode).format(DateTime.parse(fileRecord.file.createdAt));
+
     return ListTile(
       contentPadding: const EdgeInsets.only(left: 16, right: 24, top: 12, bottom: 12),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (fileRecord.file.name != fileRecord.file.filename)
-            HighlightText(
-              query: query,
-              text: fileRecord.file.filename,
-              maxLines: 1,
-              textStyle: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-            ),
-          HighlightText(query: query, text: fileRecord.file.name, maxLines: 1),
+          Row(
+            spacing: 4,
+            children: [
+              Text(
+                creationDate,
+                maxLines: 1,
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              ),
+              if (fileIsExpired)
+                Text(
+                  context.l10n.files_fileExpired,
+                  style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.error),
+                ),
+            ],
+          ),
+          HighlightText(query: query, text: fileRecord.file.name, maxLines: 1, textStyle: fileNameStyle),
         ],
       ),
       subtitle: Row(
@@ -38,9 +58,58 @@ class FileItem extends StatelessWidget {
           HighlightText(text: getFileExtension(fileRecord.file.filename), query: query),
         ],
       ),
-      leading: FileIcon(filename: fileRecord.file.filename),
+      leading: _FileCircleAvatar(fileRecord: fileRecord),
       trailing: trailing,
       onTap: onTap ?? () => context.push('/account/$accountId/my-data/files/${fileRecord.file.id}', extra: fileRecord),
     );
+  }
+}
+
+class _FileCircleAvatar extends StatelessWidget {
+  final FileRecord fileRecord;
+
+  const _FileCircleAvatar({required this.fileRecord});
+
+  @override
+  Widget build(BuildContext context) {
+    final fileRecordStatus = _getFileRecordStatus();
+
+    final circleAvatar = CircleAvatar(
+      backgroundColor: switch (fileRecordStatus) {
+        FileRecordStatus.fileExpired => Theme.of(context).colorScheme.errorContainer,
+        FileRecordStatus.unviewedRepositoryAttribute => Theme.of(context).colorScheme.secondaryContainer,
+        FileRecordStatus.viewed => Theme.of(context).colorScheme.surfaceContainer,
+      },
+      child: FileIcon(
+        filename: fileRecord.file.filename,
+        color: switch (fileRecordStatus) {
+          FileRecordStatus.fileExpired => Theme.of(context).colorScheme.onErrorContainer,
+          FileRecordStatus.unviewedRepositoryAttribute => Theme.of(context).colorScheme.onSecondaryContainer,
+          FileRecordStatus.viewed => Theme.of(context).colorScheme.onSurfaceVariant,
+        },
+      ),
+    );
+
+    if (fileRecordStatus == FileRecordStatus.viewed) return circleAvatar;
+
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: fileRecordStatus == FileRecordStatus.fileExpired ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.secondary,
+          width: 3,
+        ),
+      ),
+      padding: const EdgeInsets.all(1),
+      child: circleAvatar,
+    );
+  }
+
+  FileRecordStatus _getFileRecordStatus() {
+    if (DateTime.parse(fileRecord.file.expiresAt).isBefore(DateTime.now())) return FileRecordStatus.fileExpired;
+    if (fileRecord.fileReferenceAttribute is RepositoryAttributeDVO && fileRecord.fileReferenceAttribute?.wasViewedAt == null) {
+      return FileRecordStatus.unviewedRepositoryAttribute;
+    }
+    return FileRecordStatus.viewed;
   }
 }
