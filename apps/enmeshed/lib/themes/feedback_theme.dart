@@ -7,22 +7,22 @@ import 'themes.dart';
 
 final feedbackLightTheme = FeedbackThemeData(
   colorScheme: lightTheme.colorScheme,
-  background: Colors.white,
-  dragHandleColor: Colors.black38,
-  feedbackSheetColor: const Color(0xFFF5F5F5),
-  bottomSheetDescriptionStyle: const TextStyle(color: Colors.black87),
-  bottomSheetTextInputStyle: const TextStyle(color: Colors.black87),
-  activeFeedbackModeColor: const Color(0xFF2196F3),
+  background: lightTheme.colorScheme.onSurface,
+  feedbackSheetColor: lightTheme.colorScheme.surface,
+  bottomSheetDescriptionStyle: TextStyle(color: lightTheme.colorScheme.onSurface),
+  bottomSheetTextInputStyle: TextStyle(color: lightTheme.colorScheme.onSurface),
+  dragHandleColor: lightTheme.colorScheme.onSurfaceVariant,
+  activeFeedbackModeColor: lightTheme.colorScheme.primary,
   drawColors: [Colors.red, Colors.green, Colors.blue, Colors.yellow],
 );
 
 final feedbackDarkTheme = FeedbackThemeData(
   colorScheme: darkTheme.colorScheme,
-  background: Colors.grey.shade700,
-  dragHandleColor: Colors.white38,
-  feedbackSheetColor: const Color(0xFF303030),
-  bottomSheetDescriptionStyle: const TextStyle(color: Colors.white),
-  bottomSheetTextInputStyle: const TextStyle(color: Colors.white),
-  activeFeedbackModeColor: const Color(0xFF2196F3),
+  background: darkTheme.colorScheme.onSurface,
+  feedbackSheetColor: darkTheme.colorScheme.surface,
+  bottomSheetDescriptionStyle: TextStyle(color: darkTheme.colorScheme.onSurface),
+  bottomSheetTextInputStyle: TextStyle(color: darkTheme.colorScheme.onSurface),
+  dragHandleColor: darkTheme.colorScheme.onSurfaceVariant,
+  activeFeedbackModeColor: darkTheme.colorScheme.primary,
   drawColors: [Colors.red, Colors.green, Colors.blue, Colors.yellow],
 );
