@@ -5,7 +5,7 @@ version: 4.0.3
 
 environment:
   sdk: "^3.8.1"
-  flutter: ">=3.32.5"
+  flutter: ">=3.32.6"
 
 dependencies:
   app_links: ^6.4.0
@@ -54,7 +54,7 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   styled_text: ^8.1.0
   timeago: ^3.7.1
-  url_launcher: ^6.3.1
+  url_launcher: ^6.3.2
   value_renderer: ^1.0.0
   vector_graphics: ^1.1.19
   very_good_analysis: ^9.0.0
