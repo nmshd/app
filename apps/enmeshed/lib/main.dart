@@ -99,6 +99,31 @@ final _router = GoRouter(
         );
       },
     ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/feedback',
+      builder: (context, state) {
+        return InstructionsScreen(
+          onContinue: (context) => context
+            ..pop()
+            ..giveFeedback(),
+          title: context.l10n.instructions_giveFeedback_title,
+          subtitle: context.l10n.instructions_giveFeedback_subtitle,
+          informationTitle: context.l10n.instructions_giveFeedback_informationTitle,
+          informationDescription: context.l10n.instructions_giveFeedback_informationDetails,
+          illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/feedback.svg'), height: 160),
+          informationCardIcon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 40),
+          aboutInstructionsText: context.l10n.instructions_giveFeedback_informationAboutInstructions,
+          instructions: [
+            context.l10n.instructions_giveFeedback_switchToDrawingMode,
+            context.l10n.instructions_giveFeedback_drawWhatsWrong,
+            context.l10n.instructions_giveFeedback_writeAnExplanation,
+            context.l10n.instructions_giveFeedback_send,
+          ],
+          buttonContinueText: context.l10n.instructions_giveFeedback_title,
+        );
+      },
+    ),
     GoRoute(parentNavigatorKey: _rootNavigatorKey, path: '/scan-recovery-kit', builder: (context, state) => const ScanRecoveryKitScreen()),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
