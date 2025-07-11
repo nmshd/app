@@ -5,7 +5,6 @@ import 'delete_attribute_request_item.dart';
 import 'form_field_request_item.dart';
 import 'propose_attribute_request_item.dart';
 import 'read_attribute_request_item.dart';
-import 'register_attribute_listener_request_item.dart';
 import 'request_item.dart';
 import 'share_attribute_request_item.dart';
 import 'transfer_file_ownership_request_item.dart';
@@ -27,7 +26,6 @@ abstract class RequestItemDerivation extends RequestItem {
       'FormFieldRequestItem' => FormFieldRequestItem.fromJson(json),
       'ProposeAttributeRequestItem' => ProposeAttributeRequestItem.fromJson(json),
       'ReadAttributeRequestItem' => ReadAttributeRequestItem.fromJson(json),
-      'RegisterAttributeListenerRequestItem' => RegisterAttributeListenerRequestItem.fromJson(json),
       'ShareAttributeRequestItem' => ShareAttributeRequestItem.fromJson(json),
       'TransferFileOwnershipRequestItem' => TransferFileOwnershipRequestItem.fromJson(json),
       _ => throw Exception('Unknown type: $type'),

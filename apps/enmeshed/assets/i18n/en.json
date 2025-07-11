@@ -1085,9 +1085,6 @@
       "DecidableReadAttributeRequestItem": {
         "name": "Requests an attribute from you"
       },
-      "DecidableRegisterAttributeListenerRequestItem": {
-        "name": "Requests an attirbute listener for one of your attributes"
-      },
       "DecidableShareAttributeRequestItem": {
         "name": "Shares an attribute to you"
       },
@@ -1100,9 +1097,6 @@
       },
       "ReadAttributeRequestItem": {
         "name": "Requested an attribute from you"
-      },
-      "RegisterAttributeListenerRequestItem": {
-        "name": "Requested an attribute listener for one of your attributes"
       },
       "ShareAttributeRequestItem": {
         "name": "Shared an attribute to you"
@@ -1133,9 +1127,6 @@
       },
       "ReadAttributeAcceptResponseItem": {
         "acceptedName": "The queried attribute has been received."
-      },
-      "RegisterAttributeListenerAcceptResponseItem": {
-        "acceptedName": "The listener has been created."
       },
       "rejected": "Rejected item",
       "ShareAttributeAcceptResponseItem": {

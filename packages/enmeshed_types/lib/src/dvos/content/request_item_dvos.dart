@@ -79,7 +79,6 @@ sealed class RequestItemDVODerivation extends RequestItemDVO {
       'AuthenticationRequestItemDVO' => AuthenticationRequestItemDVO.fromJson(json),
       'ConsentRequestItemDVO' => ConsentRequestItemDVO.fromJson(json),
       'FormFieldRequestItemDVO' => FormFieldRequestItemDVO.fromJson(json),
-      'RegisterAttributeListenerRequestItemDVO' => RegisterAttributeListenerRequestItemDVO.fromJson(json),
       'TransferFileOwnershipRequestItemDVO' => TransferFileOwnershipRequestItemDVO.fromJson(json),
       _ => throw Exception("Invalid type '${json['type']}'"),
     };
@@ -297,31 +296,6 @@ class FormFieldRequestItemDVO extends RequestItemDVODerivation {
   factory FormFieldRequestItemDVO.fromJson(Map json) => _$FormFieldRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$FormFieldRequestItemDVOToJson(this);
-}
-
-@JsonSerializable(includeIfNull: false)
-class RegisterAttributeListenerRequestItemDVO extends RequestItemDVODerivation {
-  final AttributeQueryDVO query;
-
-  const RegisterAttributeListenerRequestItemDVO({
-    required super.id,
-    required super.name,
-    super.description,
-    super.image,
-    super.date,
-    super.error,
-    super.warning,
-    required super.mustBeAccepted,
-    required super.isDecidable,
-    super.response,
-    super.requireManualDecision,
-    required this.query,
-  }) : super(type: 'RegisterAttributeListenerRequestItemDVO');
-
-  factory RegisterAttributeListenerRequestItemDVO.fromJson(Map json) =>
-      _$RegisterAttributeListenerRequestItemDVOFromJson(Map<String, dynamic>.from(json));
-  @override
-  Map<String, dynamic> toJson() => _$RegisterAttributeListenerRequestItemDVOToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false)

@@ -7,7 +7,6 @@ import 'delete_attribute_accept_response_item.dart';
 import 'form_field_accept_response_item.dart';
 import 'propose_attribute_accept_response_item.dart';
 import 'read_attribute_accept_response_item.dart';
-import 'register_attribute_listener_accept_response_item.dart';
 import 'response_item.dart';
 import 'response_item_derivation.dart';
 import 'share_attribute_accept_response_item.dart';
@@ -34,7 +33,6 @@ class AcceptResponseItem extends ResponseItemDerivation {
       'FormFieldAcceptResponseItem' => FormFieldAcceptResponseItem.fromJson(json),
       'ProposeAttributeAcceptResponseItem' => ProposeAttributeAcceptResponseItem.fromJson(json),
       'ReadAttributeAcceptResponseItem' => ReadAttributeAcceptResponseItem.fromJson(json),
-      'RegisterAttributeListenerAcceptResponseItem' => RegisterAttributeListenerAcceptResponseItem.fromJson(json),
       'ShareAttributeAcceptResponseItem' => ShareAttributeAcceptResponseItem.fromJson(json),
       'TransferFileOwnershipAcceptResponseItem' => TransferFileOwnershipAcceptResponseItem.fromJson(json),
       _ => throw Exception('Unknown type: $type'),

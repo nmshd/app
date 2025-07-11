@@ -112,10 +112,6 @@ class RequestItemRenderer extends StatelessWidget {
           itemIndex: itemIndex,
           validationResult: validationResult,
         ),
-        final RegisterAttributeListenerRequestItemDVO dvo =>
-          dvo.isDecidable
-              ? DecidableRegisterAttributeListenerRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex)
-              : RegisterAttributeListenerRequestItemRenderer(item: dvo),
         final TransferFileOwnershipRequestItemDVO dvo => TransferFileOwnershipRequestItemRenderer(
           controller: controller,
           item: dvo,

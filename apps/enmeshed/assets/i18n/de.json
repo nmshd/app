@@ -1085,9 +1085,6 @@
       "DecidableReadAttributeRequestItem": {
         "name": "Fragt ein Attribut an"
       },
-      "DecidableRegisterAttributeListenerRequestItem": {
-        "name": "Fragt ein zukünftiges Attribut an"
-      },
       "DecidableShareAttributeRequestItem": {
         "name": "Möchte ein Attribut teilen"
       },
@@ -1100,9 +1097,6 @@
       },
       "ReadAttributeRequestItem": {
         "name": "Fragte ein Attribute an"
-      },
-      "RegisterAttributeListenerRequestItem": {
-        "name": "Hat ein zukünftiges Attribut angefragt"
       },
       "ShareAttributeRequestItem": {
         "name": "Teilte ein Attribut"
@@ -1133,9 +1127,6 @@
       },
       "ReadAttributeAcceptResponseItem": {
         "acceptedName": "Das angefragte Attribut wurde empfangen."
-      },
-      "RegisterAttributeListenerAcceptResponseItem": {
-        "acceptedName": "Das zukünftige Attribut wird geteilt."
       },
       "rejected": "Abgelehntes Element",
       "ShareAttributeAcceptResponseItem": {
