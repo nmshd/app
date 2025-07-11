@@ -6,6 +6,7 @@ import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:feature_flags/feature_flags.dart';
+import 'package:feedback/feedback.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -95,6 +96,31 @@ final _router = GoRouter(
             context.l10n.restoreFromIdentityRecovery_instructions_confirmation,
           ],
           informationCardIcon: Icon(Icons.warning_amber_rounded, color: context.customColors.warning, size: 40),
+        );
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/feedback',
+      builder: (context, state) {
+        return InstructionsScreen(
+          onContinue: (context) => context
+            ..pop()
+            ..giveFeedback(),
+          title: context.l10n.instructions_giveFeedback_title,
+          subtitle: context.l10n.instructions_giveFeedback_subtitle,
+          informationTitle: context.l10n.instructions_giveFeedback_informationTitle,
+          informationDescription: context.l10n.instructions_giveFeedback_informationDetails,
+          illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/feedback.svg'), height: 160),
+          informationCardIcon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 40),
+          aboutInstructionsText: context.l10n.instructions_giveFeedback_informationAboutInstructions,
+          instructions: [
+            context.l10n.instructions_giveFeedback_switchToDrawingMode,
+            context.l10n.instructions_giveFeedback_drawWhatsWrong,
+            context.l10n.instructions_giveFeedback_writeAnExplanation,
+            context.l10n.instructions_giveFeedback_send,
+          ],
+          buttonContinueText: context.l10n.instructions_giveFeedback_title,
         );
       },
     ),
@@ -491,41 +517,46 @@ class EnmeshedApp extends StatelessWidget with WatchItMixin {
 
     final themeSetting = watchValue((ThemeModeModel x) => x.notifier);
 
-    return Features(
-      child: MaterialApp.router(
-        routerConfig: _router,
-        debugShowCheckedModeBanner: false,
-        themeMode: themeSetting.themeMode,
-        theme: lightTheme,
-        darkTheme: themeSetting.amoled ? amoledTheme : darkTheme,
-        highContrastTheme: highContrastTheme,
-        highContrastDarkTheme: highContrastDarkTheme,
-        scaffoldMessengerKey: snackbarKey,
-        localizationsDelegates: [
-          CroppyLocalizations.delegate,
-          FlutterI18nDelegate(
-            translationLoader: FileTranslationLoader(basePath: 'assets/i18n'),
-            missingTranslationHandler: (key, locale) {
-              GetIt.I.get<Logger>().e('Missing Key: $key, locale: $locale');
-            },
-          ),
-          ...AppLocalizations.localizationsDelegates,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        builder: (context, child) {
-          return AnnotatedRegion<SystemUiOverlayStyle>(
-            value: SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              systemNavigationBarDividerColor: Colors.transparent,
-              systemNavigationBarColor: Colors.transparent,
-              systemNavigationBarContrastEnforced: false,
-              systemNavigationBarIconBrightness: Theme.of(context).brightness.opposite,
-              statusBarBrightness: Theme.of(context).brightness,
-              statusBarIconBrightness: Theme.of(context).brightness.opposite,
+    return BetterFeedback(
+      themeMode: themeSetting.themeMode,
+      theme: feedbackLightTheme,
+      darkTheme: feedbackDarkTheme,
+      child: Features(
+        child: MaterialApp.router(
+          routerConfig: _router,
+          debugShowCheckedModeBanner: false,
+          themeMode: themeSetting.themeMode,
+          theme: lightTheme,
+          darkTheme: themeSetting.amoled ? amoledTheme : darkTheme,
+          highContrastTheme: highContrastTheme,
+          highContrastDarkTheme: highContrastDarkTheme,
+          scaffoldMessengerKey: snackbarKey,
+          localizationsDelegates: [
+            CroppyLocalizations.delegate,
+            FlutterI18nDelegate(
+              translationLoader: FileTranslationLoader(basePath: 'assets/i18n'),
+              missingTranslationHandler: (key, locale) {
+                GetIt.I.get<Logger>().e('Missing Key: $key, locale: $locale');
+              },
             ),
-            child: child!,
-          );
-        },
+            ...AppLocalizations.localizationsDelegates,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          builder: (context, child) {
+            return AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                systemNavigationBarDividerColor: Colors.transparent,
+                systemNavigationBarColor: Colors.transparent,
+                systemNavigationBarContrastEnforced: false,
+                systemNavigationBarIconBrightness: Theme.of(context).brightness.opposite,
+                statusBarBrightness: Theme.of(context).brightness,
+                statusBarIconBrightness: Theme.of(context).brightness.opposite,
+              ),
+              child: child!,
+            );
+          },
+        ),
       ),
     );
   }

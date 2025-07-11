@@ -15,10 +15,12 @@ dependencies:
   enmeshed_types: ^1.0.0
   enmeshed_ui_kit: ^1.0.0
   feature_flags: ^0.1.4
+  feedback: ^3.1.0
   file_picker: ^10.2.0
   flex_seed_scheme: ^3.5.1
   flutter:
     sdk: flutter
+  flutter_email_sender: ^7.0.0
   flutter_i18n: ^0.36.3
   flutter_inappwebview: any
   flutter_localizations:

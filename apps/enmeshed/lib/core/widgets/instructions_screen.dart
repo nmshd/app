@@ -25,6 +25,7 @@ class InstructionsScreen extends StatefulWidget {
   final void Function()? deactivateHint;
   final bool showNumberedExplanation;
   final String? buttonContinueText;
+  final String? aboutInstructionsText;
 
   const InstructionsScreen({
     required this.onContinue,
@@ -38,6 +39,7 @@ class InstructionsScreen extends StatefulWidget {
     this.deactivateHint,
     this.showNumberedExplanation = true,
     this.buttonContinueText,
+    this.aboutInstructionsText,
     super.key,
   });
 
@@ -79,7 +81,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
                         _InstructionHeader(illustration: widget.illustration, subtitle: widget.subtitle),
                         Gaps.h24,
                         if (widget.showNumberedExplanation)
-                          _NumberedExplanation(instructions: widget.instructions)
+                          _NumberedExplanation(instructions: widget.instructions, aboutInstructionsText: widget.aboutInstructionsText)
                         else
                           _Explanation(instructions: widget.instructions),
                         Gaps.h8,
@@ -134,28 +136,35 @@ class _InstructionHeader extends StatelessWidget {
 }
 
 class _NumberedExplanation extends StatelessWidget {
+  final String? aboutInstructionsText;
   final List<String> instructions;
 
-  const _NumberedExplanation({required this.instructions});
+  const _NumberedExplanation({required this.aboutInstructionsText, required this.instructions});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (_, index) {
-        final itemNumber = index + 1;
+    return Column(
+      spacing: 24,
+      children: [
+        if (aboutInstructionsText != null) Text(aboutInstructionsText!, style: Theme.of(context).textTheme.bodyMedium),
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (_, index) {
+            final itemNumber = index + 1;
 
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('$itemNumber. ', style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.primary)),
-            Expanded(child: Text(instructions.elementAt(index))),
-          ],
-        );
-      },
-      separatorBuilder: (context, index) => Gaps.h12,
-      itemCount: instructions.length,
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('$itemNumber. ', style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.primary)),
+                Expanded(child: Text(instructions.elementAt(index))),
+              ],
+            );
+          },
+          separatorBuilder: (context, index) => Gaps.h12,
+          itemCount: instructions.length,
+        ),
+      ],
     );
   }
 }

@@ -20,6 +20,11 @@ Future<void> upsertCompleteProfileContainerSetting({required String accountId, r
   await session.consumptionServices.settings.upsertSettingByKey('home.completeProfileContainerShown', {'isShown': value});
 }
 
+Future<void> upsertGiveFeedbackBannerSetting({required String accountId, required bool value}) async {
+  final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
+  await session.consumptionServices.settings.upsertSettingByKey('home.giveFeedbackBannerShown', {'isShown': value});
+}
+
 Future<bool> getSetting({required String accountId, required String key, required String valueKey, bool ignoreRecordNotFoundError = false}) async {
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
 
