@@ -11,6 +11,11 @@ environment:
   flutter: ">=3.32.6"
 
 dependencies:
+  cal_flutter_plugin:
+    git:
+      url: https://github.com/nmshd/rust-crypto
+      path: cal_flutter_plugin
+      ref: fd50127
   enmeshed_types: 1.0.0
   flutter:
     sdk: flutter
@@ -19,11 +24,6 @@ dependencies:
   logger: ^2.6.0
   path_provider: ^2.1.5
   windows_notification: ^1.3.0
-  cal_flutter_plugin:
-    git:
-      url: https://github.com/nmshd/rust-crypto
-      path: cal_flutter_plugin
-      ref: fd50127
 
 dev_dependencies:
   flutter_lints: ^6.0.0

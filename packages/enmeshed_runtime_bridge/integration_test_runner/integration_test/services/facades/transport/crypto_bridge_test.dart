@@ -25,7 +25,6 @@ void run(EnmeshedRuntime runtime) {
     test('should be able to get capabilities', () async {
       final cal.ProviderImplConfig implConfig = cal.ProviderImplConfig(additionalConfig: []);
       final caps = await CryptoFacade(evaluator).getProviderCapabilities(implConfig);
-      print('caps: $caps');
       expect(caps, isNotEmpty);
     });
 
@@ -39,19 +38,14 @@ void run(EnmeshedRuntime runtime) {
       final cal.ProviderImplConfig implConfig = cal.ProviderImplConfig(additionalConfig: []);
       final facade = CryptoFacade(evaluator);
       final provider = await facade.createProviderFromName('SoftwareProvider', implConfig);
-      print('got provider: $provider');
       final caps = await provider.getCapabilities();
-      print('caps: $caps');
       for (final aspec in caps.supportedAsymSpec) {
         final spec = cal.KeyPairSpec(signingHash: cal.CryptoHash.sha2256, ephemeral: true, asymSpec: aspec, nonExportable: false);
         final keyPair = await provider.crateKeyPair(spec);
-        print('keyPair: $keyPair');
         expect(keyPair, isNotNull);
         final data = Uint8List.fromList('test'.codeUnits);
         final signature = await keyPair.sign(data);
-        print('signature: $signature');
         final verified = await keyPair.verify(data, signature);
-        print('verified: $verified');
         expect(verified, isTrue);
       }
     });

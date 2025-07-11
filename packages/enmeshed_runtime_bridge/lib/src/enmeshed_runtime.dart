@@ -171,7 +171,7 @@ class EnmeshedRuntime with WidgetsBindingObserver {
     controller.addJavaScriptHandler(
       handlerName: 'runtimeInitFailed',
       callback: (e) {
-        print('Runtime init failed: $e');
+        _logger.e('Runtime init failed: $e', error: e);
         _runtimeReadyCompleter.completeError(Exception('Runtime init failed'));
       },
     );

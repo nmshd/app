@@ -133,7 +133,7 @@ class CryptoFacadeProvider {
       throw CryptoFacadeException(result.toMap()['error'].toString());
     }
     final id = result.toMap()['value'].toString();
-    return CryptoFacadeKeyPairHandle(_evaluator, id, _handler);
+    return CryptoFacadeKeyPairHandle(_evaluator, id);
   }
 
   Future<String> crateKey(cal.KeyPairSpec spec) async {
@@ -161,8 +161,7 @@ class CryptoFacadeProvider {
 class CryptoFacadeKeyPairHandle {
   final AbstractEvaluator _evaluator;
   final String _id;
-  final CryptoHandler _handler;
-  CryptoFacadeKeyPairHandle(this._evaluator, this._id, this._handler);
+  CryptoFacadeKeyPairHandle(this._evaluator, this._id);
 
   Future<Uint8List> sign(Uint8List data) async {
     final result = await _evaluator.evaluateJavaScript(
