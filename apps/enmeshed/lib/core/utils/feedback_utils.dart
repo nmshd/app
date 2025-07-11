@@ -1,8 +1,9 @@
+import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -11,6 +12,8 @@ extension FeedbackUtils on BuildContext {
 }
 
 Future<void> _giveFeedback(BuildContext context) async {
+  final completer = Completer<bool>();
+
   BetterFeedback.of(context).show((feedback) async {
     final screenshotFilePath = await _writeImageToStorage(feedback.screenshot);
 
@@ -21,11 +24,38 @@ Future<void> _giveFeedback(BuildContext context) async {
       attachmentPaths: [screenshotFilePath],
     );
 
-    await FlutterEmailSender.send(email);
-
-    // TODO: success dialog
+    try {
+      await FlutterEmailSender.send(email);
+      completer.complete(true);
+    } on PlatformException catch (_) {
+      completer.complete(false);
+    }
   });
+
+  final success = await completer.future;
+
+  if (success) {
+    // TODO(jkoenig134): Show success dialog
+  } else {
+    // TODO(jkoenig134): Show error dialog
+  }
 }
+
+// Future<void> _showFeedbackSuccessDialog(BuildContext context) async {
+//   await showDialog<void>(
+//     context: context,
+//     builder: (context) => AlertDialog(
+//       title: Text(context.l10n.drawer_hints_giveFeedback),
+//       content: Text(context.l10n.drawer_hints_giveFeedback),
+//       actions: [
+//         TextButton(
+//           onPressed: () => Navigator.of(context).pop(),
+//           child: Text(context.l10n.drawer_hints_giveFeedback),
+//         ),
+//       ],
+//     ),
+//   );
+// }
 
 Future<String> _writeImageToStorage(Uint8List feedbackScreenshot) async {
   final output = await getTemporaryDirectory();
