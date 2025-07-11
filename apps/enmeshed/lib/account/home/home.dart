@@ -23,6 +23,7 @@ class _HomeViewState extends State<HomeView> {
   late final ScrollController _scrollController;
 
   int _unreadMessagesCount = 0;
+  int _unviewedIdentityFileReferenceAttributesCount = 0;
   List<MessageDVO>? _messages;
   List<LocalRequestDVO>? _requests;
   bool _isCompleteProfileContainerShown = false;
@@ -47,6 +48,7 @@ class _HomeViewState extends State<HomeView> {
       ..add(runtime.eventBus.on<IncomingRequestReceivedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _reload().catchError((_) {})))
+      ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reload().catchError((_) {})));
   }
 
@@ -86,7 +88,16 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 if (_isCompleteProfileContainerShown)
                   CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
-
+                if (_unviewedIdentityFileReferenceAttributesCount > 0)
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: BannerCard(
+                      title: context.l10n.home_newFiles,
+                      type: BannerCardType.info,
+                      // TODO(nicole-eb): Go to the filtered list as soon as filters are available there
+                      actionButton: (onPressed: () => context.push('/account/${widget.accountId}/my-data/files'), title: context.l10n.show),
+                    ),
+                  ),
                 if (_showRecoveryKitWasUsedContainer)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -157,6 +168,10 @@ class _HomeViewState extends State<HomeView> {
     );
 
     if (!mounted) return;
+
+    final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
+
+    if (!mounted) return;
     setState(() {
       _unreadMessagesCount = messages.length;
       _messages = messageDVOs;
@@ -164,6 +179,7 @@ class _HomeViewState extends State<HomeView> {
       _isCompleteProfileContainerShown = isCompleteProfileContainerShown;
       _showRecoveryKitWasUsedContainer = showRecoveryKitWasUsedContainer;
       _isGiveFeedbackBannerShown = isGiveFeedbackBannerShown;
+      _unviewedIdentityFileReferenceAttributesCount = unviewedIdentityFileReferenceAttributes.length;
     });
   }
 
