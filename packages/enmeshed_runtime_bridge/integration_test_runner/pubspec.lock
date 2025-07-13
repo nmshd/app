@@ -37,8 +37,8 @@ packages:
     dependency: "direct main"
     description:
       path: cal_flutter_plugin
-      ref: fd50127
-      resolved-ref: fd50127f9a9a6a3922e21e198639aa8d93ee5d25
+      ref: "3e9fc88"
+      resolved-ref: "3e9fc880a1cb76d770252591273f606c48b0f595"
       url: "https://github.com/nmshd/rust-crypto"
     source: git
     version: "0.0.1"
