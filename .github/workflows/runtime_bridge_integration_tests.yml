@@ -28,13 +28,13 @@ jobs:
         with:
           files: packages/enmeshed_runtime_bridge/**
       - name: Start Backbone
-        if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
+        # if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
         run: docker compose -f .dev/compose.backbone.yml up -d
       - name: "List all simulators"
-        if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
+        # if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
         run: "xcrun xctrace list devices"
       - name: "Start Simulator"
-        if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
+        # if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
         # the command "xcrun simctl boot" expects a device identifier
         # the assignment of the UDID variable consists of retrieving the ID of the simulator
         # by extracting it from the command "xcrun xctrace list devices"
@@ -56,17 +56,17 @@ jobs:
               fi
           fi
       - name: Setup Flutter SDK
-        if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
+        # if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
         uses: subosito/flutter-action@v2
         with:
           channel: stable
       - name: Install Dependencies
-        if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
+        # if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
         run: |
           dart pub global activate melos
           melos bootstrap
       - name: Run integration tests
-        if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
+        # if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
         run: cd packages/enmeshed_runtime_bridge/integration_test_runner && flutter test integration_test/suite_test.dart --dart-define=app_baseUrl=http://localhost:8090 --dart-define=app_clientId=test --dart-define=app_clientSecret=test
       - name: Stop Backbone
         run: docker compose -f .dev/compose.backbone.yml down -v
