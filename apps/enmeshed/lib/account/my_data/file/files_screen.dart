@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:enmeshed/account/my_data/file/modals/empty_file_filters.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -12,17 +13,15 @@ import '/core/core.dart';
 import 'file_filter_type.dart';
 import 'modals/select_file_filters.dart';
 
-enum _FilesSortingType { date, name, type, size }
-
 enum FilesFilterOption {
   all(Icons.format_list_bulleted, Icons.format_list_bulleted),
   unviewed(Icons.new_releases, Icons.new_releases_outlined),
   expired(Icons.error, Icons.error_outline),
-  type(Icons.insert_drive_file, Icons.insert_drive_file),
-  tags(Icons.bookmark, Icons.bookmark);
+  type(Icons.insert_drive_file, null),
+  tags(Icons.bookmark, null);
 
   final IconData filterIcon;
-  final IconData emptyListIcon;
+  final IconData? emptyListIcon;
 
   const FilesFilterOption(this.filterIcon, this.emptyListIcon);
 }
@@ -42,8 +41,6 @@ class _FilesScreenState extends State<FilesScreen> {
   List<FileRecord> _filteredFileRecords = [];
 
   Set<FileFilterType> _activeFilters = {};
-  _FilesSortingType _sortingType = _FilesSortingType.date;
-  bool _isSortedAscending = false;
 
   FilesFilterOption _filterOption = FilesFilterOption.all;
 
@@ -81,20 +78,6 @@ class _FilesScreenState extends State<FilesScreen> {
           builder: (BuildContext context, SearchController controller) =>
               IconButton(icon: const Icon(Icons.search), onPressed: () => controller.openView()),
         ),
-        IconButton(
-          onPressed: _fileRecords != null && _fileRecords!.isNotEmpty
-              ? () => showSelectFileFilters(
-                  context,
-                  availableFilters: _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet(),
-                  activeFilters: _activeFilters,
-                  onApplyFilters: (selectedFilters) {
-                    setState(() => _activeFilters = selectedFilters);
-                    _filterAndSort();
-                  },
-                )
-              : null,
-          icon: Badge(isLabelVisible: _activeFilters.isNotEmpty, child: const Icon(Icons.filter_list)),
-        ),
         IconButton(onPressed: _uploadFile, icon: const Icon(Icons.add)),
       ],
     );
@@ -111,34 +94,23 @@ class _FilesScreenState extends State<FilesScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            SortBar<_FilesSortingType>(
-              sortingType: _sortingType,
-              isSortedAscending: _isSortedAscending,
-              translate: (s) => switch (s) {
-                _FilesSortingType.date => context.l10n.sortedByCreationDate,
-                _FilesSortingType.name => context.l10n.sortedByName,
-                _FilesSortingType.type => context.l10n.sortedByType,
-                _FilesSortingType.size => context.l10n.sortedBySize,
-              },
-              sortMenuItem: [
-                (value: _FilesSortingType.date, label: context.l10n.files_creationDate),
-                (value: _FilesSortingType.name, label: context.l10n.name),
-                (value: _FilesSortingType.type, label: context.l10n.files_fileType),
-                (value: _FilesSortingType.size, label: context.l10n.files_fileSize),
-              ],
-              onSortingConditionChanged: ({required type, required isSortedAscending}) {
-                _isSortedAscending = isSortedAscending;
-                _sortingType = type;
-
-                _filterAndSort();
-              },
-            ),
             _FilesFilterChipBar(
               selectedFilterOption: _filterOption,
               isBadgeLabelVisible: _activeFilters.isNotEmpty,
               setFilter: (filter) {
                 setState(() => _filterOption = filter);
-                if (filter == FilesFilterOption.type && _fileRecords != null && _fileRecords!.isNotEmpty) {
+
+                if (filter == FilesFilterOption.tags) {}
+
+                if (filter == FilesFilterOption.type) {
+                  if (_fileRecords == null || _fileRecords!.isEmpty) {
+                    return showEmptyFileFilters(
+                      context,
+                      title: 'Dateien nach Typ filtern',
+                      description: 'Es sind aktuell keine Dateien ud dokumente vorhanden',
+                    );
+                  }
+
                   return showSelectFileFilters(
                     context,
                     availableFilters: _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet(),
@@ -149,6 +121,8 @@ class _FilesScreenState extends State<FilesScreen> {
                     },
                   );
                 }
+
+                setState(() => _activeFilters = {});
                 _loadFiles();
               },
             ),
@@ -164,7 +138,7 @@ class _FilesScreenState extends State<FilesScreen> {
                   _filterAndSort();
                 },
               ),
-            if (_fileRecords!.isEmpty)
+            if (_fileRecords!.isEmpty && _filterOption.emptyListIcon != null)
               _EmptyFilesIndicator(accountId: widget.accountId, filterOption: _filterOption, uploadFile: _uploadFile)
             else
               Expanded(
@@ -233,30 +207,24 @@ class _FilesScreenState extends State<FilesScreen> {
 
   void _filterAndSort() {
     if (_activeFilters.isEmpty) {
-      final sorted = _fileRecords!..sort(_compareFunction(_sortingType, _isSortedAscending));
+      final sorted = _fileRecords!..sort(_compareFunction());
       setState(() => _filteredFileRecords = sorted);
       return;
     }
 
     final filteredFiles = _fileRecords!.where((fileRecord) => _activeFilters.contains(FileFilterType.fromMimetype(fileRecord.file.mimetype))).toList()
-      ..sort(_compareFunction(_sortingType, _isSortedAscending));
+      ..sort(_compareFunction());
 
     setState(() => _filteredFileRecords = filteredFiles);
   }
 
-  int Function(FileRecord, FileRecord) _compareFunction(_FilesSortingType type, bool isSortedAscending) => switch (type) {
-    _FilesSortingType.date =>
-      (a, b) => isSortedAscending ? a.file.createdAt.compareTo(b.file.createdAt) : b.file.createdAt.compareTo(a.file.createdAt),
-    _FilesSortingType.name => (a, b) {
-      if (isSortedAscending) return a.file.name.toLowerCase().compareTo(b.file.name.toLowerCase());
-      return b.file.name.toLowerCase().compareTo(a.file.name.toLowerCase());
-    },
-    _FilesSortingType.type => (a, b) {
+  int Function(FileRecord, FileRecord) _compareFunction() => switch (_filterOption) {
+    FilesFilterOption.type => (a, b) {
       final aType = a.file.mimetype.split('/').last;
       final bType = b.file.mimetype.split('/').last;
-      return isSortedAscending ? aType.compareTo(bType) : bType.compareTo(aType);
+      return bType.compareTo(aType);
     },
-    _FilesSortingType.size => (a, b) => isSortedAscending ? a.file.filesize.compareTo(b.file.filesize) : b.file.filesize.compareTo(a.file.filesize),
+    _ => (a, b) => b.file.createdAt.compareTo(a.file.createdAt),
   };
 
   void _uploadFile() {
@@ -479,7 +447,7 @@ class _EmptyFilesIndicator extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 24),
       child: EmptyListIndicator(
-        icon: filterOption.emptyListIcon,
+        icon: filterOption.emptyListIcon!,
         text: switch (filterOption) {
           FilesFilterOption.unviewed => context.l10n.files_noNewFiles,
           FilesFilterOption.expired => context.l10n.files_noExpiredFiles,
