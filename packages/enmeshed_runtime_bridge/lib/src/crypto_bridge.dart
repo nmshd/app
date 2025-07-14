@@ -509,9 +509,9 @@ class CryptoHandler {
       case CryptoHash.sha2512:
         return 'Sha2_512';
       case CryptoHash.sha2512224:
-        return 'sha2_512_224';
+        return 'Sha2_512_224';
       case CryptoHash.sha2512256:
-        return 'sha2_512_256';
+        return 'Sha2_512_256';
       case CryptoHash.sha3224:
         return 'Sha3_224';
       case CryptoHash.sha3256:
@@ -629,7 +629,7 @@ class CryptoHandler {
       final keyHandle = _keyHandles[map['StorageConfigSymmetricEncryption']['_id']]!;
       return AdditionalConfig.storageConfigSymmetricEncryption(keyHandle);
     } else if (map['StorageConfigAsymmetricEncryption'] != null) {
-      final keyPairHandle = _keyPairHandles[map['StorageConfigSymmetricEncryption']['_id']]!;
+      final keyPairHandle = _keyPairHandles[map['StorageConfigAsymmetricEncryption']['_id']]!;
       return AdditionalConfig.storageConfigAsymmetricEncryption(keyPairHandle);
     } else {
       throw TsDartCryptoBridgeException('Unknown additional config type', map.keys.toString());
@@ -716,7 +716,7 @@ class CryptoHandler {
       case KDF_Argon2id(:final field0):
         return {'Argon2id': encodeArgon2Options(field0)};
       case KDF_Argon2i(:final field0):
-        return {'Argon2d': encodeArgon2Options(field0)};
+        return {'Argon2i': encodeArgon2Options(field0)};
     }
   }
 }

@@ -245,7 +245,7 @@ function newProvider(): Provider {
       const callArgs = {
         object_type: "provider",
         object_id: this._id,
-        method: "dh_exchange_from_key",
+        method: "dh_exchange_from_keys",
         args: [publicKeyb64, privateKeyb64, spec]
       };
       const handle_id = await callHandler(handlerName, callArgs);
@@ -536,7 +536,7 @@ function newKeyPairHandle(_id: string): KeyPairHandle {
     },
 
     signData: async function (data: Uint8Array): Promise<Uint8Array> {
-      const e_data = await await bufferToBase64(data);
+      const e_data = await bufferToBase64(data);
       const callArgs = {
         object_type: "key_pair",
         object_id: this._id,
@@ -573,7 +573,7 @@ function newKeyPairHandle(_id: string): KeyPairHandle {
       const callArgs = {
         object_type: "key_pair",
         object_id: this._id,
-        method: "extract_public_key",
+        method: "get_public_key",
         args: []
       };
       const outData = await callHandler(handlerName, callArgs);

@@ -114,7 +114,7 @@ class CryptoFacadeProvider {
     return _handler.decodeProviderConfig(result.toMap()['value']);
   }
 
-  Future<CryptoFacadeKeyPairHandle> crateKeyPair(cal.KeyPairSpec spec) async {
+  Future<CryptoFacadeKeyPairHandle> createKeyPair(cal.KeyPairSpec spec) async {
     final Map<String, dynamic> mapSpec = _handler.encodeKeyPairSpec(spec);
 
     final result = await _evaluator.evaluateJavaScript(
@@ -136,7 +136,7 @@ class CryptoFacadeProvider {
     return CryptoFacadeKeyPairHandle(_evaluator, id);
   }
 
-  Future<String> crateKey(cal.KeyPairSpec spec) async {
+  Future<String> createKey(cal.KeyPairSpec spec) async {
     final Map<String, dynamic> mapSpec = _handler.encodeKeyPairSpec(spec);
 
     final result = await _evaluator.evaluateJavaScript(

@@ -41,7 +41,7 @@ void run(EnmeshedRuntime runtime) {
       final caps = await provider.getCapabilities();
       for (final aspec in caps.supportedAsymSpec) {
         final spec = cal.KeyPairSpec(signingHash: cal.CryptoHash.sha2256, ephemeral: true, asymSpec: aspec, nonExportable: false);
-        final keyPair = await provider.crateKeyPair(spec);
+        final keyPair = await provider.createKeyPair(spec);
         expect(keyPair, isNotNull);
         final data = Uint8List.fromList('test'.codeUnits);
         final signature = await keyPair.sign(data);

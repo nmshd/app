@@ -66,7 +66,7 @@ async function main() {
 
   const runtimeBridgeLogger = loggerFactory.getLogger("RuntimeBridge");
 
-  if (config.calStoragePath === undefined) {
+  if ((config as any).calStoragePath === undefined) {
     runtimeBridgeLogger.warn("No database folder provided, not initializing CAL");
   } else {
     config.calFactory = cryptoInit;
