@@ -21,7 +21,7 @@ jobs:
         with:
             toolchain: stable
             override: true
-            target: aarch64-apple-ios x86_64-apple-ios
+            target: aarch64-apple-ios
       - name: Get changed files of the enmeshed_runtime_bridge package
         id: changed-enmeshed_runtime_bridge-files
         uses: step-security/changed-files@v46
