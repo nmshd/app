@@ -40,6 +40,7 @@ class _FilesScreenState extends State<FilesScreen> {
   List<FileRecord>? _fileRecords;
   List<FileRecord> _filteredFileRecords = [];
 
+  Set<String> _tags = {};
   Set<FileFilterType> _activeFilters = {};
 
   FilesFilterOption _filterOption = FilesFilterOption.all;
@@ -97,33 +98,43 @@ class _FilesScreenState extends State<FilesScreen> {
             _FilesFilterChipBar(
               selectedFilterOption: _filterOption,
               isBadgeLabelVisible: _activeFilters.isNotEmpty,
-              setFilter: (filter) {
-                setState(() => _filterOption = filter);
-
-                if (filter == FilesFilterOption.tags) {}
-
-                if (filter == FilesFilterOption.type) {
-                  if (_fileRecords == null || _fileRecords!.isEmpty) {
-                    return showEmptyFileFilters(
-                      context,
-                      title: 'Dateien nach Typ filtern',
-                      description: 'Es sind aktuell keine Dateien ud dokumente vorhanden',
-                    );
-                  }
-
-                  return showSelectFileFilters(
+              activeFilters: _activeFilters,
+              showTags: () {
+                if (_tags.isEmpty) {
+                  return showEmptyFileFilters(
                     context,
-                    availableFilters: _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet(),
-                    activeFilters: _activeFilters,
-                    onApplyFilters: (selectedFilters) {
-                      setState(() => _activeFilters = selectedFilters);
-                      _filterAndSort();
-                    },
+                    title: 'Dateien nach Tags filtern',
+                    description: 'Sie haben aktuell keine Tags für Dateien und Dokumente vergeben.',
+                  );
+                }
+              },
+              showTypes: () {
+
+                final availableFilters = _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet();
+
+                if (availableFilters.isEmpty) {
+                  return showEmptyFileFilters(
+                    context,
+                    title: 'Dateien nach Typ filtern',
+                    description: 'Es sind aktuell keine Dateien und Dokumente vorhanden.',
                   );
                 }
 
-                setState(() => _activeFilters = {});
-                _loadFiles();
+                return showSelectFileFilters(
+                  context,
+                  availableFilters: availableFilters,
+                  activeFilters: _activeFilters,
+                  onApplyFilters: (selectedFilters) {
+                    setState(() => _activeFilters = selectedFilters);
+                    _filterAndSort();
+                  },
+                );
+              },
+
+              setFilter: (filter) async {
+                setState(() => _filterOption = filter);
+                if (filter == FilesFilterOption.expired || filter == FilesFilterOption.unviewed) setState(() => _activeFilters = {});
+                await _loadFiles();
               },
             ),
             if (_activeFilters.isNotEmpty)
@@ -202,6 +213,12 @@ class _FilesScreenState extends State<FilesScreen> {
       }
     }
     _fileRecords = fileRecords;
+
+    final tags = <String>{};
+
+    _fileRecords?.forEach((element) => element.fileReferenceAttribute?.tags?.forEach(tags.add));
+    setState(() => _tags = tags);
+
     _filterAndSort();
   }
 
@@ -330,10 +347,20 @@ class _FilterBar extends StatelessWidget {
 
 class _FilesFilterChipBar extends StatelessWidget {
   final FilesFilterOption selectedFilterOption;
-  final void Function(FilesFilterOption option) setFilter;
+  final Future<void> Function(FilesFilterOption option) setFilter;
   final bool isBadgeLabelVisible;
+  final VoidCallback showTags;
+  final VoidCallback showTypes;
+  final Set<FileFilterType> activeFilters;
 
-  const _FilesFilterChipBar({required this.selectedFilterOption, required this.setFilter, required this.isBadgeLabelVisible});
+  const _FilesFilterChipBar({
+    required this.selectedFilterOption,
+    required this.setFilter,
+    required this.isBadgeLabelVisible,
+    required this.showTags,
+    required this.showTypes,
+    required this.activeFilters,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -342,7 +369,12 @@ class _FilesFilterChipBar extends StatelessWidget {
       children: [
         for (final option in FilesFilterOption.values)
           _FilesCondensedFilterChip(
-            onPressed: () => setFilter(option),
+            activeFilters: activeFilters,
+            onPressed: () async => switch (option) {
+              FilesFilterOption.tags => {await setFilter(FilesFilterOption.all), showTags()},
+              FilesFilterOption.type => {await setFilter(FilesFilterOption.all), showTypes()},
+              _ => setFilter(option),
+            },
             icon: option.filterIcon,
             filterOption: option,
             isBadgeLabelVisible: isBadgeLabelVisible,
@@ -375,6 +407,7 @@ class _FilesCondensedFilterChip extends StatelessWidget {
   final bool isSelected;
   final FilesFilterOption filterOption;
   final bool isBadgeLabelVisible;
+  final Set<FileFilterType> activeFilters;
   final String? label;
   final Color? backgroundColor;
   final Color? foregroundColor;
@@ -385,6 +418,7 @@ class _FilesCondensedFilterChip extends StatelessWidget {
     required this.isSelected,
     required this.filterOption,
     required this.isBadgeLabelVisible,
+    required this.activeFilters,
     this.label,
     this.backgroundColor,
     this.foregroundColor,
@@ -400,22 +434,18 @@ class _FilesCondensedFilterChip extends StatelessWidget {
       child: Icon(this.icon, size: 18, color: foregroundColor),
     );
 
-    final filterChipIcon = switch (filterOption) {
-      FilesFilterOption.type || FilesFilterOption.tags => Badge(
-        isLabelVisible: isBadgeLabelVisible && isSelected,
-        backgroundColor: Theme.of(context).primaryColor,
-        child: icon,
-      ),
-      _ => icon,
-    };
+    final filterChipIcon = (activeFilters.isNotEmpty && filterOption == FilesFilterOption.type)
+        ? Badge(
+            isLabelVisible: isBadgeLabelVisible,
+            backgroundColor: Theme.of(context).primaryColor,
+            child: icon,
+          )
+        : icon;
 
     return AnimatedSize(
       duration: const Duration(milliseconds: 200),
       child: GestureDetector(
-        onTap: switch (filterOption) {
-          FilesFilterOption.type || FilesFilterOption.tags => onPressed,
-          _ => isSelected ? null : onPressed,
-        },
+        onTap: isSelected ? null : onPressed,
         child: Container(
           decoration: BoxDecoration(color: backgroundColor, borderRadius: BorderRadius.circular(8)),
           padding: const EdgeInsets.symmetric(horizontal: 8),
