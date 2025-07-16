@@ -14,7 +14,7 @@
   "dependencies": {
     "@js-soft/logging-abstractions": "^1.0.1",
     "@js-soft/simple-logger": "^1.0.5",
-    "@js-soft/ts-utils": "^2.3.3",
+    "@js-soft/ts-utils": "^2.3.4",
     "@nmshd/app-runtime": "6.59.0",
     "@nmshd/runtime": "6.59.0",
     "js-logger": "^1.6.1",
@@ -25,9 +25,9 @@
     "@types/json-stringify-safe": "^5.0.3",
     "@types/lodash": "^4.17.20",
     "@types/luxon": "^3.6.2",
-    "@types/node": "^24.0.10",
-    "esbuild": "^0.25.5",
-    "luxon": "^3.6.1",
+    "@types/node": "^24.0.14",
+    "esbuild": "^0.25.6",
+    "luxon": "^3.7.1",
     "prettier": "^3.6.2",
     "typescript": "^5.8.3"
   }
