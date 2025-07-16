@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_redundant_argument_values will switch to another
-
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 
