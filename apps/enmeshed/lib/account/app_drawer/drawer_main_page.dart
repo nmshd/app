@@ -99,7 +99,7 @@ class _DrawerMainPageState extends State<DrawerMainPage> {
                   ..pop()
                   ..push('/feedback'),
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-                title: Text('Feedback geben', style: Theme.of(context).textTheme.labelLarge),
+                title: Text(context.l10n.drawer_hints_giveFeedback, style: Theme.of(context).textTheme.labelLarge),
               ),
             ],
           ),
