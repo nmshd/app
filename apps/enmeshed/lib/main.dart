@@ -50,6 +50,7 @@ void main() async {
 
 Future<LogOutput> getLogOutput() async {
   final logPath = '${(await getApplicationDocumentsDirectory()).path}/logs';
+  final dir = Directory(logPath);
 
   if (kDebugMode) return MultiOutput([ConsoleOutput(), FileOutput(file: File('$logPath/debug.log'))]);
 
