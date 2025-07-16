@@ -111,7 +111,7 @@ services:
   rabbitmq:
     container_name: bkb-rabbitmq
     hostname: rabbitmq
-    image: rabbitmq:4.1.2-alpine@sha256:0f82816b33cab89342aefee162a1a748b2ae0ed69db790d7cc7ebec0e516c441
+    image: rabbitmq:4.1.2-alpine@sha256:ca37d9ccbdb9492b002b768f87e24e3ab5fbbaa650943dcbaff8af475bea71f9
     ports:
       - "5672:5672"
 
