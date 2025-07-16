@@ -176,14 +176,14 @@ class EnmeshedRuntime with WidgetsBindingObserver {
       },
     );
 
-    controller.addJavaScriptHandler(handlerName: 'getRuntimeConfig', callback: (_) => runtimeConfigMap);
+    controller.addJavaScriptHandler(handlerName: 'getRuntimeConfig', callback: (_) async => await runtimeConfigMap);
 
     controller.addJavaScriptHandler(handlerName: 'getAppLanguage', callback: (_) => WidgetsBinding.instance.platformDispatcher.locale.languageCode);
 
     await controller.addLocalNotificationsJavaScriptHandlers(runtimeConfig.androidNotificationColor);
   }
 
-  Map<String, dynamic> get runtimeConfigMap => {
+  Future<Map<String, dynamic>> get runtimeConfigMap async => {
     'applicationId': runtimeConfig.applicationId,
     if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
     if (Platform.isIOS || Platform.isMacOS) 'pushService': 'apns' else if (Platform.isAndroid) 'pushService': 'fcm' else 'pushService': 'none',
