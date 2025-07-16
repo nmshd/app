@@ -20,7 +20,7 @@ class _EmptyFileFilters extends StatelessWidget {
   final String title;
   final String description;
 
-  const _EmptyFileFilters({required this.title, required this.description, super.key});
+  const _EmptyFileFilters({required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {
