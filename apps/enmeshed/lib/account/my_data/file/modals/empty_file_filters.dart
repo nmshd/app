@@ -1,7 +1,8 @@
-import 'package:enmeshed/core/core.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '/core/core.dart';
 
 void showEmptyFileFilters(
   BuildContext context, {
@@ -46,7 +47,9 @@ class _EmptyFileFilters extends StatelessWidget {
               children: [
                 Text(description, style: Theme.of(context).textTheme.bodyMedium),
                 Gaps.h32,
-                FilledButton(onPressed: () => context.pop(), child: Text(context.l10n.error_understood)),
+                Center(
+                  child: FilledButton(onPressed: () => context.pop(), child: Text(context.l10n.error_understood)),
+                ),
               ],
             ),
           ),

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:enmeshed/account/my_data/file/modals/empty_file_filters.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -11,7 +10,7 @@ import 'package:logger/logger.dart';
 
 import '/core/core.dart';
 import 'file_filter_type.dart';
-import 'modals/select_file_filters.dart';
+import 'modals/modals.dart';
 
 enum FilesFilterOption {
   all(Icons.format_list_bulleted, Icons.format_list_bulleted),
@@ -40,8 +39,9 @@ class _FilesScreenState extends State<FilesScreen> {
   List<FileRecord>? _fileRecords;
   List<FileRecord> _filteredFileRecords = [];
 
-  Set<String> _tags = {};
-  Set<FileFilterType> _activeFilters = {};
+  Set<String> _availableTags = {};
+  Set<String> _activeTagFilters = {};
+  Set<FileFilterType> _activeTypeFilters = {};
 
   FilesFilterOption _filterOption = FilesFilterOption.all;
 
@@ -97,19 +97,30 @@ class _FilesScreenState extends State<FilesScreen> {
           children: [
             _FilesFilterChipBar(
               selectedFilterOption: _filterOption,
-              isBadgeLabelVisible: _activeFilters.isNotEmpty,
-              activeFilters: _activeFilters,
+              isBadgeLabelVisible: _activeTypeFilters.isNotEmpty,
+              activeTypeFilters: _activeTypeFilters,
               showTags: () {
-                if (_tags.isEmpty) {
+                if (_availableTags.isEmpty) {
                   return showEmptyFileFilters(
                     context,
                     title: 'Dateien nach Tags filtern',
                     description: 'Sie haben aktuell keine Tags für Dateien und Dokumente vergeben.',
                   );
                 }
+                return showSelectFileTags(
+                  context,
+                  availableTags: _availableTags,
+                  activeTags: _activeTagFilters,
+                  onApplyTags: (selectedTags) {
+                    setState(() {
+                      _activeTagFilters = selectedTags;
+                      _activeTypeFilters = {};
+                    });
+                    _filterAndSort();
+                  },
+                );
               },
               showTypes: () {
-
                 final availableFilters = _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet();
 
                 if (availableFilters.isEmpty) {
@@ -123,9 +134,12 @@ class _FilesScreenState extends State<FilesScreen> {
                 return showSelectFileFilters(
                   context,
                   availableFilters: availableFilters,
-                  activeFilters: _activeFilters,
+                  activeFilters: _activeTypeFilters,
                   onApplyFilters: (selectedFilters) {
-                    setState(() => _activeFilters = selectedFilters);
+                    setState(() {
+                      _activeTypeFilters = selectedFilters;
+                      _activeTagFilters = {};
+                    });
                     _filterAndSort();
                   },
                 );
@@ -133,19 +147,24 @@ class _FilesScreenState extends State<FilesScreen> {
 
               setFilter: (filter) async {
                 setState(() => _filterOption = filter);
-                if (filter == FilesFilterOption.expired || filter == FilesFilterOption.unviewed) setState(() => _activeFilters = {});
+                if (filter == FilesFilterOption.expired || filter == FilesFilterOption.unviewed) setState(() => _activeTypeFilters = {});
                 await _loadFiles();
               },
             ),
-            if (_activeFilters.isNotEmpty)
-              _FilterBar(
-                activeFilters: _activeFilters,
+            if (_activeTypeFilters.isNotEmpty)
+              _TypesBar(
+                activeFilters: _activeTypeFilters,
                 onRemoveFilter: (removedFilter) {
-                  _activeFilters.remove(removedFilter);
+                  _activeTypeFilters.remove(removedFilter);
                   _filterAndSort();
                 },
-                onResetFilters: () {
-                  _activeFilters = {};
+              ),
+
+            if (_activeTagFilters.isNotEmpty)
+              _TagsBar(
+                activeTags: _activeTagFilters,
+                onRemoveTag: (removedTag) {
+                  _activeTagFilters.remove(removedTag);
                   _filterAndSort();
                 },
               ),
@@ -217,22 +236,32 @@ class _FilesScreenState extends State<FilesScreen> {
     final tags = <String>{};
 
     _fileRecords?.forEach((element) => element.fileReferenceAttribute?.tags?.forEach(tags.add));
-    setState(() => _tags = tags);
+    setState(() => _availableTags = tags);
 
     _filterAndSort();
   }
 
   void _filterAndSort() {
-    if (_activeFilters.isEmpty) {
+    if (_activeTypeFilters.isEmpty && _activeTagFilters.isEmpty) {
       final sorted = _fileRecords!..sort(_compareFunction());
       setState(() => _filteredFileRecords = sorted);
       return;
     }
 
-    final filteredFiles = _fileRecords!.where((fileRecord) => _activeFilters.contains(FileFilterType.fromMimetype(fileRecord.file.mimetype))).toList()
-      ..sort(_compareFunction());
-
-    setState(() => _filteredFileRecords = filteredFiles);
+    if (_activeTypeFilters.isNotEmpty) {
+      final filteredFiles =
+          _fileRecords!.where((fileRecord) => _activeTypeFilters.contains(FileFilterType.fromMimetype(fileRecord.file.mimetype))).toList()
+            ..sort(_compareFunction());
+      setState(() => _filteredFileRecords = filteredFiles);
+      return;
+    } else if (_activeTagFilters.isNotEmpty) {
+      final filteredFiles = _fileRecords!.where((fileRecord) {
+        final tags = fileRecord.fileReferenceAttribute?.tags;
+        if (tags == null) return false;
+        return tags.any((tag) => _activeTagFilters.contains(tag));
+      }).toList()..sort(_compareFunction());
+      setState(() => _filteredFileRecords = filteredFiles);
+    }
   }
 
   int Function(FileRecord, FileRecord) _compareFunction() => switch (_filterOption) {
@@ -304,12 +333,11 @@ class _FilesScreenState extends State<FilesScreen> {
   }
 }
 
-class _FilterBar extends StatelessWidget {
+class _TypesBar extends StatelessWidget {
   final Set<FileFilterType> activeFilters;
   final void Function(FileFilterType) onRemoveFilter;
-  final void Function() onResetFilters;
 
-  const _FilterBar({required this.activeFilters, required this.onRemoveFilter, required this.onResetFilters});
+  const _TypesBar({required this.activeFilters, required this.onRemoveFilter});
 
   @override
   Widget build(BuildContext context) {
@@ -345,13 +373,46 @@ class _FilterBar extends StatelessWidget {
   }
 }
 
+class _TagsBar extends StatelessWidget {
+  final Set<String> activeTags;
+  final void Function(String) onRemoveTag;
+
+  const _TagsBar({required this.activeTags, required this.onRemoveTag});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
+      child: Row(
+        children: [
+          Expanded(
+            child: Wrap(
+              spacing: 12,
+              children: activeTags.map((e) {
+                return Chip(
+                  label: Text(e, style: Theme.of(context).textTheme.labelSmall),
+                  padding: EdgeInsets.zero,
+                  shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.transparent)),
+                  labelPadding: const EdgeInsets.only(left: 8),
+                  deleteIcon: const Icon(Icons.close, size: 16),
+                  onDeleted: () => onRemoveTag(e),
+                );
+              }).toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _FilesFilterChipBar extends StatelessWidget {
   final FilesFilterOption selectedFilterOption;
   final Future<void> Function(FilesFilterOption option) setFilter;
   final bool isBadgeLabelVisible;
   final VoidCallback showTags;
   final VoidCallback showTypes;
-  final Set<FileFilterType> activeFilters;
+  final Set<FileFilterType> activeTypeFilters;
 
   const _FilesFilterChipBar({
     required this.selectedFilterOption,
@@ -359,7 +420,7 @@ class _FilesFilterChipBar extends StatelessWidget {
     required this.isBadgeLabelVisible,
     required this.showTags,
     required this.showTypes,
-    required this.activeFilters,
+    required this.activeTypeFilters,
   });
 
   @override
@@ -369,7 +430,7 @@ class _FilesFilterChipBar extends StatelessWidget {
       children: [
         for (final option in FilesFilterOption.values)
           _FilesCondensedFilterChip(
-            activeFilters: activeFilters,
+            activeFilters: activeTypeFilters,
             onPressed: () async => switch (option) {
               FilesFilterOption.tags => {await setFilter(FilesFilterOption.all), showTags()},
               FilesFilterOption.type => {await setFilter(FilesFilterOption.all), showTypes()},
