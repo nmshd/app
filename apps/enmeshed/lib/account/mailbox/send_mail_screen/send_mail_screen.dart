@@ -97,6 +97,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
                     contact: widget.contact ?? _recipient,
                     relationships: _relationships,
                     showRemoveContact: widget.contact == null,
+                    selectEnabled: widget.contact == null,
                     selectContact: _updateChoosenContact,
                   ),
                   const Divider(height: 2),

@@ -10,6 +10,7 @@ class ChooseContact extends StatelessWidget {
   final String accountId;
   final void Function(IdentityDVO?) selectContact;
   final bool showRemoveContact;
+  final bool selectEnabled;
 
   final IdentityDVO? contact;
   final List<IdentityDVO>? relationships;
@@ -18,6 +19,7 @@ class ChooseContact extends StatelessWidget {
     required this.accountId,
     required this.selectContact,
     required this.showRemoveContact,
+    required this.selectEnabled,
     this.contact,
     this.relationships,
     super.key,
@@ -27,7 +29,7 @@ class ChooseContact extends StatelessWidget {
   Widget build(BuildContext context) {
     return Ink(
       child: InkWell(
-        onTap: () => _onSelectPressed(context),
+        onTap: selectEnabled ? () => _onSelectPressed(context) : null,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: contact != null ? ContactHeader(contact: contact!) : Text(context.l10n.mailbox_to, style: Theme.of(context).textTheme.bodyLarge),
