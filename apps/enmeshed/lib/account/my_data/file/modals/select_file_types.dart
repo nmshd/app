@@ -5,43 +5,43 @@ import 'package:go_router/go_router.dart';
 import '/core/core.dart';
 import '../file_filter_type.dart';
 
-void showSelectFileFilters(
+void showSelectFileTypes(
   BuildContext context, {
-  required Set<FileFilterType> availableFilters,
-  required Set<FileFilterType> activeFilters,
-  required void Function(Set<FileFilterType>) onApplyFilters,
+  required Set<FileFilterType> availableTypes,
+  required Set<FileFilterType> activeTypes,
+  required void Function(Set<FileFilterType>) onApplyTypes,
 }) {
   showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    builder: (_) => _SelectFileFilters(availableFilters: availableFilters, onApplyFilters: onApplyFilters, activeFilters: activeFilters),
+    builder: (_) => _SelectFileTypes(availableTypes: availableTypes, onApplyTypes: onApplyTypes, activeTypes: activeTypes),
   );
 }
 
-class _SelectFileFilters extends StatefulWidget {
-  final Set<FileFilterType> availableFilters;
-  final Set<FileFilterType> activeFilters;
-  final void Function(Set<FileFilterType>) onApplyFilters;
+class _SelectFileTypes extends StatefulWidget {
+  final Set<FileFilterType> availableTypes;
+  final Set<FileFilterType> activeTypes;
+  final void Function(Set<FileFilterType>) onApplyTypes;
 
-  const _SelectFileFilters({required this.availableFilters, required this.activeFilters, required this.onApplyFilters});
+  const _SelectFileTypes({required this.availableTypes, required this.activeTypes, required this.onApplyTypes});
 
   @override
-  State<_SelectFileFilters> createState() => _SelectFileFiltersState();
+  State<_SelectFileTypes> createState() => _SelectFileTypesState();
 }
 
-class _SelectFileFiltersState extends State<_SelectFileFilters> {
+class _SelectFileTypesState extends State<_SelectFileTypes> {
   Set<FileFilterType> _selectedFilters = {};
 
   @override
   void initState() {
     super.initState();
 
-    _selectedFilters = widget.activeFilters;
+    _selectedFilters = widget.activeTypes;
   }
 
   @override
   Widget build(BuildContext context) {
-    final availableFilters = widget.availableFilters.map((e) => (filter: e, label: e.toLabel(context))).toList()
+    final availableFilters = widget.availableTypes.map((e) => (filter: e, label: e.toLabel(context))).toList()
       ..sort((a, b) {
         if (a.filter is OtherFileFilterType) return 1;
         if (b.filter is OtherFileFilterType) return -1;
@@ -59,7 +59,7 @@ class _SelectFileFiltersState extends State<_SelectFileFilters> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(context.l10n.files_filter_title, style: Theme.of(context).textTheme.titleLarge),
+                Text(context.l10n.files_filter_byFileType, style: Theme.of(context).textTheme.titleLarge),
                 IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.close)),
               ],
             ),
@@ -71,10 +71,6 @@ class _SelectFileFiltersState extends State<_SelectFileFilters> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(context.l10n.files_filter_byFileType, style: Theme.of(context).textTheme.titleMedium),
-                    Gaps.h32,
-                    Text(context.l10n.files_filter_documentType, style: Theme.of(context).textTheme.titleSmall),
-                    Gaps.h8,
                     Wrap(
                       spacing: 10,
                       children: availableFilters.map((e) {
@@ -98,16 +94,13 @@ class _SelectFileFiltersState extends State<_SelectFileFilters> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         OutlinedButton(
-                          onPressed: () {
-                            widget.onApplyFilters({});
-                            context.pop();
-                          },
-                          child: Text(context.l10n.reset),
+                          onPressed: () => context.pop(),
+                          child: Text(context.l10n.cancel),
                         ),
                         Gaps.w8,
                         FilledButton(
                           onPressed: () {
-                            widget.onApplyFilters(_selectedFilters);
+                            widget.onApplyTypes(_selectedFilters);
                             context.pop();
                           },
                           child: Text(context.l10n.apply_filter),

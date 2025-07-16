@@ -12,7 +12,7 @@ import '/core/core.dart';
 import 'file_filter_type.dart';
 import 'modals/modals.dart';
 
-enum FilesFilterOption {
+enum _FilesFilterOption {
   all(Icons.format_list_bulleted, Icons.format_list_bulleted),
   unviewed(Icons.new_releases, Icons.new_releases_outlined),
   expired(Icons.error, Icons.error_outline),
@@ -22,7 +22,7 @@ enum FilesFilterOption {
   final IconData filterIcon;
   final IconData? emptyListIcon;
 
-  const FilesFilterOption(this.filterIcon, this.emptyListIcon);
+  const _FilesFilterOption(this.filterIcon, this.emptyListIcon);
 }
 
 class FilesScreen extends StatefulWidget {
@@ -43,7 +43,7 @@ class _FilesScreenState extends State<FilesScreen> {
   Set<String> _activeTagFilters = {};
   Set<FileFilterType> _activeTypeFilters = {};
 
-  FilesFilterOption _filterOption = FilesFilterOption.all;
+  _FilesFilterOption _filterOption = _FilesFilterOption.all;
 
   late final List<StreamSubscription<void>> _subscriptions = [];
 
@@ -97,14 +97,15 @@ class _FilesScreenState extends State<FilesScreen> {
           children: [
             _FilesFilterChipBar(
               selectedFilterOption: _filterOption,
-              isBadgeLabelVisible: _activeTypeFilters.isNotEmpty,
+              isBadgeLabelVisible: _activeTypeFilters.isNotEmpty || _activeTagFilters.isNotEmpty,
               activeTypeFilters: _activeTypeFilters,
+              activeTagFilters: _activeTagFilters,
               showTags: () {
                 if (_availableTags.isEmpty) {
                   return showEmptyFileFilters(
                     context,
-                    title: 'Dateien nach Tags filtern',
-                    description: 'Sie haben aktuell keine Tags für Dateien und Dokumente vergeben.',
+                    title: context.l10n.files_filter_byTag,
+                    description: context.l10n.files_filter_byTagEmpty,
                   );
                 }
                 return showSelectFileTags(
@@ -112,6 +113,7 @@ class _FilesScreenState extends State<FilesScreen> {
                   availableTags: _availableTags,
                   activeTags: _activeTagFilters,
                   onApplyTags: (selectedTags) {
+                    if (selectedTags.isEmpty) return;
                     setState(() {
                       _activeTagFilters = selectedTags;
                       _activeTypeFilters = {};
@@ -126,16 +128,17 @@ class _FilesScreenState extends State<FilesScreen> {
                 if (availableFilters.isEmpty) {
                   return showEmptyFileFilters(
                     context,
-                    title: 'Dateien nach Typ filtern',
-                    description: 'Es sind aktuell keine Dateien und Dokumente vorhanden.',
+                    title: context.l10n.files_filter_byFileType,
+                    description: context.l10n.files_filter_byFileTypeEmpty,
                   );
                 }
 
-                return showSelectFileFilters(
+                return showSelectFileTypes(
                   context,
-                  availableFilters: availableFilters,
-                  activeFilters: _activeTypeFilters,
-                  onApplyFilters: (selectedFilters) {
+                  availableTypes: availableFilters,
+                  activeTypes: _activeTypeFilters,
+                  onApplyTypes: (selectedFilters) {
+                    if (selectedFilters.isEmpty) return;
                     setState(() {
                       _activeTypeFilters = selectedFilters;
                       _activeTagFilters = {};
@@ -147,7 +150,7 @@ class _FilesScreenState extends State<FilesScreen> {
 
               setFilter: (filter) async {
                 setState(() => _filterOption = filter);
-                if (filter == FilesFilterOption.expired || filter == FilesFilterOption.unviewed) setState(() => _activeTypeFilters = {});
+                if (filter == _FilesFilterOption.expired || filter == _FilesFilterOption.unviewed) setState(() => _activeTypeFilters = {});
                 await _loadFiles();
               },
             ),
@@ -197,7 +200,7 @@ class _FilesScreenState extends State<FilesScreen> {
     final result = await session.consumptionServices.attributes.getRepositoryAttributes(
       query: {
         'content.value.@type': QueryValue.string('IdentityFileReference'),
-        if (_filterOption == FilesFilterOption.unviewed) 'wasViewedAt': QueryValue.string('!'),
+        if (_filterOption == _FilesFilterOption.unviewed) 'wasViewedAt': QueryValue.string('!'),
       },
     );
 
@@ -225,7 +228,7 @@ class _FilesScreenState extends State<FilesScreen> {
       final fileReference = fileReferenceAttribute.value as IdentityFileReferenceAttributeValue;
       final file = await expandFileReference(accountId: widget.accountId, fileReference: fileReference.value);
 
-      if (_filterOption != FilesFilterOption.expired || DateTime.parse(file.expiresAt).isBefore(DateTime.now())) {
+      if (_filterOption != _FilesFilterOption.expired || DateTime.parse(file.expiresAt).isBefore(DateTime.now())) {
         fileRecords.add(
           createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute as RepositoryAttributeDVO),
         );
@@ -265,7 +268,7 @@ class _FilesScreenState extends State<FilesScreen> {
   }
 
   int Function(FileRecord, FileRecord) _compareFunction() => switch (_filterOption) {
-    FilesFilterOption.type => (a, b) {
+    _FilesFilterOption.type => (a, b) {
       final aType = a.file.mimetype.split('/').last;
       final bType = b.file.mimetype.split('/').last;
       return bType.compareTo(aType);
@@ -407,12 +410,13 @@ class _TagsBar extends StatelessWidget {
 }
 
 class _FilesFilterChipBar extends StatelessWidget {
-  final FilesFilterOption selectedFilterOption;
-  final Future<void> Function(FilesFilterOption option) setFilter;
+  final _FilesFilterOption selectedFilterOption;
+  final Future<void> Function(_FilesFilterOption option) setFilter;
   final bool isBadgeLabelVisible;
   final VoidCallback showTags;
   final VoidCallback showTypes;
   final Set<FileFilterType> activeTypeFilters;
+  final Set<String> activeTagFilters;
 
   const _FilesFilterChipBar({
     required this.selectedFilterOption,
@@ -421,6 +425,7 @@ class _FilesFilterChipBar extends StatelessWidget {
     required this.showTags,
     required this.showTypes,
     required this.activeTypeFilters,
+    required this.activeTagFilters,
   });
 
   @override
@@ -428,32 +433,33 @@ class _FilesFilterChipBar extends StatelessWidget {
     return FilterChipBar(
       onInfoPressed: () => (),
       children: [
-        for (final option in FilesFilterOption.values)
+        for (final option in _FilesFilterOption.values)
           _FilesCondensedFilterChip(
-            activeFilters: activeTypeFilters,
+            activeTypeFilters: activeTypeFilters,
+            activeTagFilters: activeTagFilters,
             onPressed: () async => switch (option) {
-              FilesFilterOption.tags => {await setFilter(FilesFilterOption.all), showTags()},
-              FilesFilterOption.type => {await setFilter(FilesFilterOption.all), showTypes()},
+              _FilesFilterOption.tags => {await setFilter(_FilesFilterOption.all), showTags()},
+              _FilesFilterOption.type => {await setFilter(_FilesFilterOption.all), showTypes()},
               _ => setFilter(option),
             },
             icon: option.filterIcon,
             filterOption: option,
             isBadgeLabelVisible: isBadgeLabelVisible,
             label: switch (option) {
-              FilesFilterOption.all => context.l10n.files_filterOption_all,
-              FilesFilterOption.unviewed => context.l10n.files_filterOption_new,
-              FilesFilterOption.expired => context.l10n.files_filterOption_expired,
+              _FilesFilterOption.all => context.l10n.files_filterOption_all,
+              _FilesFilterOption.unviewed => context.l10n.files_filterOption_new,
+              _FilesFilterOption.expired => context.l10n.files_filterOption_expired,
               _ => null,
             },
             isSelected: selectedFilterOption == option,
             foregroundColor: switch (option) {
-              FilesFilterOption.unviewed => Theme.of(context).colorScheme.secondary,
-              FilesFilterOption.expired => Theme.of(context).colorScheme.error,
+              _FilesFilterOption.unviewed => Theme.of(context).colorScheme.secondary,
+              _FilesFilterOption.expired => Theme.of(context).colorScheme.error,
               _ => Theme.of(context).colorScheme.onSurfaceVariant,
             },
             backgroundColor: switch (option) {
-              FilesFilterOption.unviewed => Theme.of(context).colorScheme.secondaryContainer,
-              FilesFilterOption.expired => Theme.of(context).colorScheme.errorContainer,
+              _FilesFilterOption.unviewed => Theme.of(context).colorScheme.secondaryContainer,
+              _FilesFilterOption.expired => Theme.of(context).colorScheme.errorContainer,
               _ => Theme.of(context).colorScheme.surfaceContainerHighest,
             },
           ),
@@ -466,9 +472,10 @@ class _FilesCondensedFilterChip extends StatelessWidget {
   final VoidCallback onPressed;
   final IconData icon;
   final bool isSelected;
-  final FilesFilterOption filterOption;
+  final _FilesFilterOption filterOption;
   final bool isBadgeLabelVisible;
-  final Set<FileFilterType> activeFilters;
+  final Set<FileFilterType> activeTypeFilters;
+  final Set<String> activeTagFilters;
   final String? label;
   final Color? backgroundColor;
   final Color? foregroundColor;
@@ -479,7 +486,8 @@ class _FilesCondensedFilterChip extends StatelessWidget {
     required this.isSelected,
     required this.filterOption,
     required this.isBadgeLabelVisible,
-    required this.activeFilters,
+    required this.activeTypeFilters,
+    required this.activeTagFilters,
     this.label,
     this.backgroundColor,
     this.foregroundColor,
@@ -495,7 +503,9 @@ class _FilesCondensedFilterChip extends StatelessWidget {
       child: Icon(this.icon, size: 18, color: foregroundColor),
     );
 
-    final filterChipIcon = (activeFilters.isNotEmpty && filterOption == FilesFilterOption.type)
+    final filterChipIcon =
+        (activeTypeFilters.isNotEmpty && filterOption == _FilesFilterOption.type) ||
+            (activeTagFilters.isNotEmpty && filterOption == _FilesFilterOption.tags)
         ? Badge(
             isLabelVisible: isBadgeLabelVisible,
             backgroundColor: Theme.of(context).primaryColor,
@@ -528,7 +538,7 @@ class _FilesCondensedFilterChip extends StatelessWidget {
 
 class _EmptyFilesIndicator extends StatelessWidget {
   final String accountId;
-  final FilesFilterOption filterOption;
+  final _FilesFilterOption filterOption;
   final VoidCallback uploadFile;
 
   const _EmptyFilesIndicator({required this.accountId, required this.filterOption, required this.uploadFile});
@@ -540,15 +550,15 @@ class _EmptyFilesIndicator extends StatelessWidget {
       child: EmptyListIndicator(
         icon: filterOption.emptyListIcon!,
         text: switch (filterOption) {
-          FilesFilterOption.unviewed => context.l10n.files_noNewFiles,
-          FilesFilterOption.expired => context.l10n.files_noExpiredFiles,
+          _FilesFilterOption.unviewed => context.l10n.files_noNewFiles,
+          _FilesFilterOption.expired => context.l10n.files_noExpiredFiles,
           _ => context.l10n.files_noFilesAvailable,
         },
         description: switch (filterOption) {
-          FilesFilterOption.unviewed || FilesFilterOption.expired => null,
+          _FilesFilterOption.unviewed || _FilesFilterOption.expired => null,
           _ => context.l10n.files_noFilesAvailable_description,
         },
-        action: filterOption != FilesFilterOption.all
+        action: filterOption != _FilesFilterOption.all
             ? null
             : TextButton(onPressed: uploadFile, child: Text(context.l10n.files_noFilesAvailable_addFiles)),
       ),

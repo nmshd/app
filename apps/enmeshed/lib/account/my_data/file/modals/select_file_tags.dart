@@ -51,7 +51,7 @@ class _SelectFileTagsState extends State<_SelectFileTags> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(context.l10n.files_filter_title, style: Theme.of(context).textTheme.titleLarge),
+                Text(context.l10n.files_filter_byTag, style: Theme.of(context).textTheme.titleLarge),
                 IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.close)),
               ],
             ),
@@ -63,10 +63,6 @@ class _SelectFileTagsState extends State<_SelectFileTags> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(context.l10n.files_filter_byFileType, style: Theme.of(context).textTheme.titleMedium),
-                    Gaps.h32,
-                    Text(context.l10n.files_filter_documentType, style: Theme.of(context).textTheme.titleSmall),
-                    Gaps.h8,
                     Wrap(
                       spacing: 10,
                       children: widget.availableTags.map((e) {
@@ -84,11 +80,8 @@ class _SelectFileTagsState extends State<_SelectFileTags> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         OutlinedButton(
-                          onPressed: () {
-                            widget.onApplyTags({});
-                            context.pop();
-                          },
-                          child: Text(context.l10n.reset),
+                          onPressed: () => context.pop(),
+                          child: Text(context.l10n.cancel),
                         ),
                         Gaps.w8,
                         FilledButton(
