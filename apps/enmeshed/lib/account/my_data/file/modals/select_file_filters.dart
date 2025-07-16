@@ -80,11 +80,12 @@ class _SelectFileFiltersState extends State<_SelectFileFilters> {
                       children: availableFilters.map((e) {
                         return FilterChip(
                           label: Text(e.label),
+                          shape: const StadiumBorder(),
                           avatar: switch (e.filter) {
-                            PDFFileFilterType() => const Icon(Icons.picture_as_pdf),
-                            PNGFileFilterType() || JPGFileFilterType() => const Icon(Icons.image),
+                            PDFFileFilterType() => Icon(Icons.picture_as_pdf, color: Theme.of(context).colorScheme.onSurface),
+                            PNGFileFilterType() || JPGFileFilterType() => Icon(Icons.image, color: Theme.of(context).colorScheme.onSurface),
                             OtherFileFilterType() => null,
-                            _ => const Icon(Icons.insert_drive_file),
+                            _ => Icon(Icons.insert_drive_file, color: Theme.of(context).colorScheme.onSurface),
                           },
                           showCheckmark: false,
                           selected: _selectedFilters.contains(e.filter),
