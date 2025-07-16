@@ -166,30 +166,29 @@ class EnmeshedRuntime with WidgetsBindingObserver {
       callback: (_) => _runtimeReadyCompleter.completeError(Exception('Runtime init failed')),
     );
 
-    controller.addJavaScriptHandler(
-      handlerName: 'getRuntimeConfig',
-      callback: (_) => {
-        'applicationId': runtimeConfig.applicationId,
-        if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
-        if (Platform.isIOS || Platform.isMacOS) 'pushService': 'apns' else if (Platform.isAndroid) 'pushService': 'fcm' else 'pushService': 'none',
-        'transportLibrary': {
-          'baseUrl': runtimeConfig.baseUrl,
-          'platformClientId': runtimeConfig.clientId,
-          'platformClientSecret': runtimeConfig.clientSecret,
-        },
-        'databaseFolder': runtimeConfig.databaseFolder,
-        'modules': {
-          if (Platform.isWindows) 'pushNotification': {'enabled': false},
-          if (Platform.isWindows) 'sse': {'enabled': true},
-          'decider': ?runtimeConfig.deciderModuleConfig,
-        },
-      },
-    );
+    controller.addJavaScriptHandler(handlerName: 'getRuntimeConfig', callback: (_) => runtimeConfigMap);
 
     controller.addJavaScriptHandler(handlerName: 'getAppLanguage', callback: (_) => WidgetsBinding.instance.platformDispatcher.locale.languageCode);
 
     await controller.addLocalNotificationsJavaScriptHandlers(runtimeConfig.androidNotificationColor);
   }
+
+  Map<String, dynamic> get runtimeConfigMap => {
+    'applicationId': runtimeConfig.applicationId,
+    if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
+    if (Platform.isIOS || Platform.isMacOS) 'pushService': 'apns' else if (Platform.isAndroid) 'pushService': 'fcm' else 'pushService': 'none',
+    'transportLibrary': {
+      'baseUrl': runtimeConfig.baseUrl,
+      'platformClientId': runtimeConfig.clientId,
+      'platformClientSecret': runtimeConfig.clientSecret,
+    },
+    'databaseFolder': runtimeConfig.databaseFolder,
+    'modules': {
+      if (Platform.isWindows) 'pushNotification': {'enabled': false},
+      if (Platform.isWindows) 'sse': {'enabled': true},
+      'decider': ?runtimeConfig.deciderModuleConfig,
+    },
+  };
 
   /// Register the [UIBridge] to communicate with the native UI.
   /// This must be called after the runtime is ready.
