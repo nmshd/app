@@ -10,6 +10,7 @@ import 'package:feedback/feedback.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
@@ -125,6 +126,23 @@ final _router = GoRouter(
           buttonContinueText: context.l10n.instructions_giveFeedback_title,
         );
       },
+      routes: [
+        GoRoute(
+          parentNavigatorKey: _rootNavigatorKey,
+          path: '/success',
+          pageBuilder: (context, state) => DialogPage(builder: (context) => const FeedbackSuccessDialog()),
+        ),
+        GoRoute(
+          parentNavigatorKey: _rootNavigatorKey,
+          path: '/error',
+          pageBuilder: (context, state) => DialogPage(
+            builder: (context) {
+              final email = state.extra! as Email;
+              return FeedbackErrorDialog(email: email);
+            },
+          ),
+        ),
+      ],
     ),
     GoRoute(parentNavigatorKey: _rootNavigatorKey, path: '/scan-recovery-kit', builder: (context, state) => const ScanRecoveryKitScreen()),
     GoRoute(
@@ -523,6 +541,7 @@ class EnmeshedApp extends StatelessWidget with WatchItMixin {
       themeMode: themeSetting.themeMode,
       theme: feedbackLightTheme,
       darkTheme: feedbackDarkTheme,
+      mode: FeedbackMode.navigate,
       child: Features(
         child: MaterialApp.router(
           routerConfig: _router,
