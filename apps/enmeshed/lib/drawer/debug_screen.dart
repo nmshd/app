@@ -142,9 +142,9 @@ class DebugScreen extends StatelessWidget {
     final logsDir = Directory('${dir.path}/logs');
     if (logsDir.existsSync()) await encoder.addDirectory(logsDir);
 
-    await encoder.addFile(File('${dir.path}/config.json'));
+    encoder.addArchiveFile(ArchiveFile.string('config.json', jsonEncode(runtime.runtimeConfigMap)));
 
-    encoder.closeSync();
+    await encoder.close();
 
     final bytes = zipFile.readAsBytesSync();
 

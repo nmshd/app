@@ -29,6 +29,7 @@ class _HomeViewState extends State<HomeView> {
   bool _isCompleteProfileContainerShown = false;
   bool _showRecoveryKitWasUsedContainer = false;
   List<AnnouncementDTO> _announcements = [];
+  bool _isGiveFeedbackBannerShown = false;
 
   final List<StreamSubscription<void>> _subscriptions = [];
 
@@ -117,6 +118,9 @@ class _HomeViewState extends State<HomeView> {
                       ],
                     ),
                   ),
+
+                if (_isGiveFeedbackBannerShown) GiveFeedbackBanner(onClose: _hideGiveFeedbackBanner),
+
                 MessagesContainer(
                   accountId: widget.accountId,
                   messages: _messages,
@@ -165,6 +169,12 @@ class _HomeViewState extends State<HomeView> {
     final annoucementsResult = await session.transportServices.announcements.getAnnouncements(language: language);
     final announcements = annoucementsResult.value;
 
+    final isGiveFeedbackBannerShown = await getSetting(
+      accountId: widget.accountId,
+      key: 'home.giveFeedbackBannerShown',
+      valueKey: 'isShown',
+    );
+
     if (!mounted) return;
 
     final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
@@ -176,6 +186,7 @@ class _HomeViewState extends State<HomeView> {
       _requests = requests;
       _isCompleteProfileContainerShown = isCompleteProfileContainerShown;
       _showRecoveryKitWasUsedContainer = showRecoveryKitWasUsedContainer;
+      _isGiveFeedbackBannerShown = isGiveFeedbackBannerShown;
       _unviewedIdentityFileReferenceAttributesCount = unviewedIdentityFileReferenceAttributes.length;
       _announcements = announcements.where((a) => a.title == 'Vielen Dank!').toList();
     });
@@ -185,6 +196,12 @@ class _HomeViewState extends State<HomeView> {
     if (mounted) setState(() => _isCompleteProfileContainerShown = false);
 
     await upsertCompleteProfileContainerSetting(accountId: widget.accountId, value: false);
+  }
+
+  Future<void> _hideGiveFeedbackBanner() async {
+    if (mounted) setState(() => _isGiveFeedbackBannerShown = false);
+
+    await upsertGiveFeedbackBannerSetting(accountId: widget.accountId, value: false);
   }
 }
 

@@ -5,7 +5,7 @@ version: 4.0.3
 
 environment:
   sdk: "^3.8.1"
-  flutter: ">=3.32.5"
+  flutter: ">=3.32.7"
 
 dependencies:
   app_links: ^6.4.0
@@ -15,10 +15,12 @@ dependencies:
   enmeshed_types: ^1.0.0
   enmeshed_ui_kit: ^1.0.0
   feature_flags: ^0.1.4
+  feedback: ^3.1.0
   file_picker: ^10.2.0
   flex_seed_scheme: ^3.5.1
   flutter:
     sdk: flutter
+  flutter_email_sender: ^7.0.0
   flutter_i18n: ^0.36.3
   flutter_inappwebview: any
   flutter_localizations:
@@ -52,7 +54,7 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   styled_text: ^8.1.0
   timeago: ^3.7.1
-  url_launcher: ^6.3.1
+  url_launcher: ^6.3.2
   value_renderer: ^1.0.0
   vector_graphics: ^1.1.19
   very_good_analysis: ^9.0.0
