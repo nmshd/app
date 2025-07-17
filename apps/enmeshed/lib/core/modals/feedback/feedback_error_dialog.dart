@@ -18,10 +18,7 @@ class FeedbackErrorDialog extends StatelessWidget {
       title: Text(context.l10n.giveFeedback_error_title),
       content: Text(context.l10n.giveFeedback_error_description, textAlign: TextAlign.center),
       actions: [
-        OutlinedButton(
-          onPressed: () => context.pop(),
-          child: Text(context.l10n.cancel),
-        ),
+        OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
         FilledButton(
           onPressed: () async {
             final success = await _sendEmail();

@@ -20,10 +20,7 @@ class FeedbackSuccessDialog extends StatelessWidget {
             ..giveFeedback(),
           child: Text(context.l10n.giveFeedback_success_newFeedback),
         ),
-        FilledButton(
-          onPressed: () => context.pop(),
-          child: Text(context.l10n.close),
-        ),
+        FilledButton(onPressed: () => context.pop(), child: Text(context.l10n.close)),
       ],
     );
   }

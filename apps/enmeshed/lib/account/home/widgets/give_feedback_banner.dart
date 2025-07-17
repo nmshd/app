@@ -21,8 +21,14 @@ class GiveFeedbackBanner extends StatelessWidget {
           padding: const EdgeInsets.all(4).copyWith(left: 8),
           child: Row(
             children: [
-              const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.emoji_emotions_outlined, size: 24)),
-              Text(context.l10n.drawer_hints_giveFeedback, style: Theme.of(context).textTheme.bodyMedium),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Icon(Icons.sentiment_satisfied_alt, size: 24, color: Theme.of(context).colorScheme.secondary),
+              ),
+              Text(
+                context.l10n.drawer_hints_giveFeedback,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSecondaryContainer),
+              ),
               const Spacer(),
               CloseButton(onPressed: onClose),
             ],
