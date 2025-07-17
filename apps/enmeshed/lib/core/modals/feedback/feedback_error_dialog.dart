@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:enmeshed/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../utils/extensions.dart';
 
 class FeedbackErrorDialog extends StatelessWidget {
   final Email email;

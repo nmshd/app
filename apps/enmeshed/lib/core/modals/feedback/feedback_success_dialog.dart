@@ -1,7 +1,8 @@
-import 'package:enmeshed/core/utils/utils.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../utils/utils.dart';
 
 class FeedbackSuccessDialog extends StatelessWidget {
   const FeedbackSuccessDialog({super.key});
