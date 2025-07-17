@@ -231,7 +231,6 @@ class _UploadFileState extends State<UploadFile> {
 
     // TODO(jkoenig134): error handling
 
-
     await session.consumptionServices.attributes.markAttributeAsViewed(attributeId: createAttributeResult.value.id);
     return (await session.expander.expandLocalAttributeDTO(createAttributeResult.value)) as RepositoryAttributeDVO;
   }
