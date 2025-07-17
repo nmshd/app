@@ -22,6 +22,7 @@ import 'package:watch_it/watch_it.dart';
 import '/identity_in_deletion_screen.dart';
 import '/themes/themes.dart';
 import 'account/account.dart';
+import 'account/my_data/file/files_filter_option.dart';
 import 'core/core.dart';
 import 'drawer/drawer.dart';
 import 'error_screen.dart';
@@ -348,6 +349,7 @@ final _router = GoRouter(
                   builder: (context, state) => FilesScreen(
                     accountId: state.pathParameters['accountId']!,
                     initialCreation: state.uri.queryParameters['initialCreation'] == 'true',
+                    preselectedFilter: state.extra as FilesFilterOption?,
                   ),
                   routes: [
                     GoRoute(

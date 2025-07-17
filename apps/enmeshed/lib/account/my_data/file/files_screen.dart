@@ -16,8 +16,9 @@ import 'modals/modals.dart';
 class FilesScreen extends StatefulWidget {
   final String accountId;
   final bool initialCreation;
+  final FilesFilterOption? preselectedFilter;
 
-  const FilesScreen({required this.accountId, this.initialCreation = false, super.key});
+  const FilesScreen({required this.accountId, this.initialCreation = false, this.preselectedFilter, super.key});
 
   @override
   State<FilesScreen> createState() => _FilesScreenState();
@@ -31,13 +32,14 @@ class _FilesScreenState extends State<FilesScreen> {
   Set<String> _activeTagFilters = {};
   Set<FileFilterType> _activeTypeFilters = {};
 
-  FilesFilterOption _filterOption = FilesFilterOption.all;
-
+  late FilesFilterOption _filterOption;
   late final List<StreamSubscription<void>> _subscriptions = [];
 
   @override
   void initState() {
     super.initState();
+
+    _filterOption = widget.preselectedFilter ?? FilesFilterOption.all;
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
