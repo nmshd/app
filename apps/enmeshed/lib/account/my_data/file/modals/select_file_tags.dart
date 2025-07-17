@@ -77,18 +77,17 @@ class _SelectFileTagsState extends State<_SelectFileTags> {
                     ),
                     Gaps.h48,
                     Row(
+                      spacing: 8,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        OutlinedButton(
-                          onPressed: () => context.pop(),
-                          child: Text(context.l10n.cancel),
-                        ),
-                        Gaps.w8,
+                        OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
                         FilledButton(
-                          onPressed: () {
-                            widget.onApplyTags(_selectedTags);
-                            context.pop();
-                          },
+                          onPressed: _selectedTags.isNotEmpty
+                              ? () {
+                                  widget.onApplyTags(_selectedTags);
+                                  context.pop();
+                                }
+                              : null,
                           child: Text(context.l10n.apply_filter),
                         ),
                       ],

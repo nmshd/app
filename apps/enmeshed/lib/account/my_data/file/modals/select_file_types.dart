@@ -91,18 +91,17 @@ class _SelectFileTypesState extends State<_SelectFileTypes> {
                     ),
                     Gaps.h48,
                     Row(
+                      spacing: 8,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        OutlinedButton(
-                          onPressed: () => context.pop(),
-                          child: Text(context.l10n.cancel),
-                        ),
-                        Gaps.w8,
+                        OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
                         FilledButton(
-                          onPressed: () {
-                            widget.onApplyTypes(_selectedFilters);
-                            context.pop();
-                          },
+                          onPressed: _selectedFilters.isNotEmpty
+                              ? () {
+                                  widget.onApplyTypes(_selectedFilters);
+                                  context.pop();
+                                }
+                              : null,
                           child: Text(context.l10n.apply_filter),
                         ),
                       ],
