@@ -97,6 +97,23 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  build_cli_annotations:
+    dependency: transitive
+    description:
+      name: build_cli_annotations
+      sha256: b59d2769769efd6c9ff6d4c4cede0be115a566afc591705c2040b707534b1172
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
+  cal_flutter_plugin:
+    dependency: transitive
+    description:
+      path: cal_flutter_plugin
+      ref: "3e9fc88"
+      resolved-ref: "3e9fc880a1cb76d770252591273f606c48b0f595"
+      url: "https://github.com/nmshd/rust-crypto"
+    source: git
+    version: "0.0.1"
   cassowary:
     dependency: transitive
     description:
@@ -488,6 +505,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.28"
+  flutter_rust_bridge:
+    dependency: transitive
+    description:
+      name: flutter_rust_bridge
+      sha256: "5a5c7a5deeef2cc2ffe6076a33b0429f4a20ceac22a397297aed2b1eb067e611"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.9.0"
   flutter_slidable:
     dependency: "direct main"
     description:
@@ -506,6 +531,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  freezed_annotation:
+    dependency: transitive
+    description:
+      name: freezed_annotation
+      sha256: "7294967ff0a6d98638e7acb774aac3af2550777accd8149c90af5b014e6d44d8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   functional_listener:
     dependency: transitive
     description:

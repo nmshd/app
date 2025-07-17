@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:enmeshed_runtime_bridge/src/crypto_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -47,6 +48,9 @@ class EnmeshedRuntime with WidgetsBindingObserver {
 
   late final AnonymousServices _anonymousServices;
   AnonymousServices get anonymousServices => _anonymousServices;
+
+  late final CryptoHandler _cryptoHandler;
+  CryptoHandler get cryptoHandler => _cryptoHandler;
 
   late final StringProcessor _stringProcessor;
   StringProcessor get stringProcessor {
@@ -113,6 +117,7 @@ class EnmeshedRuntime with WidgetsBindingObserver {
     _accountServices = AccountServices(anonymousEvaluator);
     _anonymousServices = AnonymousServices(anonymousEvaluator);
     _stringProcessor = StringProcessor(anonymousEvaluator);
+    _cryptoHandler = CryptoHandler();
   }
 
   Session getSession(String accountReference) => Session(Evaluator.account(this, accountReference));
@@ -147,6 +152,8 @@ class EnmeshedRuntime with WidgetsBindingObserver {
 
     controller.addJavaScriptHandler(handlerName: 'handleRuntimeEvent', callback: (args) => handleRuntimeEventCallback(args, eventBus, _logger));
 
+    controller.addJavaScriptHandler(handlerName: 'handleCryptoEvent', callback: (args) => _cryptoHandler.handleCall(args));
+
     controller.addFilesystemJavaScriptHandlers(_filesystemAdapter);
 
     controller.addJavaScriptHandler(
@@ -163,17 +170,20 @@ class EnmeshedRuntime with WidgetsBindingObserver {
 
     controller.addJavaScriptHandler(
       handlerName: 'runtimeInitFailed',
-      callback: (_) => _runtimeReadyCompleter.completeError(Exception('Runtime init failed')),
+      callback: (e) {
+        _logger.e('Runtime init failed: $e', error: e);
+        _runtimeReadyCompleter.completeError(Exception('Runtime init failed'));
+      },
     );
 
-    controller.addJavaScriptHandler(handlerName: 'getRuntimeConfig', callback: (_) => runtimeConfigMap);
+    controller.addJavaScriptHandler(handlerName: 'getRuntimeConfig', callback: (_) async => await runtimeConfigMap);
 
     controller.addJavaScriptHandler(handlerName: 'getAppLanguage', callback: (_) => WidgetsBinding.instance.platformDispatcher.locale.languageCode);
 
     await controller.addLocalNotificationsJavaScriptHandlers(runtimeConfig.androidNotificationColor);
   }
 
-  Map<String, dynamic> get runtimeConfigMap => {
+  Future<Map<String, dynamic>> get runtimeConfigMap async => {
     'applicationId': runtimeConfig.applicationId,
     if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
     if (Platform.isIOS || Platform.isMacOS) 'pushService': 'apns' else if (Platform.isAndroid) 'pushService': 'fcm' else 'pushService': 'none',
@@ -188,6 +198,7 @@ class EnmeshedRuntime with WidgetsBindingObserver {
       if (Platform.isWindows) 'sse': {'enabled': true},
       'decider': ?runtimeConfig.deciderModuleConfig,
     },
+    'calStoragePath': (await _filesystemAdapter.getDirectoryForStorage('cal')).path,
   };
 
   /// Register the [UIBridge] to communicate with the native UI.

@@ -15,6 +15,7 @@ import { LanguageISO639 } from "@nmshd/core-types";
 import { buildInformation } from "@nmshd/runtime";
 import { LogLevel } from "typescript-logging";
 import { AppLanguageProvider } from "./AppLanguageProvider";
+import { cryptoInit } from "./cryptoBridge";
 import { DatabaseFactory } from "./DatabaseFactory";
 import { FileAccess } from "./FileAccess";
 import { NotificationAccess } from "./NotificationAccess";
@@ -63,6 +64,15 @@ async function main() {
   const notificationAccess = new NotificationAccess(loggerFactory);
   const languageProvider = new AppLanguageProvider();
 
+  const runtimeBridgeLogger = loggerFactory.getLogger("RuntimeBridge");
+
+  if ((config as any).calStoragePath === undefined) {
+    runtimeBridgeLogger.warn("No database folder provided, not initializing CAL");
+  } else {
+    config.calFactory = cryptoInit;
+    config.calStorageConfig = { FileStoreConfig: { db_dir: (config as any).calStoragePath } };
+  }
+
   const runtime = await AppRuntime.create(
     config,
     loggerFactory,
@@ -73,7 +83,6 @@ async function main() {
   );
   await runtime.start();
 
-  const runtimeBridgeLogger = loggerFactory.getLogger("RuntimeBridge");
   runtime.eventBus.subscribe("**", async (event) => {
     try {
       await window.flutter_inappwebview.callHandler("handleRuntimeEvent", event);
