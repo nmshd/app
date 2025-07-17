@@ -27,6 +27,13 @@ jobs:
         uses: step-security/changed-files@v46
         with:
           files: packages/enmeshed_runtime_bridge/**
+      - name: Install Rust toolchain
+        if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          target: aarch64-apple-ios
       - name: Start Backbone
         # if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
         run: docker compose -f .dev/compose.backbone.yml up -d
