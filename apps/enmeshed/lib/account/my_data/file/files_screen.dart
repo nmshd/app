@@ -84,6 +84,7 @@ class _FilesScreenState extends State<FilesScreen> {
       appBar: appBar,
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _FilesFilterChipBar(
               selectedFilterOption: _filterOption,
@@ -359,25 +360,26 @@ class _TypesBar extends StatelessWidget {
       });
 
     return Padding(
-      padding: const EdgeInsets.only(left: 16, top: 8),
-      child: Row(
-        children: [
-          Expanded(
-            child: Wrap(
-              spacing: 12,
-              children: activeFilters.map((e) {
-                return Chip(
-                  label: Text(e.label, style: Theme.of(context).textTheme.labelSmall),
-                  padding: EdgeInsets.zero,
-                  shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.transparent)),
-                  labelPadding: const EdgeInsets.only(left: 8),
-                  deleteIcon: const Icon(Icons.close, size: 16),
-                  onDeleted: () => onRemoveFilter(e.filter),
-                );
-              }).toList(),
-            ),
-          ),
-        ],
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          spacing: 12,
+          mainAxisSize: MainAxisSize.min,
+          children: activeFilters.map((e) {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 2,
+              children: [
+                Text(e.label, style: Theme.of(context).textTheme.labelSmall),
+                GestureDetector(
+                  child: const Icon(Icons.close, size: 16),
+                  onTap: () => onRemoveFilter(e.filter),
+                ),
+              ],
+            );
+          }).toList(),
+        ),
       ),
     );
   }
@@ -392,25 +394,26 @@ class _TagsBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, top: 8),
-      child: Row(
-        children: [
-          Expanded(
-            child: Wrap(
-              spacing: 12,
-              children: activeTags.map((e) {
-                return Chip(
-                  label: Text(e, style: Theme.of(context).textTheme.labelSmall),
-                  padding: EdgeInsets.zero,
-                  shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.transparent)),
-                  labelPadding: const EdgeInsets.only(left: 8),
-                  deleteIcon: const Icon(Icons.close, size: 16),
-                  onDeleted: () => onRemoveTag(e),
-                );
-              }).toList(),
-            ),
-          ),
-        ],
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          spacing: 12,
+          mainAxisSize: MainAxisSize.min,
+          children: activeTags.map((e) {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 2,
+              children: [
+                Text(e, style: Theme.of(context).textTheme.labelSmall),
+                GestureDetector(
+                  child: const Icon(Icons.close, size: 16),
+                  onTap: () => onRemoveTag(e),
+                ),
+              ],
+            );
+          }).toList(),
+        ),
       ),
     );
   }
