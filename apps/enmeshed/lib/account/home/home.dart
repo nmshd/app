@@ -28,6 +28,7 @@ class _HomeViewState extends State<HomeView> {
   List<LocalRequestDVO>? _requests;
   bool _isCompleteProfileContainerShown = false;
   bool _showRecoveryKitWasUsedContainer = false;
+  bool _isGiveFeedbackBannerShown = false;
 
   final List<StreamSubscription<void>> _subscriptions = [];
 
@@ -113,6 +114,9 @@ class _HomeViewState extends State<HomeView> {
                       ],
                     ),
                   ),
+
+                if (_isGiveFeedbackBannerShown) GiveFeedbackBanner(onClose: _hideGiveFeedbackBanner),
+
                 MessagesContainer(
                   accountId: widget.accountId,
                   messages: _messages,
@@ -157,6 +161,12 @@ class _HomeViewState extends State<HomeView> {
       ignoreRecordNotFoundError: true,
     );
 
+    final isGiveFeedbackBannerShown = await getSetting(
+      accountId: widget.accountId,
+      key: 'home.giveFeedbackBannerShown',
+      valueKey: 'isShown',
+    );
+
     if (!mounted) return;
 
     final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
@@ -168,6 +178,7 @@ class _HomeViewState extends State<HomeView> {
       _requests = requests;
       _isCompleteProfileContainerShown = isCompleteProfileContainerShown;
       _showRecoveryKitWasUsedContainer = showRecoveryKitWasUsedContainer;
+      _isGiveFeedbackBannerShown = isGiveFeedbackBannerShown;
       _unviewedIdentityFileReferenceAttributesCount = unviewedIdentityFileReferenceAttributes.length;
     });
   }
@@ -176,5 +187,11 @@ class _HomeViewState extends State<HomeView> {
     if (mounted) setState(() => _isCompleteProfileContainerShown = false);
 
     await upsertCompleteProfileContainerSetting(accountId: widget.accountId, value: false);
+  }
+
+  Future<void> _hideGiveFeedbackBanner() async {
+    if (mounted) setState(() => _isGiveFeedbackBannerShown = false);
+
+    await upsertGiveFeedbackBannerSetting(accountId: widget.accountId, value: false);
   }
 }
