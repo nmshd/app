@@ -18,7 +18,7 @@ class GiveFeedbackBanner extends StatelessWidget {
       child: InkWell(
         onTap: () => context.push('/feedback'),
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(4).copyWith(left: 8),
           child: Row(
             children: [
               const Padding(
