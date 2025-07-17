@@ -174,7 +174,7 @@ class _FilesScreenState extends State<FilesScreen> {
                   if (_activeTagFilters.isEmpty) setState(() => _filterOption = FilesFilterOption.all);
                 },
               ),
-            if (_fileRecords!.isEmpty && _filterOption.emptyListIcon != null)
+            if (_filteredFileRecords.isEmpty && _filterOption.emptyListIcon != null)
               _EmptyFilesIndicator(accountId: widget.accountId, filterOption: _filterOption, uploadFile: _uploadFile)
             else
               Expanded(
