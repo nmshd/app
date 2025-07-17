@@ -231,7 +231,7 @@ class _FilesScreenState extends State<FilesScreen> {
       final fileReference = fileReferenceAttribute.value as IdentityFileReferenceAttributeValue;
       final file = await expandFileReference(accountId: widget.accountId, fileReference: fileReference.value);
 
-      if (_filterOption != FilesFilterOption.expired || DateTime.parse(file.expiresAt).isBefore(DateTime.now())) {
+      if (!loadWithFilters || _filterOption != FilesFilterOption.expired || DateTime.parse(file.expiresAt).isBefore(DateTime.now())) {
         fileRecords.add(
           createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute as RepositoryAttributeDVO),
         );
@@ -366,19 +366,21 @@ class _TypesBar extends StatelessWidget {
         child: Row(
           spacing: 12,
           mainAxisSize: MainAxisSize.min,
-          children: activeFilters.map((e) {
-            return Row(
-              mainAxisSize: MainAxisSize.min,
-              spacing: 2,
-              children: [
-                Text(e.label, style: Theme.of(context).textTheme.labelSmall),
-                GestureDetector(
-                  child: const Icon(Icons.close, size: 16),
-                  onTap: () => onRemoveFilter(e.filter),
+          children: activeFilters
+              .map(
+                (e) => Row(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 2,
+                  children: [
+                    Text(e.label, style: Theme.of(context).textTheme.labelSmall),
+                    GestureDetector(
+                      child: const Icon(Icons.close, size: 16),
+                      onTap: () => onRemoveFilter(e.filter),
+                    ),
+                  ],
                 ),
-              ],
-            );
-          }).toList(),
+              )
+              .toList(),
         ),
       ),
     );
@@ -400,19 +402,21 @@ class _TagsBar extends StatelessWidget {
         child: Row(
           spacing: 12,
           mainAxisSize: MainAxisSize.min,
-          children: activeTags.map((e) {
-            return Row(
-              mainAxisSize: MainAxisSize.min,
-              spacing: 2,
-              children: [
-                Text(e, style: Theme.of(context).textTheme.labelSmall),
-                GestureDetector(
-                  child: const Icon(Icons.close, size: 16),
-                  onTap: () => onRemoveTag(e),
+          children: activeTags
+              .map(
+                (e) => Row(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 2,
+                  children: [
+                    Text(e, style: Theme.of(context).textTheme.labelSmall),
+                    GestureDetector(
+                      child: const Icon(Icons.close, size: 16),
+                      onTap: () => onRemoveTag(e),
+                    ),
+                  ],
                 ),
-              ],
-            );
-          }).toList(),
+              )
+              .toList(),
         ),
       ),
     );
