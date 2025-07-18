@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
+import '../my_data/file/files_filter_option.dart';
 import 'widgets/home_widgets.dart';
 
 class HomeView extends StatefulWidget {
@@ -94,8 +95,10 @@ class _HomeViewState extends State<HomeView> {
                     child: BannerCard(
                       title: context.l10n.home_newFiles,
                       type: BannerCardType.info,
-                      // TODO(nicole-eb): Go to the filtered list as soon as filters are available there
-                      actionButton: (onPressed: () => context.push('/account/${widget.accountId}/my-data/files'), title: context.l10n.show),
+                      actionButton: (
+                        onPressed: () => context.push('/account/${widget.accountId}/my-data/files', extra: FilesFilterOption.unviewed),
+                        title: context.l10n.show,
+                      ),
                     ),
                   ),
                 if (_showRecoveryKitWasUsedContainer)
