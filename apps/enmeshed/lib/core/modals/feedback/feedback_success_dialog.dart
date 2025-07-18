@@ -5,7 +5,9 @@ import 'package:go_router/go_router.dart';
 import '../../utils/utils.dart';
 
 class FeedbackSuccessDialog extends StatelessWidget {
-  const FeedbackSuccessDialog({super.key});
+  final String accountReference;
+
+  const FeedbackSuccessDialog({required this.accountReference, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class FeedbackSuccessDialog extends StatelessWidget {
         OutlinedButton(
           onPressed: () => context
             ..pop()
-            ..giveFeedback(),
+            ..giveFeedback(accountReference),
           child: Text(context.l10n.giveFeedback_success_newFeedback),
         ),
         FilledButton(onPressed: () => context.pop(), child: Text(context.l10n.close)),

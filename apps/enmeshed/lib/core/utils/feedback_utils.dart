@@ -1,20 +1,19 @@
 import 'dart:async';
-import 'dart:io';
 
+import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:renderers/renderers.dart';
 
 extension FeedbackUtils on BuildContext {
-  Future<void> giveFeedback() => _giveFeedback(this);
+  Future<void> giveFeedback(String accountReference) => _giveFeedback(this, accountReference);
 }
 
-Future<void> _giveFeedback(BuildContext context) async {
+Future<void> _giveFeedback(BuildContext context, String accountReference) async {
   final router = GoRouter.of(context);
   final betterFeedback = BetterFeedback.of(context);
 
@@ -39,11 +38,21 @@ Future<void> _giveFeedback(BuildContext context) async {
   final completer = Completer<bool>();
 
   betterFeedback.show((feedback) async {
-    final screenshotFilePath = await _writeImageToStorage(feedback.screenshot);
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountReference);
 
-    // TODO: upload screenshot and add the Encrypted URL to the email body
+    final identityInfo = await session.transportServices.account.getIdentityInfo();
+    final address = identityInfo.value.address;
 
-    uri.queryParameters['body'] = '${feedback.text}\n\nScreenshot (encrypted): $screenshotFilePath';
+    final file = await session.transportServices.files.uploadOwnFile(
+      content: feedback.screenshot,
+      filename: 'feedback_${DateTime.now().toIso8601String()}.png',
+      mimetype: 'image/png',
+    );
+
+    final appVersion = await PackageInfo.fromPlatform().then((info) => info.version);
+
+    uri.queryParameters['body'] =
+        '${feedback.text}\n\nProfil-Adresse: $address\nApp Version: $appVersion\nScreenshot (encrypted): ${file.value.reference.truncated}';
 
     try {
       final success = await urlLauncher.launchUrl(uri);
@@ -56,12 +65,4 @@ Future<void> _giveFeedback(BuildContext context) async {
 
   final success = await completer.future;
   unawaited(router.push(success ? '/feedback/success' : '/feedback/error', extra: success ? null : uri));
-}
-
-Future<String> _writeImageToStorage(Uint8List feedbackScreenshot) async {
-  final output = await getTemporaryDirectory();
-  final screenshotFilePath = '${output.path}/feedback.png';
-  final screenshotFile = File(screenshotFilePath);
-  await screenshotFile.writeAsBytes(feedbackScreenshot);
-  return screenshotFilePath;
 }
