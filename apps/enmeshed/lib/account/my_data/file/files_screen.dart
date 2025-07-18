@@ -88,7 +88,7 @@ class _FilesScreenState extends State<FilesScreen> {
           children: [
             _FilesFilterChipBar(
               selectedFilterOption: _filterOption,
-              isBadgeLabelVisible:
+              hasActiveTypeOrTagFilters:
                   _activeTypeFilters.isNotEmpty && _filterOption == FilesFilterOption.type ||
                   _activeTagFilters.isNotEmpty && _filterOption == FilesFilterOption.tag,
               showTags: () async {
@@ -131,7 +131,6 @@ class _FilesScreenState extends State<FilesScreen> {
                     description: context.l10n.files_filter_byFileTypeEmpty,
                   );
                 }
-
                 return showSelectFileTypes(
                   context,
                   availableTypes: availableFilters,
@@ -164,14 +163,13 @@ class _FilesScreenState extends State<FilesScreen> {
                   _filterAndSort();
                 },
               ),
-
             if (_activeTagFilters.isNotEmpty)
               _TagsBar(
                 activeTags: _activeTagFilters,
                 onRemoveTag: (removedTag) {
                   _activeTagFilters.remove(removedTag);
-                  _filterAndSort();
                   if (_activeTagFilters.isEmpty) setState(() => _filterOption = FilesFilterOption.all);
+                  _filterAndSort();
                 },
               ),
             if (_filteredFileRecords.isEmpty && _filterOption.emptyListIcon != null)
@@ -426,14 +424,14 @@ class _TagsBar extends StatelessWidget {
 class _FilesFilterChipBar extends StatelessWidget {
   final FilesFilterOption selectedFilterOption;
   final Future<void> Function(FilesFilterOption option) setFilter;
-  final bool isBadgeLabelVisible;
+  final bool hasActiveTypeOrTagFilters;
   final VoidCallback showTags;
   final VoidCallback showTypes;
 
   const _FilesFilterChipBar({
     required this.selectedFilterOption,
     required this.setFilter,
-    required this.isBadgeLabelVisible,
+    required this.hasActiveTypeOrTagFilters,
     required this.showTags,
     required this.showTypes,
   });
@@ -452,7 +450,7 @@ class _FilesFilterChipBar extends StatelessWidget {
             },
             icon: option.filterIcon,
             filterOption: option,
-            isBadgeLabelVisible: isBadgeLabelVisible && selectedFilterOption == option,
+            isBadgeLabelVisible: hasActiveTypeOrTagFilters && selectedFilterOption == option,
             label: switch (option) {
               FilesFilterOption.all => context.l10n.files_filterOption_all,
               FilesFilterOption.unviewed => context.l10n.files_filterOption_new,
