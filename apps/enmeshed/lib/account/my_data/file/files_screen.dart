@@ -88,12 +88,11 @@ class _FilesScreenState extends State<FilesScreen> {
           children: [
             _FilesFilterChipBar(
               selectedFilterOption: _filterOption,
-              hasActiveTypeOrTagFilters:
+              activeTypeOrTagFilters:
                   _activeTypeFilters.isNotEmpty && _filterOption == FilesFilterOption.type ||
                   _activeTagFilters.isNotEmpty && _filterOption == FilesFilterOption.tag,
               showTags: () async {
                 await _loadFiles(loadWithFilters: false);
-
                 if (!context.mounted) return;
 
                 if (_availableTags.isEmpty) {
@@ -119,12 +118,11 @@ class _FilesScreenState extends State<FilesScreen> {
               },
               showTypes: () async {
                 await _loadFiles(loadWithFilters: false);
-
                 if (!context.mounted) return;
 
-                final availableFilters = _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet();
+                final availableTypes = _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet();
 
-                if (availableFilters.isEmpty) {
+                if (availableTypes.isEmpty) {
                   return showEmptyFileFilters(
                     context,
                     title: context.l10n.files_filter_byFileType,
@@ -133,7 +131,7 @@ class _FilesScreenState extends State<FilesScreen> {
                 }
                 return showSelectFileTypes(
                   context,
-                  availableTypes: availableFilters,
+                  availableTypes: availableTypes,
                   activeTypes: _activeTypeFilters,
                   onApplyTypes: (selectedFilters) {
                     setState(() {
@@ -235,11 +233,10 @@ class _FilesScreenState extends State<FilesScreen> {
         );
       }
     }
-    _fileRecords = fileRecords;
-
     final tags = <String>{};
-
+    _fileRecords = fileRecords;
     _fileRecords?.forEach((element) => element.fileReferenceAttribute?.tags?.forEach(tags.add));
+
     setState(() => _availableTags = tags);
 
     _filterAndSort(loadWithFilters: loadWithFilters);
@@ -256,7 +253,6 @@ class _FilesScreenState extends State<FilesScreen> {
       final filteredFiles =
           _fileRecords!.where((fileRecord) => _activeTypeFilters.contains(FileFilterType.fromMimetype(fileRecord.file.mimetype))).toList()
             ..sort(_compareFunction());
-
       setState(() => _filteredFileRecords = filteredFiles);
       return;
     }
@@ -268,7 +264,6 @@ class _FilesScreenState extends State<FilesScreen> {
 
         return tags.any((tag) => _activeTagFilters.contains(tag));
       }).toList()..sort(_compareFunction());
-
       setState(() => _filteredFileRecords = filteredFiles);
     }
   }
@@ -424,14 +419,14 @@ class _TagsBar extends StatelessWidget {
 class _FilesFilterChipBar extends StatelessWidget {
   final FilesFilterOption selectedFilterOption;
   final Future<void> Function(FilesFilterOption option) setFilter;
-  final bool hasActiveTypeOrTagFilters;
+  final bool activeTypeOrTagFilters;
   final VoidCallback showTags;
   final VoidCallback showTypes;
 
   const _FilesFilterChipBar({
     required this.selectedFilterOption,
     required this.setFilter,
-    required this.hasActiveTypeOrTagFilters,
+    required this.activeTypeOrTagFilters,
     required this.showTags,
     required this.showTypes,
   });
@@ -450,7 +445,7 @@ class _FilesFilterChipBar extends StatelessWidget {
             },
             icon: option.filterIcon,
             filterOption: option,
-            isBadgeLabelVisible: hasActiveTypeOrTagFilters && selectedFilterOption == option,
+            isBadgeLabelVisible: activeTypeOrTagFilters && selectedFilterOption == option,
             label: switch (option) {
               FilesFilterOption.all => context.l10n.files_filterOption_all,
               FilesFilterOption.unviewed => context.l10n.files_filterOption_new,
