@@ -12,12 +12,12 @@ ResponseItemGroupDVO _$ResponseItemGroupDVOFromJson(Map<String, dynamic> json) =
 Map<String, dynamic> _$ResponseItemGroupDVOToJson(ResponseItemGroupDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'items': instance.items.map((e) => e.toJson()).toList(),
 };
 
@@ -37,14 +37,14 @@ RejectResponseItemDVO _$RejectResponseItemDVOFromJson(Map<String, dynamic> json)
 Map<String, dynamic> _$RejectResponseItemDVOToJson(RejectResponseItemDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
-  if (instance.code case final value?) 'code': value,
-  if (instance.message case final value?) 'message': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
+  'code': ?instance.code,
+  'message': ?instance.message,
 };
 
 ErrorResponseItemDVO _$ErrorResponseItemDVOFromJson(Map<String, dynamic> json) => ErrorResponseItemDVO(
@@ -63,12 +63,12 @@ ErrorResponseItemDVO _$ErrorResponseItemDVOFromJson(Map<String, dynamic> json) =
 Map<String, dynamic> _$ErrorResponseItemDVOToJson(ErrorResponseItemDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'code': instance.code,
   'message': instance.message,
 };
@@ -87,12 +87,12 @@ AcceptResponseItemDVO _$AcceptResponseItemDVOFromJson(Map<String, dynamic> json)
 Map<String, dynamic> _$AcceptResponseItemDVOToJson(AcceptResponseItemDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
 };
 
 ReadAttributeAcceptResponseItemDVO _$ReadAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic> json) => ReadAttributeAcceptResponseItemDVO(
@@ -112,15 +112,15 @@ ReadAttributeAcceptResponseItemDVO _$ReadAttributeAcceptResponseItemDVOFromJson(
 Map<String, dynamic> _$ReadAttributeAcceptResponseItemDVOToJson(ReadAttributeAcceptResponseItemDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'attributeId': instance.attributeId,
   'attribute': instance.attribute.toJson(),
-  if (instance.thirdPartyAddress case final value?) 'thirdPartyAddress': value,
+  'thirdPartyAddress': ?instance.thirdPartyAddress,
 };
 
 ProposeAttributeAcceptResponseItemDVO _$ProposeAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
@@ -140,12 +140,12 @@ ProposeAttributeAcceptResponseItemDVO _$ProposeAttributeAcceptResponseItemDVOFro
 Map<String, dynamic> _$ProposeAttributeAcceptResponseItemDVOToJson(ProposeAttributeAcceptResponseItemDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'attributeId': instance.attributeId,
   'attribute': instance.attribute.toJson(),
 };
@@ -167,12 +167,12 @@ CreateAttributeAcceptResponseItemDVO _$CreateAttributeAcceptResponseItemDVOFromJ
 Map<String, dynamic> _$CreateAttributeAcceptResponseItemDVOToJson(CreateAttributeAcceptResponseItemDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'attributeId': instance.attributeId,
   'attribute': instance.attribute.toJson(),
 };
@@ -193,12 +193,12 @@ DeleteAttributeAcceptResponseItemDVO _$DeleteAttributeAcceptResponseItemDVOFromJ
 Map<String, dynamic> _$DeleteAttributeAcceptResponseItemDVOToJson(DeleteAttributeAcceptResponseItemDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'deletionDate': instance.deletionDate,
 };
 
@@ -218,12 +218,12 @@ ShareAttributeAcceptResponseItemDVO _$ShareAttributeAcceptResponseItemDVOFromJso
 Map<String, dynamic> _$ShareAttributeAcceptResponseItemDVOToJson(ShareAttributeAcceptResponseItemDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'attributeId': instance.attributeId,
   'attribute': instance.attribute.toJson(),
 };
@@ -243,12 +243,12 @@ FormFieldAcceptResponseItemDVO _$FormFieldAcceptResponseItemDVOFromJson(Map<Stri
 Map<String, dynamic> _$FormFieldAcceptResponseItemDVOToJson(FormFieldAcceptResponseItemDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'response': instance.response.toJson(),
 };
 
@@ -267,12 +267,12 @@ FreeTextAcceptResponseItemDVO _$FreeTextAcceptResponseItemDVOFromJson(Map<String
 Map<String, dynamic> _$FreeTextAcceptResponseItemDVOToJson(FreeTextAcceptResponseItemDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'freeText': instance.freeText,
 };
 
@@ -294,14 +294,14 @@ Map<String, dynamic> _$RegisterAttributeListenerAcceptResponseItemDVOToJson(Regi
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      if (instance.description case final value?) 'description': value,
-      if (instance.image case final value?) 'image': value,
+      'description': ?instance.description,
+      'image': ?instance.image,
       'type': instance.type,
-      if (instance.date case final value?) 'date': value,
-      if (instance.error?.toJson() case final value?) 'error': value,
-      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'date': ?instance.date,
+      'error': ?instance.error?.toJson(),
+      'warning': ?instance.warning?.toJson(),
       'listenerId': instance.listenerId,
-      if (instance.listener?.toJson() case final value?) 'listener': value,
+      'listener': ?instance.listener?.toJson(),
     };
 
 TransferFileOwnershipAcceptResponseItemDVO _$TransferFileOwnershipAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
@@ -325,14 +325,14 @@ TransferFileOwnershipAcceptResponseItemDVO _$TransferFileOwnershipAcceptResponse
 Map<String, dynamic> _$TransferFileOwnershipAcceptResponseItemDVOToJson(TransferFileOwnershipAcceptResponseItemDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'attributeId': instance.attributeId,
-  if (instance.repositoryAttribute?.toJson() case final value?) 'repositoryAttribute': value,
+  'repositoryAttribute': ?instance.repositoryAttribute?.toJson(),
   'sharedAttributeId': instance.sharedAttributeId,
   'sharedAttribute': instance.sharedAttribute.toJson(),
 };
@@ -356,15 +356,15 @@ AttributeSuccessionAcceptResponseItemDVO _$AttributeSuccessionAcceptResponseItem
 Map<String, dynamic> _$AttributeSuccessionAcceptResponseItemDVOToJson(AttributeSuccessionAcceptResponseItemDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'predecessorId': instance.predecessorId,
   'successorId': instance.successorId,
-  if (instance.predecessor?.toJson() case final value?) 'predecessor': value,
+  'predecessor': ?instance.predecessor?.toJson(),
   'successor': instance.successor.toJson(),
 };
 
@@ -385,12 +385,12 @@ AttributeAlreadySharedAcceptResponseItemDVO _$AttributeAlreadySharedAcceptRespon
 Map<String, dynamic> _$AttributeAlreadySharedAcceptResponseItemDVOToJson(AttributeAlreadySharedAcceptResponseItemDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'attributeId': instance.attributeId,
   'attribute': instance.attribute.toJson(),
 };
@@ -410,10 +410,10 @@ AttributeAlreadyDeletedAcceptResponseItemDVO _$AttributeAlreadyDeletedAcceptResp
 Map<String, dynamic> _$AttributeAlreadyDeletedAcceptResponseItemDVOToJson(AttributeAlreadyDeletedAcceptResponseItemDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
 };

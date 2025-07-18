@@ -17,10 +17,10 @@ DeleteAttributeRequestItem _$DeleteAttributeRequestItemFromJson(Map<String, dyna
 
 Map<String, dynamic> _$DeleteAttributeRequestItemToJson(DeleteAttributeRequestItem instance) => <String, dynamic>{
   '@type': instance.atType,
-  if (instance.title case final value?) 'title': value,
-  if (instance.description case final value?) 'description': value,
-  if (instance.metadata case final value?) 'metadata': value,
+  'title': ?instance.title,
+  'description': ?instance.description,
+  'metadata': ?instance.metadata,
   'mustBeAccepted': instance.mustBeAccepted,
-  if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+  'requireManualDecision': ?instance.requireManualDecision,
   'attributeId': instance.attributeId,
 };

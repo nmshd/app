@@ -15,5 +15,5 @@ LocalResponseDTO _$LocalResponseDTOFromJson(Map<String, dynamic> json) => LocalR
 Map<String, dynamic> _$LocalResponseDTOToJson(LocalResponseDTO instance) => <String, dynamic>{
   'createdAt': instance.createdAt,
   'content': instance.content.toJson(),
-  if (instance.source?.toJson() case final value?) 'source': value,
+  'source': ?instance.source?.toJson(),
 };

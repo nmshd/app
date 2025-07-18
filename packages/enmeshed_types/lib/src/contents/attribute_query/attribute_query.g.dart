@@ -15,9 +15,9 @@ IdentityAttributeQuery _$IdentityAttributeQueryFromJson(Map<String, dynamic> jso
 
 Map<String, dynamic> _$IdentityAttributeQueryToJson(IdentityAttributeQuery instance) => <String, dynamic>{
   'valueType': instance.valueType,
-  if (instance.tags case final value?) 'tags': value,
-  if (instance.validFrom case final value?) 'validFrom': value,
-  if (instance.validTo case final value?) 'validTo': value,
+  'tags': ?instance.tags,
+  'validFrom': ?instance.validFrom,
+  'validTo': ?instance.validTo,
 };
 
 IQLQuery _$IQLQueryFromJson(Map<String, dynamic> json) => IQLQuery(
@@ -29,7 +29,7 @@ IQLQuery _$IQLQueryFromJson(Map<String, dynamic> json) => IQLQuery(
 
 Map<String, dynamic> _$IQLQueryToJson(IQLQuery instance) => <String, dynamic>{
   'queryString': instance.queryString,
-  if (instance.attributeCreationHints?.toJson() case final value?) 'attributeCreationHints': value,
+  'attributeCreationHints': ?instance.attributeCreationHints?.toJson(),
 };
 
 IQLQueryCreationHints _$IQLQueryCreationHintsFromJson(Map<String, dynamic> json) =>
@@ -37,7 +37,7 @@ IQLQueryCreationHints _$IQLQueryCreationHintsFromJson(Map<String, dynamic> json)
 
 Map<String, dynamic> _$IQLQueryCreationHintsToJson(IQLQueryCreationHints instance) => <String, dynamic>{
   'valueType': instance.valueType,
-  if (instance.tags case final value?) 'tags': value,
+  'tags': ?instance.tags,
 };
 
 RelationshipAttributeCreationHints _$RelationshipAttributeCreationHintsFromJson(Map<String, dynamic> json) => RelationshipAttributeCreationHints(
@@ -51,8 +51,8 @@ RelationshipAttributeCreationHints _$RelationshipAttributeCreationHintsFromJson(
 Map<String, dynamic> _$RelationshipAttributeCreationHintsToJson(RelationshipAttributeCreationHints instance) => <String, dynamic>{
   'title': instance.title,
   'valueType': instance.valueType,
-  if (instance.description case final value?) 'description': value,
-  if (instance.valueHints?.toJson() case final value?) 'valueHints': value,
+  'description': ?instance.description,
+  'valueHints': ?instance.valueHints?.toJson(),
   'confidentiality': instance.confidentiality,
 };
 
@@ -68,8 +68,8 @@ Map<String, dynamic> _$RelationshipAttributeQueryToJson(RelationshipAttributeQue
   'key': instance.key,
   'owner': instance.owner,
   'attributeCreationHints': instance.attributeCreationHints.toJson(),
-  if (instance.validFrom case final value?) 'validFrom': value,
-  if (instance.validTo case final value?) 'validTo': value,
+  'validFrom': ?instance.validFrom,
+  'validTo': ?instance.validTo,
 };
 
 ThirdPartyRelationshipAttributeQuery _$ThirdPartyRelationshipAttributeQueryFromJson(Map<String, dynamic> json) =>
@@ -85,8 +85,8 @@ Map<String, dynamic> _$ThirdPartyRelationshipAttributeQueryToJson(ThirdPartyRela
   'key': instance.key,
   'owner': _$ThirdPartyRelationshipAttributeQueryOwnerEnumMap[instance.owner]!,
   'thirdParty': instance.thirdParty,
-  if (instance.validFrom case final value?) 'validFrom': value,
-  if (instance.validTo case final value?) 'validTo': value,
+  'validFrom': ?instance.validFrom,
+  'validTo': ?instance.validTo,
 };
 
 const _$ThirdPartyRelationshipAttributeQueryOwnerEnumMap = {

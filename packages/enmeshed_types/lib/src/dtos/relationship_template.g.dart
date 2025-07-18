@@ -27,9 +27,9 @@ Map<String, dynamic> _$RelationshipTemplateDTOToJson(RelationshipTemplateDTO ins
   'createdByDevice': instance.createdByDevice,
   'createdAt': instance.createdAt,
   'content': instance.content.toJson(),
-  if (instance.expiresAt case final value?) 'expiresAt': value,
-  if (instance.maxNumberOfAllocations case final value?) 'maxNumberOfAllocations': value,
-  if (instance.forIdentity case final value?) 'forIdentity': value,
-  if (instance.passwordProtection?.toJson() case final value?) 'passwordProtection': value,
+  'expiresAt': ?instance.expiresAt,
+  'maxNumberOfAllocations': ?instance.maxNumberOfAllocations,
+  'forIdentity': ?instance.forIdentity,
+  'passwordProtection': ?instance.passwordProtection?.toJson(),
   'reference': instance.reference.toJson(),
 };
