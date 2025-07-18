@@ -8,7 +8,4 @@ part of 'dvo_warning.dart';
 
 DVOWarning _$DVOWarningFromJson(Map<String, dynamic> json) => DVOWarning(code: json['code'] as String, message: json['message'] as String?);
 
-Map<String, dynamic> _$DVOWarningToJson(DVOWarning instance) => <String, dynamic>{
-  'code': instance.code,
-  if (instance.message case final value?) 'message': value,
-};
+Map<String, dynamic> _$DVOWarningToJson(DVOWarning instance) => <String, dynamic>{'code': instance.code, 'message': ?instance.message};

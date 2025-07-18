@@ -22,12 +22,12 @@ ResponseDVO _$ResponseDVOFromJson(Map<String, dynamic> json) => ResponseDVO(
 Map<String, dynamic> _$ResponseDVOToJson(ResponseDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'items': instance.items.map((e) => e.toJson()).toList(),
   'result': _$ResponseResultEnumMap[instance.result]!,
 };

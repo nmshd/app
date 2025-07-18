@@ -11,5 +11,5 @@ PasswordProtection _$PasswordProtectionFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$PasswordProtectionToJson(PasswordProtection instance) => <String, dynamic>{
   'password': instance.password,
-  if (instance.passwordIsPin case final value?) 'passwordIsPin': value,
+  'passwordIsPin': ?instance.passwordIsPin,
 };

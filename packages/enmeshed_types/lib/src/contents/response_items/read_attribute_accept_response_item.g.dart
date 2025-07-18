@@ -17,7 +17,7 @@ Map<String, dynamic> _$ReadAttributeAcceptResponseItemToJson(ReadAttributeAccept
   'result': _$ResponseItemResultEnumMap[instance.result]!,
   'attributeId': instance.attributeId,
   'attribute': instance.attribute.toJson(),
-  if (instance.thirdPartyAddress case final value?) 'thirdPartyAddress': value,
+  'thirdPartyAddress': ?instance.thirdPartyAddress,
 };
 
 const _$ResponseItemResultEnumMap = {

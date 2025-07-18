@@ -8,7 +8,4 @@ part of 'dvo_error.dart';
 
 DVOError _$DVOErrorFromJson(Map<String, dynamic> json) => DVOError(code: json['code'] as String, message: json['message'] as String?);
 
-Map<String, dynamic> _$DVOErrorToJson(DVOError instance) => <String, dynamic>{
-  'code': instance.code,
-  if (instance.message case final value?) 'message': value,
-};
+Map<String, dynamic> _$DVOErrorToJson(DVOError instance) => <String, dynamic>{'code': instance.code, 'message': ?instance.message};

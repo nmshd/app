@@ -22,12 +22,12 @@ LocalAttributeListenerDVO _$LocalAttributeListenerDVOFromJson(Map<String, dynami
 Map<String, dynamic> _$LocalAttributeListenerDVOToJson(LocalAttributeListenerDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'query': instance.query.toJson(),
   'peer': instance.peer.toJson(),
 };
