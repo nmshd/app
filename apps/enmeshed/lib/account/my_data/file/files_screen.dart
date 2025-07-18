@@ -47,10 +47,10 @@ class _FilesScreenState extends State<FilesScreen> {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
     _subscriptions
-      ..add(runtime.eventBus.on<AttributeDeletedEvent>().listen((_) => _loadFiles().catchError((_) {})))
-      ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _loadFiles().catchError((_) {})));
+      ..add(runtime.eventBus.on<AttributeDeletedEvent>().listen((_) => _reloadAndApplyFilters().catchError((_) {})))
+      ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _reloadAndApplyFilters().catchError((_) {})));
 
-    _loadFiles().then((_) => widget.initialCreation ? _uploadFile() : null);
+    _reloadAndApplyFilters().then((_) => widget.initialCreation ? _uploadFile() : null);
   }
 
   @override
@@ -98,7 +98,7 @@ class _FilesScreenState extends State<FilesScreen> {
                   _activeTagFilters.isNotEmpty && _filterOption == FilesFilterOption.tag,
               showTags: () async {
                 setState(() => _selectTagsEnabled = false);
-                await _loadFiles(loadWithFilters: false);
+                await _loadFiles(applyFilters: false);
 
                 if (!context.mounted) {
                   setState(() => _selectTagsEnabled = true);
@@ -130,7 +130,7 @@ class _FilesScreenState extends State<FilesScreen> {
               },
               showTypes: () async {
                 setState(() => _selectTypesEnabled = false);
-                await _loadFiles(loadWithFilters: false);
+                await _loadFiles(applyFilters: false);
 
                 if (!context.mounted) {
                   setState(() => _selectTypesEnabled = true);
@@ -168,13 +168,13 @@ class _FilesScreenState extends State<FilesScreen> {
                   _activeTypeFilters = {};
                   _activeTagFilters = {};
                 });
-                await _loadFiles();
+                await _reloadAndApplyFilters();
               },
             ),
             if (_activeTypeFilters.isNotEmpty)
               _TypesBar(
-                activeFilters: _activeTypeFilters,
-                onRemoveFilter: (removedFilter) {
+                activeTypes: _activeTypeFilters,
+                onRemoveType: (removedFilter) {
                   _activeTypeFilters.remove(removedFilter);
                   if (_activeTypeFilters.isEmpty) setState(() => _filterOption = FilesFilterOption.all);
                   _filterAndSort();
@@ -194,7 +194,7 @@ class _FilesScreenState extends State<FilesScreen> {
             else
               Expanded(
                 child: RefreshIndicator(
-                  onRefresh: () => _loadFiles(syncBefore: true),
+                  onRefresh: () => _reloadAndApplyFilters(syncBefore: true),
                   child: ListView.separated(
                     itemBuilder: (context, index) =>
                         FileItem(accountId: widget.accountId, fileRecord: _filteredFileRecords[index], trailing: const Icon(Icons.chevron_right)),
@@ -209,7 +209,12 @@ class _FilesScreenState extends State<FilesScreen> {
     );
   }
 
-  Future<void> _loadFiles({bool syncBefore = false, bool loadWithFilters = true}) async {
+  Future<void> _reloadAndApplyFilters({bool syncBefore = false}) async {
+    await _loadFiles(syncBefore: syncBefore);
+    _filterAndSort();
+  }
+
+  Future<void> _loadFiles({bool syncBefore = false, bool applyFilters = true}) async {
     final fileRecords = <FileRecord>[];
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
@@ -218,7 +223,7 @@ class _FilesScreenState extends State<FilesScreen> {
     final result = await session.consumptionServices.attributes.getRepositoryAttributes(
       query: {
         'content.value.@type': QueryValue.string('IdentityFileReference'),
-        if (loadWithFilters && _filterOption == FilesFilterOption.unviewed) 'wasViewedAt': QueryValue.string('!'),
+        if (applyFilters && _filterOption == FilesFilterOption.unviewed) 'wasViewedAt': QueryValue.string('!'),
       },
     );
 
@@ -246,7 +251,7 @@ class _FilesScreenState extends State<FilesScreen> {
       final fileReference = fileReferenceAttribute.value as IdentityFileReferenceAttributeValue;
       final file = await expandFileReference(accountId: widget.accountId, fileReference: fileReference.value);
 
-      if (!loadWithFilters || _filterOption != FilesFilterOption.expired || DateTime.parse(file.expiresAt).isBefore(DateTime.now())) {
+      if (!applyFilters || _filterOption != FilesFilterOption.expired || DateTime.parse(file.expiresAt).isBefore(DateTime.now())) {
         fileRecords.add(
           createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute as RepositoryAttributeDVO),
         );
@@ -257,34 +262,23 @@ class _FilesScreenState extends State<FilesScreen> {
     _fileRecords?.forEach((element) => element.fileReferenceAttribute?.tags?.forEach(tags.add));
 
     setState(() => _availableTags = tags);
-
-    _filterAndSort(loadWithFilters: loadWithFilters);
   }
 
-  void _filterAndSort({bool loadWithFilters = true}) {
-    if (loadWithFilters && _activeTypeFilters.isEmpty && _activeTagFilters.isEmpty) {
-      final sorted = _fileRecords!..sort(_compareFunction());
-      setState(() => _filteredFileRecords = sorted);
-      return;
-    }
+  void _filterAndSort() {
+    if (_activeTypeFilters.isNotEmpty || _activeTagFilters.isNotEmpty) {
+      final filteredFiles = _fileRecords!.where((file) {
+        final matchesType = _activeTypeFilters.isEmpty || _activeTypeFilters.contains(FileFilterType.fromMimetype(file.file.mimetype));
+        final matchesTags = _activeTagFilters.isEmpty || (file.fileReferenceAttribute?.tags?.any(_activeTagFilters.contains) ?? false);
 
-    if (_activeTypeFilters.isNotEmpty) {
-      final filteredFiles =
-          _fileRecords!.where((fileRecord) => _activeTypeFilters.contains(FileFilterType.fromMimetype(fileRecord.file.mimetype))).toList()
-            ..sort(_compareFunction());
-      setState(() => _filteredFileRecords = filteredFiles);
-      return;
-    }
-
-    if (_activeTagFilters.isNotEmpty) {
-      final filteredFiles = _fileRecords!.where((fileRecord) {
-        final tags = fileRecord.fileReferenceAttribute?.tags;
-        if (tags == null) return false;
-
-        return tags.any((tag) => _activeTagFilters.contains(tag));
+        return matchesType && matchesTags;
       }).toList()..sort(_compareFunction());
+
       setState(() => _filteredFileRecords = filteredFiles);
+      return;
     }
+
+    final sorted = _fileRecords!..sort(_compareFunction());
+    setState(() => _filteredFileRecords = sorted);
   }
 
   int Function(FileRecord, FileRecord) _compareFunction() => switch (_filterOption) {
@@ -357,14 +351,14 @@ class _FilesScreenState extends State<FilesScreen> {
 }
 
 class _TypesBar extends StatelessWidget {
-  final Set<FileFilterType> activeFilters;
-  final void Function(FileFilterType) onRemoveFilter;
+  final Set<FileFilterType> activeTypes;
+  final void Function(FileFilterType) onRemoveType;
 
-  const _TypesBar({required this.activeFilters, required this.onRemoveFilter});
+  const _TypesBar({required this.activeTypes, required this.onRemoveType});
 
   @override
   Widget build(BuildContext context) {
-    final activeFilters = this.activeFilters.map((e) => (filter: e, label: e.toLabel(context))).toList()
+    final activeTypes = this.activeTypes.map((e) => (filter: e, label: e.toLabel(context))).toList()
       ..sort((a, b) {
         if (a.filter is OtherFileFilterType) return 1;
         if (b.filter is OtherFileFilterType) return -1;
@@ -378,7 +372,7 @@ class _TypesBar extends StatelessWidget {
         child: Row(
           spacing: 12,
           mainAxisSize: MainAxisSize.min,
-          children: activeFilters
+          children: activeTypes
               .map(
                 (e) => Row(
                   mainAxisSize: MainAxisSize.min,
@@ -387,7 +381,7 @@ class _TypesBar extends StatelessWidget {
                     Text(e.label, style: Theme.of(context).textTheme.labelSmall),
                     GestureDetector(
                       child: const Icon(Icons.close, size: 16),
-                      onTap: () => onRemoveFilter(e.filter),
+                      onTap: () => onRemoveType(e.filter),
                     ),
                   ],
                 ),
