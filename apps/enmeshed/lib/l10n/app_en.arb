@@ -699,7 +699,7 @@
   "files_filter_byTagEmpty": "You have not currently assigned any tags for files and documents.",
   "files_filter_infoSheet_title": "About filtering documents",
   "files_filter_infoSheet_description": "Your personal documents can have different statuses or contain tags. You can easily filter using the categories.",
-  "files_filter_infoSheet_unviewed": "New documents are clearly summarized here.",
+  "files_filter_infoSheet_unviewed": "Newly received documents are clearly summarized here.",
   "files_filter_infoSheet_expired": "Expired documents that require your attention can be found here.",
   "files_filter_infoSheet_type": "Filter by one or more file formats.",
   "files_filter_infoSheet_tag": "Find documents quickly using user-defined tags.",
