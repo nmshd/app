@@ -18,9 +18,9 @@ RelationshipAuditLogEntryDTO _$RelationshipAuditLogEntryDTOFromJson(Map<String, 
 Map<String, dynamic> _$RelationshipAuditLogEntryDTOToJson(RelationshipAuditLogEntryDTO instance) => <String, dynamic>{
   'createdAt': instance.createdAt,
   'createdBy': instance.createdBy,
-  if (instance.createdByDevice case final value?) 'createdByDevice': value,
+  'createdByDevice': ?instance.createdByDevice,
   'reason': _$RelationshipAuditLogEntryReasonEnumMap[instance.reason]!,
-  if (_$RelationshipStatusEnumMap[instance.oldStatus] case final value?) 'oldStatus': value,
+  'oldStatus': ?_$RelationshipStatusEnumMap[instance.oldStatus],
   'newStatus': _$RelationshipStatusEnumMap[instance.newStatus]!,
 };
 

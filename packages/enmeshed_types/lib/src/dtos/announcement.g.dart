@@ -19,7 +19,7 @@ AnnouncementDTO _$AnnouncementDTOFromJson(Map<String, dynamic> json) => Announce
 Map<String, dynamic> _$AnnouncementDTOToJson(AnnouncementDTO instance) => <String, dynamic>{
   'id': instance.id,
   'createdAt': instance.createdAt,
-  if (instance.expiresAt case final value?) 'expiresAt': value,
+  'expiresAt': ?instance.expiresAt,
   'severity': _$AnnouncementSeverityEnumMap[instance.severity]!,
   'title': instance.title,
   'body': instance.body,

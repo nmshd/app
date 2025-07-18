@@ -35,12 +35,12 @@ LocalRequestDVO _$LocalRequestDVOFromJson(Map<String, dynamic> json) => LocalReq
 Map<String, dynamic> _$LocalRequestDVOToJson(LocalRequestDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'isOwn': instance.isOwn,
   'createdAt': instance.createdAt,
   'content': instance.content.toJson(),
@@ -50,12 +50,12 @@ Map<String, dynamic> _$LocalRequestDVOToJson(LocalRequestDVO instance) => <Strin
   'sourceTypeText': instance.sourceTypeText,
   'createdBy': instance.createdBy.toJson(),
   'peer': instance.peer.toJson(),
-  if (instance.response?.toJson() case final value?) 'response': value,
-  if (instance.source?.toJson() case final value?) 'source': value,
+  'response': ?instance.response?.toJson(),
+  'source': ?instance.source?.toJson(),
   'decider': instance.decider.toJson(),
   'isDecidable': instance.isDecidable,
   'items': instance.items.map((e) => e.toJson()).toList(),
-  if (instance.wasAutomaticallyDecided case final value?) 'wasAutomaticallyDecided': value,
+  'wasAutomaticallyDecided': ?instance.wasAutomaticallyDecided,
 };
 
 const _$LocalRequestStatusEnumMap = {
@@ -98,15 +98,15 @@ LocalResponseDVO _$LocalResponseDVOFromJson(Map<String, dynamic> json) => LocalR
 Map<String, dynamic> _$LocalResponseDVOToJson(LocalResponseDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'createdAt': instance.createdAt,
   'content': instance.content.toJson(),
-  if (instance.source?.toJson() case final value?) 'source': value,
+  'source': ?instance.source?.toJson(),
 };
 
 LocalResponseSourceDVO _$LocalResponseSourceDVOFromJson(Map<String, dynamic> json) =>
