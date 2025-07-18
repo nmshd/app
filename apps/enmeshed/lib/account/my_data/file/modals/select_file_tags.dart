@@ -69,7 +69,7 @@ class _SelectFileTagsState extends State<_SelectFileTags> {
                       children: widget.availableTags.map((e) {
                         return FilterChip(
                           label: Text(e),
-                          shape: const StadiumBorder(),
+                          shape: StadiumBorder(side: BorderSide(color: Theme.of(context).colorScheme.outline)),
                           showCheckmark: false,
                           selected: _selectedTags.contains(e),
                           onSelected: (_) => setState(() => _selectedTags.toggle(e)),

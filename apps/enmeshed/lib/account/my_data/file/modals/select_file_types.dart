@@ -77,7 +77,7 @@ class _SelectFileTypesState extends State<_SelectFileTypes> {
                       children: availableFilters.map((e) {
                         return FilterChip(
                           label: Text(e.label),
-                          shape: const StadiumBorder(),
+                          shape: StadiumBorder(side: BorderSide(color: Theme.of(context).colorScheme.outline)),
                           avatar: switch (e.filter) {
                             PDFFileFilterType() => Icon(Icons.picture_as_pdf, color: Theme.of(context).colorScheme.onSurface),
                             PNGFileFilterType() || JPGFileFilterType() => Icon(Icons.image, color: Theme.of(context).colorScheme.onSurface),
