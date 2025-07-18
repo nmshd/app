@@ -4,45 +4,58 @@ import 'dart:io';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:renderers/renderers.dart';
 
 extension FeedbackUtils on BuildContext {
   Future<void> giveFeedback() => _giveFeedback(this);
 }
 
 Future<void> _giveFeedback(BuildContext context) async {
-  final completer = Completer<Email?>();
-  final logger = GetIt.I.get<Logger>();
   final router = GoRouter.of(context);
+  final betterFeedback = BetterFeedback.of(context);
 
-  BetterFeedback.of(context).show((feedback) async {
+  // TODO: get all texts from l10n
+
+  final uri = Uri(
+    scheme: 'mailto',
+    host: 'info@enmeshed.eu',
+    queryParameters: {
+      'subject': 'enmeshed App Feedback',
+    },
+  );
+
+  final urlLauncher = GetIt.I.get<AbstractUrlLauncher>();
+  final canLaunch = await urlLauncher.launchUrl(uri);
+  if (!canLaunch) {
+    GetIt.I.get<Logger>().e('Cannot launch email client');
+    unawaited(router.push('/feedback/error'));
+    return;
+  }
+
+  final completer = Completer<bool>();
+
+  betterFeedback.show((feedback) async {
     final screenshotFilePath = await _writeImageToStorage(feedback.screenshot);
 
-    final email = Email(
-      body: feedback.text,
-      subject: 'enmeshed App Feedback',
-      recipients: ['info@enmeshed.eu'],
-      attachmentPaths: [screenshotFilePath],
-    );
+    // TODO: upload screenshot and add the Encrypted URL to the email body
+
+    uri.queryParameters['body'] = '${feedback.text}\n\nScreenshot (encrypted): $screenshotFilePath';
 
     try {
-      await FlutterEmailSender.send(email);
-      completer.complete();
-    } on PlatformException catch (e) {
-      completer.complete(email);
-      logger.e('Failed to send feedback email: ${e.message}');
+      final success = await urlLauncher.launchUrl(uri);
+      completer.complete(success);
     } catch (e) {
-      completer.complete(email);
-      logger.e('Failed to send feedback email: $e');
+      GetIt.I.get<Logger>().e('Failed to send feedback email: $e');
+      completer.complete(false);
     }
   });
 
-  final email = await completer.future;
-  unawaited(router.push(email == null ? '/feedback/success' : '/feedback/error', extra: email));
+  final success = await completer.future;
+  unawaited(router.push(success ? '/feedback/success' : '/feedback/error', extra: success ? null : uri));
 }
 
 Future<String> _writeImageToStorage(Uint8List feedbackScreenshot) async {
