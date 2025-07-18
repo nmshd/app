@@ -10,7 +10,6 @@ import 'package:feedback/feedback.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
@@ -135,12 +134,7 @@ final _router = GoRouter(
         GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
           path: '/error',
-          pageBuilder: (context, state) => DialogPage(
-            builder: (context) {
-              final email = state.extra! as Email;
-              return FeedbackErrorDialog(email: email);
-            },
-          ),
+          pageBuilder: (context, state) => DialogPage(builder: (context) => FeedbackErrorDialog(feedbackMailUri: state.extra as Uri?)),
         ),
       ],
     ),

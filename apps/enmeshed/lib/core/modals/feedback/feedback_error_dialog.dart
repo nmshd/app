@@ -1,15 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
+import 'package:renderers/renderers.dart';
 
 import '../../utils/extensions.dart';
 
 class FeedbackErrorDialog extends StatelessWidget {
-  final Email email;
+  final Uri? feedbackMailUri;
 
-  const FeedbackErrorDialog({required this.email, super.key});
+  const FeedbackErrorDialog({required this.feedbackMailUri, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +36,18 @@ class FeedbackErrorDialog extends StatelessWidget {
   }
 
   Future<bool> _sendEmail() async {
+    if (feedbackMailUri == null) return false;
+
+    final urlLauncher = GetIt.I.get<AbstractUrlLauncher>();
+
+    final canLaunch = await urlLauncher.canLaunchUrl(feedbackMailUri!);
+    if (!canLaunch) return false;
+
     try {
-      await FlutterEmailSender.send(email);
+      await urlLauncher.launchUrl(feedbackMailUri!);
       return true;
-    } catch (_) {
+    } catch (e) {
+      GetIt.I.get<Logger>().e('Failed to launch email: $e');
       return false;
     }
   }
