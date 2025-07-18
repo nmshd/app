@@ -160,8 +160,8 @@ class _FilesScreenState extends State<FilesScreen> {
                 activeFilters: _activeTypeFilters,
                 onRemoveFilter: (removedFilter) {
                   _activeTypeFilters.remove(removedFilter);
-                  _filterAndSort();
                   if (_activeTypeFilters.isEmpty) setState(() => _filterOption = FilesFilterOption.all);
+                  _filterAndSort();
                 },
               ),
 
