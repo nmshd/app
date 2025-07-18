@@ -32,6 +32,9 @@ class _FilesScreenState extends State<FilesScreen> {
   Set<String> _activeTagFilters = {};
   Set<FileFilterType> _activeTypeFilters = {};
 
+  bool _selectTagsEnabled = true;
+  bool _selectTypesEnabled = true;
+
   late FilesFilterOption _filterOption;
   late final List<StreamSubscription<void>> _subscriptions = [];
 
@@ -87,25 +90,34 @@ class _FilesScreenState extends State<FilesScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _FilesFilterChipBar(
+              selectTagsEnabled: _selectTagsEnabled,
+              selectTypesEnabled: _selectTypesEnabled,
               selectedFilterOption: _filterOption,
               activeTypeOrTagFilters:
                   _activeTypeFilters.isNotEmpty && _filterOption == FilesFilterOption.type ||
                   _activeTagFilters.isNotEmpty && _filterOption == FilesFilterOption.tag,
               showTags: () async {
+                setState(() => _selectTagsEnabled = false);
                 await _loadFiles(loadWithFilters: false);
-                if (!context.mounted) return;
+
+                if (!context.mounted) {
+                  setState(() => _selectTagsEnabled = true);
+                  return;
+                }
 
                 if (_availableTags.isEmpty) {
                   return showEmptyFileFilters(
                     context,
                     title: context.l10n.files_filter_byTag,
                     description: context.l10n.files_filter_byTagEmpty,
+                    enableShowEmptyFilters: () => setState(() => _selectTagsEnabled = true),
                   );
                 }
                 return showSelectFileTags(
                   context,
                   availableTags: _availableTags,
                   activeTags: _activeTagFilters,
+                  enableSelectTags: () => setState(() => _selectTagsEnabled = true),
                   onApplyTags: (selectedTags) {
                     setState(() {
                       _activeTagFilters = selectedTags;
@@ -117,8 +129,13 @@ class _FilesScreenState extends State<FilesScreen> {
                 );
               },
               showTypes: () async {
+                setState(() => _selectTypesEnabled = false);
                 await _loadFiles(loadWithFilters: false);
-                if (!context.mounted) return;
+
+                if (!context.mounted) {
+                  setState(() => _selectTypesEnabled = true);
+                  return;
+                }
 
                 final availableTypes = _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet();
 
@@ -127,12 +144,14 @@ class _FilesScreenState extends State<FilesScreen> {
                     context,
                     title: context.l10n.files_filter_byFileType,
                     description: context.l10n.files_filter_byFileTypeEmpty,
+                    enableShowEmptyFilters: () => setState(() => _selectTypesEnabled = true),
                   );
                 }
                 return showSelectFileTypes(
                   context,
                   availableTypes: availableTypes,
                   activeTypes: _activeTypeFilters,
+                  enableSelectTypes: () => setState(() => _selectTypesEnabled = true),
                   onApplyTypes: (selectedFilters) {
                     setState(() {
                       _activeTypeFilters = selectedFilters;
@@ -420,6 +439,8 @@ class _FilesFilterChipBar extends StatelessWidget {
   final FilesFilterOption selectedFilterOption;
   final Future<void> Function(FilesFilterOption option) setFilter;
   final bool activeTypeOrTagFilters;
+  final bool selectTagsEnabled;
+  final bool selectTypesEnabled;
   final VoidCallback showTags;
   final VoidCallback showTypes;
 
@@ -427,6 +448,8 @@ class _FilesFilterChipBar extends StatelessWidget {
     required this.selectedFilterOption,
     required this.setFilter,
     required this.activeTypeOrTagFilters,
+    required this.selectTagsEnabled,
+    required this.selectTypesEnabled,
     required this.showTags,
     required this.showTypes,
   });
@@ -438,9 +461,9 @@ class _FilesFilterChipBar extends StatelessWidget {
       children: [
         for (final option in FilesFilterOption.values)
           _FilesCondensedFilterChip(
-            onPressed: () async => switch (option) {
-              FilesFilterOption.tag => showTags(),
-              FilesFilterOption.type => showTypes(),
+            onPressed: () => switch (option) {
+              FilesFilterOption.tag => selectTagsEnabled ? showTags() : null,
+              FilesFilterOption.type => selectTypesEnabled ? showTypes() : null,
               _ => setFilter(option),
             },
             icon: option.filterIcon,

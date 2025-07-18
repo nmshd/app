@@ -9,12 +9,13 @@ void showSelectFileTags(
   required Set<String> availableTags,
   required Set<String> activeTags,
   required void Function(Set<String>) onApplyTags,
+  required void Function() enableSelectTags,
 }) {
   showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
     builder: (_) => _SelectFileTags(availableTags: availableTags, activeTags: activeTags, onApplyTags: onApplyTags),
-  );
+  ).whenComplete(enableSelectTags);
 }
 
 class _SelectFileTags extends StatefulWidget {

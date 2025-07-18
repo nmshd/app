@@ -8,12 +8,13 @@ void showEmptyFileFilters(
   BuildContext context, {
   required String title,
   required String description,
+  required void Function() enableShowEmptyFilters,
 }) {
   showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
     builder: (_) => _EmptyFileFilters(title: title, description: description),
-  );
+  ).whenComplete(enableShowEmptyFilters);
 }
 
 class _EmptyFileFilters extends StatelessWidget {
