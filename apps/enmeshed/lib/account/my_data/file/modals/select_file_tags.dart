@@ -36,7 +36,7 @@ class _SelectFileTagsState extends State<_SelectFileTags> {
   void initState() {
     super.initState();
 
-    _selectedTags = widget.activeTags;
+    _selectedTags = {...widget.activeTags};
   }
 
   @override

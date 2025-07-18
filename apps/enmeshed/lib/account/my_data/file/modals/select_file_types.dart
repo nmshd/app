@@ -37,7 +37,7 @@ class _SelectFileTypesState extends State<_SelectFileTypes> {
   void initState() {
     super.initState();
 
-    _selectedFilters = widget.activeTypes;
+    _selectedFilters = {...widget.activeTypes};
   }
 
   @override
