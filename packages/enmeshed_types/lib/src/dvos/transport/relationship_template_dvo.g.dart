@@ -20,7 +20,7 @@ RelationshipTemplateDVO _$RelationshipTemplateDVOFromJson(Map<String, dynamic> j
   createdByDevice: json['createdByDevice'] as String,
   createdAt: json['createdAt'] as String,
   expiresAt: json['expiresAt'] as String?,
-  maxNumberOfAllocations: const OptionalIntegerConverter().fromJson((json['maxNumberOfAllocations'] as num?)?.toInt()),
+  maxNumberOfAllocations: const OptionalIntegerConverter().fromJson(json['maxNumberOfAllocations']),
   onNewRelationship: json['onNewRelationship'] == null ? null : RequestDVO.fromJson(json['onNewRelationship'] as Map<String, dynamic>),
   onExistingRelationship: json['onExistingRelationship'] == null ? null : RequestDVO.fromJson(json['onExistingRelationship'] as Map<String, dynamic>),
   request: json['request'] == null ? null : LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),

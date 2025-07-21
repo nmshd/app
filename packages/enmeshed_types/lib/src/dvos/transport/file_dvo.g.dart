@@ -17,7 +17,7 @@ FileDVO _$FileDVOFromJson(Map<String, dynamic> json) => FileDVO(
   warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   filename: json['filename'] as String,
   tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
-  filesize: const IntegerConverter().fromJson((json['filesize'] as num).toInt()),
+  filesize: const IntegerConverter().fromJson(json['filesize'] as Object),
   createdAt: json['createdAt'] as String,
   createdBy: IdentityDVO.fromJson(json['createdBy'] as Map<String, dynamic>),
   createdByDevice: json['createdByDevice'] as String,
