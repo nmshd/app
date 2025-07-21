@@ -8,8 +8,8 @@ part of 'value_hints.dart';
 
 ValueHints _$ValueHintsFromJson(Map<String, dynamic> json) => ValueHints(
   editHelp: json['editHelp'] as String?,
-  min: const OptionalIntegerConverter().fromJson((json['min'] as num?)?.toInt()),
-  max: const OptionalIntegerConverter().fromJson((json['max'] as num?)?.toInt()),
+  min: const OptionalIntegerConverter().fromJson(json['min']),
+  max: const OptionalIntegerConverter().fromJson(json['max']),
   pattern: json['pattern'] as String?,
   values: (json['values'] as List<dynamic>?)?.map((e) => ValueHintsValue.fromJson(e as Map<String, dynamic>)).toList(),
   defaultValue: json['defaultValue'] == null ? null : ValueHintsDefaultValue.fromJson(json['defaultValue']),
