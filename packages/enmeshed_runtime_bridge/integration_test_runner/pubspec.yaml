@@ -8,6 +8,11 @@ environment:
   flutter: ">=3.32.7"
 
 dependencies:
+  cal_flutter_plugin:
+    git:
+      url: https://github.com/nmshd/rust-crypto
+      path: cal_flutter_plugin
+      ref: 79a07318d10d2883a0a107e5341bae1aff65d14a
   enmeshed_runtime_bridge: ^1.0.0
   enmeshed_types: ^1.0.0
   flutter:
