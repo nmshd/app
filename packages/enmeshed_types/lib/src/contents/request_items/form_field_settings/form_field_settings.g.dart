@@ -19,9 +19,9 @@ DoubleFormFieldSettings _$DoubleFormFieldSettingsFromJson(Map<String, dynamic> j
 
 Map<String, dynamic> _$DoubleFormFieldSettingsToJson(DoubleFormFieldSettings instance) => <String, dynamic>{
   '@type': instance.atType,
-  if (instance.unit case final value?) 'unit': value,
-  if (instance.min case final value?) 'min': value,
-  if (instance.max case final value?) 'max': value,
+  'unit': ?instance.unit,
+  'min': ?instance.min,
+  'max': ?instance.max,
 };
 
 IntegerFormFieldSettings _$IntegerFormFieldSettingsFromJson(Map<String, dynamic> json) =>
@@ -29,9 +29,9 @@ IntegerFormFieldSettings _$IntegerFormFieldSettingsFromJson(Map<String, dynamic>
 
 Map<String, dynamic> _$IntegerFormFieldSettingsToJson(IntegerFormFieldSettings instance) => <String, dynamic>{
   '@type': instance.atType,
-  if (instance.unit case final value?) 'unit': value,
-  if (instance.min case final value?) 'min': value,
-  if (instance.max case final value?) 'max': value,
+  'unit': ?instance.unit,
+  'min': ?instance.min,
+  'max': ?instance.max,
 };
 
 RatingFormFieldSettings _$RatingFormFieldSettingsFromJson(Map<String, dynamic> json) =>
@@ -50,7 +50,7 @@ SelectionFormFieldSettings _$SelectionFormFieldSettingsFromJson(Map<String, dyna
 Map<String, dynamic> _$SelectionFormFieldSettingsToJson(SelectionFormFieldSettings instance) => <String, dynamic>{
   '@type': instance.atType,
   'options': instance.options,
-  if (instance.allowMultipleSelection case final value?) 'allowMultipleSelection': value,
+  'allowMultipleSelection': ?instance.allowMultipleSelection,
 };
 
 StringFormFieldSettings _$StringFormFieldSettingsFromJson(Map<String, dynamic> json) =>
@@ -58,7 +58,7 @@ StringFormFieldSettings _$StringFormFieldSettingsFromJson(Map<String, dynamic> j
 
 Map<String, dynamic> _$StringFormFieldSettingsToJson(StringFormFieldSettings instance) => <String, dynamic>{
   '@type': instance.atType,
-  if (instance.allowNewlines case final value?) 'allowNewlines': value,
-  if (instance.min case final value?) 'min': value,
-  if (instance.max case final value?) 'max': value,
+  'allowNewlines': ?instance.allowNewlines,
+  'min': ?instance.min,
+  'max': ?instance.max,
 };

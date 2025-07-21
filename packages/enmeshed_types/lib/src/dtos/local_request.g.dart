@@ -25,9 +25,9 @@ Map<String, dynamic> _$LocalRequestDTOToJson(LocalRequestDTO instance) => <Strin
   'createdAt': instance.createdAt,
   'status': _$LocalRequestStatusEnumMap[instance.status]!,
   'content': instance.content.toJson(),
-  if (instance.source?.toJson() case final value?) 'source': value,
-  if (instance.response?.toJson() case final value?) 'response': value,
-  if (instance.wasAutomaticallyDecided case final value?) 'wasAutomaticallyDecided': value,
+  'source': ?instance.source?.toJson(),
+  'response': ?instance.response?.toJson(),
+  'wasAutomaticallyDecided': ?instance.wasAutomaticallyDecided,
 };
 
 const _$LocalRequestStatusEnumMap = {

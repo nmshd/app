@@ -15,7 +15,7 @@ dependencies:
   enmeshed_types: ^1.0.0
   enmeshed_ui_kit: ^1.0.0
   feature_flags: ^0.1.4
-  feedback: ^3.1.0
+  feedback: ^3.2.0
   file_picker: ^10.2.0
   flex_seed_scheme: ^3.5.1
   flutter:
@@ -35,7 +35,7 @@ dependencies:
   image: ^4.5.4
   image_picker: ^1.1.2
   intl: any
-  logger: ^2.6.0
+  logger: ^2.6.1
   mime_type: ^1.0.1
   mobile_scanner: ^7.0.1
   open_file: ^3.5.10
