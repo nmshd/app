@@ -93,9 +93,8 @@ class _FilesScreenState extends State<FilesScreen> {
               selectTagsEnabled: _selectTagsEnabled,
               selectTypesEnabled: _selectTypesEnabled,
               selectedFilterOption: _filterOption,
-              activeTypeOrTagFilters:
-                  _activeTypeFilters.isNotEmpty && _filterOption == FilesFilterOption.type ||
-                  _activeTagFilters.isNotEmpty && _filterOption == FilesFilterOption.tag,
+              typeFiltersActive: _activeTypeFilters.isNotEmpty,
+              tagFiltersActive: _activeTagFilters.isNotEmpty,
               showTags: () async {
                 setState(() => _selectTagsEnabled = false);
                 await _loadFiles(applyFilters: false);
@@ -121,7 +120,6 @@ class _FilesScreenState extends State<FilesScreen> {
                   onApplyTags: (selectedTags) {
                     setState(() {
                       _activeTagFilters = selectedTags;
-                      _activeTypeFilters = {};
                       _filterOption = FilesFilterOption.tag;
                     });
                     _filterAndSort();
@@ -155,7 +153,6 @@ class _FilesScreenState extends State<FilesScreen> {
                   onApplyTypes: (selectedFilters) {
                     setState(() {
                       _activeTypeFilters = selectedFilters;
-                      _activeTagFilters = {};
                       _filterOption = FilesFilterOption.type;
                     });
                     _filterAndSort();
@@ -432,7 +429,8 @@ class _TagsBar extends StatelessWidget {
 class _FilesFilterChipBar extends StatelessWidget {
   final FilesFilterOption selectedFilterOption;
   final Future<void> Function(FilesFilterOption option) setFilter;
-  final bool activeTypeOrTagFilters;
+  final bool typeFiltersActive;
+  final bool tagFiltersActive;
   final bool selectTagsEnabled;
   final bool selectTypesEnabled;
   final VoidCallback showTags;
@@ -441,7 +439,8 @@ class _FilesFilterChipBar extends StatelessWidget {
   const _FilesFilterChipBar({
     required this.selectedFilterOption,
     required this.setFilter,
-    required this.activeTypeOrTagFilters,
+    required this.typeFiltersActive,
+    required this.tagFiltersActive,
     required this.selectTagsEnabled,
     required this.selectTypesEnabled,
     required this.showTags,
@@ -462,7 +461,8 @@ class _FilesFilterChipBar extends StatelessWidget {
             },
             icon: option.filterIcon,
             filterOption: option,
-            isBadgeLabelVisible: activeTypeOrTagFilters && selectedFilterOption == option,
+            isTagBadgeVisible: tagFiltersActive,
+            isTypeBadgeVisible: typeFiltersActive,
             label: switch (option) {
               FilesFilterOption.all => context.l10n.files_filterOption_all,
               FilesFilterOption.unviewed => context.l10n.files_filterOption_new,
@@ -490,7 +490,8 @@ class _FilesCondensedFilterChip extends StatelessWidget {
   final VoidCallback onPressed;
   final IconData icon;
   final bool isSelected;
-  final bool isBadgeLabelVisible;
+  final bool isTagBadgeVisible;
+  final bool isTypeBadgeVisible;
   final FilesFilterOption filterOption;
   final String? label;
   final Color? backgroundColor;
@@ -500,7 +501,8 @@ class _FilesCondensedFilterChip extends StatelessWidget {
     required this.onPressed,
     required this.icon,
     required this.isSelected,
-    required this.isBadgeLabelVisible,
+    required this.isTagBadgeVisible,
+    required this.isTypeBadgeVisible,
     required this.filterOption,
     this.label,
     this.backgroundColor,
@@ -518,8 +520,13 @@ class _FilesCondensedFilterChip extends StatelessWidget {
     );
 
     final filterChipIcon = switch (filterOption) {
-      FilesFilterOption.type || FilesFilterOption.tag => Badge(
-        isLabelVisible: isBadgeLabelVisible,
+      FilesFilterOption.type => Badge(
+        isLabelVisible: isTypeBadgeVisible,
+        backgroundColor: Theme.of(context).primaryColor,
+        child: icon,
+      ),
+      FilesFilterOption.tag => Badge(
+        isLabelVisible: isTagBadgeVisible,
         backgroundColor: Theme.of(context).primaryColor,
         child: icon,
       ),
