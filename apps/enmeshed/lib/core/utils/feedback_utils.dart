@@ -21,7 +21,7 @@ Future<void> _giveFeedback(BuildContext context, String accountId) async {
 
   final uri = Uri(
     scheme: 'mailto',
-    host: 'info@enmeshed.eu',
+    path: 'info@enmeshed.eu',
     queryParameters: {
       'subject': 'enmeshed App Feedback',
     },
