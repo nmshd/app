@@ -13,7 +13,7 @@ extension FeedbackUtils on BuildContext {
   Future<void> giveFeedback(String accountReference) => _giveFeedback(this, accountReference);
 }
 
-Future<void> _giveFeedback(BuildContext context, String accountReference) async {
+Future<void> _giveFeedback(BuildContext context, String accountId) async {
   final router = GoRouter.of(context);
   final betterFeedback = BetterFeedback.of(context);
 
@@ -31,14 +31,14 @@ Future<void> _giveFeedback(BuildContext context, String accountReference) async 
   final canLaunch = await urlLauncher.launchUrl(uri);
   if (!canLaunch) {
     GetIt.I.get<Logger>().e('Cannot launch email client');
-    unawaited(router.push('/feedback/error'));
+    unawaited(router.push('/account/$accountId/feedback/error'));
     return;
   }
 
   final completer = Completer<bool>();
 
   betterFeedback.show((feedback) async {
-    final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountReference);
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
 
     final identityInfo = await session.transportServices.account.getIdentityInfo();
     final address = identityInfo.value.address;
@@ -64,5 +64,5 @@ Future<void> _giveFeedback(BuildContext context, String accountReference) async 
   });
 
   final success = await completer.future;
-  unawaited(router.push(success ? '/feedback/success' : '/feedback/error', extra: success ? null : uri));
+  unawaited(router.push(success ? '/account/$accountId/feedback/success' : '/account/$accountId/feedback/error', extra: success ? null : uri));
 }

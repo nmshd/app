@@ -10,11 +10,12 @@ import 'package:permission_handler/permission_handler.dart';
 import '/core/core.dart';
 
 class DrawerMainPage extends StatefulWidget {
+  final String accountId;
   final VoidCallback goToNotifications;
   final VoidCallback goToHints;
   final VoidCallback goToTheme;
 
-  const DrawerMainPage({required this.goToNotifications, required this.goToHints, required this.goToTheme, super.key});
+  const DrawerMainPage({required this.accountId, required this.goToNotifications, required this.goToHints, required this.goToTheme, super.key});
 
   @override
   State<DrawerMainPage> createState() => _DrawerMainPageState();
@@ -97,7 +98,7 @@ class _DrawerMainPageState extends State<DrawerMainPage> {
               ListTile(
                 onTap: () => context
                   ..pop()
-                  ..push('/feedback'),
+                  ..push('/account/${widget.accountId}/feedback'),
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 title: Text(context.l10n.drawer_hints_giveFeedback, style: Theme.of(context).textTheme.labelLarge),
               ),

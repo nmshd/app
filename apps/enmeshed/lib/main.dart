@@ -297,13 +297,15 @@ final _router = GoRouter(
               parentNavigatorKey: _rootNavigatorKey,
               path: 'success',
               pageBuilder: (context, state) => DialogPage(
-                builder: (context) => FeedbackSuccessDialog(accountReference: state.pathParameters['accountId']!),
+                builder: (context) => FeedbackSuccessDialog(accountId: state.pathParameters['accountId']!),
               ),
             ),
             GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
               path: 'error',
-              pageBuilder: (context, state) => DialogPage(builder: (context) => FeedbackErrorDialog(feedbackMailUri: state.extra as Uri?)),
+              pageBuilder: (context, state) => DialogPage(
+                builder: (context) => FeedbackErrorDialog(accountId: state.pathParameters['accountId']!, feedbackMailUri: state.extra as Uri?),
+              ),
             ),
           ],
         ),

@@ -9,9 +9,10 @@ import 'package:renderers/renderers.dart';
 import '../../utils/extensions.dart';
 
 class FeedbackErrorDialog extends StatelessWidget {
+  final String accountId;
   final Uri? feedbackMailUri;
 
-  const FeedbackErrorDialog({required this.feedbackMailUri, super.key});
+  const FeedbackErrorDialog({required this.accountId, required this.feedbackMailUri, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class FeedbackErrorDialog extends StatelessWidget {
             if (!success || !context.mounted) return;
 
             context.pop();
-            unawaited(context.push('/feedback/success'));
+            unawaited(context.push('/account/$accountId/feedback/success'));
           },
           child: Text(context.l10n.giveFeedback_error_tryAgain),
         ),
