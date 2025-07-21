@@ -24,16 +24,16 @@ IdentityDeletionProcessDTO _$IdentityDeletionProcessDTOFromJson(Map<String, dyna
 Map<String, dynamic> _$IdentityDeletionProcessDTOToJson(IdentityDeletionProcessDTO instance) => <String, dynamic>{
   'id': instance.id,
   'status': _$IdentityDeletionProcessStatusEnumMap[instance.status]!,
-  if (instance.createdAt case final value?) 'createdAt': value,
-  if (instance.createdByDevice case final value?) 'createdByDevice': value,
-  if (instance.approvalPeriodEndsAt case final value?) 'approvalPeriodEndsAt': value,
-  if (instance.rejectedAt case final value?) 'rejectedAt': value,
-  if (instance.rejectedByDevice case final value?) 'rejectedByDevice': value,
-  if (instance.approvedAt case final value?) 'approvedAt': value,
-  if (instance.approvedByDevice case final value?) 'approvedByDevice': value,
-  if (instance.gracePeriodEndsAt case final value?) 'gracePeriodEndsAt': value,
-  if (instance.cancelledAt case final value?) 'cancelledAt': value,
-  if (instance.cancelledByDevice case final value?) 'cancelledByDevice': value,
+  'createdAt': ?instance.createdAt,
+  'createdByDevice': ?instance.createdByDevice,
+  'approvalPeriodEndsAt': ?instance.approvalPeriodEndsAt,
+  'rejectedAt': ?instance.rejectedAt,
+  'rejectedByDevice': ?instance.rejectedByDevice,
+  'approvedAt': ?instance.approvedAt,
+  'approvedByDevice': ?instance.approvedByDevice,
+  'gracePeriodEndsAt': ?instance.gracePeriodEndsAt,
+  'cancelledAt': ?instance.cancelledAt,
+  'cancelledByDevice': ?instance.cancelledByDevice,
 };
 
 const _$IdentityDeletionProcessStatusEnumMap = {

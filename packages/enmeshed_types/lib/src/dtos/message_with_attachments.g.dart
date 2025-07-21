@@ -27,5 +27,5 @@ Map<String, dynamic> _$MessageWithAttachmentsDTOToJson(MessageWithAttachmentsDTO
   'recipients': instance.recipients.map((e) => e.toJson()).toList(),
   'createdAt': instance.createdAt,
   'attachments': instance.attachments.map((e) => e.toJson()).toList(),
-  if (instance.wasReadAt case final value?) 'wasReadAt': value,
+  'wasReadAt': ?instance.wasReadAt,
 };

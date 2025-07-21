@@ -26,8 +26,8 @@ Map<String, dynamic> _$TokenDTOToJson(TokenDTO instance) => <String, dynamic>{
   'content': instance.content.toJson(),
   'createdAt': instance.createdAt,
   'expiresAt': instance.expiresAt,
-  if (instance.forIdentity case final value?) 'forIdentity': value,
+  'forIdentity': ?instance.forIdentity,
   'isEphemeral': instance.isEphemeral,
-  if (instance.passwordProtection?.toJson() case final value?) 'passwordProtection': value,
+  'passwordProtection': ?instance.passwordProtection?.toJson(),
   'reference': instance.reference.toJson(),
 };
