@@ -20,7 +20,7 @@ Future<void> _giveFeedback(BuildContext context, String accountId) async {
   // TODO: get all texts from l10n
 
   final urlLauncher = GetIt.I.get<AbstractUrlLauncher>();
-  final canLaunch = await urlLauncher.launchUrl(Uri(scheme: 'mailto', path: 'info@enmeshed.eu'));
+  final canLaunch = await urlLauncher.canLaunchUrl(Uri(scheme: 'mailto', path: 'info@enmeshed.eu'));
   if (!canLaunch) {
     GetIt.I.get<Logger>().e('Cannot launch email client');
     unawaited(router.push('/account/$accountId/feedback/error'));
@@ -43,14 +43,17 @@ Future<void> _giveFeedback(BuildContext context, String accountId) async {
 
     final appVersion = await PackageInfo.fromPlatform().then((info) => info.version);
 
-    final uri = Uri(
-      scheme: 'mailto',
-      path: 'info@enmeshed.eu',
-      queryParameters: {
-        'subject': 'enmeshed App Feedback',
-        'body': '${feedback.text}\n\nProfil-Adresse: $address\nApp Version: $appVersion\nScreenshot (encrypted): ${file.value.reference.url}',
-      },
-    );
+    const subject = 'enmeshed App Feedback';
+    final feedbackText = feedback.text.trim().isEmpty ? '' : '${feedback.text}\n';
+    final body =
+        '''
+        $feedbackText
+        Profil-Adresse: $address
+        App Version: $appVersion
+        Screenshot (encrypted): ${file.value.reference.url}
+        ''';
+
+    final uri = Uri(scheme: 'mailto', path: 'info@enmeshed.eu', query: _encodeQueryParameters({'subject': subject, 'body': body}));
 
     try {
       final success = await urlLauncher.launchUrl(uri);
@@ -66,3 +69,6 @@ Future<void> _giveFeedback(BuildContext context, String accountId) async {
     router.push(result.$1 ? '/account/$accountId/feedback/success' : '/account/$accountId/feedback/error', extra: result.$1 ? null : result.$2),
   );
 }
+
+String? _encodeQueryParameters(Map<String, String> params) =>
+    params.entries.map((MapEntry<String, String> e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
