@@ -19,23 +19,15 @@ Future<void> _giveFeedback(BuildContext context, String accountId) async {
 
   // TODO: get all texts from l10n
 
-  final uri = Uri(
-    scheme: 'mailto',
-    path: 'info@enmeshed.eu',
-    queryParameters: {
-      'subject': 'enmeshed App Feedback',
-    },
-  );
-
   final urlLauncher = GetIt.I.get<AbstractUrlLauncher>();
-  final canLaunch = await urlLauncher.launchUrl(uri);
+  final canLaunch = await urlLauncher.launchUrl(Uri(scheme: 'mailto', path: 'info@enmeshed.eu'));
   if (!canLaunch) {
     GetIt.I.get<Logger>().e('Cannot launch email client');
     unawaited(router.push('/account/$accountId/feedback/error'));
     return;
   }
 
-  final completer = Completer<bool>();
+  final completer = Completer<(bool, Uri?)>();
 
   betterFeedback.show((feedback) async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
@@ -44,25 +36,33 @@ Future<void> _giveFeedback(BuildContext context, String accountId) async {
     final address = identityInfo.value.address;
 
     final file = await session.transportServices.files.uploadOwnFile(
-      content: feedback.screenshot,
+      content: feedback.screenshot.toList(),
       filename: 'feedback_${DateTime.now().toIso8601String()}.png',
       mimetype: 'image/png',
     );
 
     final appVersion = await PackageInfo.fromPlatform().then((info) => info.version);
 
-    uri.queryParameters['body'] =
-        '${feedback.text}\n\nProfil-Adresse: $address\nApp Version: $appVersion\nScreenshot (encrypted): ${file.value.reference.truncated}';
+    final uri = Uri(
+      scheme: 'mailto',
+      path: 'info@enmeshed.eu',
+      queryParameters: {
+        'subject': 'enmeshed App Feedback',
+        'body': '${feedback.text}\n\nProfil-Adresse: $address\nApp Version: $appVersion\nScreenshot (encrypted): ${file.value.reference.url}',
+      },
+    );
 
     try {
       final success = await urlLauncher.launchUrl(uri);
-      completer.complete(success);
+      completer.complete((success, uri));
     } catch (e) {
       GetIt.I.get<Logger>().e('Failed to send feedback email: $e');
-      completer.complete(false);
+      completer.complete((false, uri));
     }
   });
 
-  final success = await completer.future;
-  unawaited(router.push(success ? '/account/$accountId/feedback/success' : '/account/$accountId/feedback/error', extra: success ? null : uri));
+  final result = await completer.future;
+  unawaited(
+    router.push(result.$1 ? '/account/$accountId/feedback/success' : '/account/$accountId/feedback/error', extra: result.$1 ? null : result.$2),
+  );
 }
