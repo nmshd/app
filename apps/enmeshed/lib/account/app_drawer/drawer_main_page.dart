@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -90,6 +92,14 @@ class _DrawerMainPageState extends State<DrawerMainPage> {
                   ..push('/imprint'),
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 title: Text(context.l10n.imprint, style: Theme.of(context).textTheme.labelLarge),
+              ),
+              const Divider(indent: 16, endIndent: 16),
+              ListTile(
+                onTap: () => context
+                  ..pop()
+                  ..push('/feedback'),
+                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                title: Text(context.l10n.drawer_hints_giveFeedback, style: Theme.of(context).textTheme.labelLarge),
               ),
             ],
           ),

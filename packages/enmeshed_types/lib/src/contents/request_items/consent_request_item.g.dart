@@ -18,11 +18,11 @@ ConsentRequestItem _$ConsentRequestItemFromJson(Map<String, dynamic> json) => Co
 
 Map<String, dynamic> _$ConsentRequestItemToJson(ConsentRequestItem instance) => <String, dynamic>{
   '@type': instance.atType,
-  if (instance.description case final value?) 'description': value,
-  if (instance.metadata case final value?) 'metadata': value,
+  'description': ?instance.description,
+  'metadata': ?instance.metadata,
   'mustBeAccepted': instance.mustBeAccepted,
-  if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+  'requireManualDecision': ?instance.requireManualDecision,
   'consent': instance.consent,
-  if (instance.link case final value?) 'link': value,
-  if (instance.linkDisplayText case final value?) 'linkDisplayText': value,
+  'link': ?instance.link,
+  'linkDisplayText': ?instance.linkDisplayText,
 };

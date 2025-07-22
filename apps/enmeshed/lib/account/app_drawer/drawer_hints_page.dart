@@ -22,6 +22,7 @@ class DrawerHintsPageState extends State<DrawerHintsPage> {
   bool? _firstSteps;
   bool? _addContact;
   bool? _loadProfile;
+  bool? _giveFeedback;
 
   late final StreamSubscription<void> _subscription;
 
@@ -55,7 +56,7 @@ class DrawerHintsPageState extends State<DrawerHintsPage> {
       ],
     );
 
-    if (_firstSteps == null || _addContact == null || _loadProfile == null) {
+    if (_firstSteps == null || _addContact == null || _loadProfile == null || _giveFeedback == null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -95,6 +96,14 @@ class DrawerHintsPageState extends State<DrawerHintsPage> {
             setState(() => _firstSteps = value);
           },
         ),
+        SwitchListTile(
+          title: Text(context.l10n.drawer_hints_giveFeedback, style: Theme.of(context).textTheme.labelLarge),
+          value: _giveFeedback!,
+          onChanged: (value) async {
+            await upsertGiveFeedbackBannerSetting(accountId: widget.accountId, value: value);
+            setState(() => _giveFeedback = value);
+          },
+        ),
       ],
     );
   }
@@ -103,11 +112,13 @@ class DrawerHintsPageState extends State<DrawerHintsPage> {
     final firstSteps = await getSetting(accountId: widget.accountId, key: 'home.completeProfileContainerShown', valueKey: 'isShown');
     final addContact = await getSetting(accountId: widget.accountId, key: 'hints.${ScannerType.addContact}', valueKey: 'showHints');
     final loadProfile = await getSetting(accountId: widget.accountId, key: 'hints.${ScannerType.loadProfile}', valueKey: 'showHints');
+    final giveFeedback = await getSetting(accountId: widget.accountId, key: 'home.giveFeedbackBannerShown', valueKey: 'isShown');
 
     setState(() {
       _firstSteps = firstSteps;
       _addContact = addContact;
       _loadProfile = loadProfile;
+      _giveFeedback = giveFeedback;
     });
   }
 }

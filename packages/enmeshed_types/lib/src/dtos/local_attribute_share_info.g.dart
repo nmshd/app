@@ -15,9 +15,9 @@ LocalAttributeShareInfo _$LocalAttributeShareInfoFromJson(Map<String, dynamic> j
 );
 
 Map<String, dynamic> _$LocalAttributeShareInfoToJson(LocalAttributeShareInfo instance) => <String, dynamic>{
-  if (instance.requestReference case final value?) 'requestReference': value,
-  if (instance.notificationReference case final value?) 'notificationReference': value,
+  'requestReference': ?instance.requestReference,
+  'notificationReference': ?instance.notificationReference,
   'peer': instance.peer,
-  if (instance.sourceAttribute case final value?) 'sourceAttribute': value,
-  if (instance.thirdPartyAddress case final value?) 'thirdPartyAddress': value,
+  'sourceAttribute': ?instance.sourceAttribute,
+  'thirdPartyAddress': ?instance.thirdPartyAddress,
 };

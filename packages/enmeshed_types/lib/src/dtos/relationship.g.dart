@@ -23,7 +23,7 @@ Map<String, dynamic> _$RelationshipDTOToJson(RelationshipDTO instance) => <Strin
   'status': _$RelationshipStatusEnumMap[instance.status]!,
   'peer': instance.peer,
   'peerIdentity': instance.peerIdentity.toJson(),
-  if (instance.peerDeletionInfo?.toJson() case final value?) 'peerDeletionInfo': value,
+  'peerDeletionInfo': ?instance.peerDeletionInfo?.toJson(),
   'creationContent': instance.creationContent.toJson(),
   'auditLog': instance.auditLog.map((e) => e.toJson()).toList(),
 };

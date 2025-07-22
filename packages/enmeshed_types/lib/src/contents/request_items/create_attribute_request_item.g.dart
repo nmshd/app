@@ -16,9 +16,9 @@ CreateAttributeRequestItem _$CreateAttributeRequestItemFromJson(Map<String, dyna
 
 Map<String, dynamic> _$CreateAttributeRequestItemToJson(CreateAttributeRequestItem instance) => <String, dynamic>{
   '@type': instance.atType,
-  if (instance.description case final value?) 'description': value,
-  if (instance.metadata case final value?) 'metadata': value,
+  'description': ?instance.description,
+  'metadata': ?instance.metadata,
   'mustBeAccepted': instance.mustBeAccepted,
-  if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+  'requireManualDecision': ?instance.requireManualDecision,
   'attribute': instance.attribute.toJson(),
 };

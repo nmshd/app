@@ -37,26 +37,26 @@ RelationshipDVO _$RelationshipDVOFromJson(Map<String, dynamic> json) => Relation
 Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
+  'description': ?instance.description,
+  'image': ?instance.image,
   'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
   'status': _$RelationshipStatusEnumMap[instance.status]!,
-  if (_$PeerDeletionStatusEnumMap[instance.peerDeletionStatus] case final value?) 'peerDeletionStatus': value,
-  if (instance.peerDeletionDate case final value?) 'peerDeletionDate': value,
+  'peerDeletionStatus': ?_$PeerDeletionStatusEnumMap[instance.peerDeletionStatus],
+  'peerDeletionDate': ?instance.peerDeletionDate,
   'direction': _$RelationshipDirectionEnumMap[instance.direction]!,
   'statusText': instance.statusText,
   'isPinned': instance.isPinned,
-  if (instance.theme?.toJson() case final value?) 'theme': value,
+  'theme': ?instance.theme?.toJson(),
   'creationContent': instance.creationContent.toJson(),
   'auditLog': instance.auditLog.map((e) => e.toJson()).toList(),
   'items': instance.items.map((e) => e.toJson()).toList(),
   'attributeMap': instance.attributeMap.map((k, e) => MapEntry(k, e.map((e) => e.toJson()).toList())),
   'nameMap': instance.nameMap,
   'templateId': instance.templateId,
-  if (instance.originalName case final value?) 'originalName': value,
+  'originalName': ?instance.originalName,
   'sendMailDisabled': instance.sendMailDisabled,
 };
 
@@ -81,8 +81,8 @@ RelationshipTheme _$RelationshipThemeFromJson(Map<String, dynamic> json) => Rela
 );
 
 Map<String, dynamic> _$RelationshipThemeToJson(RelationshipTheme instance) => <String, dynamic>{
-  if (instance.image case final value?) 'image': value,
-  if (instance.headerImage case final value?) 'headerImage': value,
-  if (instance.backgroundColor case final value?) 'backgroundColor': value,
-  if (instance.foregroundColor case final value?) 'foregroundColor': value,
+  'image': ?instance.image,
+  'headerImage': ?instance.headerImage,
+  'backgroundColor': ?instance.backgroundColor,
+  'foregroundColor': ?instance.foregroundColor,
 };

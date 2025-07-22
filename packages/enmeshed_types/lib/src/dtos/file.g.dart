@@ -25,7 +25,7 @@ FileDTO _$FileDTOFromJson(Map<String, dynamic> json) => FileDTO(
 Map<String, dynamic> _$FileDTOToJson(FileDTO instance) => <String, dynamic>{
   'id': instance.id,
   'filename': instance.filename,
-  if (instance.tags case final value?) 'tags': value,
+  'tags': ?instance.tags,
   'filesize': instance.filesize,
   'createdAt': instance.createdAt,
   'createdBy': instance.createdBy,
@@ -33,7 +33,7 @@ Map<String, dynamic> _$FileDTOToJson(FileDTO instance) => <String, dynamic>{
   'expiresAt': instance.expiresAt,
   'mimetype': instance.mimetype,
   'isOwn': instance.isOwn,
-  if (instance.title case final value?) 'title': value,
-  if (instance.description case final value?) 'description': value,
+  'title': ?instance.title,
+  'description': ?instance.description,
   'reference': instance.reference.toJson(),
 };
