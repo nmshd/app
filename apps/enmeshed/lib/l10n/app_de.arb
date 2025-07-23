@@ -837,6 +837,24 @@
   "instructions_giveFeedback_drawWhatsWrong": "Markieren Sie mit dem Malwerkzeug den gewünschten Bereich auf dem Screen.",
   "instructions_giveFeedback_writeAnExplanation": "Schreiben Sie eine kurze Erklärung zu Ihrem Verbesserungsvorschlag.",
   "instructions_giveFeedback_send": "Klicken Sie 'Abschicken'. Sie werden anschließend in Ihre E-Mail-App weitergeleitet.",
+  "giveFeedback_content_subject": "enmeshed App Feedback",
+  "giveFeedback_content_body": "{feedbackText}\nProfil Addresse: {address}\nApp Version: {version}\nScreenshot (verschlüsselt): {screenshotLink}",
+  "@giveFeedback_content_body": {
+    "placeholders": {
+      "feedbackText": {
+        "type": "String"
+      },
+      "address": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      },
+      "screenshotLink": {
+        "type": "String"
+      }
+    }
+  },
   "giveFeedback_success_title": "Feedback an die E-Mail-App übermittelt",
   "giveFeedback_success_description": "Vielen Dank, Ihr Feedback hilft uns, die App stetig zu verbessern.",
   "giveFeedback_success_newFeedback": "Neues Feedback",

@@ -9,6 +9,8 @@ import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:renderers/renderers.dart';
 
+import '../utils/extensions.dart';
+
 extension FeedbackUtils on BuildContext {
   Future<void> giveFeedback(String accountId) => _giveFeedback(this, accountId);
 }
@@ -16,8 +18,7 @@ extension FeedbackUtils on BuildContext {
 Future<void> _giveFeedback(BuildContext context, String accountId) async {
   final router = GoRouter.of(context);
   final betterFeedback = BetterFeedback.of(context);
-
-  // TODO: get all texts from l10n
+  final l10n = context.l10n;
 
   final urlLauncher = GetIt.I.get<AbstractUrlLauncher>();
   final canLaunch = await urlLauncher.canLaunchUrl(Uri(scheme: 'mailto', path: 'info@enmeshed.eu'));
@@ -42,18 +43,17 @@ Future<void> _giveFeedback(BuildContext context, String accountId) async {
     );
 
     final appVersion = await PackageInfo.fromPlatform().then((info) => info.version);
+    final feedbackText = feedback.text.trim().isEmpty ? '' : 'Feedback: ${feedback.text}\n';
+    final screenshotUrl = file.value.reference.url;
 
-    const subject = 'enmeshed App Feedback';
-    final feedbackText = feedback.text.trim().isEmpty ? '' : '${feedback.text}\n';
-    final body =
-        '''
-        $feedbackText
-        Profil-Adresse: $address
-        App Version: $appVersion
-        Screenshot (encrypted): ${file.value.reference.url}
-        ''';
-
-    final uri = Uri(scheme: 'mailto', path: 'info@enmeshed.eu', query: _encodeQueryParameters({'subject': subject, 'body': body}));
+    final uri = Uri(
+      scheme: 'mailto',
+      path: 'info@enmeshed.eu',
+      query: _encodeQueryParameters({
+        'subject': l10n.giveFeedback_content_subject,
+        'body': l10n.giveFeedback_content_body(feedbackText, address, appVersion, screenshotUrl),
+      }),
+    );
 
     try {
       final success = await urlLauncher.launchUrl(uri);
