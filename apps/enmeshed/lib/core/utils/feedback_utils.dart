@@ -10,7 +10,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:renderers/renderers.dart';
 
 extension FeedbackUtils on BuildContext {
-  Future<void> giveFeedback(String accountReference) => _giveFeedback(this, accountReference);
+  Future<void> giveFeedback(String accountId) => _giveFeedback(this, accountId);
 }
 
 Future<void> _giveFeedback(BuildContext context, String accountId) async {
