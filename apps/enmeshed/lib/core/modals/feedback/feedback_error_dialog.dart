@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:renderers/renderers.dart';
 
-import '../../utils/extensions.dart';
+import '../../utils/utils.dart';
 
 class FeedbackErrorDialog extends StatelessWidget {
   final String accountId;
@@ -23,33 +23,35 @@ class FeedbackErrorDialog extends StatelessWidget {
       actions: [
         OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
         FilledButton(
-          onPressed: () async {
-            final success = await _sendEmail();
-            if (!success || !context.mounted) return;
-
-            context.pop();
-            unawaited(context.push('/account/$accountId/feedback/success'));
-          },
+          onPressed: () async => feedbackMailUri == null ? _giveFeedback(context) : await _reSendMail(context),
           child: Text(context.l10n.giveFeedback_error_tryAgain),
         ),
       ],
     );
   }
 
-  Future<bool> _sendEmail() async {
-    if (feedbackMailUri == null) return false;
+  void _giveFeedback(BuildContext context) => context
+    ..pop()
+    ..giveFeedback(accountId);
+
+  Future<void> _reSendMail(BuildContext context) async {
+    if (feedbackMailUri == null) return;
 
     final urlLauncher = GetIt.I.get<AbstractUrlLauncher>();
 
     final canLaunch = await urlLauncher.canLaunchUrl(feedbackMailUri!);
-    if (!canLaunch) return false;
+    if (!canLaunch) return;
 
     try {
       await urlLauncher.launchUrl(feedbackMailUri!);
-      return true;
     } catch (e) {
       GetIt.I.get<Logger>().e('Failed to launch email: $e');
-      return false;
+      return;
     }
+
+    if (!context.mounted) return;
+
+    context.pop();
+    unawaited(context.push('/account/$accountId/feedback/success'));
   }
 }
