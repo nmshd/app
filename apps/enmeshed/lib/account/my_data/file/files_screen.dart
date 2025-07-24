@@ -118,11 +118,8 @@ class _FilesScreenState extends State<FilesScreen> {
                   activeTags: _activeTagFilters,
                   enableSelectTags: () => setState(() => _selectTagsEnabled = true),
                   onApplyTags: (selectedTags) {
-                    setState(() {
-                      _activeTagFilters = selectedTags;
-                      _filterOption = FilesFilterOption.tag;
-                    });
-                    _filterAndSort();
+                    setState(() => _activeTagFilters = selectedTags);
+                    _reloadAndApplyFilters();
                   },
                 );
               },
@@ -151,20 +148,13 @@ class _FilesScreenState extends State<FilesScreen> {
                   activeTypes: _activeTypeFilters,
                   enableSelectTypes: () => setState(() => _selectTypesEnabled = true),
                   onApplyTypes: (selectedFilters) {
-                    setState(() {
-                      _activeTypeFilters = selectedFilters;
-                      _filterOption = FilesFilterOption.type;
-                    });
-                    _filterAndSort();
+                    setState(() => _activeTypeFilters = selectedFilters);
+                    _reloadAndApplyFilters();
                   },
                 );
               },
               setFilter: (filter) async {
-                setState(() {
-                  _filterOption = filter;
-                  _activeTypeFilters = {};
-                  _activeTagFilters = {};
-                });
+                setState(() => _filterOption = filter);
                 await _reloadAndApplyFilters();
               },
             ),
@@ -173,7 +163,6 @@ class _FilesScreenState extends State<FilesScreen> {
                 activeTypes: _activeTypeFilters,
                 onRemoveType: (removedFilter) {
                   _activeTypeFilters.remove(removedFilter);
-                  if (_activeTypeFilters.isEmpty) setState(() => _filterOption = FilesFilterOption.all);
                   _filterAndSort();
                 },
               ),
@@ -182,7 +171,6 @@ class _FilesScreenState extends State<FilesScreen> {
                 activeTags: _activeTagFilters,
                 onRemoveTag: (removedTag) {
                   _activeTagFilters.remove(removedTag);
-                  if (_activeTagFilters.isEmpty) setState(() => _filterOption = FilesFilterOption.all);
                   _filterAndSort();
                 },
               ),
