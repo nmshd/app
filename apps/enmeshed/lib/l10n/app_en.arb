@@ -678,7 +678,7 @@
   "files": "Documents and Files",
   "files_noFilesAvailable": "No files available",
   "files_noFilesAvailable_description": "Upload files & documents to your wallet to share them with your contacts.",
-  "files_noFilesAvailable_addFiles": "Upload files & documents.",
+  "files_noFilesAvailable_addFiles": "Upload files & documents",
   "files_noNewFiles": "No new files available",
   "files_noExpiredFiles": "No expired files available",
   "files_noResults": "No results",
