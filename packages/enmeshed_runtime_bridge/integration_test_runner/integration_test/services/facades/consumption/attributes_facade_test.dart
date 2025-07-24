@@ -1021,7 +1021,7 @@ void run(EnmeshedRuntime runtime) {
         attributeId: identityAttribute.id,
         peer: recipientAddress,
         requestMetadata: (title: 'aRequestTitle', description: 'aRequestDescription', metadata: {'a': 'b'}, expiresAt: null),
-        requestItemMetadata: (description: 'aRequestItemDescription', metadata: null, requireManualDecision: null),
+        requestItemMetadata: (description: 'aRequestItemDescription', metadata: null),
       );
 
       expect(shareAttributeResult, isSuccessful<LocalRequestDTO>());
@@ -1135,7 +1135,7 @@ void run(EnmeshedRuntime runtime) {
         peer: recipientAddress,
         isTechnical: true,
         requestMetadata: (title: 'aRequestTitle', description: 'aRequestDescription', metadata: {'a': 'b'}, expiresAt: null),
-        requestItemMetadata: (description: 'aRequestItemDescription', metadata: null, requireManualDecision: null),
+        requestItemMetadata: (description: 'aRequestItemDescription', metadata: null),
       );
       final request = requestResult.value;
 
