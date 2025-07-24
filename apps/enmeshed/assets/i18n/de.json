@@ -1194,12 +1194,6 @@
           }
         }
       }
-    },
-    "manualDecisionRequired": {
-      "description": {
-        "attributes": "Ich bestätige, dass diese Information geteilt werden soll.",
-        "fileTransfer": "Ich bestätige, dass diese Datei in meine persönlichen Dokumente übernommen werden soll."
-      }
     }
   },
   "tags": {
