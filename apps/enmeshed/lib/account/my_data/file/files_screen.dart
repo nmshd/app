@@ -263,14 +263,16 @@ class _FilesScreenState extends State<FilesScreen> {
     setState(() => _filteredFileRecords = sorted);
   }
 
-  int Function(FileRecord, FileRecord) _compareFunction() => switch (_filterOption) {
-    FilesFilterOption.type => (a, b) {
-      final aType = a.file.mimetype.split('/').last;
-      final bType = b.file.mimetype.split('/').last;
-      return bType.compareTo(aType);
-    },
-    _ => (a, b) => b.file.createdAt.compareTo(a.file.createdAt),
-  };
+  int Function(FileRecord, FileRecord) _compareFunction() {
+    if (_activeTypeFilters.isNotEmpty) {
+      return (a, b) {
+        final aType = a.file.mimetype.split('/').last;
+        final bType = b.file.mimetype.split('/').last;
+        return bType.compareTo(aType);
+      };
+    }
+    return (a, b) => b.file.createdAt.compareTo(a.file.createdAt);
+  }
 
   void _uploadFile() {
     showModalBottomSheet<void>(
