@@ -8,7 +8,6 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
-import '../my_data/file/files_filter_option.dart';
 import 'widgets/home_widgets.dart';
 
 class HomeView extends StatefulWidget {
@@ -96,7 +95,7 @@ class _HomeViewState extends State<HomeView> {
                       title: context.l10n.home_newFiles,
                       type: BannerCardType.info,
                       actionButton: (
-                        onPressed: () => context.push('/account/${widget.accountId}/my-data/files', extra: FilesFilterOption.unviewed),
+                        onPressed: () => context.push('/account/${widget.accountId}/my-data/files?showUnviewedFiles=true'),
                         title: context.l10n.show,
                       ),
                     ),

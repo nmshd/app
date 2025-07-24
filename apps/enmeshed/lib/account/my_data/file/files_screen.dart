@@ -16,9 +16,9 @@ import 'modals/modals.dart';
 class FilesScreen extends StatefulWidget {
   final String accountId;
   final bool initialCreation;
-  final FilesFilterOption? preselectedFilter;
+  final bool showUnviewedFiles;
 
-  const FilesScreen({required this.accountId, this.initialCreation = false, this.preselectedFilter, super.key});
+  const FilesScreen({required this.accountId, this.initialCreation = false, this.showUnviewedFiles = false, super.key});
 
   @override
   State<FilesScreen> createState() => _FilesScreenState();
@@ -42,7 +42,7 @@ class _FilesScreenState extends State<FilesScreen> {
   void initState() {
     super.initState();
 
-    _filterOption = widget.preselectedFilter ?? FilesFilterOption.all;
+    _filterOption = widget.showUnviewedFiles ? FilesFilterOption.unviewed : FilesFilterOption.all;
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
