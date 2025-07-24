@@ -838,7 +838,7 @@
   "instructions_giveFeedback_writeAnExplanation": "Write a brief explanation of your suggestion for improvement.",
   "instructions_giveFeedback_send": "Click 'Send'. You will then be redirected to your e-mail app.",
   "giveFeedback_content_subject": "enmeshed App Feedback",
-  "giveFeedback_content_body": "{feedbackText}\nProfile address: {address}\nApp Version: {version}\nScreenshot (encrypted): {screenshotLink}",
+  "giveFeedback_content_body": "{feedbackText}\nProfile address: {address}\nApp Version: {version}\nScreenshot: {screenshotLink}",
   "@giveFeedback_content_body": {
     "placeholders": {
       "feedbackText": {
