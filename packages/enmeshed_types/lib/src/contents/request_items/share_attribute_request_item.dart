@@ -15,7 +15,6 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
     super.description,
     super.metadata,
     required super.mustBeAccepted,
-    super.requireManualDecision,
     required this.attribute,
     required this.sourceAttributeId,
     this.thirdPartyAddress,

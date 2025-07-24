@@ -10,7 +10,6 @@ TransferFileOwnershipRequestItem _$TransferFileOwnershipRequestItemFromJson(Map<
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
   mustBeAccepted: json['mustBeAccepted'] as bool,
-  requireManualDecision: json['requireManualDecision'] as bool?,
   fileReference: json['fileReference'] as String,
   ownershipToken: json['ownershipToken'] as String?,
 );
@@ -20,7 +19,6 @@ Map<String, dynamic> _$TransferFileOwnershipRequestItemToJson(TransferFileOwners
   'description': ?instance.description,
   'metadata': ?instance.metadata,
   'mustBeAccepted': instance.mustBeAccepted,
-  'requireManualDecision': ?instance.requireManualDecision,
   'fileReference': instance.fileReference,
   'ownershipToken': ?instance.ownershipToken,
 };

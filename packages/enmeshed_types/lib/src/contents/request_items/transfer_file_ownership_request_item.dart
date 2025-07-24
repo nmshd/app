@@ -13,7 +13,6 @@ class TransferFileOwnershipRequestItem extends RequestItemDerivation {
     super.description,
     super.metadata,
     required super.mustBeAccepted,
-    super.requireManualDecision,
     required this.fileReference,
     this.ownershipToken,
   }) : super(atType: 'TransferFileOwnershipRequestItem');

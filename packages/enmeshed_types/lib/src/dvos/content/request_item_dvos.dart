@@ -52,7 +52,6 @@ class RequestItemGroupDVO extends RequestItemDVO {
 sealed class RequestItemDVODerivation extends RequestItemDVO {
   final ResponseItemDVO? response;
   final bool mustBeAccepted;
-  final bool? requireManualDecision;
 
   const RequestItemDVODerivation({
     required super.id,
@@ -66,7 +65,6 @@ sealed class RequestItemDVODerivation extends RequestItemDVO {
     required super.isDecidable,
     required this.mustBeAccepted,
     this.response,
-    this.requireManualDecision,
   });
 
   factory RequestItemDVODerivation.fromJson(Map json) {
@@ -103,7 +101,6 @@ class ReadAttributeRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
-    super.requireManualDecision,
     required this.query,
   }) : super(type: 'ReadAttributeRequestItemDVO');
 
@@ -129,7 +126,6 @@ class ProposeAttributeRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
-    super.requireManualDecision,
     required this.query,
     required this.attribute,
     required this.proposedValueOverruled,
@@ -156,7 +152,6 @@ class CreateAttributeRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
-    super.requireManualDecision,
     required this.attribute,
     this.sourceAttributeId,
   }) : super(type: 'CreateAttributeRequestItemDVO');
@@ -182,7 +177,6 @@ class DeleteAttributeRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
-    super.requireManualDecision,
     required this.attributeId,
     required this.attribute,
   }) : super(type: 'DeleteAttributeRequestItemDVO');
@@ -209,7 +203,6 @@ class ShareAttributeRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
-    super.requireManualDecision,
     required this.attribute,
     required this.sourceAttributeId,
     this.thirdPartyAddress,
@@ -235,7 +228,6 @@ class AuthenticationRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
-    super.requireManualDecision,
     required this.title,
   }) : super(type: 'AuthenticationRequestItemDVO');
 
@@ -249,6 +241,7 @@ class ConsentRequestItemDVO extends RequestItemDVODerivation {
   final String consent;
   final String? link;
   final String? linkDisplayText;
+  final bool? requiresInteraction;
 
   const ConsentRequestItemDVO({
     required super.id,
@@ -261,10 +254,10 @@ class ConsentRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
-    super.requireManualDecision,
     required this.consent,
     this.link,
     this.linkDisplayText,
+    this.requiresInteraction,
   }) : super(type: 'ConsentRequestItemDVO');
 
   factory ConsentRequestItemDVO.fromJson(Map json) => _$ConsentRequestItemDVOFromJson(Map<String, dynamic>.from(json));
@@ -288,7 +281,6 @@ class FormFieldRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
-    super.requireManualDecision,
     required this.title,
     required this.settings,
   }) : super(type: 'FormFieldRequestItemDVO');
@@ -315,7 +307,6 @@ class TransferFileOwnershipRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
-    super.requireManualDecision,
     required this.fileReference,
     required this.file,
     this.ownershipToken,

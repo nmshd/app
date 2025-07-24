@@ -10,7 +10,6 @@ ReadAttributeRequestItem _$ReadAttributeRequestItemFromJson(Map<String, dynamic>
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
   mustBeAccepted: json['mustBeAccepted'] as bool,
-  requireManualDecision: json['requireManualDecision'] as bool?,
   query: AttributeQuery.fromJson(json['query'] as Map<String, dynamic>),
 );
 
@@ -19,6 +18,5 @@ Map<String, dynamic> _$ReadAttributeRequestItemToJson(ReadAttributeRequestItem i
   'description': ?instance.description,
   'metadata': ?instance.metadata,
   'mustBeAccepted': instance.mustBeAccepted,
-  'requireManualDecision': ?instance.requireManualDecision,
   'query': instance.query.toJson(),
 };

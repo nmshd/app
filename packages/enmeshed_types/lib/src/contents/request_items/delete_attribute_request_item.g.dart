@@ -10,7 +10,6 @@ DeleteAttributeRequestItem _$DeleteAttributeRequestItemFromJson(Map<String, dyna
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
   mustBeAccepted: json['mustBeAccepted'] as bool,
-  requireManualDecision: json['requireManualDecision'] as bool?,
   attributeId: json['attributeId'] as String,
 );
 
@@ -19,6 +18,5 @@ Map<String, dynamic> _$DeleteAttributeRequestItemToJson(DeleteAttributeRequestIt
   'description': ?instance.description,
   'metadata': ?instance.metadata,
   'mustBeAccepted': instance.mustBeAccepted,
-  'requireManualDecision': ?instance.requireManualDecision,
   'attributeId': instance.attributeId,
 };

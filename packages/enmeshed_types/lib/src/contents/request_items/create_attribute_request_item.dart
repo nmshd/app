@@ -9,13 +9,8 @@ part 'create_attribute_request_item.g.dart';
 class CreateAttributeRequestItem extends RequestItemDerivation {
   final AbstractAttribute attribute;
 
-  const CreateAttributeRequestItem({
-    super.description,
-    super.metadata,
-    required super.mustBeAccepted,
-    super.requireManualDecision,
-    required this.attribute,
-  }) : super(atType: 'CreateAttributeRequestItem');
+  const CreateAttributeRequestItem({super.description, super.metadata, required super.mustBeAccepted, required this.attribute})
+    : super(atType: 'CreateAttributeRequestItem');
 
   factory CreateAttributeRequestItem.fromJson(Map json) => _$CreateAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
 

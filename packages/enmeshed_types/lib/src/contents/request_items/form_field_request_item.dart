@@ -10,14 +10,8 @@ class FormFieldRequestItem extends RequestItemDerivation {
   final String title;
   final FormFieldSettings settings;
 
-  const FormFieldRequestItem({
-    super.description,
-    super.metadata,
-    required super.mustBeAccepted,
-    super.requireManualDecision,
-    required this.title,
-    required this.settings,
-  }) : super(atType: 'FormFieldRequestItem');
+  const FormFieldRequestItem({super.description, super.metadata, required super.mustBeAccepted, required this.title, required this.settings})
+    : super(atType: 'FormFieldRequestItem');
 
   factory FormFieldRequestItem.fromJson(Map json) => _$FormFieldRequestItemFromJson(Map<String, dynamic>.from(json));
 

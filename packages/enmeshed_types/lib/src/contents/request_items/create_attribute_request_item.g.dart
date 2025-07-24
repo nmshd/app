@@ -10,7 +10,6 @@ CreateAttributeRequestItem _$CreateAttributeRequestItemFromJson(Map<String, dyna
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
   mustBeAccepted: json['mustBeAccepted'] as bool,
-  requireManualDecision: json['requireManualDecision'] as bool?,
   attribute: AbstractAttribute.fromJson(json['attribute'] as Map<String, dynamic>),
 );
 
@@ -19,6 +18,5 @@ Map<String, dynamic> _$CreateAttributeRequestItemToJson(CreateAttributeRequestIt
   'description': ?instance.description,
   'metadata': ?instance.metadata,
   'mustBeAccepted': instance.mustBeAccepted,
-  'requireManualDecision': ?instance.requireManualDecision,
   'attribute': instance.attribute.toJson(),
 };
