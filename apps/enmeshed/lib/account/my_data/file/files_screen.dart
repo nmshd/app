@@ -162,12 +162,12 @@ class _FilesScreenState extends State<FilesScreen> {
               _ActiveTypesAndTagsBar(
                 activeTags: _activeTagFilters,
                 activeTypes: _activeTypeFilters,
-                onRemoveType: (removedFilter) {
-                  _activeTypeFilters.remove(removedFilter);
+                onRemoveType: (filter) {
+                  _activeTypeFilters.remove(filter);
                   _filterAndSort();
                 },
-                onRemoveTag: (removedTag) {
-                  _activeTagFilters.remove(removedTag);
+                onRemoveTag: (tag) {
+                  _activeTagFilters.remove(tag);
                   _filterAndSort();
                 },
               ),

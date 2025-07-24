@@ -9,7 +9,7 @@ void showSelectFileTags(
   required Set<String> availableTags,
   required Set<String> activeTags,
   required void Function(Set<String>) onApplyTags,
-  required void Function() enableSelectTags,
+  required VoidCallback enableSelectTags,
 }) {
   showModalBottomSheet<void>(
     context: context,

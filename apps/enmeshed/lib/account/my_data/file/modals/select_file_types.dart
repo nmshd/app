@@ -10,7 +10,7 @@ void showSelectFileTypes(
   required Set<FileFilterType> availableTypes,
   required Set<FileFilterType> activeTypes,
   required void Function(Set<FileFilterType>) onApplyTypes,
-  required void Function() enableSelectTypes,
+  required VoidCallback enableSelectTypes,
 }) {
   showModalBottomSheet<void>(
     context: context,
