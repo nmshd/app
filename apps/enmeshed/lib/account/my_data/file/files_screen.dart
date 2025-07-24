@@ -158,17 +158,14 @@ class _FilesScreenState extends State<FilesScreen> {
                 await _reloadAndApplyFilters();
               },
             ),
-            if (_activeTypeFilters.isNotEmpty)
-              _TypesBar(
+            if (_activeTypeFilters.isNotEmpty || _activeTagFilters.isNotEmpty)
+              _ActiveTypesAndTagsBar(
+                activeTags: _activeTagFilters,
                 activeTypes: _activeTypeFilters,
                 onRemoveType: (removedFilter) {
                   _activeTypeFilters.remove(removedFilter);
                   _filterAndSort();
                 },
-              ),
-            if (_activeTagFilters.isNotEmpty)
-              _TagsBar(
-                activeTags: _activeTagFilters,
                 onRemoveTag: (removedTag) {
                   _activeTagFilters.remove(removedTag);
                   _filterAndSort();
@@ -335,15 +332,22 @@ class _FilesScreenState extends State<FilesScreen> {
   }
 }
 
-class _TypesBar extends StatelessWidget {
+class _ActiveTypesAndTagsBar extends StatelessWidget {
   final Set<FileFilterType> activeTypes;
+  final Set<String> activeTags;
   final void Function(FileFilterType) onRemoveType;
+  final void Function(String) onRemoveTag;
 
-  const _TypesBar({required this.activeTypes, required this.onRemoveType});
+  const _ActiveTypesAndTagsBar({
+    required this.activeTypes,
+    required this.activeTags,
+    required this.onRemoveType,
+    required this.onRemoveTag,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final activeTypes = this.activeTypes.map((e) => (filter: e, label: e.toLabel(context))).toList()
+    final typeChips = activeTypes.map((e) => (filter: e, label: e.toLabel(context))).toList()
       ..sort((a, b) {
         if (a.filter is OtherFileFilterType) return 1;
         if (b.filter is OtherFileFilterType) return -1;
@@ -357,57 +361,28 @@ class _TypesBar extends StatelessWidget {
         child: Row(
           spacing: 12,
           mainAxisSize: MainAxisSize.min,
-          children: activeTypes
-              .map(
-                (e) => Row(
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 2,
-                  children: [
-                    Text(e.label, style: Theme.of(context).textTheme.labelSmall),
-                    GestureDetector(
-                      child: const Icon(Icons.close, size: 16),
-                      onTap: () => onRemoveType(e.filter),
-                    ),
-                  ],
-                ),
-              )
-              .toList(),
-        ),
-      ),
-    );
-  }
-}
-
-class _TagsBar extends StatelessWidget {
-  final Set<String> activeTags;
-  final void Function(String) onRemoveTag;
-
-  const _TagsBar({required this.activeTags, required this.onRemoveTag});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          spacing: 12,
-          mainAxisSize: MainAxisSize.min,
-          children: activeTags
-              .map(
-                (e) => Row(
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 2,
-                  children: [
-                    Text(e, style: Theme.of(context).textTheme.labelSmall),
-                    GestureDetector(
-                      child: const Icon(Icons.close, size: 16),
-                      onTap: () => onRemoveTag(e),
-                    ),
-                  ],
-                ),
-              )
-              .toList(),
+          children: [
+            ...typeChips.map(
+              (e) => Row(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 2,
+                children: [
+                  Text(e.label, style: Theme.of(context).textTheme.labelSmall),
+                  GestureDetector(child: const Icon(Icons.close, size: 16), onTap: () => onRemoveType(e.filter)),
+                ],
+              ),
+            ),
+            ...activeTags.map(
+              (tag) => Row(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 2,
+                children: [
+                  Text(tag, style: Theme.of(context).textTheme.labelSmall),
+                  GestureDetector(child: const Icon(Icons.close, size: 16), onTap: () => onRemoveTag(tag)),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
