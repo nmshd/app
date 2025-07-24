@@ -507,20 +507,6 @@ class _FilesCondensedFilterChip extends StatelessWidget {
       child: Icon(this.icon, size: 18, color: foregroundColor),
     );
 
-    final filterChipIcon = switch (filterOption) {
-      FilesFilterOption.type => Badge(
-        isLabelVisible: isTypeBadgeVisible,
-        backgroundColor: Theme.of(context).primaryColor,
-        child: icon,
-      ),
-      FilesFilterOption.tag => Badge(
-        isLabelVisible: isTagBadgeVisible,
-        backgroundColor: Theme.of(context).primaryColor,
-        child: icon,
-      ),
-      _ => icon,
-    };
-
     return AnimatedSize(
       duration: const Duration(milliseconds: 200),
       child: GestureDetector(
@@ -528,19 +514,38 @@ class _FilesCondensedFilterChip extends StatelessWidget {
           FilesFilterOption.type || FilesFilterOption.tag => onPressed,
           _ => isSelected ? null : onPressed,
         },
-        child: Container(
-          decoration: BoxDecoration(color: backgroundColor, borderRadius: BorderRadius.circular(8)),
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: isSelected
-              ? Row(
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 8,
-                  children: [
-                    filterChipIcon,
-                    if (label != null) Text(label!, style: Theme.of(context).textTheme.labelLarge!.copyWith(color: foregroundColor)),
-                  ],
-                )
-              : filterChipIcon,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              decoration: BoxDecoration(color: backgroundColor, borderRadius: BorderRadius.circular(8)),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: isSelected
+                  ? Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        icon,
+                        if (label != null)
+                          Text(
+                            label!,
+                            style: Theme.of(context).textTheme.labelLarge!.copyWith(color: foregroundColor),
+                          ),
+                      ],
+                    )
+                  : icon,
+            ),
+
+            if (isTagBadgeVisible && filterOption == FilesFilterOption.tag || isTypeBadgeVisible && filterOption == FilesFilterOption.type)
+              Positioned(
+                top: -1,
+                right: -1,
+                child: Container(
+                  padding: const EdgeInsets.all(2),
+                  decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, shape: BoxShape.circle),
+                  child: Badge(backgroundColor: Theme.of(context).colorScheme.primary),
+                ),
+              ),
+          ],
         ),
       ),
     );
