@@ -4,8 +4,6 @@ import 'package:flutter/widgets.dart';
 import '/src/attribute/draft_attribute_renderer.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
-import '../extensions/extensions.dart';
-import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableShareAttributeRequestItemRenderer extends StatefulWidget {
@@ -35,7 +33,7 @@ class _DecidableShareAttributeRequestItemRendererState extends State<DecidableSh
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked;
+    isChecked = widget.item.mustBeAccepted;
 
     if (isChecked) {
       widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
@@ -46,7 +44,7 @@ class _DecidableShareAttributeRequestItemRendererState extends State<DecidableSh
   Widget build(BuildContext context) {
     return DraftAttributeRenderer(
       draftAttribute: widget.item.attribute,
-      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: !widget.item.mustBeAccepted ? onUpdateCheckbox : null),
       expandFileReference: widget.expandFileReference,
       openFileDetails: widget.openFileDetails,
     );

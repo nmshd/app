@@ -10,10 +10,10 @@ ConsentRequestItem _$ConsentRequestItemFromJson(Map<String, dynamic> json) => Co
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
   mustBeAccepted: json['mustBeAccepted'] as bool,
-  requireManualDecision: json['requireManualDecision'] as bool?,
   consent: json['consent'] as String,
   link: json['link'] as String?,
   linkDisplayText: json['linkDisplayText'] as String?,
+  requiresInteraction: json['requiresInteraction'] as bool?,
 );
 
 Map<String, dynamic> _$ConsentRequestItemToJson(ConsentRequestItem instance) => <String, dynamic>{
@@ -21,8 +21,8 @@ Map<String, dynamic> _$ConsentRequestItemToJson(ConsentRequestItem instance) => 
   'description': ?instance.description,
   'metadata': ?instance.metadata,
   'mustBeAccepted': instance.mustBeAccepted,
-  'requireManualDecision': ?instance.requireManualDecision,
   'consent': instance.consent,
   'link': ?instance.link,
   'linkDisplayText': ?instance.linkDisplayText,
+  'requiresInteraction': ?instance.requiresInteraction,
 };

@@ -6,7 +6,6 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import 'extensions/extensions.dart';
 import 'widgets/validation_error_box.dart';
 
 class AuthenticationRequestItemRenderer extends StatefulWidget {
@@ -31,7 +30,7 @@ class _AuthenticationRequestItemRendererState extends State<AuthenticationReques
     if (widget.item.response != null) {
       _isChecked = widget.item.response is AcceptResponseItemDVO;
     } else {
-      _isChecked = widget.item.initiallyChecked;
+      _isChecked = false;
     }
 
     if (_isChecked) widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
@@ -81,7 +80,7 @@ class _AuthenticationBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final active = item.isDecidable && !item.initiallyChecked;
+    final active = item.isDecidable;
 
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(4), color: Theme.of(context).colorScheme.surfaceContainerHigh),

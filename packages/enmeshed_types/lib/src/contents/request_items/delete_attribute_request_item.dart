@@ -8,13 +8,8 @@ part 'delete_attribute_request_item.g.dart';
 class DeleteAttributeRequestItem extends RequestItemDerivation {
   final String attributeId;
 
-  const DeleteAttributeRequestItem({
-    super.description,
-    super.metadata,
-    required super.mustBeAccepted,
-    super.requireManualDecision,
-    required this.attributeId,
-  }) : super(atType: 'DeleteAttributeRequestItem');
+  const DeleteAttributeRequestItem({super.description, super.metadata, required super.mustBeAccepted, required this.attributeId})
+    : super(atType: 'DeleteAttributeRequestItem');
 
   factory DeleteAttributeRequestItem.fromJson(Map json) => _$DeleteAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
 

@@ -11,9 +11,8 @@ import 'transfer_file_ownership_request_item.dart';
 
 abstract class RequestItemDerivation extends RequestItem {
   final bool mustBeAccepted;
-  final bool? requireManualDecision;
 
-  const RequestItemDerivation({super.description, super.metadata, required this.mustBeAccepted, this.requireManualDecision, required super.atType});
+  const RequestItemDerivation({super.description, super.metadata, required this.mustBeAccepted, required super.atType});
 
   factory RequestItemDerivation.fromJson(Map json) {
     final type = json['@type'];
@@ -36,5 +35,5 @@ abstract class RequestItemDerivation extends RequestItem {
   Map<String, dynamic> toJson();
 
   @override
-  List<Object?> get props => [...super.props, requireManualDecision, mustBeAccepted];
+  List<Object?> get props => [...super.props, mustBeAccepted];
 }

@@ -11,7 +11,6 @@ AuthenticationRequestItem _$AuthenticationRequestItemFromJson(Map<String, dynami
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
   mustBeAccepted: json['mustBeAccepted'] as bool,
-  requireManualDecision: json['requireManualDecision'] as bool?,
 );
 
 Map<String, dynamic> _$AuthenticationRequestItemToJson(AuthenticationRequestItem instance) => <String, dynamic>{
@@ -19,6 +18,5 @@ Map<String, dynamic> _$AuthenticationRequestItemToJson(AuthenticationRequestItem
   'description': ?instance.description,
   'metadata': ?instance.metadata,
   'mustBeAccepted': instance.mustBeAccepted,
-  'requireManualDecision': ?instance.requireManualDecision,
   'title': instance.title,
 };

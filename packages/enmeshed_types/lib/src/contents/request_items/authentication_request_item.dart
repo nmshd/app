@@ -8,13 +8,8 @@ part 'authentication_request_item.g.dart';
 class AuthenticationRequestItem extends RequestItemDerivation {
   final String title;
 
-  const AuthenticationRequestItem({
-    required this.title,
-    super.description,
-    super.metadata,
-    required super.mustBeAccepted,
-    super.requireManualDecision,
-  }) : super(atType: 'AuthenticationRequestItem');
+  const AuthenticationRequestItem({required this.title, super.description, super.metadata, required super.mustBeAccepted})
+    : super(atType: 'AuthenticationRequestItem');
 
   factory AuthenticationRequestItem.fromJson(Map json) => _$AuthenticationRequestItemFromJson(Map<String, dynamic>.from(json));
 

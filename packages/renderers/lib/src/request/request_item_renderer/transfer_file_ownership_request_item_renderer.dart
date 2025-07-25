@@ -6,8 +6,6 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import 'extensions/extensions.dart';
-import 'widgets/manual_decision_required.dart';
 import 'widgets/validation_error_box.dart';
 
 class TransferFileOwnershipRequestItemRenderer extends StatefulWidget {
@@ -43,7 +41,7 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
     if (widget.item.response != null) {
       _isChecked = widget.item.response is TransferFileOwnershipAcceptResponseItemDVO;
     } else {
-      _isChecked = widget.item.initiallyChecked;
+      _isChecked = widget.item.mustBeAccepted;
     }
 
     if (_isChecked) {
@@ -90,11 +88,7 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
             Row(
               spacing: 8,
               children: [
-                if (widget.item.isDecidable)
-                  Checkbox(
-                    value: _isChecked || (widget.item.requireManualDecision ?? false),
-                    onChanged: widget.item.mustBeAccepted || (widget.item.requireManualDecision ?? false) ? null : _onUpdateDecision,
-                  ),
+                if (widget.item.isDecidable) Checkbox(value: _isChecked, onChanged: widget.item.mustBeAccepted ? null : _onUpdateDecision),
                 FileIcon(filename: widget.item.file.filename, color: Theme.of(context).colorScheme.primary, size: 32),
                 Expanded(
                   child: Column(
@@ -117,12 +111,6 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
                 Icon(Icons.chevron_right),
               ],
             ),
-            if (widget.item.requireManualDecision ?? false)
-              ManualDecisionRequired(
-                isManualDecisionAccepted: _isChecked,
-                onUpdateManualDecision: widget.item.isDecidable ? _onUpdateDecision : null,
-                i18nKey: 'i18n://requestRenderer.manualDecisionRequired.description.fileTransfer',
-              ),
             if (!(widget.validationResult?.isSuccess ?? true)) ValidationErrorBox(validationResult: widget.validationResult!),
           ],
         ),

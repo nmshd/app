@@ -11,14 +11,8 @@ class ProposeAttributeRequestItem extends RequestItemDerivation {
   final AttributeQuery query;
   final AbstractAttribute attribute;
 
-  const ProposeAttributeRequestItem({
-    super.description,
-    super.metadata,
-    required super.mustBeAccepted,
-    super.requireManualDecision,
-    required this.query,
-    required this.attribute,
-  }) : super(atType: 'ProposeAttributeRequestItem');
+  const ProposeAttributeRequestItem({super.description, super.metadata, required super.mustBeAccepted, required this.query, required this.attribute})
+    : super(atType: 'ProposeAttributeRequestItem');
 
   factory ProposeAttributeRequestItem.fromJson(Map json) => _$ProposeAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
 

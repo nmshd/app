@@ -4,8 +4,6 @@ import 'package:renderers/renderers.dart';
 import 'package:value_renderer/value_renderer.dart';
 
 import '../../request_item_index.dart';
-import '../extensions/extensions.dart';
-import 'checkbox_enabled_extension.dart';
 import 'widgets/processed_query_renderer.dart';
 
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
@@ -44,7 +42,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked;
+    isChecked = widget.item.mustBeAccepted;
 
     final choice = _getChoices().firstOrNull;
     if (choice == null) return;
@@ -64,7 +62,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     return switch (widget.item.query as ProcessedAttributeQueryDVO) {
       final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(
         query: query,
-        checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: !widget.item.mustBeAccepted ? onUpdateCheckbox : null),
         onUpdateAttribute: _onUpdateAttribute,
         onUpdateInput: _onUpdateInput,
         selectedAttribute: _choice?.attribute,
@@ -75,7 +73,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       ),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
         query: query,
-        checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: !widget.item.mustBeAccepted ? onUpdateCheckbox : null),
         onUpdateAttribute: _onUpdateAttribute,
         onUpdateInput: _onUpdateInput,
         selectedAttribute: _choice?.attribute,
@@ -86,7 +84,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       ),
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyRelationshipAttributeQueryRenderer(
         query: query,
-        checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: !widget.item.mustBeAccepted ? onUpdateCheckbox : null),
         onUpdateAttribute: _onUpdateAttribute,
         selectedAttribute: _choice?.attribute,
         expandFileReference: widget.expandFileReference,
@@ -95,7 +93,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       final ProcessedIQLQueryDVO query => ProcessedIQLQueryRenderer(
         requestItemTitle: widget.item.name,
         query: query,
-        checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: !widget.item.mustBeAccepted ? onUpdateCheckbox : null),
         onUpdateAttribute: _onUpdateAttribute,
         selectedAttribute: _choice?.attribute,
         expandFileReference: widget.expandFileReference,
