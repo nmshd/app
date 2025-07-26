@@ -90,13 +90,15 @@ class _FileCircleAvatar extends StatelessWidget {
       ),
     );
 
-    if (fileRecordStatus == FileRecordStatus.viewed) return circleAvatar;
-
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: fileRecordStatus == FileRecordStatus.fileExpired ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.secondary,
+          color: switch (fileRecordStatus) {
+            FileRecordStatus.fileExpired => Theme.of(context).colorScheme.error,
+            FileRecordStatus.unviewedRepositoryAttribute => Theme.of(context).colorScheme.secondary,
+            FileRecordStatus.viewed => Colors.transparent,
+          },
           width: 3,
         ),
       ),
