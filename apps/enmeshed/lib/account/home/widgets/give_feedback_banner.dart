@@ -4,9 +4,10 @@ import 'package:go_router/go_router.dart';
 import '/core/core.dart';
 
 class GiveFeedbackBanner extends StatelessWidget {
+  final String accountId;
   final VoidCallback onClose;
 
-  const GiveFeedbackBanner({required this.onClose, super.key});
+  const GiveFeedbackBanner({required this.accountId, required this.onClose, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class GiveFeedbackBanner extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        onTap: () => context.push('/feedback'),
+        onTap: () => context.push('/account/$accountId/feedback'),
         child: Padding(
           padding: const EdgeInsets.all(4).copyWith(left: 8),
           child: Row(
