@@ -265,10 +265,8 @@ class _FileSelectedState extends State<_FileSelected> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        height: 120,
-        child: Column(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FileIcon(filename: widget.file.path, color: Theme.of(context).colorScheme.primaryContainer, size: 48),
@@ -279,8 +277,6 @@ class _FileSelectedState extends State<_FileSelected> {
             else if (fileSize != null)
               Text(fileSize!, style: Theme.of(context).textTheme.bodyMedium, maxLines: 1, overflow: TextOverflow.ellipsis),
           ],
-        ),
-      ),
     );
   }
 
