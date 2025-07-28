@@ -836,7 +836,7 @@
   "instructions_giveFeedback_switchToDrawingMode": "Switch from 'Navigate' to 'Paint'.",
   "instructions_giveFeedback_drawWhatsWrong": "Use the painting tool to select the desired area on the screen.",
   "instructions_giveFeedback_writeAnExplanation": "Write a brief explanation of your suggestion for improvement.",
-  "instructions_giveFeedback_send": "Click 'Send'. You will then be redirected to your e-mail app.",
+  "instructions_giveFeedback_send": "Click on 'Send'. You will then be redirected to your e-mail app. There you simply send the email without editing the content.",
   "giveFeedback_content_subject": "enmeshed App Feedback",
   "giveFeedback_content_body": "{feedbackText}\nProfile address: {address}\nApp Version: {version}\nScreenshot: {screenshotLink}",
   "@giveFeedback_content_body": {
