@@ -17,7 +17,12 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
-  late Widget _currentPage = DrawerMainPage(goToNotifications: _goToNotifications, goToHints: _goToHints, goToTheme: _goToTheme);
+  late Widget _currentPage = DrawerMainPage(
+    accountId: widget.accountId,
+    goToNotifications: _goToNotifications,
+    goToHints: _goToHints,
+    goToTheme: _goToTheme,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +52,14 @@ class _AppDrawerState extends State<AppDrawer> {
     );
   }
 
-  void _goHome() =>
-      setState(() => _currentPage = DrawerMainPage(goToNotifications: _goToNotifications, goToHints: _goToHints, goToTheme: _goToTheme));
+  void _goHome() => setState(
+    () => _currentPage = DrawerMainPage(
+      accountId: widget.accountId,
+      goToNotifications: _goToNotifications,
+      goToHints: _goToHints,
+      goToTheme: _goToTheme,
+    ),
+  );
   void _goToNotifications() => setState(() => _currentPage = DrawerNotificationsPage(goBack: _goHome));
   void _goToHints() => setState(() => _currentPage = DrawerHintsPage(goBack: _goHome, accountId: widget.accountId));
   void _goToTheme() => setState(() => _currentPage = DrawerThemePage(goBack: _goHome));

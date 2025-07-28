@@ -10,7 +10,6 @@ import 'package:feedback/feedback.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
@@ -101,48 +100,6 @@ final _router = GoRouter(
           informationCardIcon: Icon(Icons.warning_amber_rounded, color: context.customColors.warning, size: 40),
         );
       },
-    ),
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
-      path: '/feedback',
-      builder: (context, state) {
-        return InstructionsScreen(
-          onContinue: (context) => context
-            ..pop()
-            ..giveFeedback(),
-          title: context.l10n.instructions_giveFeedback_title,
-          subtitle: context.l10n.instructions_giveFeedback_subtitle,
-          informationTitle: context.l10n.instructions_giveFeedback_informationTitle,
-          informationDescription: context.l10n.instructions_giveFeedback_informationDetails,
-          illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/feedback.svg'), height: 160),
-          informationCardIcon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 40),
-          aboutInstructionsText: context.l10n.instructions_giveFeedback_informationAboutInstructions,
-          instructions: [
-            context.l10n.instructions_giveFeedback_switchToDrawingMode,
-            context.l10n.instructions_giveFeedback_drawWhatsWrong,
-            context.l10n.instructions_giveFeedback_writeAnExplanation,
-            context.l10n.instructions_giveFeedback_send,
-          ],
-          buttonContinueText: context.l10n.instructions_giveFeedback_title,
-        );
-      },
-      routes: [
-        GoRoute(
-          parentNavigatorKey: _rootNavigatorKey,
-          path: '/success',
-          pageBuilder: (context, state) => DialogPage(builder: (context) => const FeedbackSuccessDialog()),
-        ),
-        GoRoute(
-          parentNavigatorKey: _rootNavigatorKey,
-          path: '/error',
-          pageBuilder: (context, state) => DialogPage(
-            builder: (context) {
-              final email = state.extra! as Email;
-              return FeedbackErrorDialog(email: email);
-            },
-          ),
-        ),
-      ],
     ),
     GoRoute(parentNavigatorKey: _rootNavigatorKey, path: '/scan-recovery-kit', builder: (context, state) => const ScanRecoveryKitScreen()),
     GoRoute(
@@ -309,6 +266,47 @@ final _router = GoRouter(
               ],
             );
           },
+        ),
+        GoRoute(
+          parentNavigatorKey: _rootNavigatorKey,
+          path: 'feedback',
+          builder: (context, state) {
+            return InstructionsScreen(
+              onContinue: (context) => context
+                ..pop()
+                ..giveFeedback(state.pathParameters['accountId']!),
+              title: context.l10n.instructions_giveFeedback_title,
+              subtitle: context.l10n.instructions_giveFeedback_subtitle,
+              informationTitle: context.l10n.instructions_giveFeedback_informationTitle,
+              informationDescription: context.l10n.instructions_giveFeedback_informationDetails,
+              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/feedback.svg'), height: 160),
+              informationCardIcon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 40),
+              aboutInstructionsText: context.l10n.instructions_giveFeedback_informationAboutInstructions,
+              instructions: [
+                context.l10n.instructions_giveFeedback_switchToDrawingMode,
+                context.l10n.instructions_giveFeedback_drawWhatsWrong,
+                context.l10n.instructions_giveFeedback_writeAnExplanation,
+                context.l10n.instructions_giveFeedback_send,
+              ],
+              buttonContinueText: context.l10n.instructions_giveFeedback_title,
+            );
+          },
+          routes: [
+            GoRoute(
+              parentNavigatorKey: _rootNavigatorKey,
+              path: 'success',
+              pageBuilder: (context, state) => DialogPage(
+                builder: (context) => FeedbackSuccessDialog(accountId: state.pathParameters['accountId']!),
+              ),
+            ),
+            GoRoute(
+              parentNavigatorKey: _rootNavigatorKey,
+              path: 'error',
+              pageBuilder: (context, state) => DialogPage(
+                builder: (context) => FeedbackErrorDialog(accountId: state.pathParameters['accountId']!, feedbackMailUri: state.extra as Uri?),
+              ),
+            ),
+          ],
         ),
         ShellRoute(
           navigatorKey: _shellNavigatorKey,
