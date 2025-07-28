@@ -15,7 +15,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:renderers/renderers.dart' show AbstractUrlLauncher;
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:vector_graphics/vector_graphics.dart';
 import 'package:watch_it/watch_it.dart';
