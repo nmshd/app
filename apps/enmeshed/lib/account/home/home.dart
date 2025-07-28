@@ -188,7 +188,7 @@ class _HomeViewState extends State<HomeView> {
       _showRecoveryKitWasUsedContainer = showRecoveryKitWasUsedContainer;
       _isGiveFeedbackBannerShown = isGiveFeedbackBannerShown;
       _unviewedIdentityFileReferenceAttributesCount = unviewedIdentityFileReferenceAttributes.length;
-      _announcements = announcements.where((a) => a.title == 'Vielen Dank!').toList();
+      _announcements = announcements.toList();
     });
   }
 
@@ -202,58 +202,5 @@ class _HomeViewState extends State<HomeView> {
     if (mounted) setState(() => _isGiveFeedbackBannerShown = false);
 
     await upsertGiveFeedbackBannerSetting(accountId: widget.accountId, value: false);
-  }
-}
-
-class AnnouncementContainer extends StatelessWidget {
-  final List<AnnouncementDTO> announcements;
-
-  const AnnouncementContainer({required this.announcements, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: [
-          const Text('Announcements'),
-          SizedBox(
-            height: 210,
-            child: CarouselView.weighted(
-              flexWeights: const [2, 1],
-              onTap: (index) {
-                final announcement = announcements[index];
-                GetIt.I.get<AbstractUrlLauncher>().launchUrl(Uri.parse(announcement.actions[0].link));
-              },
-              children: announcements.map((announcement) => AnnouncementCard(announcement: announcement)).toList(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class AnnouncementCard extends StatelessWidget {
-  final AnnouncementDTO announcement;
-
-  const AnnouncementCard({required this.announcement, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ComplexInformationCard(
-      icon: const Icon(Icons.announcement),
-      title: announcement.title,
-      description: announcement.body,
-      actionButtons: [
-        if (announcement.actions.isNotEmpty)
-          ...announcement.actions.map(
-            (action) => FilledButton(
-              onPressed: () => GetIt.I.get<AbstractUrlLauncher>().launchUrl(Uri.parse(action.link)),
-              child: Text(action.displayName),
-            ),
-          ),
-      ],
-    );
   }
 }
