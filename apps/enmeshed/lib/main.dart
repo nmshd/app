@@ -217,7 +217,6 @@ final _router = GoRouter(
             );
           },
         ),
-
         GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
           path: 'instructions/${ScannerType.loadProfile}',
