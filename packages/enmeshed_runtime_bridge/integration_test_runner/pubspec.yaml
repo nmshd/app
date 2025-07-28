@@ -12,7 +12,7 @@ dependencies:
     git:
       url: https://github.com/nmshd/rust-crypto
       path: cal_flutter_plugin
-      ref: 79a07318d10d2883a0a107e5341bae1aff65d14a
+      ref: 822af0902b3f09ffae115c9dd548564858ea6e74
   enmeshed_runtime_bridge: ^1.0.0
   enmeshed_types: ^1.0.0
   flutter:

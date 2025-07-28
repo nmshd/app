@@ -109,8 +109,8 @@ packages:
     dependency: transitive
     description:
       path: cal_flutter_plugin
-      ref: "3e9fc88"
-      resolved-ref: "3e9fc880a1cb76d770252591273f606c48b0f595"
+      ref: "822af0902b3f09ffae115c9dd548564858ea6e74"
+      resolved-ref: "822af0902b3f09ffae115c9dd548564858ea6e74"
       url: "https://github.com/nmshd/rust-crypto"
     source: git
     version: "0.0.1"
