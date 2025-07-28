@@ -12,8 +12,8 @@ RejectResponseItem _$RejectResponseItemFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$RejectResponseItemToJson(RejectResponseItem instance) => <String, dynamic>{
   '@type': instance.atType,
   'result': _$ResponseItemResultEnumMap[instance.result]!,
-  if (instance.code case final value?) 'code': value,
-  if (instance.message case final value?) 'message': value,
+  'code': ?instance.code,
+  'message': ?instance.message,
 };
 
 const _$ResponseItemResultEnumMap = {

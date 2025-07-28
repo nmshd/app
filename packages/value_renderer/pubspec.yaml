@@ -4,7 +4,7 @@ version: 1.0.0
 
 environment:
   sdk: "^3.8.1"
-  flutter: ">=3.32.7"
+  flutter: ">=3.32.8"
 
 dependencies:
   collection: any
@@ -17,7 +17,7 @@ dependencies:
   get_it: ^8.0.3
   i18n_translated_text: ^1.0.2
   intl: any
-  logger: ^2.6.0
+  logger: ^2.6.1
 
 dev_dependencies:
   flutter_lints: ^6.0.0

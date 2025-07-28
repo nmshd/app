@@ -16,8 +16,8 @@ RenderHints _$RenderHintsFromJson(Map<String, dynamic> json) => RenderHints(
 Map<String, dynamic> _$RenderHintsToJson(RenderHints instance) => <String, dynamic>{
   'technicalType': _$RenderHintsTechnicalTypeEnumMap[instance.technicalType]!,
   'editType': _$RenderHintsEditTypeEnumMap[instance.editType]!,
-  if (_$RenderHintsDataTypeEnumMap[instance.dataType] case final value?) 'dataType': value,
-  if (instance.propertyHints?.map((k, e) => MapEntry(k, e.toJson())) case final value?) 'propertyHints': value,
+  'dataType': ?_$RenderHintsDataTypeEnumMap[instance.dataType],
+  'propertyHints': ?instance.propertyHints?.map((k, e) => MapEntry(k, e.toJson())),
 };
 
 const _$RenderHintsTechnicalTypeEnumMap = {

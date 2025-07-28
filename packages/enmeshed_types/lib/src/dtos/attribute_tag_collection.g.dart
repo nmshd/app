@@ -25,5 +25,5 @@ AttributeTagDTO _$AttributeTagDTOFromJson(Map<String, dynamic> json) => Attribut
 
 Map<String, dynamic> _$AttributeTagDTOToJson(AttributeTagDTO instance) => <String, dynamic>{
   'displayNames': instance.displayNames,
-  if (instance.children?.map((k, e) => MapEntry(k, e.toJson())) case final value?) 'children': value,
+  'children': ?instance.children?.map((k, e) => MapEntry(k, e.toJson())),
 };

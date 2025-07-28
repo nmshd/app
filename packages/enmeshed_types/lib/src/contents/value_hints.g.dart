@@ -17,11 +17,11 @@ ValueHints _$ValueHintsFromJson(Map<String, dynamic> json) => ValueHints(
 );
 
 Map<String, dynamic> _$ValueHintsToJson(ValueHints instance) => <String, dynamic>{
-  if (instance.editHelp case final value?) 'editHelp': value,
-  if (const OptionalIntegerConverter().toJson(instance.min) case final value?) 'min': value,
-  if (const OptionalIntegerConverter().toJson(instance.max) case final value?) 'max': value,
-  if (instance.pattern case final value?) 'pattern': value,
-  if (instance.values?.map((e) => e.toJson()).toList() case final value?) 'values': value,
-  if (instance.defaultValue?.toJson() case final value?) 'defaultValue': value,
-  if (instance.propertyHints?.map((k, e) => MapEntry(k, e.toJson())) case final value?) 'propertyHints': value,
+  'editHelp': ?instance.editHelp,
+  'min': ?const OptionalIntegerConverter().toJson(instance.min),
+  'max': ?const OptionalIntegerConverter().toJson(instance.max),
+  'pattern': ?instance.pattern,
+  'values': ?instance.values?.map((e) => e.toJson()).toList(),
+  'defaultValue': ?instance.defaultValue?.toJson(),
+  'propertyHints': ?instance.propertyHints?.map((k, e) => MapEntry(k, e.toJson())),
 };

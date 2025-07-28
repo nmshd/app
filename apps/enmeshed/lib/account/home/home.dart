@@ -119,7 +119,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
 
-                if (_isGiveFeedbackBannerShown) GiveFeedbackBanner(onClose: _hideGiveFeedbackBanner),
+                if (_isGiveFeedbackBannerShown) GiveFeedbackBanner(onClose: _hideGiveFeedbackBanner, accountId: widget.accountId),
 
                 MessagesContainer(
                   accountId: widget.accountId,
