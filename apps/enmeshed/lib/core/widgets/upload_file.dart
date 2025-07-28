@@ -267,16 +267,23 @@ class _FileSelectedState extends State<_FileSelected> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FileIcon(filename: widget.file.path, color: Theme.of(context).colorScheme.primaryContainer, size: 48),
-            Gaps.h8,
-            Text(path.basename(widget.file.path), style: Theme.of(context).textTheme.labelLarge, maxLines: 1, overflow: TextOverflow.ellipsis),
-            if (isLoading)
-              const CircularProgressIndicator()
-            else if (fileSize != null)
-              Text(fileSize!, style: Theme.of(context).textTheme.bodyMedium, maxLines: 1, overflow: TextOverflow.ellipsis),
-          ],
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        FileIcon(filename: widget.file.path, color: Theme.of(context).colorScheme.primaryContainer, size: 48),
+        Gaps.h8,
+        Text(
+          path.basename(widget.file.path),
+          style: Theme.of(context).textTheme.labelLarge,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+        ),
+        if (isLoading)
+          const CircularProgressIndicator()
+        else if (fileSize != null)
+          Text(fileSize!, style: Theme.of(context).textTheme.bodyMedium, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center),
+      ],
     );
   }
 
