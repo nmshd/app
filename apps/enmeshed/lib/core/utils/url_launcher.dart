@@ -1,4 +1,4 @@
-import 'package:renderers/renderers.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 class UrlLauncher extends AbstractUrlLauncher {
