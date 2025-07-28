@@ -1,6 +1,5 @@
 library;
 
-export 'src/abstract_url_launcher.dart';
 export 'src/attribute/attribute_renderer.dart';
 export 'src/attribute/value_hint_translation.dart';
 export 'src/request/open_attribute_switcher_function.dart';
