@@ -843,13 +843,31 @@
   "instructions_giveFeedback_switchToDrawingMode": "Schalten Sie um von 'Navigieren' zu 'Malen'.",
   "instructions_giveFeedback_drawWhatsWrong": "Markieren Sie mit dem Malwerkzeug den gewünschten Bereich auf dem Screen.",
   "instructions_giveFeedback_writeAnExplanation": "Schreiben Sie eine kurze Erklärung zu Ihrem Verbesserungsvorschlag.",
-  "instructions_giveFeedback_send": "Klicken Sie 'Abschicken'. Sie werden anschließend in Ihre E-Mail-App weitergeleitet.",
+  "instructions_giveFeedback_send": "Klicken Sie 'Abschicken'. Sie werden anschließend in Ihre E-Mail-App weitergeleitet. Dort senden Sie einfach die Mail, ohne den Inhalt zu bearbeiten.",
+  "giveFeedback_content_subject": "enmeshed App Feedback",
+  "giveFeedback_content_body": "{feedbackText}\nProfil Addresse: {address}\nApp Version: {version}\nScreenshot: {screenshotLink}",
+  "@giveFeedback_content_body": {
+    "placeholders": {
+      "feedbackText": {
+        "type": "String"
+      },
+      "address": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      },
+      "screenshotLink": {
+        "type": "String"
+      }
+    }
+  },
   "giveFeedback_success_title": "Feedback an die E-Mail-App übermittelt",
   "giveFeedback_success_description": "Vielen Dank, Ihr Feedback hilft uns, die App stetig zu verbessern.",
   "giveFeedback_success_newFeedback": "Neues Feedback",
   "giveFeedback_error_title": "Auf Ihrem Gerät ist keine E-Mail-App installiert",
-  "giveFeedback_error_description": "Schließen Sie die App, installieren Sie eine beliebige E-Mail-App und senden Sie das Feedback erneut. Beim Klick auf 'Abbrechen' wird das erstellte Feedback gelöscht.",
-  "giveFeedback_error_tryAgain": "Erneut senden",
+  "giveFeedback_error_description": "Installieren Sie eine E-Mail-App und versuchen Sie es erneut.",
+  "giveFeedback_error_tryAgain": "Wiederholen",
   "identityRecovery_instructions_title": "Wiederherstellungskit erstellen",
   "identityRecovery_instructions_subtitle": "Das Wiederherstellungskit ist der Notfallzugang zu Ihren verschlüsselten Daten",
   "identityRecovery_instructions_information": "Mit diesem Wiederherstellungskit und dem dazugehörigen Passwort kann jede Person Ihr Profil wiederherstellen.",
