@@ -175,9 +175,7 @@ class _HomeViewState extends State<HomeView> {
     final annoucementsResult = await session.transportServices.announcements.getAnnouncements(language: language);
     final announcements = annoucementsResult.value.toList()..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
-    if (!mounted) return;
-
-    final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
+    final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session);
 
     if (!mounted) return;
     setState(() {
