@@ -95,64 +95,8 @@ class _FilesScreenState extends State<FilesScreen> {
               selectedFilterOption: _filterOption,
               typeFiltersActive: _activeTypeFilters.isNotEmpty,
               tagFiltersActive: _activeTagFilters.isNotEmpty,
-              showTags: () async {
-                setState(() => _selectTagsEnabled = false);
-                await _loadFiles(applyFilters: false);
-
-                if (!context.mounted) {
-                  setState(() => _selectTagsEnabled = true);
-                  return;
-                }
-
-                if (_availableTags.isEmpty) {
-                  return showEmptyFileFilters(
-                    context,
-                    title: context.l10n.files_filter_byTag,
-                    description: context.l10n.files_filter_byTagEmpty,
-                    enableShowEmptyFilters: () => setState(() => _selectTagsEnabled = true),
-                  );
-                }
-                return showSelectFileTags(
-                  context,
-                  availableTags: _availableTags,
-                  activeTags: _activeTagFilters,
-                  enableSelectTags: () => setState(() => _selectTagsEnabled = true),
-                  onApplyTags: (selectedTags) {
-                    setState(() => _activeTagFilters = selectedTags);
-                    _reloadAndApplyFilters();
-                  },
-                );
-              },
-              showTypes: () async {
-                setState(() => _selectTypesEnabled = false);
-                await _loadFiles(applyFilters: false);
-
-                if (!context.mounted) {
-                  setState(() => _selectTypesEnabled = true);
-                  return;
-                }
-
-                final availableTypes = _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet();
-
-                if (availableTypes.isEmpty) {
-                  return showEmptyFileFilters(
-                    context,
-                    title: context.l10n.files_filter_byFileType,
-                    description: context.l10n.files_filter_byFileTypeEmpty,
-                    enableShowEmptyFilters: () => setState(() => _selectTypesEnabled = true),
-                  );
-                }
-                return showSelectFileTypes(
-                  context,
-                  availableTypes: availableTypes,
-                  activeTypes: _activeTypeFilters,
-                  enableSelectTypes: () => setState(() => _selectTypesEnabled = true),
-                  onApplyTypes: (selectedFilters) {
-                    setState(() => _activeTypeFilters = selectedFilters);
-                    _reloadAndApplyFilters();
-                  },
-                );
-              },
+              showTags: _showTags,
+              showTypes: _showTypes,
               setFilter: (filter) async {
                 setState(() => _filterOption = filter);
                 await _reloadAndApplyFilters();
@@ -330,6 +274,50 @@ class _FilesScreenState extends State<FilesScreen> {
           context.push('/account/${widget.accountId}/my-data/files/${item.file.id}', extra: item);
         },
       ),
+    );
+  }
+
+  Future<void> _showTags() async {
+    setState(() => _selectTagsEnabled = false);
+    await _loadFiles(applyFilters: false);
+
+    if (!mounted) {
+      setState(() => _selectTagsEnabled = true);
+      return;
+    }
+
+    return showSelectFileTags(
+      context,
+      availableTags: _availableTags,
+      activeTags: _activeTagFilters,
+      enableSelectTags: () => setState(() => _selectTagsEnabled = true),
+      onApplyTags: (selectedTags) {
+        setState(() => _activeTagFilters = selectedTags);
+        _reloadAndApplyFilters();
+      },
+    );
+  }
+
+  Future<void> _showTypes() async {
+    setState(() => _selectTypesEnabled = false);
+    await _loadFiles(applyFilters: false);
+
+    if (!mounted) {
+      setState(() => _selectTypesEnabled = true);
+      return;
+    }
+
+    final availableTypes = _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet();
+
+    return showSelectFileTypes(
+      context,
+      availableTypes: availableTypes,
+      activeTypes: _activeTypeFilters,
+      enableSelectTypes: () => setState(() => _selectTypesEnabled = true),
+      onApplyTypes: (selectedFilters) {
+        setState(() => _activeTypeFilters = selectedFilters);
+        _reloadAndApplyFilters();
+      },
     );
   }
 }
