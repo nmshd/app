@@ -8,7 +8,7 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:intl/intl.dart';
 
 import '/core/core.dart';
-import 'modals/tag_label.dart';
+import 'widgets/tag_label.dart';
 
 class FileDetailScreen extends StatefulWidget {
   final String accountId;
