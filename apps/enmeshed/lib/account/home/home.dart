@@ -167,7 +167,7 @@ class _HomeViewState extends State<HomeView> {
 
     final language = WidgetsBinding.instance.platformDispatcher.locale.languageCode;
     final annoucementsResult = await session.transportServices.announcements.getAnnouncements(language: language);
-    final announcements = annoucementsResult.value;
+    final announcements = annoucementsResult.value.toList()..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     final isGiveFeedbackBannerShown = await getSetting(
       accountId: widget.accountId,
