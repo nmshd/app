@@ -28,6 +28,7 @@ class _HomeViewState extends State<HomeView> {
   List<LocalRequestDVO>? _requests;
   bool _isCompleteProfileContainerShown = false;
   bool _showRecoveryKitWasUsedContainer = false;
+  List<AnnouncementDTO> _announcements = [];
   bool _isGiveFeedbackBannerShown = false;
 
   final List<StreamSubscription<void>> _subscriptions = [];
@@ -98,6 +99,9 @@ class _HomeViewState extends State<HomeView> {
                       actionButton: (onPressed: () => context.push('/account/${widget.accountId}/my-data/files'), title: context.l10n.show),
                     ),
                   ),
+
+                if (_announcements.isNotEmpty) AnnouncementContainer(announcements: _announcements),
+
                 if (_showRecoveryKitWasUsedContainer)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -115,7 +119,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
 
-                if (_isGiveFeedbackBannerShown) GiveFeedbackBanner(onClose: _hideGiveFeedbackBanner),
+                if (_isGiveFeedbackBannerShown) GiveFeedbackBanner(onClose: _hideGiveFeedbackBanner, accountId: widget.accountId),
 
                 MessagesContainer(
                   accountId: widget.accountId,
@@ -167,9 +171,11 @@ class _HomeViewState extends State<HomeView> {
       valueKey: 'isShown',
     );
 
-    if (!mounted) return;
+    final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session);
 
-    final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
+    final language = WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+    final annoucementsResult = await session.transportServices.announcements.getAnnouncements(language: language);
+    final announcements = annoucementsResult.value.toList()..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     if (!mounted) return;
     setState(() {
@@ -180,6 +186,7 @@ class _HomeViewState extends State<HomeView> {
       _showRecoveryKitWasUsedContainer = showRecoveryKitWasUsedContainer;
       _isGiveFeedbackBannerShown = isGiveFeedbackBannerShown;
       _unviewedIdentityFileReferenceAttributesCount = unviewedIdentityFileReferenceAttributes.length;
+      _announcements = announcements.toList();
     });
   }
 

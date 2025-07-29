@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:styled_text/styled_text.dart';
 
-import '../../abstract_url_launcher.dart';
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
 import 'widgets/validation_error_box.dart';

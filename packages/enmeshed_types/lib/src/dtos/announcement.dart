@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'announcement.g.dart';
 
-enum AnnouncementSeverity { low, medium, high }
+enum AnnouncementSeverity { Low, Medium, High }
 
 @JsonSerializable(includeIfNull: false)
 class AnnouncementDTO extends Equatable {
