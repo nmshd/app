@@ -39,7 +39,7 @@ class ActiveTypesAndTagsBar extends StatelessWidget {
                 spacing: 2,
                 children: [
                   Text(e.label, style: Theme.of(context).textTheme.labelSmall),
-                  GestureDetector(child: const Icon(Icons.close, size: 16), onTap: () => onRemoveType(e.filter)),
+                  InkWell(borderRadius: BorderRadius.circular(8), child: const Icon(Icons.close, size: 16), onTap: () => onRemoveType(e.filter)),
                 ],
               ),
             ),
@@ -49,7 +49,7 @@ class ActiveTypesAndTagsBar extends StatelessWidget {
                 spacing: 2,
                 children: [
                   Text(tag, style: Theme.of(context).textTheme.labelSmall),
-                  GestureDetector(child: const Icon(Icons.close, size: 16), onTap: () => onRemoveTag(tag)),
+                  InkWell(borderRadius: BorderRadius.circular(8), child: const Icon(Icons.close, size: 16), onTap: () => onRemoveTag(tag)),
                 ],
               ),
             ),
