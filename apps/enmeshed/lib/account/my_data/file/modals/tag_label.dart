@@ -18,7 +18,7 @@ class TagLabel extends StatelessWidget {
     final i18nTranslatable = 'i18n://tags.${label.replaceAll('.', '%')}';
     final translatedLabel = context.i18nTranslate(i18nTranslatable);
 
-    if (translatedLabel != i18nTranslatable) return Text(translatedLabel, style: style);
+    if (!translatedLabel.startsWith('tags') && translatedLabel != i18nTranslatable) return Text(translatedLabel, style: style);
 
     return Text(label, style: style);
   }
