@@ -165,15 +165,15 @@ class _HomeViewState extends State<HomeView> {
       ignoreRecordNotFoundError: true,
     );
 
-    final language = WidgetsBinding.instance.platformDispatcher.locale.languageCode;
-    final annoucementsResult = await session.transportServices.announcements.getAnnouncements(language: language);
-    final announcements = annoucementsResult.value.toList()..sort((a, b) => b.createdAt.compareTo(a.createdAt));
-
     final isGiveFeedbackBannerShown = await getSetting(
       accountId: widget.accountId,
       key: 'home.giveFeedbackBannerShown',
       valueKey: 'isShown',
     );
+
+    final language = WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+    final annoucementsResult = await session.transportServices.announcements.getAnnouncements(language: language);
+    final announcements = annoucementsResult.value.toList()..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     if (!mounted) return;
 
