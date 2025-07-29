@@ -50,72 +50,88 @@ class _AnnouncementCardState extends State<_AnnouncementCard> {
 
   @override
   Widget build(BuildContext context) {
-    const padding = 12.0;
+    final backgroundColor = switch (widget.announcement.severity) {
+      AnnouncementSeverity.Low => Theme.of(context).colorScheme.primaryContainer,
+      AnnouncementSeverity.Medium => context.customColors.warningContainer,
+      AnnouncementSeverity.High => Theme.of(context).colorScheme.errorContainer,
+    };
+
+    final textColor = switch (widget.announcement.severity) {
+      AnnouncementSeverity.Low => Theme.of(context).colorScheme.onPrimaryContainer,
+      AnnouncementSeverity.Medium => context.customColors.onWarningContainer,
+      AnnouncementSeverity.High => Theme.of(context).colorScheme.onErrorContainer,
+    };
 
     return Container(
-      decoration: BoxDecoration(color: Theme.of(context).colorScheme.primaryContainer, borderRadius: BorderRadius.circular(12)),
-      padding: const EdgeInsets.only(top: padding, bottom: padding - 4),
+      decoration: BoxDecoration(color: backgroundColor, borderRadius: BorderRadius.circular(12)),
+      padding: const EdgeInsets.symmetric(vertical: 12).copyWith(bottom: widget.announcement.actions.isNotEmpty ? 0 : null),
       child: Column(
-        spacing: 16,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: padding),
-            child: Text(
-              widget.announcement.title,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.onPrimaryContainer),
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 8),
+            child: Text(widget.announcement.title, style: Theme.of(context).textTheme.titleLarge!.copyWith(color: textColor), maxLines: 2),
           ),
           Expanded(
             child: Scrollbar(
               controller: _scrollController,
               thumbVisibility: true,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: padding),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: SingleChildScrollView(
                   controller: _scrollController,
-                  child: Text(
-                    widget.announcement.body,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onPrimaryContainer),
-                  ),
+                  child: Text(widget.announcement.body, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor)),
                 ),
               ),
             ),
           ),
           if (widget.announcement.actions.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: padding).copyWith(right: widget.announcement.actions.length > 2 ? padding - 4 : null),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                spacing: 8,
-                children: [
-                  FilledButton(
-                    onPressed: () => GetIt.I.get<AbstractUrlLauncher>().launchUrl(Uri.parse(widget.announcement.actions.first.link)),
-                    child: Text(widget.announcement.actions.first.displayName),
-                  ),
-                  if (widget.announcement.actions.length == 2)
-                    FilledButton(
-                      onPressed: () => GetIt.I.get<AbstractUrlLauncher>().launchUrl(Uri.parse(widget.announcement.actions[1].link)),
-                      child: Text(widget.announcement.actions[1].displayName),
-                    )
-                  else if (widget.announcement.actions.length > 2)
-                    MenuAnchor(
-                      menuChildren: widget.announcement.actions.skip(1).map((action) {
-                        return MenuItemButton(
-                          onPressed: () => GetIt.I.get<AbstractUrlLauncher>().launchUrl(Uri.parse(action.link)),
-                          child: Text(action.displayName),
-                        );
-                      }).toList(),
-                      consumeOutsideTap: true,
-                      builder: (context, controller, child) => IconButton(
-                        icon: const Icon(Icons.more_vert),
-                        onPressed: () => controller.isOpen ? controller.close() : controller.open(),
-                      ),
-                    ),
-                ],
-              ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: _AnnouncementActionsButton(actions: widget.announcement.actions, textColor: textColor),
             ),
         ],
+      ),
+    );
+  }
+}
+
+class _AnnouncementActionsButton extends StatelessWidget {
+  final List<AnnouncementActionDTO> actions;
+  final Color textColor;
+
+  const _AnnouncementActionsButton({required this.actions, required this.textColor});
+
+  @override
+  Widget build(BuildContext context) {
+    if (actions.length == 1) {
+      return Padding(
+        padding: const EdgeInsets.only(top: 4, right: 6, bottom: 4),
+        child: TextButton.icon(
+          icon: Icon(Icons.open_in_new, color: textColor),
+          onPressed: () => GetIt.I.get<AbstractUrlLauncher>().launchUrl(Uri.parse(actions.first.link)),
+          label: Text(actions.first.displayName, style: TextStyle(color: textColor)),
+        ),
+      );
+    }
+
+    final menuItems = actions.map(
+      (action) => MenuItemButton(
+        leadingIcon: const Icon(Icons.open_in_new),
+        onPressed: () => GetIt.I.get<AbstractUrlLauncher>().launchUrl(Uri.parse(action.link)),
+        child: Text(action.displayName),
+      ),
+    );
+
+    return Padding(
+      padding: const EdgeInsets.all(4),
+      child: MenuAnchor(
+        menuChildren: menuItems.toList(),
+        consumeOutsideTap: true,
+        builder: (context, controller, child) => IconButton(
+          icon: Icon(Icons.more_vert, color: textColor),
+          onPressed: () => controller.isOpen ? controller.close() : controller.open(),
+        ),
       ),
     );
   }
