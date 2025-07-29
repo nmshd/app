@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
+import 'tag_label.dart';
 
 void showSelectFileTags(
   BuildContext context, {
@@ -68,7 +69,7 @@ class _SelectFileTagsState extends State<_SelectFileTags> {
                       spacing: 10,
                       children: widget.availableTags.map((e) {
                         return FilterChip(
-                          label: Text(e),
+                          label: TagLabel(e),
                           shape: StadiumBorder(
                             side: BorderSide(
                               color: _selectedTags.contains(e)

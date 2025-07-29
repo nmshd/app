@@ -8,6 +8,7 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:intl/intl.dart';
 
 import '/core/core.dart';
+import 'modals/tag_label.dart';
 
 class FileDetailScreen extends StatefulWidget {
   final String accountId;
@@ -83,7 +84,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                               children: _tags!
                                   .map(
                                     (e) => Chip(
-                                      label: _TagLabel(e, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer)),
+                                      label: TagLabel(e, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer)),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: const BorderRadius.all(Radius.circular(4)),
                                         side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
@@ -307,26 +308,5 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
     await session.consumptionServices.attributes.markAttributeAsViewed(attributeId: widget.fileReferenceAttribute!.id);
-  }
-}
-
-class _TagLabel extends StatelessWidget {
-  final String label;
-  final TextStyle style;
-
-  const _TagLabel(this.label, {required this.style});
-
-  @override
-  Widget build(BuildContext context) {
-    if (label.startsWith('language:')) {
-      return TranslatedText(context.i18nTranslate('i18n://attributes.values.languages.${label.substring(9)}'), style: style);
-    }
-
-    final i18nTranslatable = 'i18n://tags.${label.replaceAll('.', '%')}';
-    final translatedLabel = context.i18nTranslate(i18nTranslatable);
-
-    if (translatedLabel != i18nTranslatable) return Text(translatedLabel, style: style);
-
-    return Text(label, style: style);
   }
 }
