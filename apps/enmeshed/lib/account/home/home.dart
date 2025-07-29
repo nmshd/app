@@ -171,11 +171,11 @@ class _HomeViewState extends State<HomeView> {
       valueKey: 'isShown',
     );
 
+    final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session);
+
     final language = WidgetsBinding.instance.platformDispatcher.locale.languageCode;
     final annoucementsResult = await session.transportServices.announcements.getAnnouncements(language: language);
     final announcements = annoucementsResult.value.toList()..sort((a, b) => b.createdAt.compareTo(a.createdAt));
-
-    final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session);
 
     if (!mounted) return;
     setState(() {
