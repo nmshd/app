@@ -66,10 +66,24 @@ class _SelectFileTypesState extends State<_SelectFileTypes> {
               ],
             ),
           ),
-          Flexible(
-            child: Padding(
+          if (availableFilters.isEmpty)
+            Padding(
               padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(context.l10n.files_filter_byFileTypeEmpty, style: Theme.of(context).textTheme.bodyMedium),
+                  Gaps.h32,
+                  Center(
+                    child: FilledButton(onPressed: () => context.pop(), child: Text(context.l10n.error_understood)),
+                  ),
+                ],
+              ),
+            )
+          else
+            Flexible(
               child: SingleChildScrollView(
+                padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -118,7 +132,6 @@ class _SelectFileTypesState extends State<_SelectFileTypes> {
                 ),
               ),
             ),
-          ),
         ],
       ),
     );

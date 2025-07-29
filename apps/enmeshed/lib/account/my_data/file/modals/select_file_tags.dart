@@ -59,10 +59,24 @@ class _SelectFileTagsState extends State<_SelectFileTags> {
               ],
             ),
           ),
-          Flexible(
-            child: Padding(
+          if (widget.availableTags.isEmpty)
+            Padding(
               padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(context.l10n.files_filter_byTagEmpty, style: Theme.of(context).textTheme.bodyMedium),
+                  Gaps.h32,
+                  Center(
+                    child: FilledButton(onPressed: () => context.pop(), child: Text(context.l10n.error_understood)),
+                  ),
+                ],
+              ),
+            )
+          else
+            Flexible(
               child: SingleChildScrollView(
+                padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -105,7 +119,6 @@ class _SelectFileTagsState extends State<_SelectFileTags> {
                 ),
               ),
             ),
-          ),
         ],
       ),
     );
