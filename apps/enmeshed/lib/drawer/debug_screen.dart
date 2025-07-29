@@ -127,6 +127,7 @@ class DebugScreen extends StatelessWidget {
 
   Future<void> _extractAppDataAsZip() async {
     final dir = await getApplicationDocumentsDirectory();
+    final supportDir = await getApplicationSupportDirectory();
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
     final zipFile = File('${dir.path}/app_data.zip');
@@ -141,6 +142,9 @@ class DebugScreen extends StatelessWidget {
 
     final logsDir = Directory('${dir.path}/logs');
     if (logsDir.existsSync()) await encoder.addDirectory(logsDir);
+
+    final keysDb = File('${supportDir.path}/keys.db');
+    if (keysDb.existsSync()) await encoder.addFile(keysDb);
 
     encoder.addArchiveFile(ArchiveFile.string('config.json', jsonEncode(await runtime.runtimeConfigMap)));
 
