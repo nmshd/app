@@ -251,10 +251,9 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
 
     await session.transportServices.account.syncEverything();
 
+    final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session);
+
     if (!mounted) return;
-
-    final unviewedIdentityFileReferenceAttributes = await getUnviewedIdentityFileReferenceAttributes(session: session, context: context);
-
     setState(() => _numberOfUnviewedIdentityFileReferenceAttributes = unviewedIdentityFileReferenceAttributes.length);
   }
 }
