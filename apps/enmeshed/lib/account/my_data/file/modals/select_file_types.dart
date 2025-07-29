@@ -5,18 +5,19 @@ import 'package:go_router/go_router.dart';
 import '/core/core.dart';
 import '../file_filter_type.dart';
 
-void showSelectFileTypes(
+Future<void> showSelectFileTypes(
   BuildContext context, {
   required Set<FileFilterType> availableTypes,
   required Set<FileFilterType> activeTypes,
   required void Function(Set<FileFilterType>) onApplyTypes,
   required VoidCallback enableSelectTypes,
-}) {
-  showModalBottomSheet<void>(
+}) async {
+  await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
     builder: (_) => _SelectFileTypes(availableTypes: availableTypes, onApplyTypes: onApplyTypes, activeTypes: activeTypes),
-  ).whenComplete(enableSelectTypes);
+  );
+  enableSelectTypes();
 }
 
 class _SelectFileTypes extends StatefulWidget {

@@ -5,18 +5,19 @@ import 'package:go_router/go_router.dart';
 import '/core/core.dart';
 import 'tag_label.dart';
 
-void showSelectFileTags(
+Future<void> showSelectFileTags(
   BuildContext context, {
   required Set<String> availableTags,
   required Set<String> activeTags,
   required void Function(Set<String>) onApplyTags,
   required VoidCallback enableSelectTags,
-}) {
-  showModalBottomSheet<void>(
+}) async {
+  await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
     builder: (_) => _SelectFileTags(availableTags: availableTags, activeTags: activeTags, onApplyTags: onApplyTags),
-  ).whenComplete(enableSelectTags);
+  );
+  enableSelectTags();
 }
 
 class _SelectFileTags extends StatefulWidget {
