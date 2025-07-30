@@ -117,7 +117,7 @@ class DebugScreen extends StatelessWidget {
 
     final dir = await getApplicationDocumentsDirectory();
 
-    final databaseFolder = Directory('${dir.path}/${runtime.runtimeConfig.databaseFolder}');
+    final databaseFolder = Directory('${dir.path}/${runtime.runtimeConfig.databaseBaseFolder}');
     if (databaseFolder.existsSync()) {
       await databaseFolder.delete(recursive: true);
     }
@@ -138,7 +138,7 @@ class DebugScreen extends StatelessWidget {
 
     final encoder = ZipFileEncoder()..create(zipFile.path);
 
-    final databaseDir = Directory('${dir.path}/${runtime.runtimeConfig.databaseFolder}');
+    final databaseDir = Directory('${dir.path}/${runtime.runtimeConfig.databaseBaseFolder}');
     if (databaseDir.existsSync()) await encoder.addDirectory(databaseDir);
 
     final cacheDir = Directory('${dir.path}/cache');

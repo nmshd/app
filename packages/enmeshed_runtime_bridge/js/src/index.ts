@@ -57,7 +57,10 @@ window.triggerRemoteNotificationEvent = function (notification: RemoteNotificati
 window.runtimeVersion = buildInformation.version;
 
 async function main() {
-  const config: AppConfigOverwrite = await window.flutter_inappwebview.callHandler("getRuntimeConfig");
+  const config: AppConfigOverwrite & { databaseBaseFolder: string } =
+    await window.flutter_inappwebview.callHandler("getRuntimeConfig");
+
+  const databaseBaseFolder = config.databaseBaseFolder;
 
   const loggerFactory = new SimpleLoggerFactory(LogLevel.Info);
   const fileAccess = new FileAccess();
@@ -65,7 +68,7 @@ async function main() {
   const languageProvider = new AppLanguageProvider();
   const runtimeBridgeLogger = loggerFactory.getLogger("RuntimeBridge");
 
-  if (config.databaseFolder) config.databaseFolder = buildDatabaseFolder(config.databaseFolder, runtimeBridgeLogger);
+  config.databaseFolder = buildDatabaseFolder(config.databaseBaseFolder, runtimeBridgeLogger);
 
   const runtime = await AppRuntime.create(
     config,
