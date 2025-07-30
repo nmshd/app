@@ -63,6 +63,10 @@ async function main() {
   const notificationAccess = new NotificationAccess(loggerFactory);
   const languageProvider = new AppLanguageProvider();
 
+  if (config.databaseFolder && buildInformation.version.includes("7.0.0-alpha.")) {
+    config.databaseFolder = `${config.databaseFolder}/${buildInformation.version}`;
+  }
+
   const runtime = await AppRuntime.create(
     config,
     loggerFactory,
