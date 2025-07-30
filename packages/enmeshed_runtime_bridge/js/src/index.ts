@@ -106,9 +106,11 @@ function buildDatabaseFolder(baseFolder: string, logger: ILogger): string {
     return baseFolder;
   }
 
-  const majorVersion = buildInformation.version.split(".")[0];
+  const majorVersion = semverMatches[1];
   if (parseInt(majorVersion) < 7) {
-    logger.warn("Using legacy database folder structure for versions < 7", buildInformation.version);
+    logger.warn(
+      `Using legacy database folder structure for versions < 7. Detected major version '${majorVersion}' in version '${buildInformation.version}'.`
+    );
     return baseFolder;
   }
 
