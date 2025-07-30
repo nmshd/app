@@ -1,3 +1,4 @@
+import { ILogger } from "@js-soft/logging-abstractions";
 import { SimpleLoggerFactory } from "@js-soft/simple-logger";
 import { Serializable } from "@js-soft/ts-serval";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
@@ -62,10 +63,9 @@ async function main() {
   const fileAccess = new FileAccess();
   const notificationAccess = new NotificationAccess(loggerFactory);
   const languageProvider = new AppLanguageProvider();
+  const runtimeBridgeLogger = loggerFactory.getLogger("RuntimeBridge");
 
-  if (config.databaseFolder && buildInformation.version.includes("7.0.0-alpha.")) {
-    config.databaseFolder = `${config.databaseFolder}/${buildInformation.version}`;
-  }
+  if (config.databaseFolder) config.databaseFolder = buildDatabaseFolder(config.databaseFolder, runtimeBridgeLogger);
 
   const runtime = await AppRuntime.create(
     config,
@@ -77,7 +77,6 @@ async function main() {
   );
   await runtime.start();
 
-  const runtimeBridgeLogger = loggerFactory.getLogger("RuntimeBridge");
   runtime.eventBus.subscribe("**", async (event) => {
     try {
       await window.flutter_inappwebview.callHandler("handleRuntimeEvent", event);
@@ -97,6 +96,25 @@ async function main() {
 
     window.runtime.eventBus.publish(new AppLanguageChangedEvent(language as LanguageISO639));
   };
+}
+
+function buildDatabaseFolder(baseFolder: string, logger: ILogger): string {
+  const semverWithPreidRegex = /^(\d+)\.\d+\.\d+(?:-([a-z]+)(?:\.\d+)+)?$/;
+  const semverMatches = semverWithPreidRegex.exec(buildInformation.version);
+  if (!semverMatches) {
+    logger.warn("Could not parse version for database folder", buildInformation.version);
+    return baseFolder;
+  }
+
+  if (baseFolder && semverMatches[2]) return `${baseFolder}/${buildInformation.version}`;
+
+  const majorVersion = buildInformation.version.split(".")[0];
+  if (parseInt(majorVersion) < 7) {
+    logger.warn("Using legacy database folder structure for versions < 7", buildInformation.version);
+    return baseFolder;
+  }
+
+  return `${baseFolder}/afterV7`;
 }
 
 main()
