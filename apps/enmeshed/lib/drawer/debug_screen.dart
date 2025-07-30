@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:push/push.dart';
 
@@ -65,6 +66,7 @@ class DebugScreen extends StatelessWidget {
                         child: const Text('Feature Flags'),
                       ),
                       OutlinedButton(onPressed: () async => _clearProfiles(context), child: const Text('Clear Profiles')),
+                      OutlinedButton(onPressed: _logStoragePath, child: const Text('Log Device Storage path')),
                     ],
                     OutlinedButton(
                       onPressed: () => showModalBottomSheet<void>(
@@ -84,6 +86,11 @@ class DebugScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _logStoragePath() async {
+    final directory = await getApplicationDocumentsDirectory();
+    GetIt.I.get<Logger>().i('Device Storage Path: ${directory.path}');
   }
 
   Future<void> _clearProfiles(BuildContext context) async {
