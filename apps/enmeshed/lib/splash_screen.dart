@@ -81,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen> {
         clientId: const String.fromEnvironment('app_clientId'),
         clientSecret: const String.fromEnvironment('app_clientSecret'),
         useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
-        databaseFolder: './database',
+        databaseBaseFolder: './database',
         deciderModuleConfig: null,
         androidNotificationColor: null,
       ),

@@ -42,9 +42,14 @@ class DebugScreen extends StatelessWidget {
                 }(),
               ),
               FutureBuilder(
-                builder: (_, s) => !s.hasData ? const CircularProgressIndicator() : _CopyableText(title: 'Push Token: ', text: s.data!),
+                builder: (_, s) => !s.hasData ? const CircularProgressIndicator() : _CopyableText(title: 'Push\nToken: ', text: s.data!),
                 future: Push.instance.token.timeout(const Duration(seconds: 5)).catchError((_) => 'timeout', test: (e) => e is TimeoutException),
               ),
+              if (kDebugMode)
+                FutureBuilder(
+                  builder: (_, s) => !s.hasData ? const CircularProgressIndicator() : _CopyableText(title: 'Storage\nPath: ', text: s.data!.path),
+                  future: getApplicationDocumentsDirectory(),
+                ),
               if (kDebugMode) const _PasswordTester(),
               const Divider(indent: 20, endIndent: 20, height: 20, thickness: 1.5),
               Padding(
@@ -112,7 +117,7 @@ class DebugScreen extends StatelessWidget {
 
     final dir = await getApplicationDocumentsDirectory();
 
-    final databaseFolder = Directory('${dir.path}/${runtime.runtimeConfig.databaseFolder}');
+    final databaseFolder = Directory('${dir.path}/${runtime.runtimeConfig.databaseBaseFolder}');
     if (databaseFolder.existsSync()) {
       await databaseFolder.delete(recursive: true);
     }
@@ -133,7 +138,7 @@ class DebugScreen extends StatelessWidget {
 
     final encoder = ZipFileEncoder()..create(zipFile.path);
 
-    final databaseDir = Directory('${dir.path}/${runtime.runtimeConfig.databaseFolder}');
+    final databaseDir = Directory('${dir.path}/${runtime.runtimeConfig.databaseBaseFolder}');
     if (databaseDir.existsSync()) await encoder.addDirectory(databaseDir);
 
     final cacheDir = Directory('${dir.path}/cache');
@@ -219,7 +224,7 @@ class _CopyableText extends StatelessWidget {
               child: Text(
                 text,
                 style: text == 'timeout' ? TextStyle(color: Theme.of(context).colorScheme.error) : null,
-                maxLines: 1,
+                maxLines: 10,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
