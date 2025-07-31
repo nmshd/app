@@ -34,6 +34,7 @@ class _FilesScreenState extends State<FilesScreen> {
 
   bool _selectTagsEnabled = true;
   bool _selectTypesEnabled = true;
+  bool _filteringFiles = false;
 
   late FilesFilterOption _filterOption;
   late final List<StreamSubscription<void>> _subscriptions = [];
@@ -115,7 +116,9 @@ class _FilesScreenState extends State<FilesScreen> {
                   _filterAndSort();
                 },
               ),
-            if (_filteredFileRecords.isEmpty && _filterOption.emptyListIcon != null)
+            if (_filteringFiles)
+              const Center(child: CircularProgressIndicator())
+            else if (_filteredFileRecords.isEmpty && _filterOption.emptyListIcon != null)
               _EmptyFilesIndicator(accountId: widget.accountId, filterOption: _filterOption, uploadFile: _uploadFile)
             else
               Expanded(
@@ -186,6 +189,7 @@ class _FilesScreenState extends State<FilesScreen> {
   void _filterAndSort() {
     if (_fileRecords == null) return;
 
+    setState(() => _filteringFiles = true);
 
     var filteredFiles = <FileRecord>[];
 
@@ -204,6 +208,7 @@ class _FilesScreenState extends State<FilesScreen> {
       filteredFiles.sort(_compareFunction());
       setState(() {
         _filteredFileRecords = filteredFiles;
+        _filteringFiles = false;
       });
       return;
     }
@@ -216,6 +221,7 @@ class _FilesScreenState extends State<FilesScreen> {
 
     setState(() {
       _filteredFileRecords = filteredFilesWithTypesAndTags;
+      _filteringFiles = false;
     });
   }
 
