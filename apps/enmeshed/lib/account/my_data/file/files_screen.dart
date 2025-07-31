@@ -99,7 +99,7 @@ class _FilesScreenState extends State<FilesScreen> {
               showTypes: _showTypes,
               setFilter: (filter) async {
                 setState(() => _filterOption = filter);
-                await _reloadAndApplyFilters();
+                _filterAndSort();
               },
             ),
             if (_activeTypeFilters.isNotEmpty || _activeTagFilters.isNotEmpty)
@@ -140,17 +140,14 @@ class _FilesScreenState extends State<FilesScreen> {
     _filterAndSort();
   }
 
-  Future<void> _loadFiles({bool syncBefore = false, bool applyFilters = true}) async {
+  Future<void> _loadFiles({bool syncBefore = false}) async {
     final fileRecords = <FileRecord>[];
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
     if (syncBefore) await session.transportServices.account.syncEverything();
 
     final result = await session.consumptionServices.attributes.getRepositoryAttributes(
-      query: {
-        'content.value.@type': QueryValue.string('IdentityFileReference'),
-        if (applyFilters && _filterOption == FilesFilterOption.unviewed) 'wasViewedAt': QueryValue.string('!'),
-      },
+      query: {'content.value.@type': QueryValue.string('IdentityFileReference')},
     );
 
     if (result.isError) {
@@ -176,13 +173,9 @@ class _FilesScreenState extends State<FilesScreen> {
     for (final fileReferenceAttribute in fileReferenceAttributes) {
       final fileReference = fileReferenceAttribute.value as IdentityFileReferenceAttributeValue;
       final file = await expandFileReference(accountId: widget.accountId, fileReference: fileReference.value);
-
-      if (!applyFilters || _filterOption != FilesFilterOption.expired || DateTime.parse(file.expiresAt).isBefore(DateTime.now())) {
-        fileRecords.add(
-          createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute as RepositoryAttributeDVO),
-        );
-      }
+      fileRecords.add(createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute as RepositoryAttributeDVO));
     }
+
     final tags = <String>{};
     _fileRecords = fileRecords;
     _fileRecords?.forEach((element) => element.fileReferenceAttribute?.tags?.forEach(tags.add));
@@ -191,20 +184,39 @@ class _FilesScreenState extends State<FilesScreen> {
   }
 
   void _filterAndSort() {
-    if (_activeTypeFilters.isNotEmpty || _activeTagFilters.isNotEmpty) {
-      final filteredFiles = _fileRecords!.where((file) {
-        final matchesType = _activeTypeFilters.isEmpty || _activeTypeFilters.contains(FileFilterType.fromMimetype(file.file.mimetype));
-        final matchesTags = _activeTagFilters.isEmpty || (file.fileReferenceAttribute?.tags?.any(_activeTagFilters.contains) ?? false);
+    if (_fileRecords == null) return;
 
-        return matchesType && matchesTags;
-      }).toList()..sort(_compareFunction());
 
-      setState(() => _filteredFileRecords = filteredFiles);
+    var filteredFiles = <FileRecord>[];
+
+    if (_filterOption == FilesFilterOption.unviewed) {
+      filteredFiles = _fileRecords!.where((e) => e.fileReferenceAttribute?.wasViewedAt == null).toList();
+    } else if (_filterOption == FilesFilterOption.expired) {
+      filteredFiles = _fileRecords!.where((e) {
+        final expiresAt = DateTime.tryParse(e.file.expiresAt);
+        return expiresAt != null && expiresAt.isBefore(DateTime.now());
+      }).toList();
+    } else {
+      filteredFiles = _fileRecords!;
+    }
+
+    if (_activeTagFilters.isEmpty && _activeTypeFilters.isEmpty) {
+      filteredFiles.sort(_compareFunction());
+      setState(() {
+        _filteredFileRecords = filteredFiles;
+      });
       return;
     }
 
-    final sorted = _fileRecords!..sort(_compareFunction());
-    setState(() => _filteredFileRecords = sorted);
+    final filteredFilesWithTypesAndTags = filteredFiles.where((file) {
+      final matchesType = _activeTypeFilters.isEmpty || _activeTypeFilters.contains(FileFilterType.fromMimetype(file.file.mimetype));
+      final matchesTags = _activeTagFilters.isEmpty || (file.fileReferenceAttribute?.tags?.any(_activeTagFilters.contains) ?? false);
+      return matchesType && matchesTags;
+    }).toList()..sort(_compareFunction());
+
+    setState(() {
+      _filteredFileRecords = filteredFilesWithTypesAndTags;
+    });
   }
 
   int Function(FileRecord, FileRecord) _compareFunction() {
@@ -279,7 +291,7 @@ class _FilesScreenState extends State<FilesScreen> {
 
   Future<void> _showTags() async {
     setState(() => _selectTagsEnabled = false);
-    await _loadFiles(applyFilters: false);
+    await _loadFiles();
 
     if (!mounted) {
       setState(() => _selectTagsEnabled = true);
@@ -293,14 +305,14 @@ class _FilesScreenState extends State<FilesScreen> {
       enableSelectTags: () => setState(() => _selectTagsEnabled = true),
       onApplyTags: (selectedTags) {
         setState(() => _activeTagFilters = selectedTags);
-        _reloadAndApplyFilters();
+        _filterAndSort();
       },
     );
   }
 
   Future<void> _showTypes() async {
     setState(() => _selectTypesEnabled = false);
-    await _loadFiles(applyFilters: false);
+    await _loadFiles();
 
     if (!mounted) {
       setState(() => _selectTypesEnabled = true);
@@ -316,7 +328,7 @@ class _FilesScreenState extends State<FilesScreen> {
       enableSelectTypes: () => setState(() => _selectTypesEnabled = true),
       onApplyTypes: (selectedFilters) {
         setState(() => _activeTypeFilters = selectedFilters);
-        _reloadAndApplyFilters();
+        _filterAndSort();
       },
     );
   }
