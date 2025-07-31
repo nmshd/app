@@ -31,7 +31,7 @@ class _FilessFilterHelpModal extends StatelessWidget {
             padding: const EdgeInsetsGeometry.symmetric(horizontal: 24, vertical: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 32,
+              spacing: 16,
               children: [
                 Text(context.l10n.files_filter_infoSheet_description),
                 InformationCard(
