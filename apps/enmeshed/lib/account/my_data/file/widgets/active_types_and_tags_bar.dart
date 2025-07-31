@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../file_filter_type.dart';
+import 'tag_label.dart';
 
 class ActiveTypesAndTagsBar extends StatelessWidget {
   final Set<FileFilterType> activeTypes;
@@ -48,7 +49,7 @@ class ActiveTypesAndTagsBar extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 spacing: 2,
                 children: [
-                  Text(tag, style: Theme.of(context).textTheme.labelSmall),
+                  TagLabel(tag, style: Theme.of(context).textTheme.labelSmall),
                   InkWell(borderRadius: BorderRadius.circular(8), child: const Icon(Icons.close, size: 16), onTap: () => onRemoveTag(tag)),
                 ],
               ),
