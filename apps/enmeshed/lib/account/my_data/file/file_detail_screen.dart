@@ -29,6 +29,9 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
   bool _isLoadingFile = false;
   bool _isOpeningFile = false;
 
+  bool get _preventFileOperation =>
+      _isSharingFile || _isLoadingFile || _isOpeningFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now());
+
   @override
   void initState() {
     super.initState();
