@@ -30,6 +30,9 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
   bool _isLoadingFile = false;
   bool _isOpeningFile = false;
 
+  bool get _preventFileOperation =>
+      _isSharingFile || _isLoadingFile || _isOpeningFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now());
+
   @override
   void initState() {
     super.initState();
@@ -148,19 +151,19 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                           spacing: 8,
                           children: [
                             IconButton(
-                              onPressed: _isSharingFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _shareFile,
+                              onPressed: _preventFileOperation ? null : _shareFile,
                               icon: _isSharingFile
                                   ? const SizedBox(width: 28, height: 28, child: CircularProgressIndicator(strokeWidth: 3))
                                   : const Icon(Icons.share_outlined, size: 24),
                             ),
                             IconButton(
-                              onPressed: _isLoadingFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _downloadAndSaveFile,
+                              onPressed: _preventFileOperation ? null : _downloadAndSaveFile,
                               icon: _isLoadingFile
                                   ? const SizedBox(width: 28, height: 28, child: CircularProgressIndicator(strokeWidth: 3))
                                   : const Icon(Icons.file_download_outlined, size: 28),
                             ),
                             IconButton(
-                              onPressed: _isOpeningFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _openFile,
+                              onPressed: _preventFileOperation ? null : _openFile,
                               icon: _isOpeningFile
                                   ? const SizedBox(width: 28, height: 28, child: CircularProgressIndicator(strokeWidth: 3))
                                   : const Icon(Icons.file_open_outlined, size: 24),
