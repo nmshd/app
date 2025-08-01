@@ -12,7 +12,6 @@ class DraftAttributeRenderer extends StatelessWidget {
   final Widget? trailing;
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO) openFileDetails;
-  final String Function(String)? titleOverride;
 
   const DraftAttributeRenderer({
     super.key,
@@ -22,7 +21,6 @@ class DraftAttributeRenderer extends StatelessWidget {
     this.trailing,
     required this.expandFileReference,
     required this.openFileDetails,
-    this.titleOverride,
   });
 
   @override
@@ -44,7 +42,6 @@ class DraftAttributeRenderer extends StatelessWidget {
                   valueHints: draftAttribute.valueHints,
                   expandFileReference: expandFileReference,
                   openFileDetails: openFileDetails,
-                  titleOverride: titleOverride,
                 ),
         ),
       ],
