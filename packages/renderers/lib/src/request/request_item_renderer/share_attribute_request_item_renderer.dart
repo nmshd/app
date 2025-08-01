@@ -67,9 +67,7 @@ class _ShareAttributeRequestItemRendererState extends State<ShareAttributeReques
   void onUpdateCheckbox(bool? value) {
     if (value == null) return;
 
-    setState(() {
-      _isChecked = value;
-    });
+    setState(() => _isChecked = value);
 
     handleCheckboxChange(isChecked: _isChecked, controller: widget.controller, itemIndex: widget.itemIndex);
   }
