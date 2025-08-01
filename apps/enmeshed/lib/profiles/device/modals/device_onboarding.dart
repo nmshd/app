@@ -60,8 +60,6 @@ class _DeviceOnboardingState extends State<DeviceOnboarding> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-    final link = 'nmshd://tr#${_token.reference.truncated}';
-
     final expiryTime = DateTime.parse(_token.expiresAt).toLocal();
     final isExpired = DateTime.now().isAfter(expiryTime);
 
@@ -87,8 +85,8 @@ class _DeviceOnboardingState extends State<DeviceOnboarding> with SingleTickerPr
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    _DeviceOnboardingQRCode(link: link, expiryTime: expiryTime, getDeviceToken: _reloadDeviceToken),
-                    _DeviceOnboardingUrl(link: link, expiryTime: expiryTime, getDeviceToken: _reloadDeviceToken),
+                    _DeviceOnboardingQRCode(link: _token.reference.url, expiryTime: expiryTime, getDeviceToken: _reloadDeviceToken),
+                    _DeviceOnboardingUrl(link: _token.reference.url, expiryTime: expiryTime, getDeviceToken: _reloadDeviceToken),
                   ],
                 ),
               ),

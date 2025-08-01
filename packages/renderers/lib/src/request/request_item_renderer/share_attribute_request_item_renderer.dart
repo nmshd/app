@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import '../../attribute/attribute_renderer.dart';
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import 'decidable/checkbox_enabled_extension.dart';
 import 'decidable/widgets/handle_checkbox_change.dart';
-import 'extensions/extensions.dart';
 
 class ShareAttributeRequestItemRenderer extends StatefulWidget {
   final ShareAttributeRequestItemDVO item;
@@ -40,7 +38,7 @@ class _ShareAttributeRequestItemRendererState extends State<ShareAttributeReques
     if (widget.item.response != null) {
       _isChecked = widget.item.response is AcceptResponseItemDVO;
     } else {
-      _isChecked = widget.item.initiallyChecked;
+      _isChecked = widget.item.mustBeAccepted;
     }
 
     if (_isChecked) widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
@@ -50,7 +48,7 @@ class _ShareAttributeRequestItemRendererState extends State<ShareAttributeReques
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Checkbox(value: _isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        Checkbox(value: _isChecked, onChanged: widget.item.isDecidable && !widget.item.mustBeAccepted ? onUpdateCheckbox : null),
         Expanded(
           child: AttributeRenderer(
             attribute: widget.item.attribute.content,

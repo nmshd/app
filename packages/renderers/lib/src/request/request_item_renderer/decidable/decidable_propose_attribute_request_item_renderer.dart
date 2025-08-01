@@ -5,8 +5,6 @@ import '/src/attribute/attribute_renderer.dart';
 import '../../open_attribute_switcher_function.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
-import '../extensions/extensions.dart';
-import 'checkbox_enabled_extension.dart';
 
 class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final ProposeAttributeRequestItemDVO item;
@@ -38,7 +36,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked;
+    isChecked = widget.item.mustBeAccepted;
 
     _choice = _getProposedChoice();
 
@@ -54,7 +52,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        Checkbox(value: isChecked, onChanged: !widget.item.mustBeAccepted ? onUpdateCheckbox : null),
         Expanded(
           child: AttributeRenderer(
             attribute: _choice.attribute,
