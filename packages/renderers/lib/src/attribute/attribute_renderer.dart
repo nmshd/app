@@ -13,6 +13,7 @@ class AttributeRenderer extends StatelessWidget {
   final Widget? trailing;
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO) openFileDetails;
+  final String Function(String)? titleOverride;
 
   const AttributeRenderer({
     super.key,
@@ -24,6 +25,7 @@ class AttributeRenderer extends StatelessWidget {
     this.trailing,
     required this.expandFileReference,
     required this.openFileDetails,
+    this.titleOverride,
   });
 
   factory AttributeRenderer.localAttribute({
@@ -59,6 +61,7 @@ class AttributeRenderer extends StatelessWidget {
         trailing: trailing,
         expandFileReference: expandFileReference,
         openFileDetails: openFileDetails,
+        titleOverride: titleOverride,
       );
     }
 
@@ -70,6 +73,7 @@ class AttributeRenderer extends StatelessWidget {
         trailing: trailing,
         expandFileReference: expandFileReference,
         openFileDetails: openFileDetails,
+        titleOverride: titleOverride,
       );
     }
 
