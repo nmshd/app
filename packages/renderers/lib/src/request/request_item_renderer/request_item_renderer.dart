@@ -85,21 +85,14 @@ class RequestItemRenderer extends StatelessWidget {
                   expandFileReference: expandFileReference,
                   openFileDetails: openFileDetails,
                 ),
-        final ShareAttributeRequestItemDVO dvo =>
-          dvo.isDecidable
-              ? DecidableShareAttributeRequestItemRenderer(
-                  controller: controller,
-                  item: dvo,
-                  itemIndex: itemIndex,
-                  expandFileReference: expandFileReference,
-                  openFileDetails: openFileDetails,
-                )
-              : ShareAttributeRequestItemRenderer(
-                  item: dvo,
-                  isRejected: isRejected,
-                  expandFileReference: expandFileReference,
-                  openFileDetails: openFileDetails,
-                ),
+        final ShareAttributeRequestItemDVO dvo => ShareAttributeRequestItemRenderer(
+          item: dvo,
+          controller: controller,
+          itemIndex: itemIndex,
+          validationResult: validationResult,
+          expandFileReference: expandFileReference,
+          openFileDetails: openFileDetails,
+        ),
         final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(
           controller: controller,
           item: dvo,
