@@ -1,7 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
-import '../../attribute/draft_attribute_renderer.dart';
+import '../../attribute/attribute_renderer.dart';
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
 import 'decidable/checkbox_enabled_extension.dart';
@@ -48,12 +48,19 @@ class _ShareAttributeRequestItemRendererState extends State<ShareAttributeReques
 
   @override
   Widget build(BuildContext context) {
-    return DraftAttributeRenderer(
-      draftAttribute: widget.item.attribute,
-      checkboxSettings: (isChecked: _isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-      expandFileReference: widget.expandFileReference,
-      openFileDetails: widget.openFileDetails,
-      titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
+    return Row(
+      children: [
+        Checkbox(value: _isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        Expanded(
+          child: AttributeRenderer(
+            attribute: widget.item.attribute.content,
+            valueHints: widget.item.attribute.valueHints,
+            expandFileReference: widget.expandFileReference,
+            openFileDetails: widget.openFileDetails,
+            titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
+          ),
+        ),
+      ],
     );
   }
 
