@@ -53,6 +53,7 @@ class _ShareAttributeRequestItemRendererState extends State<ShareAttributeReques
       checkboxSettings: (isChecked: _isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
       expandFileReference: widget.expandFileReference,
       openFileDetails: widget.openFileDetails,
+      titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
     );
   }
 
