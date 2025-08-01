@@ -267,7 +267,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
         if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
         Expanded(
           child: IdentityAttributeValueRenderer(
-            titleOverride: requestItemTitle,
+            titleOverride: requestItemTitle != null ? (_) => requestItemTitle! : null,
             value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : query.results.first.value as IdentityAttributeValue,
             valueHints: query.results.first.valueHints,
             trailing: onUpdateAttribute == null
