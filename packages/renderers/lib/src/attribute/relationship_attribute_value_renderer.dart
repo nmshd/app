@@ -14,6 +14,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
   final Widget? trailing;
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO) openFileDetails;
+  final String Function(String)? titleOverride;
 
   const RelationshipAttributeValueRenderer({
     super.key,
@@ -23,6 +24,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
     this.trailing,
     required this.expandFileReference,
     required this.openFileDetails,
+    this.titleOverride,
   });
 
   @override
@@ -47,6 +49,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
                 ),
               )
             : null,
+        titleOverride: titleOverride,
       ),
       final ProprietaryJSONAttributeValue proprietaryJSONAttributeValue => CustomListTile(
         title: proprietaryJSONAttributeValue.title,
@@ -55,6 +58,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
+        titleOverride: titleOverride,
       ),
       final ProprietaryFileReferenceAttributeValue value => FileReferenceRenderer(
         fileReference: value.value,
@@ -63,6 +67,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
         valueType: value.atType,
         showTitle: showTitle,
         trailing: trailing,
+        titleOverride: titleOverride,
       ),
       final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
         title: proprietaryAttributeValue.title,
@@ -70,6 +75,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
+        titleOverride: titleOverride,
       ),
       _ => throw Exception('cannot handle RelationshipAttributeValue: ${value.runtimeType}'),
     };

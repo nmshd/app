@@ -17,7 +17,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   final TextStyle valueTextStyle;
   final Widget? extraLine;
   final Widget? trailing;
-  final String? titleOverride;
+  final String Function(String)? titleOverride;
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO) openFileDetails;
 
@@ -47,6 +47,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         valueTextStyle: valueTextStyle,
         extraLine: extraLine,
         trailing: trailing,
+        titleOverride: titleOverride,
       );
     }
 
@@ -59,6 +60,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         valueTextStyle: valueTextStyle,
         extraLine: extraLine,
         trailing: trailing,
+        titleOverride: titleOverride,
       );
     }
 
@@ -71,6 +73,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         valueTextStyle: valueTextStyle,
         extraLine: extraLine,
         trailing: trailing,
+        titleOverride: titleOverride,
       );
     }
 
@@ -83,6 +86,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
+        titleOverride: titleOverride,
       );
     }
 
@@ -107,6 +111,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
+        titleOverride: titleOverride,
       );
     }
 
@@ -122,6 +127,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       showTitle: showTitle,
       valueTextStyle: valueTextStyle,
       trailing: trailing,
+      titleOverride: titleOverride,
     );
   }
 }
