@@ -75,13 +75,6 @@ class _FilesScreenState extends State<FilesScreen> {
       ],
     );
 
-    if (_fileRecords == null) {
-      return Scaffold(
-        appBar: appBar,
-        body: const Center(child: CircularProgressIndicator()),
-      );
-    }
-
     return Scaffold(
       appBar: appBar,
       body: SafeArea(
@@ -112,8 +105,9 @@ class _FilesScreenState extends State<FilesScreen> {
                   _filterAndSort();
                 },
               ),
-            if (_filteringFiles)
-              const Center(child: CircularProgressIndicator())
+
+            if (_filteringFiles || _fileRecords == null)
+              const Expanded(child: Center(child: CircularProgressIndicator()))
             else if (_filteredFileRecords.isEmpty && _filterOption.emptyListIcon != null)
               _EmptyFilesIndicator(accountId: widget.accountId, filterOption: _filterOption, uploadFile: _uploadFile)
             else
