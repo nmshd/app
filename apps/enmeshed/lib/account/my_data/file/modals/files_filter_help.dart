@@ -26,30 +26,37 @@ class _FilesFilterHelpModal extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           BottomSheetHeader(title: context.l10n.files_filter_infoSheet_title),
-          Padding(
-            padding: const EdgeInsetsGeometry.symmetric(horizontal: 24, vertical: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 16,
-              children: [
-                Text(context.l10n.files_filter_infoSheet_description),
-                InformationCard(
-                  title: context.l10n.files_filter_infoSheet_unviewed,
-                  icon: Icon(FilesFilterOption.unviewed.filterIcon, size: 24, color: Theme.of(context).colorScheme.secondary),
+          Flexible(
+            child: Scrollbar(
+              thumbVisibility: true,
+              child: Padding(
+                padding: const EdgeInsetsGeometry.symmetric(horizontal: 24, vertical: 8),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 16,
+                    children: [
+                      Text(context.l10n.files_filter_infoSheet_description),
+                      InformationCard(
+                        title: context.l10n.files_filter_infoSheet_unviewed,
+                        icon: Icon(FilesFilterOption.unviewed.filterIcon, size: 24, color: Theme.of(context).colorScheme.secondary),
+                      ),
+                      InformationCard(
+                        title: context.l10n.files_filter_infoSheet_expired,
+                        icon: Icon(FilesFilterOption.expired.filterIcon, size: 24, color: Theme.of(context).colorScheme.error),
+                      ),
+                      InformationCard(
+                        title: context.l10n.files_filter_infoSheet_type,
+                        icon: Icon(FilesFilterOption.type.filterIcon, size: 24, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                      ),
+                      InformationCard(
+                        title: context.l10n.files_filter_infoSheet_tag,
+                        icon: Icon(FilesFilterOption.tag.filterIcon, size: 24, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                      ),
+                    ],
+                  ),
                 ),
-                InformationCard(
-                  title: context.l10n.files_filter_infoSheet_expired,
-                  icon: Icon(FilesFilterOption.expired.filterIcon, size: 24, color: Theme.of(context).colorScheme.error),
-                ),
-                InformationCard(
-                  title: context.l10n.files_filter_infoSheet_type,
-                  icon: Icon(FilesFilterOption.type.filterIcon, size: 24, color: Theme.of(context).colorScheme.onSurfaceVariant),
-                ),
-                InformationCard(
-                  title: context.l10n.files_filter_infoSheet_tag,
-                  icon: Icon(FilesFilterOption.tag.filterIcon, size: 24, color: Theme.of(context).colorScheme.onSurfaceVariant),
-                ),
-              ],
+              ),
             ),
           ),
         ],
