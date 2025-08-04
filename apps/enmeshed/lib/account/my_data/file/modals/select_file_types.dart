@@ -100,7 +100,7 @@ class _SelectFileTypesState extends State<_SelectFileTypes> {
             ),
             Gaps.h24,
             Padding(
-              padding: const EdgeInsets.only(right: 24),
+              padding: const EdgeInsets.only(right: 24, bottom: 8),
               child: Row(
                 spacing: 8,
                 mainAxisAlignment: MainAxisAlignment.end,

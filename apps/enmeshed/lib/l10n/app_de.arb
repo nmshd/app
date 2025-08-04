@@ -677,7 +677,7 @@
   "attributeDetails_sharedWithNobody": "Mit niemandem geteilt",
   "files": "Dokumente und Dateien",
   "files_noFilesAvailable": "Keine Dateien vorhanden",
-  "files_noFilesAvailable_description": "Laden Sie Dateien & Dokumente in Ihre Wallet um Sie mit Ihren Kontakten zu teilen.",
+  "files_noFilesAvailable_description": "Laden Sie Dateien & Dokumente in Ihre Wallet, um Sie mit Ihren Kontakten zu teilen.",
   "files_noFilesAvailable_addFiles": "Dateien & Dokumente hochladen",
   "files_noNewFiles": "Keine neuen Dateien vorhanden",
   "files_noExpiredFiles": "Keine abgelaufenen Dateien vorhanden",
