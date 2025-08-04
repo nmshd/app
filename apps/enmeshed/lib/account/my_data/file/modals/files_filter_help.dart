@@ -9,16 +9,15 @@ Future<void> showFilesFilterHelpModal({required BuildContext context}) async {
     useRootNavigator: true,
     context: context,
     isScrollControlled: true,
-    elevation: 0,
     builder: (context) => ConstrainedBox(
       constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.75),
-      child: const _FilessFilterHelpModal(),
+      child: const _FilesFilterHelpModal(),
     ),
   );
 }
 
-class _FilessFilterHelpModal extends StatelessWidget {
-  const _FilessFilterHelpModal();
+class _FilesFilterHelpModal extends StatelessWidget {
+  const _FilesFilterHelpModal();
 
   @override
   Widget build(BuildContext context) {
