@@ -37,7 +37,7 @@ class ManualDecisionRequired extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 8.0).copyWith(right: 8),
                   child: TranslatedText(i18nKey, style: Theme.of(context).textTheme.bodySmall),
                 ),
               ),
