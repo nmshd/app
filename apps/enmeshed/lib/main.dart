@@ -389,6 +389,7 @@ final _router = GoRouter(
                   builder: (context, state) => FilesScreen(
                     accountId: state.pathParameters['accountId']!,
                     initialCreation: state.uri.queryParameters['initialCreation'] == 'true',
+                    showUnviewedFiles: state.uri.queryParameters['showUnviewedFiles'] == 'true',
                   ),
                   routes: [
                     GoRoute(
