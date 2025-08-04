@@ -9,15 +9,16 @@ import 'package:logger/logger.dart';
 
 import '/core/core.dart';
 import 'file_filter_type.dart';
-import 'modals/select_file_filters.dart';
-
-enum _FilesSortingType { date, name, type, size }
+import 'files_filter_option.dart';
+import 'modals/modals.dart';
+import 'widgets/widgets.dart';
 
 class FilesScreen extends StatefulWidget {
   final String accountId;
   final bool initialCreation;
+  final bool showUnviewedFiles;
 
-  const FilesScreen({required this.accountId, this.initialCreation = false, super.key});
+  const FilesScreen({required this.accountId, this.initialCreation = false, this.showUnviewedFiles = false, super.key});
 
   @override
   State<FilesScreen> createState() => _FilesScreenState();
@@ -27,23 +28,28 @@ class _FilesScreenState extends State<FilesScreen> {
   List<FileRecord>? _fileRecords;
   List<FileRecord> _filteredFileRecords = [];
 
-  Set<FileFilterType> _activeFilters = {};
-  _FilesSortingType _sortingType = _FilesSortingType.date;
-  bool _isSortedAscending = false;
+  Set<String> _availableTags = {};
+  Set<String> _activeTagFilters = {};
+  Set<FileFilterType> _activeTypeFilters = {};
 
+  bool _filteringFiles = false;
+
+  late FilesFilterOption _filterOption;
   late final List<StreamSubscription<void>> _subscriptions = [];
 
   @override
   void initState() {
     super.initState();
 
+    _filterOption = widget.showUnviewedFiles ? FilesFilterOption.unviewed : FilesFilterOption.all;
+
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
     _subscriptions
-      ..add(runtime.eventBus.on<AttributeDeletedEvent>().listen((_) => _loadFiles().catchError((_) {})))
-      ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _loadFiles().catchError((_) {})));
+      ..add(runtime.eventBus.on<AttributeDeletedEvent>().listen((_) => _reloadAndApplyFilters().catchError((_) {})))
+      ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _reloadAndApplyFilters().catchError((_) {})));
 
-    _loadFiles().then((_) => widget.initialCreation ? _uploadFile() : null);
+    _reloadAndApplyFilters().then((_) => widget.initialCreation ? _uploadFile() : null);
   }
 
   @override
@@ -65,95 +71,66 @@ class _FilesScreenState extends State<FilesScreen> {
           builder: (BuildContext context, SearchController controller) =>
               IconButton(icon: const Icon(Icons.search), onPressed: () => controller.openView()),
         ),
-        IconButton(
-          onPressed: _fileRecords != null && _fileRecords!.isNotEmpty
-              ? () => showSelectFileFilters(
-                  context,
-                  availableFilters: _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet(),
-                  activeFilters: _activeFilters,
-                  onApplyFilters: (selectedFilters) {
-                    setState(() => _activeFilters = selectedFilters);
-                    _filterAndSort();
-                  },
-                )
-              : null,
-          icon: Badge(isLabelVisible: _activeFilters.isNotEmpty, child: const Icon(Icons.filter_list)),
-        ),
         IconButton(onPressed: _uploadFile, icon: const Icon(Icons.add)),
       ],
     );
-
-    if (_fileRecords == null) {
-      return Scaffold(
-        appBar: appBar,
-        body: const Center(child: CircularProgressIndicator()),
-      );
-    }
-
-    if (_fileRecords!.isEmpty) {
-      return Scaffold(
-        appBar: appBar,
-        body: RefreshIndicator(
-          onRefresh: () => _loadFiles(syncBefore: true),
-          child: EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.files_noFilesAvailable, wrapInListView: true),
-        ),
-      );
-    }
 
     return Scaffold(
       appBar: appBar,
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SortBar<_FilesSortingType>(
-              sortingType: _sortingType,
-              isSortedAscending: _isSortedAscending,
-              translate: (s) => switch (s) {
-                _FilesSortingType.date => context.l10n.sortedByCreationDate,
-                _FilesSortingType.name => context.l10n.sortedByName,
-                _FilesSortingType.type => context.l10n.sortedByType,
-                _FilesSortingType.size => context.l10n.sortedBySize,
-              },
-              sortMenuItem: [
-                (value: _FilesSortingType.date, label: context.l10n.files_creationDate),
-                (value: _FilesSortingType.name, label: context.l10n.name),
-                (value: _FilesSortingType.type, label: context.l10n.files_fileType),
-                (value: _FilesSortingType.size, label: context.l10n.files_fileSize),
-              ],
-              onSortingConditionChanged: ({required type, required isSortedAscending}) {
-                _isSortedAscending = isSortedAscending;
-                _sortingType = type;
-
+            FilesFilterChipBar(
+              selectedFilterOption: _filterOption,
+              typeFiltersActive: _activeTypeFilters.isNotEmpty,
+              tagFiltersActive: _activeTagFilters.isNotEmpty,
+              showTags: _showTags,
+              showTypes: _showTypes,
+              setFilter: (filter) async {
+                setState(() => _filterOption = filter);
                 _filterAndSort();
               },
             ),
-            if (_activeFilters.isNotEmpty)
-              _FilterBar(
-                activeFilters: _activeFilters,
-                onRemoveFilter: (removedFilter) {
-                  _activeFilters.remove(removedFilter);
+            if (_activeTypeFilters.isNotEmpty || _activeTagFilters.isNotEmpty)
+              ActiveTypesAndTagsBar(
+                activeTags: _activeTagFilters,
+                activeTypes: _activeTypeFilters,
+                onRemoveType: (filter) {
+                  _activeTypeFilters.remove(filter);
                   _filterAndSort();
                 },
-                onResetFilters: () {
-                  _activeFilters = {};
+                onRemoveTag: (tag) {
+                  _activeTagFilters.remove(tag);
                   _filterAndSort();
                 },
               ),
-            Expanded(
-              child: RefreshIndicator(
-                onRefresh: () => _loadFiles(syncBefore: true),
-                child: ListView.separated(
-                  itemBuilder: (context, index) =>
-                      FileItem(accountId: widget.accountId, fileRecord: _filteredFileRecords[index], trailing: const Icon(Icons.chevron_right)),
-                  itemCount: _filteredFileRecords.length,
-                  separatorBuilder: (context, index) => const Divider(height: 2, indent: 16),
+
+            if (_filteringFiles || _fileRecords == null)
+              const Expanded(child: Center(child: CircularProgressIndicator()))
+            else if (_filteredFileRecords.isEmpty && _filterOption.emptyListIcon != null)
+              _EmptyFilesIndicator(accountId: widget.accountId, filterOption: _filterOption, uploadFile: _uploadFile)
+            else
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: () => _reloadAndApplyFilters(syncBefore: true),
+                  child: ListView.separated(
+                    itemBuilder: (context, index) =>
+                        FileItem(accountId: widget.accountId, fileRecord: _filteredFileRecords[index], trailing: const Icon(Icons.chevron_right)),
+                    itemCount: _filteredFileRecords.length,
+                    separatorBuilder: (context, index) => const Divider(height: 2, indent: 16),
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _reloadAndApplyFilters({bool syncBefore = false}) async {
+    await _loadFiles(syncBefore: syncBefore);
+    _filterAndSort();
   }
 
   Future<void> _loadFiles({bool syncBefore = false}) async {
@@ -191,37 +168,64 @@ class _FilesScreenState extends State<FilesScreen> {
       final file = await expandFileReference(accountId: widget.accountId, fileReference: fileReference.value);
       fileRecords.add(createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute as RepositoryAttributeDVO));
     }
-    _fileRecords = fileRecords;
-    _filterAndSort();
+
+    final tags = fileRecords.expand((fileRecord) => fileRecord.fileReferenceAttribute?.tags ?? <String>[]).toSet();
+
+    setState(() {
+      _availableTags = tags;
+      _fileRecords = fileRecords;
+    });
   }
 
   void _filterAndSort() {
-    if (_activeFilters.isEmpty) {
-      final sorted = _fileRecords!..sort(_compareFunction(_sortingType, _isSortedAscending));
-      setState(() => _filteredFileRecords = sorted);
+    if (_fileRecords == null) return;
+
+    setState(() => _filteringFiles = true);
+
+    var filteredFiles = <FileRecord>[];
+
+    if (_filterOption == FilesFilterOption.unviewed) {
+      filteredFiles = _fileRecords!.where((e) => e.fileReferenceAttribute?.wasViewedAt == null).toList();
+    } else if (_filterOption == FilesFilterOption.expired) {
+      filteredFiles = _fileRecords!.where((e) {
+        final expiresAt = DateTime.tryParse(e.file.expiresAt);
+        return expiresAt != null && expiresAt.isBefore(DateTime.now());
+      }).toList();
+    } else {
+      filteredFiles = _fileRecords!;
+    }
+
+    if (_activeTagFilters.isEmpty && _activeTypeFilters.isEmpty) {
+      filteredFiles.sort(_compareFunction());
+      setState(() {
+        _filteredFileRecords = filteredFiles;
+        _filteringFiles = false;
+      });
       return;
     }
 
-    final filteredFiles = _fileRecords!.where((fileRecord) => _activeFilters.contains(FileFilterType.fromMimetype(fileRecord.file.mimetype))).toList()
-      ..sort(_compareFunction(_sortingType, _isSortedAscending));
+    final filteredFilesWithTypesAndTags = filteredFiles.where((file) {
+      final matchesType = _activeTypeFilters.isEmpty || _activeTypeFilters.contains(FileFilterType.fromMimetype(file.file.mimetype));
+      final matchesTags = _activeTagFilters.isEmpty || (file.fileReferenceAttribute?.tags?.any(_activeTagFilters.contains) ?? false);
+      return matchesType && matchesTags;
+    }).toList()..sort(_compareFunction());
 
-    setState(() => _filteredFileRecords = filteredFiles);
+    setState(() {
+      _filteredFileRecords = filteredFilesWithTypesAndTags;
+      _filteringFiles = false;
+    });
   }
 
-  int Function(FileRecord, FileRecord) _compareFunction(_FilesSortingType type, bool isSortedAscending) => switch (type) {
-    _FilesSortingType.date =>
-      (a, b) => isSortedAscending ? a.file.createdAt.compareTo(b.file.createdAt) : b.file.createdAt.compareTo(a.file.createdAt),
-    _FilesSortingType.name => (a, b) {
-      if (isSortedAscending) return a.file.name.toLowerCase().compareTo(b.file.name.toLowerCase());
-      return b.file.name.toLowerCase().compareTo(a.file.name.toLowerCase());
-    },
-    _FilesSortingType.type => (a, b) {
-      final aType = a.file.mimetype.split('/').last;
-      final bType = b.file.mimetype.split('/').last;
-      return isSortedAscending ? aType.compareTo(bType) : bType.compareTo(aType);
-    },
-    _FilesSortingType.size => (a, b) => isSortedAscending ? a.file.filesize.compareTo(b.file.filesize) : b.file.filesize.compareTo(a.file.filesize),
-  };
+  int Function(FileRecord, FileRecord) _compareFunction() {
+    if (_activeTypeFilters.isNotEmpty) {
+      return (a, b) {
+        final aType = a.file.mimetype.split('/').last;
+        final bType = b.file.mimetype.split('/').last;
+        return bType.compareTo(aType);
+      };
+    }
+    return (a, b) => b.file.createdAt.compareTo(a.file.createdAt);
+  }
 
   void _uploadFile() {
     showModalBottomSheet<void>(
@@ -281,52 +285,59 @@ class _FilesScreenState extends State<FilesScreen> {
       ),
     );
   }
+
+  Future<void> _showTags() async {
+    return showSelectFileTags(
+      context,
+      availableTags: _availableTags,
+      activeTags: _activeTagFilters,
+      onApplyTags: (selectedTags) {
+        setState(() => _activeTagFilters = selectedTags);
+        _filterAndSort();
+      },
+    );
+  }
+
+  Future<void> _showTypes() async {
+    final availableTypes = _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet();
+
+    return showSelectFileTypes(
+      context,
+      availableTypes: availableTypes,
+      activeTypes: _activeTypeFilters,
+      onApplyTypes: (selectedFilters) {
+        setState(() => _activeTypeFilters = selectedFilters);
+        _filterAndSort();
+      },
+    );
+  }
 }
 
-class _FilterBar extends StatelessWidget {
-  final Set<FileFilterType> activeFilters;
-  final void Function(FileFilterType) onRemoveFilter;
-  final void Function() onResetFilters;
+class _EmptyFilesIndicator extends StatelessWidget {
+  final String accountId;
+  final FilesFilterOption filterOption;
+  final VoidCallback uploadFile;
 
-  const _FilterBar({required this.activeFilters, required this.onRemoveFilter, required this.onResetFilters});
+  const _EmptyFilesIndicator({required this.accountId, required this.filterOption, required this.uploadFile});
 
   @override
   Widget build(BuildContext context) {
-    final activeFilters = this.activeFilters.map((e) => (filter: e, label: e.toLabel(context))).toList()
-      ..sort((a, b) {
-        if (a.filter is OtherFileFilterType) return 1;
-        if (b.filter is OtherFileFilterType) return -1;
-        return a.label.compareTo(b.label);
-      });
-
-    return ColoredBox(
-      color: Theme.of(context).colorScheme.surfaceContainerLow,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
-        child: Row(
-          children: [
-            Expanded(
-              child: Wrap(
-                spacing: 12,
-                children: activeFilters.map((e) {
-                  return Chip(
-                    label: Text(e.label),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
-                    ),
-                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-                    padding: EdgeInsets.zero,
-                    labelPadding: const EdgeInsets.only(left: 8),
-                    deleteIcon: const Icon(Icons.close),
-                    onDeleted: () => onRemoveFilter(e.filter),
-                  );
-                }).toList(),
-              ),
-            ),
-            IconButton(onPressed: onResetFilters, icon: const Icon(Icons.close)),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 24),
+      child: EmptyListIndicator(
+        icon: filterOption.emptyListIcon!,
+        text: switch (filterOption) {
+          FilesFilterOption.unviewed => context.l10n.files_noNewFiles,
+          FilesFilterOption.expired => context.l10n.files_noExpiredFiles,
+          _ => context.l10n.files_noFilesAvailable,
+        },
+        description: switch (filterOption) {
+          FilesFilterOption.unviewed || FilesFilterOption.expired => null,
+          _ => context.l10n.files_noFilesAvailable_description,
+        },
+        action: filterOption == FilesFilterOption.all
+            ? TextButton(onPressed: uploadFile, child: Text(context.l10n.files_noFilesAvailable_addFiles))
+            : null,
       ),
     );
   }
