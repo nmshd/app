@@ -58,19 +58,7 @@ class _SelectFileTagsState extends State<_SelectFileTags> {
             ),
           ),
           if (widget.availableTags.isEmpty)
-            Padding(
-              padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(context.l10n.files_filter_byTagEmpty, style: Theme.of(context).textTheme.bodyMedium),
-                  Gaps.h32,
-                  Center(
-                    child: FilledButton(onPressed: () => context.pop(), child: Text(context.l10n.error_understood)),
-                  ),
-                ],
-              ),
-            )
+            const _NoTagsAvailable()
           else
             Flexible(
               child: SingleChildScrollView(
@@ -117,6 +105,27 @@ class _SelectFileTagsState extends State<_SelectFileTags> {
                 ),
               ),
             ),
+        ],
+      ),
+    );
+  }
+}
+
+class _NoTagsAvailable extends StatelessWidget {
+  const _NoTagsAvailable();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(context.l10n.files_filter_byTagEmpty, style: Theme.of(context).textTheme.bodyMedium),
+          Gaps.h32,
+          Center(
+            child: FilledButton(onPressed: () => context.pop(), child: Text(context.l10n.error_understood)),
+          ),
         ],
       ),
     );
