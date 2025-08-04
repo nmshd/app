@@ -10,8 +10,6 @@ class FilesFilterChipBar extends StatelessWidget {
   final Future<void> Function(FilesFilterOption option) setFilter;
   final bool typeFiltersActive;
   final bool tagFiltersActive;
-  final bool selectTagsEnabled;
-  final bool selectTypesEnabled;
   final VoidCallback showTags;
   final VoidCallback showTypes;
 
@@ -20,8 +18,6 @@ class FilesFilterChipBar extends StatelessWidget {
     required this.setFilter,
     required this.typeFiltersActive,
     required this.tagFiltersActive,
-    required this.selectTagsEnabled,
-    required this.selectTypesEnabled,
     required this.showTags,
     required this.showTypes,
     super.key,
@@ -35,8 +31,8 @@ class FilesFilterChipBar extends StatelessWidget {
         for (final option in FilesFilterOption.values)
           _FilesCondensedFilterChip(
             onPressed: () => switch (option) {
-              FilesFilterOption.tag => selectTagsEnabled ? showTags() : null,
-              FilesFilterOption.type => selectTypesEnabled ? showTypes() : null,
+              FilesFilterOption.tag => showTags(),
+              FilesFilterOption.type => showTypes(),
               _ => setFilter(option),
             },
             icon: option.filterIcon,

@@ -10,14 +10,12 @@ Future<void> showSelectFileTypes(
   required Set<FileFilterType> availableTypes,
   required Set<FileFilterType> activeTypes,
   required void Function(Set<FileFilterType>) onApplyTypes,
-  required VoidCallback enableSelectTypes,
 }) async {
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
     builder: (_) => _SelectFileTypes(availableTypes: availableTypes, onApplyTypes: onApplyTypes, activeTypes: activeTypes),
   );
-  enableSelectTypes();
 }
 
 class _SelectFileTypes extends StatefulWidget {

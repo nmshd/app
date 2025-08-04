@@ -32,8 +32,6 @@ class _FilesScreenState extends State<FilesScreen> {
   Set<String> _activeTagFilters = {};
   Set<FileFilterType> _activeTypeFilters = {};
 
-  bool _selectTagsEnabled = true;
-  bool _selectTypesEnabled = true;
   bool _filteringFiles = false;
 
   late FilesFilterOption _filterOption;
@@ -91,8 +89,6 @@ class _FilesScreenState extends State<FilesScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             FilesFilterChipBar(
-              selectTagsEnabled: _selectTagsEnabled,
-              selectTypesEnabled: _selectTypesEnabled,
               selectedFilterOption: _filterOption,
               typeFiltersActive: _activeTypeFilters.isNotEmpty,
               tagFiltersActive: _activeTagFilters.isNotEmpty,
@@ -179,9 +175,11 @@ class _FilesScreenState extends State<FilesScreen> {
       fileRecords.add(createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute as RepositoryAttributeDVO));
     }
 
-    final tags = <String>{};
-    _fileRecords = fileRecords;
-    _fileRecords?.forEach((element) => element.fileReferenceAttribute?.tags?.forEach(tags.add));
+    final tags = fileRecords.fold<Set<String>>({}, (Set<String> tags, FileRecord fileRecord) {
+      final fileTags = fileRecord.fileReferenceAttribute?.tags;
+      if (fileTags != null) tags.addAll(fileTags);
+      return tags;
+    });
 
     setState(() => _availableTags = tags);
   }
@@ -296,19 +294,10 @@ class _FilesScreenState extends State<FilesScreen> {
   }
 
   Future<void> _showTags() async {
-    setState(() => _selectTagsEnabled = false);
-    await _loadFiles();
-
-    if (!mounted) {
-      setState(() => _selectTagsEnabled = true);
-      return;
-    }
-
     return showSelectFileTags(
       context,
       availableTags: _availableTags,
       activeTags: _activeTagFilters,
-      enableSelectTags: () => setState(() => _selectTagsEnabled = true),
       onApplyTags: (selectedTags) {
         setState(() => _activeTagFilters = selectedTags);
         _filterAndSort();
@@ -317,21 +306,12 @@ class _FilesScreenState extends State<FilesScreen> {
   }
 
   Future<void> _showTypes() async {
-    setState(() => _selectTypesEnabled = false);
-    await _loadFiles();
-
-    if (!mounted) {
-      setState(() => _selectTypesEnabled = true);
-      return;
-    }
-
     final availableTypes = _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet();
 
     return showSelectFileTypes(
       context,
       availableTypes: availableTypes,
       activeTypes: _activeTypeFilters,
-      enableSelectTypes: () => setState(() => _selectTypesEnabled = true),
       onApplyTypes: (selectedFilters) {
         setState(() => _activeTypeFilters = selectedFilters);
         _filterAndSort();

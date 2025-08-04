@@ -10,14 +10,12 @@ Future<void> showSelectFileTags(
   required Set<String> availableTags,
   required Set<String> activeTags,
   required void Function(Set<String>) onApplyTags,
-  required VoidCallback enableSelectTags,
 }) async {
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
     builder: (_) => _SelectFileTags(availableTags: availableTags, activeTags: activeTags, onApplyTags: onApplyTags),
   );
-  enableSelectTags();
 }
 
 class _SelectFileTags extends StatefulWidget {
