@@ -37,7 +37,7 @@ class _CreateAttributeRequestItemRendererState extends State<CreateAttributeRequ
     super.initState();
 
     if (widget.item.response != null) {
-      _isChecked = widget.item.response is AcceptRequestItemParameters;
+      _isChecked = widget.item.response is AcceptResponseItemDVO;
     } else {
       _isChecked = widget.item.initiallyChecked;
     }
