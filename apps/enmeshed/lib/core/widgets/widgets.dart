@@ -19,5 +19,4 @@ export 'request_dvo_renderer.dart';
 export 'scan_recovery_kit_screen.dart';
 export 'scan_screen.dart';
 export 'scanner_view/scanner_view.dart';
-export 'sort_bar.dart';
 export 'upload_file.dart';

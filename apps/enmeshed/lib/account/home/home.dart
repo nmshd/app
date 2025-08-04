@@ -95,8 +95,10 @@ class _HomeViewState extends State<HomeView> {
                     child: BannerCard(
                       title: context.l10n.home_newFiles,
                       type: BannerCardType.info,
-                      // TODO(nicole-eb): Go to the filtered list as soon as filters are available there
-                      actionButton: (onPressed: () => context.push('/account/${widget.accountId}/my-data/files'), title: context.l10n.show),
+                      actionButton: (
+                        onPressed: () => context.push('/account/${widget.accountId}/my-data/files?showUnviewedFiles=true'),
+                        title: context.l10n.show,
+                      ),
                     ),
                   ),
 
