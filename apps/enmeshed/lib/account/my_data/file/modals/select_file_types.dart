@@ -14,7 +14,10 @@ Future<void> showSelectFileTypes(
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    builder: (_) => _SelectFileTypes(availableTypes: availableTypes, onApplyTypes: onApplyTypes, activeTypes: activeTypes),
+    builder: (_) => ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.75),
+      child: _SelectFileTypes(availableTypes: availableTypes, onApplyTypes: onApplyTypes, activeTypes: activeTypes),
+    ),
   );
 }
 
@@ -54,70 +57,68 @@ class _SelectFileTypesState extends State<_SelectFileTypes> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 8, left: 24, right: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(context.l10n.files_filter_byFileType, style: Theme.of(context).textTheme.titleLarge),
-                IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.close)),
-              ],
-            ),
-          ),
+          BottomSheetHeader(title: context.l10n.files_filter_byFileType),
           if (availableFilters.isEmpty)
             const _NoFileTypesAvailable()
-          else
+          else ...[
             Flexible(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Wrap(
-                      spacing: 10,
-                      children: availableFilters.map((e) {
-                        return FilterChip(
-                          label: Text(e.label),
-                          shape: StadiumBorder(
-                            side: BorderSide(
-                              color: _selectedFilters.contains(e.filter)
-                                  ? Theme.of(context).colorScheme.secondaryContainer
-                                  : Theme.of(context).colorScheme.outline,
+              child: Scrollbar(
+                thumbVisibility: true,
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Wrap(
+                        spacing: 10,
+                        children: availableFilters.map((e) {
+                          return FilterChip(
+                            label: Text(e.label),
+                            shape: StadiumBorder(
+                              side: BorderSide(
+                                color: _selectedFilters.contains(e.filter)
+                                    ? Theme.of(context).colorScheme.secondaryContainer
+                                    : Theme.of(context).colorScheme.outline,
+                              ),
                             ),
-                          ),
-                          avatar: switch (e.filter) {
-                            PDFFileFilterType() => Icon(Icons.picture_as_pdf, color: Theme.of(context).colorScheme.onSurface),
-                            PNGFileFilterType() || JPGFileFilterType() => Icon(Icons.image, color: Theme.of(context).colorScheme.onSurface),
-                            OtherFileFilterType() => null,
-                            _ => Icon(Icons.insert_drive_file, color: Theme.of(context).colorScheme.onSurface),
-                          },
-                          showCheckmark: false,
-                          selected: _selectedFilters.contains(e.filter),
-                          onSelected: (_) => setState(() => _selectedFilters.toggle(e.filter)),
-                        );
-                      }).toList(),
-                    ),
-                    Gaps.h48,
-                    Row(
-                      spacing: 8,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
-                        FilledButton(
-                          onPressed: _selectedFilters.isNotEmpty
-                              ? () {
-                                  widget.onApplyTypes(_selectedFilters);
-                                  context.pop();
-                                }
-                              : null,
-                          child: Text(context.l10n.apply_filter),
-                        ),
-                      ],
-                    ),
-                  ],
+                            avatar: switch (e.filter) {
+                              PDFFileFilterType() => Icon(Icons.picture_as_pdf, color: Theme.of(context).colorScheme.onSurface),
+                              PNGFileFilterType() || JPGFileFilterType() => Icon(Icons.image, color: Theme.of(context).colorScheme.onSurface),
+                              OtherFileFilterType() => null,
+                              _ => Icon(Icons.insert_drive_file, color: Theme.of(context).colorScheme.onSurface),
+                            },
+                            showCheckmark: false,
+                            selected: _selectedFilters.contains(e.filter),
+                            onSelected: (_) => setState(() => _selectedFilters.toggle(e.filter)),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
+            Gaps.h24,
+            Padding(
+              padding: const EdgeInsets.only(right: 24),
+              child: Row(
+                spacing: 8,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+                  FilledButton(
+                    onPressed: _selectedFilters.isNotEmpty
+                        ? () {
+                            widget.onApplyTypes(_selectedFilters);
+                            context.pop();
+                          }
+                        : null,
+                    child: Text(context.l10n.apply_filter),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ],
       ),
     );
