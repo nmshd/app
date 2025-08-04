@@ -51,11 +51,6 @@ class ResponseItemRenderer extends StatelessWidget {
         expandFileReference: expandFileReference,
         openFileDetails: openFileDetails,
       ),
-      final CreateAttributeAcceptResponseItemDVO dvo => CreateAttributeAcceptResponseItemRenderer(
-        item: dvo,
-        expandFileReference: expandFileReference,
-        openFileDetails: openFileDetails,
-      ),
       final ErrorResponseItemDVO dvo => ErrorResponseItemRenderer(item: dvo),
       final RejectResponseItemDVO _ => RequestItemRenderer(
         item: requestItem,

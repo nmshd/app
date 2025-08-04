@@ -120,7 +120,7 @@ class _ConsentBox extends StatelessWidget {
                 TableCell(
                   verticalAlignment: TableCellVerticalAlignment.middle,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 8).copyWith(right: 8),
                     child: StyledText(
                       text: item.consent.replaceAllMapped(RegExp(r'(https?:\/\/[^\s\\]+)'), (match) => '<link>${match.group(1)}</link>'),
                       maxLines: 4,
