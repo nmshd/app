@@ -175,13 +175,12 @@ class _FilesScreenState extends State<FilesScreen> {
       fileRecords.add(createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute as RepositoryAttributeDVO));
     }
 
-    final tags = fileRecords.fold<Set<String>>({}, (Set<String> tags, FileRecord fileRecord) {
-      final fileTags = fileRecord.fileReferenceAttribute?.tags;
-      if (fileTags != null) tags.addAll(fileTags);
-      return tags;
-    });
+    final tags = fileRecords.expand((fileRecord) => fileRecord.fileReferenceAttribute?.tags ?? <String>[]).toSet();
 
-    setState(() => _availableTags = tags);
+    setState(() {
+      _availableTags = tags;
+      _fileRecords = fileRecords;
+    });
   }
 
   void _filterAndSort() {
