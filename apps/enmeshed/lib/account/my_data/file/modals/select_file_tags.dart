@@ -87,7 +87,7 @@ class _SelectFileTagsState extends State<_SelectFileTags> {
             ),
             Gaps.h24,
             Padding(
-              padding: const EdgeInsets.only(right: 24),
+              padding: const EdgeInsets.only(right: 24, bottom: 8),
               child: Row(
                 spacing: 8,
                 mainAxisAlignment: MainAxisAlignment.end,
