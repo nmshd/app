@@ -44,19 +44,16 @@ class RequestItemRenderer extends StatelessWidget {
       color: backgroundColor,
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: switch (item) {
-        final ReadAttributeRequestItemDVO dvo =>
-          dvo.isDecidable
-              ? DecidableReadAttributeRequestItemRenderer(
-                  controller: controller,
-                  item: dvo,
-                  itemIndex: itemIndex,
-                  openAttributeSwitcher: openAttributeSwitcher,
-                  currentAddress: currentAddress,
-                  expandFileReference: expandFileReference,
-                  chooseFile: chooseFile,
-                  openFileDetails: openFileDetails,
-                )
-              : ReadAttributeRequestItemRenderer(item: dvo),
+        final ReadAttributeRequestItemDVO dvo => ReadAttributeRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          openAttributeSwitcher: openAttributeSwitcher,
+          currentAddress: currentAddress,
+          expandFileReference: expandFileReference,
+          chooseFile: chooseFile,
+          openFileDetails: openFileDetails,
+        ),
         final ProposeAttributeRequestItemDVO dvo =>
           dvo.isDecidable
               ? DecidableProposeAttributeRequestItemRenderer(
