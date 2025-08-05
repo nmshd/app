@@ -2,6 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '/src/attribute/attribute_renderer.dart';
 import '../../request_item_index.dart';
 import '../request_item_renderer.dart';
 import 'error_response_item_renderer.dart';
@@ -30,19 +31,27 @@ class ResponseItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (requestItem is! ProposeAttributeRequestItemDVO && requestItem is! RegisterAttributeListenerRequestItemDVO) {
+      return RequestItemRenderer(
+        item: requestItem,
+        itemIndex: itemIndex,
+        currentAddress: currentAddress,
+        expandFileReference: expandFileReference,
+        chooseFile: chooseFile,
+        openFileDetails: openFileDetails,
+      );
+    }
+
     final widget = switch (responseItem) {
-      final AttributeAlreadySharedAcceptResponseItemDVO dvo => AttributeAlreadySharedAcceptResponseItemRenderer(
-        item: dvo,
+      final AttributeAlreadySharedAcceptResponseItemDVO dvo => AttributeRenderer(
+        attribute: dvo.attribute.content,
+        valueHints: dvo.attribute.valueHints,
         expandFileReference: expandFileReference,
         openFileDetails: openFileDetails,
       ),
-      final AttributeSuccessionAcceptResponseItemDVO dvo => AttributeSuccessionAcceptResponseItemRenderer(
-        item: dvo,
-        expandFileReference: expandFileReference,
-        openFileDetails: openFileDetails,
-      ),
-      final ReadAttributeAcceptResponseItemDVO dvo => ReadAttributeAcceptResponseItemRenderer(
-        item: dvo,
+      final AttributeSuccessionAcceptResponseItemDVO dvo => AttributeRenderer(
+        attribute: dvo.successor.content,
+        valueHints: dvo.successor.valueHints,
         expandFileReference: expandFileReference,
         openFileDetails: openFileDetails,
       ),
