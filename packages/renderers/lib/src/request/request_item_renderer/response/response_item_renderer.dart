@@ -55,7 +55,6 @@ class ResponseItemRenderer extends StatelessWidget {
       final ErrorResponseItemDVO dvo => ErrorResponseItemRenderer(item: dvo),
       final RejectResponseItemDVO _ => RequestItemRenderer(
         item: requestItem,
-        isRejected: true,
         itemIndex: itemIndex,
         currentAddress: currentAddress,
         expandFileReference: expandFileReference,

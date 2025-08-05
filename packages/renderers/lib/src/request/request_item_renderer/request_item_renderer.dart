@@ -13,7 +13,6 @@ class RequestItemRenderer extends StatelessWidget {
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
   final LocalRequestStatus? requestStatus;
-  final bool isRejected;
   final OpenAttributeSwitcherFunction? openAttributeSwitcher;
 
   final Future<FileDVO> Function(String) expandFileReference;
@@ -31,7 +30,6 @@ class RequestItemRenderer extends StatelessWidget {
     required this.itemIndex,
     this.controller,
     this.requestStatus,
-    this.isRejected = false,
     this.openAttributeSwitcher,
     required this.expandFileReference,
     required this.chooseFile,
