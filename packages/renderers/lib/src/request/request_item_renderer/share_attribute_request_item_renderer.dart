@@ -48,19 +48,22 @@ class _ShareAttributeRequestItemRendererState extends State<ShareAttributeReques
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Checkbox(value: _isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-        Expanded(
-          child: AttributeRenderer(
-            attribute: widget.item.attribute.content,
-            valueHints: widget.item.attribute.valueHints,
-            expandFileReference: widget.expandFileReference,
-            openFileDetails: widget.openFileDetails,
-            titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Row(
+        children: [
+          Checkbox(value: _isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+          Expanded(
+            child: AttributeRenderer(
+              attribute: widget.item.attribute.content,
+              valueHints: widget.item.attribute.valueHints,
+              expandFileReference: widget.expandFileReference,
+              openFileDetails: widget.openFileDetails,
+              titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

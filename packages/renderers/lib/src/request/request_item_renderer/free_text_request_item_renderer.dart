@@ -42,13 +42,16 @@ class _FreeTextRequestItemRendererState extends State<FreeTextRequestItemRendere
     }
 
     final active = widget.item.isDecidable && !widget.item.initiallyChecked;
-    return Row(
-      children: [
-        Checkbox(value: _isChecked, onChanged: active ? onUpdateCheckbox : null),
-        Expanded(
-          child: CustomListTile(title: widget.item.name, description: widget.item.description, thirdLine: widget.item.freeText),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Row(
+        children: [
+          Checkbox(value: _isChecked, onChanged: active ? onUpdateCheckbox : null),
+          Expanded(
+            child: CustomListTile(title: widget.item.name, description: widget.item.description, thirdLine: widget.item.freeText),
+          ),
+        ],
+      ),
     );
   }
 
