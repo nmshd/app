@@ -73,34 +73,6 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
   Widget build(BuildContext context) {
     // TODO: show the help line
 
-    // if (widget.item.response != null) {
-    //   return switch (widget.item.response) {
-    //     final ReadAttributeAcceptResponseItemDVO response => AttributeRenderer(
-    //       attribute: response.attribute.content,
-    //       valueHints: response.attribute.valueHints,
-    //       expandFileReference: widget.expandFileReference,
-    //       openFileDetails: widget.openFileDetails,
-    //     ),
-    //     final AttributeAlreadySharedAcceptResponseItemDVO response => AttributeRenderer(
-    //       attribute: response.attribute.content,
-    //       valueHints: response.attribute.valueHints,
-    //       expandFileReference: widget.expandFileReference,
-    //       openFileDetails: widget.openFileDetails,
-    //     ),
-    //     final AttributeSuccessionAcceptResponseItemDVO response => AttributeRenderer(
-    //       attribute: response.successor.content,
-    //       valueHints: response.successor.valueHints,
-    //       expandFileReference: widget.expandFileReference,
-    //       openFileDetails: widget.openFileDetails,
-    //     ),
-    //     // TODO: how to show rejection?
-    //     final RejectResponseItemDVO
-    //     _ =>
-    //       TranslatedText('rejected', style: const TextStyle(color: Colors.red)),
-    //     _ => throw Exception('Unknown response type: ${widget.item.response.runtimeType}'),
-    //   };
-    // }
-
     return InkWell(
       onTap: _onUpdateAttribute,
       child: Padding(
@@ -116,7 +88,6 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
                     child: AttributeRenderer(
                       attribute: _choice!.attribute,
                       valueHints: _getQueryValueHints()!,
-                      // value: selectedAttribute is RelationshipAttribute ? selectedAttribute.value : query.results.first.value as RelationshipAttributeValue,
                       trailing: SizedBox(
                         width: 50,
                         child: IconButton(onPressed: () => _onUpdateAttribute(), icon: const Icon(Icons.chevron_right)),
@@ -165,25 +136,6 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
         ),
       ),
     );
-
-    // if (item.isDecidable) {
-    //   return DecidableReadAttributeRequestItemRenderer(
-    //     currentAddress: currentAddress,
-    //     item: item,
-    //     itemIndex: itemIndex,
-    //     controller: controller,
-    //     openAttributeSwitcher: openAttributeSwitcher,
-    //     expandFileReference: expandFileReference,
-    //     chooseFile: chooseFile,
-    //     openFileDetails: openFileDetails,
-    //   );
-    // }
-
-    // // TODO: this case should be handled by the renderer above (but disabled)
-    // return Padding(
-    //   padding: const EdgeInsets.symmetric(vertical: 12),
-    //   child: TranslatedText(item.query.name, style: const TextStyle(fontSize: 16)),
-    // );
   }
 
   String? get _valueType => switch (widget.item.query) {
