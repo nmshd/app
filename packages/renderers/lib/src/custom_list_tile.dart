@@ -27,21 +27,23 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = this.title.startsWith('i18n://') ? FlutterI18n.translate(context, this.title.substring(7)) : this.title;
+
     return Row(
       children: [
         Expanded(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 2,
             children: [
               if (showTitle)
                 Text(
                   titleOverride != null ? titleOverride!(title) : title,
                   style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
-              if (description != null) ...[const SizedBox(height: 2), TranslatedText(description!, style: valueTextStyle)],
-              if (thirdLine != null) ...[const SizedBox(height: 2), TranslatedText(thirdLine!, style: valueTextStyle)],
-              if (extraLine != null) ...[const SizedBox(height: 2), extraLine!],
+              if (description != null) TranslatedText(description!, style: valueTextStyle),
+              if (thirdLine != null) TranslatedText(thirdLine!, style: valueTextStyle),
+              ?extraLine,
             ],
           ),
         ),
