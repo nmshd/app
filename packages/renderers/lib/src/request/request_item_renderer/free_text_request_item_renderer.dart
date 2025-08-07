@@ -43,7 +43,7 @@ class _FreeTextRequestItemRendererState extends State<FreeTextRequestItemRendere
 
     final active = widget.item.isDecidable && !widget.item.initiallyChecked;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       child: Row(
         children: [
           Checkbox(value: _isChecked, onChanged: active ? onUpdateCheckbox : null),
