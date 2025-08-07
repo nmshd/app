@@ -71,9 +71,6 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
         widget.openFileDetails(widget.item.file);
       },
       child: Padding(
-        // TODO: there was a padding of 8 here and 12 around, so maybe this should be
-        // a) 20
-        // b) 8 and the InkWell should have an additional padding around of 8
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Column(
           spacing: 8,
