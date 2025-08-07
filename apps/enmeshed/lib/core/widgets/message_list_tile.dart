@@ -118,7 +118,7 @@ class _MessageListTileTitle extends StatelessWidget {
         if (subject.isNotEmpty)
           HighlightText(text: subject, query: query, textStyle: subjectStyle, maxLines: 1)
         else
-          Text(context.l10n.mailbox_noSubject, style: subjectStyle!.copyWith(color: Theme.of(context).colorScheme.outline)),
+          Text(context.l10n.mailbox_noSubject, style: subjectStyle!.copyWith(color: Theme.of(context).colorScheme.outlineVariant)),
         if (body.isNotEmpty) HighlightText(text: body, query: query, textStyle: Theme.of(context).textTheme.labelMedium, maxLines: 1),
       ],
     );

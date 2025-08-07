@@ -69,7 +69,7 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
         widget.openFileDetails(widget.item.file);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Column(
           spacing: 8,
           children: [
@@ -88,7 +88,7 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
             Row(
               spacing: 8,
               children: [
-                if (widget.item.isDecidable) Checkbox(value: _isChecked, onChanged: widget.item.mustBeAccepted ? null : _onUpdateDecision),
+                Checkbox(value: _isChecked, onChanged: widget.item.mustBeAccepted || !widget.item.isDecidable ? null : _onUpdateDecision),
                 FileIcon(filename: widget.item.file.filename, color: Theme.of(context).colorScheme.primary, size: 32),
                 Expanded(
                   child: Column(
