@@ -90,7 +90,6 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
             Row(
               spacing: 8,
               children: [
-                if (widget.item.isDecidable)
                   Checkbox(
                     value: _isChecked || (widget.item.requireManualDecision ?? false),
                     onChanged: widget.item.mustBeAccepted || (widget.item.requireManualDecision ?? false) ? null : _onUpdateDecision,
