@@ -234,7 +234,7 @@ class _EmptyAttributeEntry extends StatelessWidget {
       ),
       subtitle: Text(
         context.l10n.myData_noEntryForAttributeType,
-        style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
+        style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outlineVariant),
       ),
       trailing: TextButton.icon(
         icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 20),
