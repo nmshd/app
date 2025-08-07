@@ -6,6 +6,7 @@ import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
 import 'decidable/widgets/handle_checkbox_change.dart';
 import 'extensions/extensions.dart';
+import 'widgets/validation_error_box.dart';
 
 class CreateAttributeRequestItemRenderer extends StatefulWidget {
   final CreateAttributeRequestItemDVO item;
@@ -49,18 +50,28 @@ class _CreateAttributeRequestItemRendererState extends State<CreateAttributeRequ
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Checkbox(value: _isChecked, onChanged: widget.item.isDecidable && !widget.item.initiallyChecked ? _onUpdateCheckbox : null),
-        Expanded(
-          child: AttributeRenderer(
-            attribute: widget.item.attribute.content,
-            valueHints: widget.item.attribute.valueHints,
-            expandFileReference: widget.expandFileReference,
-            openFileDetails: widget.openFileDetails,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      child: Column(
+        spacing: 8,
+        children: [
+          Row(
+            spacing: 8,
+            children: [
+              Checkbox(value: _isChecked, onChanged: widget.item.isDecidable && !widget.item.initiallyChecked ? _onUpdateCheckbox : null),
+              Expanded(
+                child: AttributeRenderer(
+                  attribute: widget.item.attribute.content,
+                  valueHints: widget.item.attribute.valueHints,
+                  expandFileReference: widget.expandFileReference,
+                  openFileDetails: widget.openFileDetails,
+                ),
+              ),
+            ],
           ),
-        ),
-      ],
+          if (!(widget.validationResult?.isSuccess ?? true)) ValidationErrorBox(validationResult: widget.validationResult!),
+        ],
+      ),
     );
   }
 

@@ -13,7 +13,7 @@ class ValidationErrorBox extends StatelessWidget {
       borderRadius: BorderRadius.circular(4),
       color: Theme.of(context).colorScheme.error,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(4),
         child: Row(
           spacing: 4,
           children: [

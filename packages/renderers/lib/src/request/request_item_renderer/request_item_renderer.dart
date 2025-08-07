@@ -1,5 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import '../open_attribute_switcher_function.dart';
 import '../request_item_index.dart';
@@ -42,9 +42,8 @@ class RequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Ink(
       color: backgroundColor,
-      padding: const EdgeInsets.symmetric(vertical: 12),
       child: switch (item) {
         final ReadAttributeRequestItemDVO dvo =>
           dvo.isDecidable
@@ -59,8 +58,9 @@ class RequestItemRenderer extends StatelessWidget {
                   openFileDetails: openFileDetails,
                 )
               : ReadAttributeRequestItemRenderer(item: dvo),
-        final ProposeAttributeRequestItemDVO dvo =>
-          dvo.isDecidable
+        final ProposeAttributeRequestItemDVO dvo => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          child: dvo.isDecidable
               ? DecidableProposeAttributeRequestItemRenderer(
                   controller: controller,
                   item: dvo,
@@ -70,6 +70,7 @@ class RequestItemRenderer extends StatelessWidget {
                   openFileDetails: openFileDetails,
                 )
               : ProposeAttributeRequestItemRenderer(item: dvo),
+        ),
         final CreateAttributeRequestItemDVO dvo => CreateAttributeRequestItemRenderer(
           item: dvo,
           controller: controller,
@@ -98,10 +99,12 @@ class RequestItemRenderer extends StatelessWidget {
           itemIndex: itemIndex,
           validationResult: validationResult,
         ),
-        final RegisterAttributeListenerRequestItemDVO dvo =>
-          dvo.isDecidable
+        final RegisterAttributeListenerRequestItemDVO dvo => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          child: dvo.isDecidable
               ? DecidableRegisterAttributeListenerRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex)
               : RegisterAttributeListenerRequestItemRenderer(item: dvo),
+        ),
         final FreeTextRequestItemDVO dvo => FreeTextRequestItemRenderer(
           controller: controller,
           item: dvo,

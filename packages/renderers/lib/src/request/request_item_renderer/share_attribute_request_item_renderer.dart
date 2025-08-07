@@ -7,6 +7,7 @@ import '../request_renderer_controller.dart';
 import 'decidable/checkbox_enabled_extension.dart';
 import 'decidable/widgets/handle_checkbox_change.dart';
 import 'extensions/extensions.dart';
+import 'widgets/validation_error_box.dart';
 
 class ShareAttributeRequestItemRenderer extends StatefulWidget {
   final ShareAttributeRequestItemDVO item;
@@ -48,19 +49,29 @@ class _ShareAttributeRequestItemRendererState extends State<ShareAttributeReques
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Checkbox(value: _isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-        Expanded(
-          child: AttributeRenderer(
-            attribute: widget.item.attribute.content,
-            valueHints: widget.item.attribute.valueHints,
-            expandFileReference: widget.expandFileReference,
-            openFileDetails: widget.openFileDetails,
-            titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      child: Column(
+        spacing: 8,
+        children: [
+          Row(
+            spacing: 8,
+            children: [
+              Checkbox(value: _isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+              Expanded(
+                child: AttributeRenderer(
+                  attribute: widget.item.attribute.content,
+                  valueHints: widget.item.attribute.valueHints,
+                  expandFileReference: widget.expandFileReference,
+                  openFileDetails: widget.openFileDetails,
+                  titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
+                ),
+              ),
+            ],
           ),
-        ),
-      ],
+          if (!(widget.validationResult?.isSuccess ?? true)) ValidationErrorBox(validationResult: widget.validationResult!),
+        ],
+      ),
     );
   }
 

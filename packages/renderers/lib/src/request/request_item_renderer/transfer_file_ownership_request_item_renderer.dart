@@ -71,7 +71,7 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
         widget.openFileDetails(widget.item.file);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Column(
           spacing: 8,
           children: [
