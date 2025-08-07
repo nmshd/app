@@ -90,10 +90,12 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
             Row(
               spacing: 8,
               children: [
-                  Checkbox(
-                    value: _isChecked || (widget.item.requireManualDecision ?? false),
-                    onChanged: widget.item.mustBeAccepted || (widget.item.requireManualDecision ?? false) ? null : _onUpdateDecision,
-                  ),
+                Checkbox(
+                  value: _isChecked || (widget.item.requireManualDecision ?? false),
+                  onChanged: widget.item.mustBeAccepted || (widget.item.requireManualDecision ?? false) || !widget.item.isDecidable
+                      ? null
+                      : _onUpdateDecision,
+                ),
                 FileIcon(filename: widget.item.file.filename, color: Theme.of(context).colorScheme.primary, size: 32),
                 Expanded(
                   child: Column(
