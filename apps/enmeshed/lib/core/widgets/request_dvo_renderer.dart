@@ -68,7 +68,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     _updateIdentityInfo();
 
     if (_request == null) {
-      _loadRequest(session);
+      _loadRequestAndController(session);
     } else {
       _setController(session, _request!);
     }
@@ -93,7 +93,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
       _updateIdentityInfo();
 
       if (_request == null) {
-        _loadRequest(session);
+        _loadRequestAndController(session);
       } else {
         _setController(session, _request!);
       }
@@ -154,6 +154,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     controller: _controller,
                     currentAddress: _identityInfo!.address,
                     openAttributeSwitcher: _openAttributeSwitcher,
+                    createAttribute: _createAttribute,
                     expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                     chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
                     openFileDetails: (file, [LocalAttributeDVO? attribute]) => context.push(
@@ -183,13 +184,22 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     );
   }
 
-  Future<void> _loadRequest(Session session) async {
+  Future<void> _loadRequestAndController(Session session) async {
     final requestDto = widget.isIncoming
         ? await session.consumptionServices.incomingRequests.getRequest(requestId: widget.requestId)
         : await session.consumptionServices.outgoingRequests.getRequest(requestId: widget.requestId);
     final request = await session.expander.expandLocalRequestDTO(requestDto.value);
 
     _setController(session, request);
+    setState(() => _request = request);
+  }
+
+  Future<void> _loadRequest(Session session) async {
+    final requestDto = widget.isIncoming
+        ? await session.consumptionServices.incomingRequests.getRequest(requestId: widget.requestId)
+        : await session.consumptionServices.outgoingRequests.getRequest(requestId: widget.requestId);
+    final request = await session.expander.expandLocalRequestDTO(requestDto.value);
+
     setState(() => _request = request);
   }
 
@@ -302,6 +312,16 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     );
 
     return choice;
+  }
+
+  Future<void> _createAttribute({required String valueType, ValueHints? valueHints}) async {
+    await showCreateAttributeModal(
+      context: context,
+      accountId: widget.accountId,
+      onCreateAttributePressed: null,
+      initialValueType: valueType,
+      onAttributeCreated: () => _loadRequest(GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId)),
+    );
   }
 }
 
