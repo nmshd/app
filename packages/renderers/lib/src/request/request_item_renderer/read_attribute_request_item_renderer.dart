@@ -9,13 +9,15 @@ import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
 import 'decidable/checkbox_enabled_extension.dart';
 import 'extensions/extensions.dart';
+import 'widgets/validation_error_box.dart';
 
 class ReadAttributeRequestItemRenderer extends StatefulWidget {
   final String currentAddress;
   final ReadAttributeRequestItemDVO item;
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
-  final OpenAttributeSwitcherFunction? openAttributeSwitcher;
+  final OpenAttributeSwitcherFunction openAttributeSwitcher;
+  final CreateAttributeFunction createAttribute;
   final RequestValidationResultDTO? validationResult;
 
   final Future<FileDVO> Function(String) expandFileReference;
@@ -29,6 +31,7 @@ class ReadAttributeRequestItemRenderer extends StatefulWidget {
     required this.itemIndex,
     required this.controller,
     required this.openAttributeSwitcher,
+    required this.createAttribute,
     required this.validationResult,
     required this.expandFileReference,
     required this.chooseFile,
@@ -70,68 +73,88 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
   }
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: show the help line
+  void didUpdateWidget(covariant ReadAttributeRequestItemRenderer oldWidget) {
+    if (widget.item == oldWidget.item) return;
+    if (widget.item.response != null || _choice != null) return;
 
+    final choices = _getChoices();
+    if (choices.isEmpty) return;
+
+    setState(() => _choice = _getChoices().firstOrNull);
+
+    if (_isChecked) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: _choice!.id!),
+      );
+    }
+
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return InkWell(
-      onTap: _onUpdateAttribute,
+      onTap: _onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         child: Column(
+          spacing: 8,
           children: [
             Row(
+              spacing: 8,
               children: [
-                // TODO: disable the checkbox if no value can be selected?
-                Checkbox(value: _isChecked, onChanged: widget.item.checkboxEnabled ? _onUpdateCheckbox : null),
+                Checkbox(value: _isChecked, onChanged: widget.item.checkboxEnabled && _getChoices().isNotEmpty ? _onUpdateCheckbox : null),
                 if (_choice != null)
                   Expanded(
                     child: AttributeRenderer(
                       attribute: _choice!.attribute,
                       valueHints: _getQueryValueHints()!,
-                      trailing: SizedBox(
-                        width: 50,
-                        child: IconButton(onPressed: () => _onUpdateAttribute(), icon: const Icon(Icons.chevron_right)),
-                      ),
+                      trailing: Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: const Icon(Icons.chevron_right)),
                       expandFileReference: widget.expandFileReference,
                       openFileDetails: widget.openFileDetails,
                       titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
+                      extraLine: widget.item.description != null
+                          ? Text(widget.item.description!, style: Theme.of(context).textTheme.labelMedium)
+                          : null,
                     ),
                   )
-                else if (widget.item.query is ProcessedThirdPartyRelationshipAttributeQueryDVO)
+                else if (_valueType == null)
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(right: 8.0),
-                      child: TranslatedText(
-                        'i18n://dvo.attributeQuery.ThirdPartyRelationshipAttributeQuery.noResults',
-                        style: TextStyle(color: Theme.of(context).colorScheme.error),
+                      child: Column(
+                        children: [
+                          TranslatedText(
+                            'i18n://dvo.attributeQuery.ThirdPartyRelationshipAttributeQuery.noResults',
+                            style: TextStyle(color: Theme.of(context).colorScheme.error),
+                          ),
+                          if (widget.item.description != null) Text(widget.item.description!, style: Theme.of(context).textTheme.labelMedium),
+                        ],
                       ),
                     ),
                   )
-                else ...[
+                else
                   Expanded(
                     child: CustomListTile(
                       title: 'i18n://dvo.attribute.name.$_valueType',
                       showTitle: true,
                       valueTextStyle: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.outlineVariant),
+                      // TODO: translate
                       description: 'Kein Eintrag',
-                      trailing: SizedBox(
-                        width: 50,
-                        child: IconButton(
-                          onPressed: () => _onUpdateAttribute(),
-                          icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
-                        ),
+                      trailing: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
                       ),
                       titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
+                      extraLine: widget.item.description != null
+                          ? Text(widget.item.description!, style: Theme.of(context).textTheme.labelMedium)
+                          : null,
                     ),
                   ),
-                ],
               ],
             ),
-            if (widget.validationResult != null && !widget.validationResult!.isSuccess)
-              Padding(
-                padding: const EdgeInsets.only(left: 48.0, top: 8.0),
-                child: TranslatedText(widget.validationResult!.code!, style: TextStyle(color: Theme.of(context).colorScheme.error, fontSize: 12)),
-              ),
+            if (!(widget.validationResult?.isSuccess ?? true)) ValidationErrorBox(validationResult: widget.validationResult!),
           ],
         ),
       ),
@@ -149,19 +172,27 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
     final ProcessedIQLQueryDVO query => query.valueType,
   };
 
-  Future<void> _onUpdateAttribute() async {
+  Future<void> _onTap() async {
+    final choices = _getChoices();
+    if (_choice != null) choices.add(_choice!);
+
+    if (choices.isEmpty) {
+      await widget.createAttribute(valueType: _valueType!);
+      setState(() => _isChecked = true);
+      return;
+    }
+
+    await _openAttributeSwitcher(choices);
+  }
+
+  Future<void> _openAttributeSwitcher(Set<AttributeSwitcherChoice> choices) async {
     final valueType = _valueType;
-
-    if (widget.openAttributeSwitcher == null) return;
-
-    final resultValues = Set<AttributeSwitcherChoice>.from(_getChoices());
-    if (_choice != null) resultValues.add(_choice!);
 
     final valueHints = _getQueryValueHints();
 
-    final choice = await widget.openAttributeSwitcher!(
+    final choice = await widget.openAttributeSwitcher(
       valueType: valueType,
-      choices: resultValues.toList(),
+      choices: choices.toList(),
       currentChoice: _choice,
       valueHints: valueHints,
     );
@@ -211,7 +242,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
     };
   }
 
-  List<({String id, AbstractAttribute attribute})> _getChoices() {
+  Set<AttributeSwitcherChoice> _getChoices() {
     final results = switch (widget.item.query as ProcessedAttributeQueryDVO) {
       final ProcessedIdentityAttributeQueryDVO query => query.results,
       final ProcessedRelationshipAttributeQueryDVO query => query.results,
@@ -219,6 +250,6 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
       final ProcessedIQLQueryDVO query => query.results,
     };
 
-    return results.map((result) => (id: result.id, attribute: result.content)).toList();
+    return results.map((result) => (id: result.id, attribute: result.content)).toSet();
   }
 }
