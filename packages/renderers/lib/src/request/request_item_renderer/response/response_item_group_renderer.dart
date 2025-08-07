@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../open_attribute_switcher_function.dart';
 import '../../request_item_index.dart';
 import 'response_item_renderer.dart';
 
@@ -10,6 +11,8 @@ class ResponseItemGroupRenderer extends StatelessWidget {
   final RequestItemGroupDVO requestItemGroup;
   final RequestItemIndex itemIndex;
   final String currentAddress;
+  final OpenAttributeSwitcherFunction openAttributeSwitcher;
+  final CreateAttributeFunction createAttribute;
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
@@ -21,6 +24,8 @@ class ResponseItemGroupRenderer extends StatelessWidget {
     required this.itemIndex,
     required this.requestItemGroup,
     required this.currentAddress,
+    required this.openAttributeSwitcher,
+    required this.createAttribute,
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
@@ -37,6 +42,8 @@ class ResponseItemGroupRenderer extends StatelessWidget {
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,
+        openAttributeSwitcher: openAttributeSwitcher,
+        createAttribute: createAttribute,
       );
     }).toList();
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: responseItems);

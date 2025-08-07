@@ -13,7 +13,8 @@ class RequestItemRenderer extends StatelessWidget {
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
   final LocalRequestStatus? requestStatus;
-  final OpenAttributeSwitcherFunction? openAttributeSwitcher;
+  final OpenAttributeSwitcherFunction openAttributeSwitcher;
+  final CreateAttributeFunction createAttribute;
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
@@ -24,18 +25,19 @@ class RequestItemRenderer extends StatelessWidget {
   final RequestValidationResultDTO? validationResult;
 
   const RequestItemRenderer({
-    super.key,
     required this.currentAddress,
     required this.item,
     required this.itemIndex,
-    this.controller,
-    this.requestStatus,
-    this.openAttributeSwitcher,
+    required this.controller,
+    required this.requestStatus,
+    required this.openAttributeSwitcher,
+    required this.createAttribute,
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
-    this.backgroundColor,
-    this.validationResult,
+    required this.backgroundColor,
+    required this.validationResult,
+    super.key,
   });
 
   @override
@@ -48,6 +50,7 @@ class RequestItemRenderer extends StatelessWidget {
           item: dvo,
           itemIndex: itemIndex,
           openAttributeSwitcher: openAttributeSwitcher,
+          createAttribute: createAttribute,
           currentAddress: currentAddress,
           expandFileReference: expandFileReference,
           chooseFile: chooseFile,

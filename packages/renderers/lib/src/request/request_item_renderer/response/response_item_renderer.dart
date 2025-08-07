@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '/src/attribute/attribute_renderer.dart';
+import '../../open_attribute_switcher_function.dart';
 import '../../request_item_index.dart';
 import '../request_item_renderer.dart';
 import 'error_response_item_renderer.dart';
@@ -13,6 +14,8 @@ class ResponseItemRenderer extends StatelessWidget {
   final RequestItemDVO requestItem;
   final RequestItemIndex itemIndex;
   final String currentAddress;
+  final OpenAttributeSwitcherFunction openAttributeSwitcher;
+  final CreateAttributeFunction createAttribute;
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
@@ -24,6 +27,8 @@ class ResponseItemRenderer extends StatelessWidget {
     required this.responseItem,
     required this.requestItem,
     required this.currentAddress,
+    required this.openAttributeSwitcher,
+    required this.createAttribute,
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
@@ -39,6 +44,12 @@ class ResponseItemRenderer extends StatelessWidget {
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,
+        openAttributeSwitcher: openAttributeSwitcher,
+        createAttribute: createAttribute,
+        controller: null,
+        requestStatus: null,
+        backgroundColor: null,
+        validationResult: null,
       );
     }
 
@@ -62,21 +73,19 @@ class ResponseItemRenderer extends StatelessWidget {
       ),
       final RegisterAttributeListenerAcceptResponseItemDVO dvo => RegisterAttributeListenerAcceptResponseItemRenderer(item: dvo),
       final ErrorResponseItemDVO dvo => ErrorResponseItemRenderer(item: dvo),
-      final RejectResponseItemDVO _ => RequestItemRenderer(
+      final RejectResponseItemDVO _ || final AcceptResponseItemDVO _ => RequestItemRenderer(
         item: requestItem,
         itemIndex: itemIndex,
         currentAddress: currentAddress,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,
-      ),
-      final AcceptResponseItemDVO _ => RequestItemRenderer(
-        item: requestItem,
-        itemIndex: itemIndex,
-        currentAddress: currentAddress,
-        expandFileReference: expandFileReference,
-        chooseFile: chooseFile,
-        openFileDetails: openFileDetails,
+        openAttributeSwitcher: openAttributeSwitcher,
+        createAttribute: createAttribute,
+        controller: null,
+        requestStatus: null,
+        backgroundColor: null,
+        validationResult: null,
       ),
       _ => throw Exception("Invalid type '${responseItem.type}'"),
     };
