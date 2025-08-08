@@ -73,7 +73,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: _onTap,
+      onTap: widget.item.isDecidable ? _onTap : null,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         child: Column(
@@ -82,13 +82,18 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
             Row(
               spacing: 8,
               children: [
-                Checkbox(value: _isChecked, onChanged: widget.item.checkboxEnabled && _getChoices().isNotEmpty ? _onUpdateCheckbox : null),
+                Checkbox(
+                  value: _isChecked,
+                  onChanged: widget.item.isDecidable && widget.item.checkboxEnabled && _getChoices().isNotEmpty ? _onUpdateCheckbox : null,
+                ),
                 if (_choice != null)
                   Expanded(
                     child: AttributeRenderer(
                       attribute: _choice!.attribute,
                       valueHints: _getQueryValueHints()!,
-                      trailing: Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: const Icon(Icons.chevron_right)),
+                      trailing: widget.item.isDecidable
+                          ? Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: const Icon(Icons.chevron_right))
+                          : null,
                       expandFileReference: widget.expandFileReference,
                       openFileDetails: widget.openFileDetails,
                       titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
@@ -119,10 +124,12 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
                       showTitle: true,
                       valueTextStyle: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.outlineVariant),
                       description: 'i18n://requestRenderer.noEntry',
-                      trailing: Padding(
+                      trailing: widget.item.isDecidable
+                          ? Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
-                      ),
+                            )
+                          : null,
                       titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
                       extraLine: widget.item.description != null
                           ? Text(widget.item.description!, style: Theme.of(context).textTheme.labelMedium)
@@ -220,11 +227,15 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
   }
 
   ValueHints? _getQueryValueHints() {
-    return switch (widget.item.query as ProcessedAttributeQueryDVO) {
+    return switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => query.valueHints,
       final ProcessedRelationshipAttributeQueryDVO query => query.valueHints,
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.valueHints,
       final ProcessedIQLQueryDVO query => query.valueHints,
+      final IdentityAttributeQueryDVO query => query.valueHints,
+      final RelationshipAttributeQueryDVO query => query.valueHints,
+      final ThirdPartyRelationshipAttributeQueryDVO _ => null,
+      final IQLQueryDVO query => query.valueHints,
     };
   }
 
