@@ -21,28 +21,6 @@ void main() {
         }),
       );
     });
-
-    test('is correctly converted with properties "validFrom" and "validTo"', () {
-      const relationshipAttributeQuery = RelationshipAttributeQuery(
-        key: 'ProprietaryInteger',
-        owner: 'anOwner',
-        attributeCreationHints: attributeCreationHints,
-        validFrom: '1970',
-        validTo: '1980',
-      );
-      final relationshipJson = relationshipAttributeQuery.toJson();
-      expect(
-        relationshipJson,
-        equals({
-          '@type': 'RelationshipAttributeQuery',
-          'key': 'ProprietaryInteger',
-          'owner': 'anOwner',
-          'attributeCreationHints': attributeCreationHints.toJson(),
-          'validFrom': '1970',
-          'validTo': '1980',
-        }),
-      );
-    });
   });
 
   group('RelationshipAttributeQuery fromJson', () {
@@ -51,28 +29,6 @@ void main() {
       expect(
         RelationshipAttributeQuery.fromJson(json),
         equals(const RelationshipAttributeQuery(key: 'ProprietaryInteger', owner: 'anOwner', attributeCreationHints: attributeCreationHints)),
-      );
-    });
-
-    test('is correctly converted with properties "validFrom" and "validTo"', () {
-      final json = {
-        'key': 'ProprietaryInteger',
-        'owner': 'anOwner',
-        'attributeCreationHints': attributeCreationHints.toJson(),
-        'validFrom': '1970',
-        'validTo': '1980',
-      };
-      expect(
-        RelationshipAttributeQuery.fromJson(json),
-        equals(
-          const RelationshipAttributeQuery(
-            key: 'ProprietaryInteger',
-            owner: 'anOwner',
-            attributeCreationHints: attributeCreationHints,
-            validFrom: '1970',
-            validTo: '1980',
-          ),
-        ),
       );
     });
   });

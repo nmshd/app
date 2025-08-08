@@ -34,7 +34,7 @@ class ResponseItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (requestItem is! ProposeAttributeRequestItemDVO && requestItem is! RegisterAttributeListenerRequestItemDVO) {
+    if (requestItem is! ProposeAttributeRequestItemDVO) {
       return RequestItemRenderer(
         item: requestItem,
         itemIndex: itemIndex,
@@ -68,7 +68,6 @@ class ResponseItemRenderer extends StatelessWidget {
         expandFileReference: expandFileReference,
         openFileDetails: openFileDetails,
       ),
-      final RegisterAttributeListenerAcceptResponseItemDVO dvo => RegisterAttributeListenerAcceptResponseItemRenderer(item: dvo),
       final ErrorResponseItemDVO dvo => ErrorResponseItemRenderer(item: dvo),
       final RejectResponseItemDVO _ || final AcceptResponseItemDVO _ => RequestItemRenderer(
         item: requestItem,
