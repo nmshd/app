@@ -6,7 +6,6 @@ import '../../open_attribute_switcher_function.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
 import '../extensions/extensions.dart';
-import 'checkbox_enabled_extension.dart';
 
 class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final ProposeAttributeRequestItemDVO item;
