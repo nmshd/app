@@ -7,6 +7,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:feature_flags/feature_flags.dart';
 import 'package:feedback/feedback.dart';
+// ignore: implementation_imports the alternative is to copy paste the functionality
+import 'package:feedback/src/feedback_builder/string_feedback.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
