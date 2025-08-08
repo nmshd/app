@@ -74,7 +74,8 @@ class _FilteredDataScreenState extends State<FilteredDataScreen> {
                       emphasizeAttributeHeadings: widget.emphasizeAttributeHeadings,
                     );
                   },
-                  separatorBuilder: (context, index) => widget.emphasizeAttributeHeadings ? const SizedBox.shrink() : const Divider(indent: 16),
+                  separatorBuilder: (context, index) =>
+                      widget.emphasizeAttributeHeadings ? const SizedBox.shrink() : const Divider(indent: 16, height: 2),
                 ),
               ),
             ],
@@ -155,7 +156,7 @@ class _AttributeEntry extends StatelessWidget {
           await loadAttributes();
         },
         child: Padding(
-          padding: const EdgeInsets.only(left: 16),
+          padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12),
           child: AttributeRenderer.localAttribute(
             attribute: attributes.firstWhere((e) => e.isDefaultRepositoryAttribute, orElse: () => attributes.first),
             showTitle: !emphasizeAttributeHeadings,
@@ -219,7 +220,7 @@ class _EmptyAttributeEntry extends StatelessWidget {
     }
 
     return ListTile(
-      contentPadding: EdgeInsets.zero,
+      contentPadding: const EdgeInsets.symmetric(vertical: 6),
       visualDensity: VisualDensity.compact,
       tileColor: Theme.of(context).colorScheme.surface,
       title: TranslatedText(
