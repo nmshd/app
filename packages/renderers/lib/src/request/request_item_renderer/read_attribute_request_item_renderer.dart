@@ -140,8 +140,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
                       title: 'i18n://dvo.attribute.name.$_valueType',
                       showTitle: true,
                       valueTextStyle: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.outlineVariant),
-                      // TODO: translate
-                      description: 'Kein Eintrag',
+                      description: 'i18n://requestRenderer.noEntry',
                       trailing: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
