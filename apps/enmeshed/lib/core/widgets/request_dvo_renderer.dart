@@ -68,7 +68,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     _updateIdentityInfo();
 
     if (_request == null) {
-      _loadRequest(session);
+      _loadRequestAndController(session);
     } else {
       _setController(session, _request!);
     }
@@ -93,7 +93,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
       _updateIdentityInfo();
 
       if (_request == null) {
-        _loadRequest(session);
+        _loadRequestAndController(session);
       } else {
         _setController(session, _request!);
       }
@@ -152,8 +152,8 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     formKey: _formKey,
                     request: _request!,
                     controller: _controller,
-                    currentAddress: _identityInfo!.address,
                     openAttributeSwitcher: _openAttributeSwitcher,
+                    createAttribute: _createAttribute,
                     expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                     chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
                     openFileDetails: (file, [LocalAttributeDVO? attribute]) => context.push(
@@ -183,13 +183,22 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     );
   }
 
-  Future<void> _loadRequest(Session session) async {
+  Future<void> _loadRequestAndController(Session session) async {
     final requestDto = widget.isIncoming
         ? await session.consumptionServices.incomingRequests.getRequest(requestId: widget.requestId)
         : await session.consumptionServices.outgoingRequests.getRequest(requestId: widget.requestId);
     final request = await session.expander.expandLocalRequestDTO(requestDto.value);
 
     _setController(session, request);
+    setState(() => _request = request);
+  }
+
+  Future<void> _loadRequest(Session session) async {
+    final requestDto = widget.isIncoming
+        ? await session.consumptionServices.incomingRequests.getRequest(requestId: widget.requestId)
+        : await session.consumptionServices.outgoingRequests.getRequest(requestId: widget.requestId);
+    final request = await session.expander.expandLocalRequestDTO(requestDto.value);
+
     setState(() => _request = request);
   }
 
@@ -301,7 +310,17 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
       ),
     );
 
+    if (choice != null) await _loadRequest(GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId));
+
     return choice;
+  }
+
+  Future<AttributeSwitcherChoice?> _createAttribute({required String valueType, ValueHints? valueHints}) async {
+    final attribute = await showCreateAttributeModal(context: context, accountId: widget.accountId, initialValueType: valueType);
+    if (attribute == null || !mounted) return null;
+
+    await _loadRequest(GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId));
+    return (id: attribute.id, attribute: attribute.content);
   }
 }
 
@@ -360,15 +379,16 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                       TextButton.icon(
                         icon: const Icon(Icons.add, size: 16),
                         label: Text(context.l10n.contactDetail_addEntry),
-                        onPressed: () => showCreateAttributeModal(
-                          context: context,
-                          accountId: widget.accountId,
-                          onCreateAttributePressed: ({required BuildContext context, required IdentityAttributeValue value}) => context
-                            ..pop()
-                            ..pop((id: null, attribute: IdentityAttribute(owner: widget.currentAddress, value: value))),
-                          initialValueType: widget.valueType,
-                          onAttributeCreated: null,
-                        ),
+                        onPressed: () async {
+                          final attribute = await showCreateAttributeModal(
+                            context: context,
+                            accountId: widget.accountId,
+                            initialValueType: widget.valueType,
+                          );
+                          if (attribute == null || !context.mounted) return;
+
+                          context.pop((id: attribute.id, attribute: attribute.content));
+                        },
                       ),
                   ],
                 ),
@@ -378,36 +398,33 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
           Expanded(
             child: ListView.separated(
               itemCount: widget.choices.length,
-              separatorBuilder: (context, index) => Divider(height: 0, color: Theme.of(context).colorScheme.outline),
+              separatorBuilder: (context, index) => const Divider(height: 2),
               itemBuilder: (context, index) {
                 final item = widget.choices[index];
 
-                return ColoredBox(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  child: ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        if (widget.valueHints != null)
-                          Expanded(
-                            child: AttributeRenderer(
-                              attribute: item.attribute,
-                              valueHints: widget.valueHints!,
-                              showTitle: false,
-                              expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                              openFileDetails: (file) =>
-                                  context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
-                            ),
+                return ListTile(
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (widget.valueHints != null)
+                        Expanded(
+                          child: AttributeRenderer(
+                            attribute: item.attribute,
+                            valueHints: widget.valueHints!,
+                            showTitle: false,
+                            expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
+                            openFileDetails: (file) =>
+                                context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
                           ),
-                        Radio<AttributeSwitcherChoice>(
-                          value: item,
-                          groupValue: selectedOption,
-                          onChanged: (AttributeSwitcherChoice? value) => setState(() => selectedOption = value),
                         ),
-                      ],
-                    ),
-                    onTap: () => setState(() => selectedOption = item),
+                      Radio<AttributeSwitcherChoice>(
+                        value: item,
+                        groupValue: selectedOption,
+                        onChanged: (AttributeSwitcherChoice? value) => setState(() => selectedOption = value),
+                      ),
+                    ],
                   ),
+                  onTap: () => setState(() => selectedOption = item),
                 );
               },
             ),

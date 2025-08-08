@@ -11,9 +11,9 @@ import 'request_renderer_controller.dart';
 class RequestRenderer extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final RequestRendererController? controller;
-  final String currentAddress;
   final LocalRequestDVO request;
-  final OpenAttributeSwitcherFunction? openAttributeSwitcher;
+  final OpenAttributeSwitcherFunction openAttributeSwitcher;
+  final CreateAttributeFunction createAttribute;
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
@@ -22,16 +22,16 @@ class RequestRenderer extends StatelessWidget {
   final RequestValidationResultDTO? validationResult;
 
   const RequestRenderer({
-    super.key,
     required this.formKey,
     required this.request,
-    required this.currentAddress,
-    this.controller,
-    this.openAttributeSwitcher,
+    required this.controller,
+    required this.openAttributeSwitcher,
+    required this.createAttribute,
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
-    this.validationResult,
+    required this.validationResult,
+    super.key,
   });
 
   @override
@@ -46,10 +46,11 @@ class RequestRenderer extends StatelessWidget {
             responseItemGroup: item,
             requestItemGroup: requestItemGroup,
             itemIndex: itemIndex,
-            currentAddress: currentAddress,
             expandFileReference: expandFileReference,
             chooseFile: chooseFile,
             openFileDetails: openFileDetails,
+            openAttributeSwitcher: openAttributeSwitcher,
+            createAttribute: createAttribute,
           );
         }
 
@@ -57,10 +58,11 @@ class RequestRenderer extends StatelessWidget {
           responseItem: item,
           itemIndex: itemIndex,
           requestItem: request.items[index],
-          currentAddress: currentAddress,
           expandFileReference: expandFileReference,
           chooseFile: chooseFile,
           openFileDetails: openFileDetails,
+          openAttributeSwitcher: openAttributeSwitcher,
+          createAttribute: createAttribute,
         );
       }).toList();
 
@@ -77,7 +79,7 @@ class RequestRenderer extends StatelessWidget {
           controller: controller,
           requestStatus: request.status,
           openAttributeSwitcher: openAttributeSwitcher,
-          currentAddress: currentAddress,
+          createAttribute: createAttribute,
           expandFileReference: expandFileReference,
           chooseFile: chooseFile,
           openFileDetails: openFileDetails,
@@ -90,12 +92,13 @@ class RequestRenderer extends StatelessWidget {
         itemIndex: itemIndex,
         controller: controller,
         openAttributeSwitcher: openAttributeSwitcher,
+        createAttribute: createAttribute,
         requestStatus: request.status,
-        currentAddress: currentAddress,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,
         validationResult: validationResult?.items[index],
+        backgroundColor: null,
       );
     }).toList();
 

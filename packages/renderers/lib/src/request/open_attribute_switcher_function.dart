@@ -9,3 +9,5 @@ typedef OpenAttributeSwitcherFunction =
       required AttributeSwitcherChoice? currentChoice,
       ValueHints? valueHints,
     });
+
+typedef CreateAttributeFunction = Future<AttributeSwitcherChoice?> Function({required String valueType, ValueHints? valueHints});

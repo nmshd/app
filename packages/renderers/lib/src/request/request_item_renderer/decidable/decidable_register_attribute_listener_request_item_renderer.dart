@@ -37,13 +37,13 @@ class _DecidableRegisterAttributeListenerRequestItemRendererState extends State<
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? _onUpdateCheckbox : null),
         Expanded(child: CustomListTile(title: widget.item.query.name)),
       ],
     );
   }
 
-  void onUpdateCheckbox(bool? value) {
+  void _onUpdateCheckbox(bool? value) {
     if (value == null) return;
 
     setState(() {
