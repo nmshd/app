@@ -140,13 +140,10 @@ class _Header extends StatelessWidget {
               TextButton.icon(
                 icon: const Icon(Icons.add, size: 16),
                 label: Text(context.l10n.contactDetail_addEntry),
-                onPressed: () => showCreateAttributeModal(
-                  initialValueType: valueType,
-                  context: context,
-                  accountId: accountId,
-                  onAttributeCreated: onAttributeCreated,
-                  onCreateAttributePressed: null,
-                ),
+                onPressed: () async {
+                  final attribute = await showCreateAttributeModal(initialValueType: valueType, context: context, accountId: accountId);
+                  if (attribute != null) onAttributeCreated();
+                },
               ),
             ],
           ),
