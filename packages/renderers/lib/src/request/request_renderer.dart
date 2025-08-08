@@ -11,7 +11,6 @@ import 'request_renderer_controller.dart';
 class RequestRenderer extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final RequestRendererController? controller;
-  final String currentAddress;
   final LocalRequestDVO request;
   final OpenAttributeSwitcherFunction openAttributeSwitcher;
   final CreateAttributeFunction createAttribute;
@@ -25,7 +24,6 @@ class RequestRenderer extends StatelessWidget {
   const RequestRenderer({
     required this.formKey,
     required this.request,
-    required this.currentAddress,
     required this.controller,
     required this.openAttributeSwitcher,
     required this.createAttribute,
@@ -48,7 +46,6 @@ class RequestRenderer extends StatelessWidget {
             responseItemGroup: item,
             requestItemGroup: requestItemGroup,
             itemIndex: itemIndex,
-            currentAddress: currentAddress,
             expandFileReference: expandFileReference,
             chooseFile: chooseFile,
             openFileDetails: openFileDetails,
@@ -61,7 +58,6 @@ class RequestRenderer extends StatelessWidget {
           responseItem: item,
           itemIndex: itemIndex,
           requestItem: request.items[index],
-          currentAddress: currentAddress,
           expandFileReference: expandFileReference,
           chooseFile: chooseFile,
           openFileDetails: openFileDetails,
@@ -84,7 +80,6 @@ class RequestRenderer extends StatelessWidget {
           requestStatus: request.status,
           openAttributeSwitcher: openAttributeSwitcher,
           createAttribute: createAttribute,
-          currentAddress: currentAddress,
           expandFileReference: expandFileReference,
           chooseFile: chooseFile,
           openFileDetails: openFileDetails,
@@ -99,7 +94,6 @@ class RequestRenderer extends StatelessWidget {
         openAttributeSwitcher: openAttributeSwitcher,
         createAttribute: createAttribute,
         requestStatus: request.status,
-        currentAddress: currentAddress,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,

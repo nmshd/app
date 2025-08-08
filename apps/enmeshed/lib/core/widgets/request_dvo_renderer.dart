@@ -152,7 +152,6 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     formKey: _formKey,
                     request: _request!,
                     controller: _controller,
-                    currentAddress: _identityInfo!.address,
                     openAttributeSwitcher: _openAttributeSwitcher,
                     createAttribute: _createAttribute,
                     expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),

@@ -8,7 +8,6 @@ import 'decidable/decidable.dart';
 import 'request_item_renderers.dart';
 
 class RequestItemRenderer extends StatelessWidget {
-  final String currentAddress;
   final RequestItemDVO item;
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
@@ -25,7 +24,6 @@ class RequestItemRenderer extends StatelessWidget {
   final RequestValidationResultDTO? validationResult;
 
   const RequestItemRenderer({
-    required this.currentAddress,
     required this.item,
     required this.itemIndex,
     required this.controller,
@@ -51,7 +49,6 @@ class RequestItemRenderer extends StatelessWidget {
           itemIndex: itemIndex,
           openAttributeSwitcher: openAttributeSwitcher,
           createAttribute: createAttribute,
-          currentAddress: currentAddress,
           expandFileReference: expandFileReference,
           chooseFile: chooseFile,
           openFileDetails: openFileDetails,

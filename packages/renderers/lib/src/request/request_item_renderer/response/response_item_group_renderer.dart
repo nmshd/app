@@ -10,7 +10,6 @@ class ResponseItemGroupRenderer extends StatelessWidget {
   final ResponseItemGroupDVO responseItemGroup;
   final RequestItemGroupDVO requestItemGroup;
   final RequestItemIndex itemIndex;
-  final String currentAddress;
   final OpenAttributeSwitcherFunction openAttributeSwitcher;
   final CreateAttributeFunction createAttribute;
 
@@ -23,7 +22,6 @@ class ResponseItemGroupRenderer extends StatelessWidget {
     required this.responseItemGroup,
     required this.itemIndex,
     required this.requestItemGroup,
-    required this.currentAddress,
     required this.openAttributeSwitcher,
     required this.createAttribute,
     required this.expandFileReference,
@@ -38,7 +36,6 @@ class ResponseItemGroupRenderer extends StatelessWidget {
         responseItem: item,
         requestItem: requestItemGroup.items[index],
         itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
-        currentAddress: currentAddress,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,

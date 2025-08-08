@@ -12,7 +12,6 @@ import 'extensions/extensions.dart';
 import 'widgets/validation_error_box.dart';
 
 class ReadAttributeRequestItemRenderer extends StatefulWidget {
-  final String currentAddress;
   final ReadAttributeRequestItemDVO item;
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
@@ -26,7 +25,6 @@ class ReadAttributeRequestItemRenderer extends StatefulWidget {
 
   const ReadAttributeRequestItemRenderer({
     super.key,
-    required this.currentAddress,
     required this.item,
     required this.itemIndex,
     required this.controller,

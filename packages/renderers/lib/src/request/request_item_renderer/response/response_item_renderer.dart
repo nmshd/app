@@ -13,7 +13,6 @@ class ResponseItemRenderer extends StatelessWidget {
   final ResponseItemDVO responseItem;
   final RequestItemDVO requestItem;
   final RequestItemIndex itemIndex;
-  final String currentAddress;
   final OpenAttributeSwitcherFunction openAttributeSwitcher;
   final CreateAttributeFunction createAttribute;
 
@@ -26,7 +25,6 @@ class ResponseItemRenderer extends StatelessWidget {
     required this.itemIndex,
     required this.responseItem,
     required this.requestItem,
-    required this.currentAddress,
     required this.openAttributeSwitcher,
     required this.createAttribute,
     required this.expandFileReference,
@@ -40,7 +38,6 @@ class ResponseItemRenderer extends StatelessWidget {
       return RequestItemRenderer(
         item: requestItem,
         itemIndex: itemIndex,
-        currentAddress: currentAddress,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,
@@ -76,7 +73,6 @@ class ResponseItemRenderer extends StatelessWidget {
       final RejectResponseItemDVO _ || final AcceptResponseItemDVO _ => RequestItemRenderer(
         item: requestItem,
         itemIndex: itemIndex,
-        currentAddress: currentAddress,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,

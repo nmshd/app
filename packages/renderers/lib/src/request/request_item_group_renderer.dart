@@ -8,7 +8,6 @@ import 'request_item_renderer/request_item_renderer.dart';
 import 'request_renderer_controller.dart';
 
 class RequestItemGroupRenderer extends StatelessWidget {
-  final String currentAddress;
   final RequestItemIndex itemIndex;
   final RequestItemGroupDVO requestItemGroup;
   final RequestRendererController? controller;
@@ -23,7 +22,6 @@ class RequestItemGroupRenderer extends StatelessWidget {
   final RequestValidationResultDTO? validationResult;
 
   const RequestItemGroupRenderer({
-    required this.currentAddress,
     required this.itemIndex,
     required this.requestItemGroup,
     required this.controller,
@@ -47,7 +45,6 @@ class RequestItemGroupRenderer extends StatelessWidget {
         requestStatus: requestStatus,
         openAttributeSwitcher: openAttributeSwitcher,
         createAttribute: createAttribute,
-        currentAddress: currentAddress,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,
