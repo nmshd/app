@@ -21,21 +21,19 @@ class BannerCard extends StatelessWidget {
       ),
       padding: EdgeInsets.only(left: 16, right: onClosePressed != null ? 0 : 16, top: 16, bottom: 16),
       child: Row(
+        spacing: 8,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _BannerCardIcon(type: type),
-          Gaps.w8,
           Expanded(
             child: Text(title, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: _getTextColor(context, type))),
           ),
-          if (actionButton != null) ...[
-            Gaps.w8,
+          if (actionButton != null)
             TextButton(
               onPressed: actionButton!.onPressed,
-              child: Text(actionButton!.title, style: Theme.of(context).textTheme.labelLarge!.copyWith(color: _getTextColor(context, type))),
+              child: Text(actionButton!.title, style: TextStyle(color: _getTextColor(context, type))),
             ),
-          ],
-          if (onClosePressed != null) ...[Gaps.w8, IconButton(onPressed: onClosePressed, icon: const Icon(Icons.close))],
+          if (onClosePressed != null) IconButton(onPressed: onClosePressed, icon: const Icon(Icons.close)),
         ],
       ),
     );
