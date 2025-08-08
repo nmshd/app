@@ -16,7 +16,7 @@ class FilterChipBar extends StatelessWidget {
           child: Row(
             spacing: 8,
             children: [
-              Padding(padding: const EdgeInsets.only(left: 12), child: children.first),
+              Padding(padding: const EdgeInsets.only(left: 16), child: children.first),
               ...children.skip(1),
               const SizedBox(width: 52),
             ],
