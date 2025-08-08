@@ -27,6 +27,7 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = this.title.startsWith('i18n://') ? FlutterI18n.translate(context, this.title.substring(7)) : this.title;
+
     return Row(
       children: [
         Expanded(

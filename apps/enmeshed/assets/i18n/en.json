@@ -1189,6 +1189,7 @@
     }
   },
   "requestRenderer": {
+    "noEntry": "No Entry",
     "authentication": {
       "accept": "Accept"
     },

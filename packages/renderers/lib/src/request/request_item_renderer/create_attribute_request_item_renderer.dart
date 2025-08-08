@@ -17,13 +17,13 @@ class CreateAttributeRequestItemRenderer extends StatefulWidget {
   final RequestValidationResultDTO? validationResult;
 
   const CreateAttributeRequestItemRenderer({
-    super.key,
     required this.item,
     required this.controller,
     required this.itemIndex,
     required this.expandFileReference,
     required this.openFileDetails,
     required this.validationResult,
+    super.key,
   });
 
   @override

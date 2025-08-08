@@ -54,14 +54,14 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? _onUpdateCheckbox : null),
         Expanded(
           child: AttributeRenderer(
             attribute: _choice.attribute,
             valueHints: widget.item.attribute.valueHints,
             trailing: SizedBox(
               width: 50,
-              child: IconButton(onPressed: () => onUpdateAttribute(widget.item.attribute.valueType), icon: const Icon(Icons.chevron_right)),
+              child: IconButton(onPressed: () => _onUpdateAttribute(widget.item.attribute.valueType), icon: const Icon(Icons.chevron_right)),
             ),
             expandFileReference: widget.expandFileReference,
             openFileDetails: widget.openFileDetails,
@@ -71,7 +71,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     );
   }
 
-  void onUpdateCheckbox(bool? value) {
+  void _onUpdateCheckbox(bool? value) {
     if (value == null) return;
 
     setState(() => isChecked = value);
@@ -90,7 +90,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     );
   }
 
-  Future<void> onUpdateAttribute(String valueType) async {
+  Future<void> _onUpdateAttribute(String valueType) async {
     if (widget.openAttributeSwitcher == null) return;
 
     final resultValues = _getChoices();

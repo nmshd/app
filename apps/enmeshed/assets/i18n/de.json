@@ -1189,6 +1189,7 @@
     }
   },
   "requestRenderer": {
+    "noEntry": "Kein Eintrag",
     "authentication": {
       "accept": "Annehmen"
     },
