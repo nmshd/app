@@ -205,9 +205,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
   void _onUpdateCheckbox(bool? value) {
     if (value == null) return;
 
-    setState(() {
-      _isChecked = value;
-    });
+    setState(() => _isChecked = value);
 
     if (_choice == null || !value) {
       widget.controller?.writeAtIndex(index: widget.itemIndex, value: const RejectRequestItemParameters());

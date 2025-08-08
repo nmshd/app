@@ -46,7 +46,7 @@ class _FreeTextRequestItemRendererState extends State<FreeTextRequestItemRendere
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       child: Row(
         children: [
-          Checkbox(value: _isChecked, onChanged: active ? onUpdateCheckbox : null),
+          Checkbox(value: _isChecked, onChanged: active ? _onUpdateCheckbox : null),
           Expanded(
             child: CustomListTile(title: widget.item.name, description: widget.item.description, thirdLine: widget.item.freeText),
           ),
@@ -55,12 +55,10 @@ class _FreeTextRequestItemRendererState extends State<FreeTextRequestItemRendere
     );
   }
 
-  void onUpdateCheckbox(bool? value) {
+  void _onUpdateCheckbox(bool? value) {
     if (value == null) return;
 
-    setState(() {
-      _isChecked = value;
-    });
+    setState(() => _isChecked = value);
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
