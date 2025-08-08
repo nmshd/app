@@ -8,13 +8,12 @@ import 'decidable/decidable.dart';
 import 'request_item_renderers.dart';
 
 class RequestItemRenderer extends StatelessWidget {
-  final String currentAddress;
   final RequestItemDVO item;
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
   final LocalRequestStatus? requestStatus;
-  final bool isRejected;
-  final OpenAttributeSwitcherFunction? openAttributeSwitcher;
+  final OpenAttributeSwitcherFunction openAttributeSwitcher;
+  final CreateAttributeFunction createAttribute;
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
@@ -25,19 +24,18 @@ class RequestItemRenderer extends StatelessWidget {
   final RequestValidationResultDTO? validationResult;
 
   const RequestItemRenderer({
-    super.key,
-    required this.currentAddress,
     required this.item,
     required this.itemIndex,
-    this.controller,
-    this.requestStatus,
-    this.isRejected = false,
-    this.openAttributeSwitcher,
+    required this.controller,
+    required this.requestStatus,
+    required this.openAttributeSwitcher,
+    required this.createAttribute,
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
-    this.backgroundColor,
-    this.validationResult,
+    required this.backgroundColor,
+    required this.validationResult,
+    super.key,
   });
 
   @override
@@ -45,19 +43,17 @@ class RequestItemRenderer extends StatelessWidget {
     return Ink(
       color: backgroundColor,
       child: switch (item) {
-        final ReadAttributeRequestItemDVO dvo =>
-          dvo.isDecidable
-              ? DecidableReadAttributeRequestItemRenderer(
-                  controller: controller,
-                  item: dvo,
-                  itemIndex: itemIndex,
-                  openAttributeSwitcher: openAttributeSwitcher,
-                  currentAddress: currentAddress,
-                  expandFileReference: expandFileReference,
-                  chooseFile: chooseFile,
-                  openFileDetails: openFileDetails,
-                )
-              : ReadAttributeRequestItemRenderer(item: dvo),
+        final ReadAttributeRequestItemDVO dvo => ReadAttributeRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          openAttributeSwitcher: openAttributeSwitcher,
+          createAttribute: createAttribute,
+          expandFileReference: expandFileReference,
+          chooseFile: chooseFile,
+          openFileDetails: openFileDetails,
+          validationResult: validationResult,
+        ),
         final ProposeAttributeRequestItemDVO dvo => Padding(
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: dvo.isDecidable

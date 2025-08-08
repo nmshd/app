@@ -2,6 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '/src/attribute/attribute_renderer.dart';
+import '../../open_attribute_switcher_function.dart';
 import '../../request_item_index.dart';
 import '../request_item_renderer.dart';
 import 'error_response_item_renderer.dart';
@@ -11,7 +13,8 @@ class ResponseItemRenderer extends StatelessWidget {
   final ResponseItemDVO responseItem;
   final RequestItemDVO requestItem;
   final RequestItemIndex itemIndex;
-  final String currentAddress;
+  final OpenAttributeSwitcherFunction openAttributeSwitcher;
+  final CreateAttributeFunction createAttribute;
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
@@ -22,7 +25,8 @@ class ResponseItemRenderer extends StatelessWidget {
     required this.itemIndex,
     required this.responseItem,
     required this.requestItem,
-    required this.currentAddress,
+    required this.openAttributeSwitcher,
+    required this.createAttribute,
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
@@ -30,19 +34,32 @@ class ResponseItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (requestItem is! ProposeAttributeRequestItemDVO) {
+      return RequestItemRenderer(
+        item: requestItem,
+        itemIndex: itemIndex,
+        expandFileReference: expandFileReference,
+        chooseFile: chooseFile,
+        openFileDetails: openFileDetails,
+        openAttributeSwitcher: openAttributeSwitcher,
+        createAttribute: createAttribute,
+        controller: null,
+        requestStatus: null,
+        backgroundColor: null,
+        validationResult: null,
+      );
+    }
+
     final widget = switch (responseItem) {
-      final AttributeAlreadySharedAcceptResponseItemDVO dvo => AttributeAlreadySharedAcceptResponseItemRenderer(
-        item: dvo,
+      final AttributeAlreadySharedAcceptResponseItemDVO dvo => AttributeRenderer(
+        attribute: dvo.attribute.content,
+        valueHints: dvo.attribute.valueHints,
         expandFileReference: expandFileReference,
         openFileDetails: openFileDetails,
       ),
-      final AttributeSuccessionAcceptResponseItemDVO dvo => AttributeSuccessionAcceptResponseItemRenderer(
-        item: dvo,
-        expandFileReference: expandFileReference,
-        openFileDetails: openFileDetails,
-      ),
-      final ReadAttributeAcceptResponseItemDVO dvo => ReadAttributeAcceptResponseItemRenderer(
-        item: dvo,
+      final AttributeSuccessionAcceptResponseItemDVO dvo => AttributeRenderer(
+        attribute: dvo.successor.content,
+        valueHints: dvo.successor.valueHints,
         expandFileReference: expandFileReference,
         openFileDetails: openFileDetails,
       ),
@@ -52,22 +69,18 @@ class ResponseItemRenderer extends StatelessWidget {
         openFileDetails: openFileDetails,
       ),
       final ErrorResponseItemDVO dvo => ErrorResponseItemRenderer(item: dvo),
-      final RejectResponseItemDVO _ => RequestItemRenderer(
+      final RejectResponseItemDVO _ || final AcceptResponseItemDVO _ => RequestItemRenderer(
         item: requestItem,
-        isRejected: true,
         itemIndex: itemIndex,
-        currentAddress: currentAddress,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,
-      ),
-      final AcceptResponseItemDVO _ => RequestItemRenderer(
-        item: requestItem,
-        itemIndex: itemIndex,
-        currentAddress: currentAddress,
-        expandFileReference: expandFileReference,
-        chooseFile: chooseFile,
-        openFileDetails: openFileDetails,
+        openAttributeSwitcher: openAttributeSwitcher,
+        createAttribute: createAttribute,
+        controller: null,
+        requestStatus: null,
+        backgroundColor: null,
+        validationResult: null,
       ),
       _ => throw Exception("Invalid type '${responseItem.type}'"),
     };

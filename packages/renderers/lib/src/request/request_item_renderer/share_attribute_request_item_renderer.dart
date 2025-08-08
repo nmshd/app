@@ -55,7 +55,7 @@ class _ShareAttributeRequestItemRendererState extends State<ShareAttributeReques
           Row(
             spacing: 8,
             children: [
-              Checkbox(value: _isChecked, onChanged: widget.item.isDecidable && !widget.item.mustBeAccepted ? onUpdateCheckbox : null),
+              Checkbox(value: _isChecked, onChanged: widget.item.isDecidable && !widget.item.mustBeAccepted ? _onUpdateCheckbox : null),
               Expanded(
                 child: AttributeRenderer(
                   attribute: widget.item.attribute.content,
@@ -73,7 +73,7 @@ class _ShareAttributeRequestItemRendererState extends State<ShareAttributeReques
     );
   }
 
-  void onUpdateCheckbox(bool? value) {
+  void _onUpdateCheckbox(bool? value) {
     if (value == null) return;
 
     setState(() => _isChecked = value);
