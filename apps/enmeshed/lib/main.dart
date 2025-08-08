@@ -542,6 +542,10 @@ class EnmeshedApp extends StatelessWidget with WatchItMixin {
       theme: feedbackLightTheme,
       darkTheme: feedbackDarkTheme,
       mode: FeedbackMode.navigate,
+      feedbackBuilder: (context, onSubmit, scrollController) => Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewPadding.bottom + 24),
+        child: StringFeedback(onSubmit: onSubmit, scrollController: scrollController),
+      ),
       child: Features(
         child: MaterialApp.router(
           routerConfig: _router,
