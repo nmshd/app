@@ -73,26 +73,6 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
   }
 
   @override
-  void didUpdateWidget(covariant ReadAttributeRequestItemRenderer oldWidget) {
-    if (widget.item == oldWidget.item) return;
-    if (widget.item.response != null || _choice != null) return;
-
-    final choices = _getChoices();
-    if (choices.isEmpty) return;
-
-    setState(() => _choice = _getChoices().firstOrNull);
-
-    if (_isChecked) {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: _choice!.id!),
-      );
-    }
-
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: _onTap,
@@ -175,13 +155,24 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
     final choices = _getChoices();
     if (_choice != null) choices.add(_choice!);
 
-    if (choices.isEmpty) {
-      await widget.createAttribute(valueType: _valueType!);
-      setState(() => _isChecked = true);
-      return;
-    }
+    if (choices.isEmpty) return await _createAttribute();
 
     await _openAttributeSwitcher(choices);
+  }
+
+  Future<void> _createAttribute() async {
+    final choice = await widget.createAttribute(valueType: _valueType!);
+    if (choice == null || !mounted) return;
+
+    setState(() {
+      _choice = choice;
+      _isChecked = true;
+    });
+
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+    );
   }
 
   Future<void> _openAttributeSwitcher(Set<AttributeSwitcherChoice> choices) async {
