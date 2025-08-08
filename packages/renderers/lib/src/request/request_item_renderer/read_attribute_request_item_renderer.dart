@@ -126,8 +126,8 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
                       description: 'i18n://requestRenderer.noEntry',
                       trailing: widget.item.isDecidable
                           ? Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
+                              padding: const EdgeInsets.symmetric(horizontal: 12),
+                              child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
                             )
                           : null,
                       titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
