@@ -23,7 +23,7 @@ Future<void> showDeleteAttributeModal({
     context: context,
     isScrollControlled: true,
     builder: (context) => ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
+      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
       child: _DeleteConfirmation(
         accountId: accountId,
         onAttributeDeleted: onAttributeDeleted,

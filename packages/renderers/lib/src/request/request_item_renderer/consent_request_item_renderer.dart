@@ -218,7 +218,7 @@ class _FullConsentDialog extends StatelessWidget {
         body: Scrollbar(
           thumbVisibility: true,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8).copyWith(bottom: MediaQuery.of(context).viewPadding.bottom + 24),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8).copyWith(bottom: MediaQuery.viewPaddingOf(context).bottom + 24),
             child: Column(
               spacing: 32,
               children: [
