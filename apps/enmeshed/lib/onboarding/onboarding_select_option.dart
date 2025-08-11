@@ -48,9 +48,9 @@ class _OnboardingSelectOptionState extends State<OnboardingSelectOption> {
       child: SingleChildScrollView(
         physics: const ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+          constraints: BoxConstraints(minHeight: MediaQuery.sizeOf(context).height),
           child: Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 16),
+            padding: EdgeInsets.only(top: MediaQuery.paddingOf(context).top + 16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
