@@ -29,7 +29,7 @@ class KeyboardAwareSafeArea extends StatelessWidget {
       top: top,
       right: right,
       bottom: bottom,
-      minimum: minimum.copyWith(bottom: math.max(minimum.bottom, MediaQuery.of(context).viewInsets.bottom)),
+      minimum: minimum.copyWith(bottom: math.max(minimum.bottom, MediaQuery.viewInsetsOf(context).bottom)),
       maintainBottomViewPadding: maintainBottomViewPadding,
       child: child,
     );
