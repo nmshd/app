@@ -21,7 +21,7 @@ Future<LocalAttributeDTO?> showCreateAttributeModal({required BuildContext conte
     context: context,
     isScrollControlled: true,
     builder: (builder) => ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
+      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
       child: _CreateAttributeModal(
         accountId: accountId,
         initialValueType: initialValueType,
