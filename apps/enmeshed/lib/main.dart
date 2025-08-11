@@ -543,7 +543,7 @@ class EnmeshedApp extends StatelessWidget with WatchItMixin {
       darkTheme: feedbackDarkTheme,
       mode: FeedbackMode.navigate,
       feedbackBuilder: (context, onSubmit, scrollController) => Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewPadding.bottom + 24),
+        padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom),
         child: StringFeedback(onSubmit: onSubmit, scrollController: scrollController),
       ),
       child: Features(
