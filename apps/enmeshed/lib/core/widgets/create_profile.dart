@@ -65,7 +65,7 @@ class _CreateProfileState extends State<CreateProfile> {
     return PopScope(
       canPop: !_loading,
       child: ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
+        constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
         child: Stack(
           children: [
             Padding(
@@ -114,7 +114,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                 maxLength: MaxLength.profileName,
                                 textCapitalization: TextCapitalization.sentences,
                                 scrollPadding: EdgeInsets.only(
-                                  bottom: MediaQuery.of(context).viewInsets.bottom + DefaultTextStyle.of(context).style.fontSize! * 3,
+                                  bottom: MediaQuery.viewInsetsOf(context).bottom + DefaultTextStyle.of(context).style.fontSize! * 3,
                                 ),
                                 decoration: InputDecoration(
                                   labelText: '${context.l10n.profile_name}*',
