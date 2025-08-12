@@ -21,6 +21,7 @@ class LogLevelModel {
     if (logLevelName == null) return LogLevelModel._(sharedPreferences, logFilter: logFilter, initialValue: logFilter.level ?? Level.info);
 
     final loadedLogLevel = Level.values.byName(logLevelName);
+    logFilter.level = loadedLogLevel;
     return LogLevelModel._(sharedPreferences, logFilter: logFilter, initialValue: loadedLogLevel);
   }
 
