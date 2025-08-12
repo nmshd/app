@@ -60,8 +60,6 @@ async function main() {
   const config: AppConfigOverwrite & { databaseBaseFolder: string } =
     await window.flutter_inappwebview.callHandler("getRuntimeConfig");
 
-  const databaseBaseFolder = config.databaseBaseFolder;
-
   const loggerFactory = new SimpleLoggerFactory(LogLevel.Info);
   const fileAccess = new FileAccess();
   const notificationAccess = new NotificationAccess(loggerFactory);

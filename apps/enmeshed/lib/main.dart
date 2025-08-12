@@ -40,12 +40,15 @@ void main() async {
   timeago.setLocaleMessages('en', timeago.EnMessages());
 
   final output = await getLogOutput();
-  final logger = Logger(printer: SimplePrinter(colors: false), filter: ProductionFilter(), output: output);
+
+  final filter = ProductionFilter()..level = kDebugMode ? Level.trace : Level.info;
+  final logger = Logger(printer: SimplePrinter(colors: false), filter: filter, output: output);
   GetIt.I.registerSingleton(logger);
 
   GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
 
   GetIt.I.registerSingleton(await ThemeModeModel.create());
+  GetIt.I.registerSingleton(await LogLevelModel.create(filter));
 
   runApp(const EnmeshedApp());
 }

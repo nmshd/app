@@ -18,7 +18,6 @@ sealed class LocalAttributeDVO extends DataViewObject {
 
   final bool isDraft;
   final bool isOwn;
-  final bool isValid;
 
   final String createdAt;
   final String? wasViewedAt;
@@ -44,7 +43,6 @@ sealed class LocalAttributeDVO extends DataViewObject {
     required this.valueHints,
     required this.isDraft,
     required this.isOwn,
-    required this.isValid,
     required this.createdAt,
     this.wasViewedAt,
     this.succeeds,
@@ -80,7 +78,6 @@ sealed class IdentityAttributeDVO extends LocalAttributeDVO {
     required super.renderHints,
     required super.valueHints,
     required super.isDraft,
-    required super.isValid,
     required super.createdAt,
     super.wasViewedAt,
     super.succeeds,
@@ -118,7 +115,6 @@ class RepositoryAttributeDVO extends IdentityAttributeDVO {
     required super.renderHints,
     required super.valueHints,
     required super.isDraft,
-    required super.isValid,
     required super.createdAt,
     super.wasViewedAt,
     super.succeeds,
@@ -157,7 +153,6 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
     required super.renderHints,
     required super.valueHints,
     required super.isDraft,
-    required super.isValid,
     required super.createdAt,
     super.wasViewedAt,
     super.succeeds,
@@ -198,7 +193,6 @@ class PeerAttributeDVO extends LocalAttributeDVO {
     required super.renderHints,
     required super.valueHints,
     required super.isDraft,
-    required super.isValid,
     required super.createdAt,
     super.wasViewedAt,
     super.succeeds,
@@ -245,7 +239,6 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
     required super.valueHints,
     required super.isDraft,
     required super.isOwn,
-    required super.isValid,
     required super.createdAt,
     super.wasViewedAt,
     super.succeeds,
@@ -288,7 +281,6 @@ class OwnRelationshipAttributeDVO extends RelationshipAttributeDVO {
     required super.renderHints,
     required super.valueHints,
     required super.isDraft,
-    required super.isValid,
     required super.createdAt,
     super.wasViewedAt,
     super.succeeds,
@@ -327,7 +319,6 @@ class PeerRelationshipAttributeDVO extends RelationshipAttributeDVO {
     required super.renderHints,
     required super.valueHints,
     required super.isDraft,
-    required super.isValid,
     required super.createdAt,
     super.wasViewedAt,
     super.succeeds,

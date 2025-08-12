@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:push/push.dart';
 
@@ -84,6 +85,7 @@ class DebugScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              const _LogLevelPicker(),
             ],
           ),
         ),
@@ -387,5 +389,35 @@ class _PasswordTesterState extends State<_PasswordTester> {
 
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered PIN Code: $pin')));
+  }
+}
+
+class _LogLevelPicker extends StatelessWidget {
+  const _LogLevelPicker();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      child: Row(
+        spacing: 8,
+        children: [
+          Flexible(child: Text('Log Level', style: Theme.of(context).textTheme.bodyLarge)),
+          ValueListenableBuilder<Level>(
+            valueListenable: GetIt.I.get<LogLevelModel>().notifier,
+            builder: (context, logLevel, _) => DropdownButton<Level>(
+              value: logLevel,
+              items: {Level.trace, Level.debug, Level.info, Level.error, logLevel}.map((level) {
+                return DropdownMenuItem<Level>(value: level, child: Text(level.name));
+              }).toList(),
+              onChanged: (newLogLevel) {
+                if (newLogLevel == null) return;
+                GetIt.I.get<LogLevelModel>().setLogLevel(newLogLevel);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
