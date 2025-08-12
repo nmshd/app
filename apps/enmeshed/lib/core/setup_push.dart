@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:push/push.dart';
@@ -48,7 +47,12 @@ Future<void> setupPush(EnmeshedRuntime runtime) async {
 
 Future<void> triggerRemoteNotificationEvent(EnmeshedRuntime runtime, RemoteMessage message) async {
   final content = extractContentFromMessageData(message.data);
-  if (content == null) return;
+  if (content == null) {
+    GetIt.I.get<Logger>().d('Received a remote message without content data. Ignoring it.');
+    return;
+  }
+
+  GetIt.I.get<Logger>().d('Triggering remote message with content: $content');
 
   await runtime.triggerRemoteNotificationEvent(content: content);
 }
@@ -73,13 +77,9 @@ Map<String, dynamic>? extractContentFromMessageData(Map<String?, Object?>? data)
 }
 
 extension RemoteMessageExtension on RemoteMessage {
-  void debugLog(String type) {
-    if (!kDebugMode) return;
+  void debugLog(String type) => GetIt.I.get<Logger>().d(_generateDebugLog(type));
 
-    GetIt.I.get<Logger>().d(generateDebungLog(type));
-  }
-
-  String generateDebungLog(String type) {
+  String _generateDebugLog(String type) {
     var log = 'RemoteMessage received while app is in $type:';
 
     if (notification?.title != null) log += '\n  title: ${notification!.title}';
