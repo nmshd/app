@@ -42,14 +42,13 @@ void main() async {
   final output = await getLogOutput();
 
   final filter = ProductionFilter()..level = kDebugMode ? Level.debug : Level.info;
-  GetIt.I.registerSingleton<LogFilter>(filter);
-
   final logger = Logger(printer: SimplePrinter(colors: false), filter: filter, output: output);
   GetIt.I.registerSingleton(logger);
 
   GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
 
   GetIt.I.registerSingleton(await ThemeModeModel.create());
+  GetIt.I.registerSingleton(await LogLevelModel.create(filter));
 
   runApp(const EnmeshedApp());
 }
