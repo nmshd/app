@@ -122,14 +122,10 @@ class _UploadFileState extends State<UploadFile> {
                       Gaps.h44,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
+                        spacing: 8,
                         children: [
-                          OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
-                          Gaps.w8,
-                          FilledButton(
-                            onPressed: validateEverything() ? _submit : null,
-                            style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-                            child: Text(context.l10n.save),
-                          ),
+                          OutlinedButton(onPressed: context.pop, child: Text(context.l10n.cancel)),
+                          FilledButton(onPressed: validateEverything() ? _submit : null, child: Text(context.l10n.save)),
                         ],
                       ),
                     ],
