@@ -171,7 +171,9 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+      value: choice.id == null
+          ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
+          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
     );
   }
 
@@ -194,11 +196,11 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
       _isChecked = true;
     });
 
-    if (choice.id != null) throw Exception('Choice should not have an ID when updating an attribute');
-
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+      value: choice.id == null
+          ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
+          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
     );
   }
 
@@ -217,7 +219,9 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+      value: choice.id == null
+          ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
+          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
     );
   }
 
