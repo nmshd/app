@@ -291,7 +291,7 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
           icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
           title: Text(context.l10n.personalData_details_errorTitleOnCreate, style: Theme.of(context).textTheme.headlineSmall),
           content: Text(context.l10n.personalData_details_errorContentOnCreate),
-          actions: [TextButton(onPressed: () => context.pop(), child: Text(context.l10n.back))],
+          actions: [TextButton(onPressed: context.pop, child: Text(context.l10n.back))],
         ),
       ),
     );

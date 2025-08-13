@@ -67,7 +67,7 @@ class _UploadFileState extends State<UploadFile> {
                 children: [
                   if (widget.leading != null) widget.leading!,
                   Text(context.l10n.files_uploadFile, style: Theme.of(context).textTheme.titleLarge),
-                  IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.close)),
+                  IconButton(onPressed: context.pop, icon: const Icon(Icons.close)),
                 ],
               ),
             ),

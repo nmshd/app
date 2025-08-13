@@ -65,7 +65,7 @@ class _EditDeviceState extends State<EditDevice> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(context.l10n.devices_edit, style: Theme.of(context).textTheme.titleLarge),
-                  IconButton(onPressed: _loading ? null : () => context.pop(), icon: const Icon(Icons.close)),
+                  IconButton(onPressed: _loading ? null : context.pop, icon: const Icon(Icons.close)),
                 ],
               ),
             ),
@@ -121,7 +121,7 @@ class _EditDeviceState extends State<EditDevice> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  OutlinedButton(onPressed: _loading ? null : () => context.pop(), child: Text(context.l10n.cancel)),
+                  OutlinedButton(onPressed: _loading ? null : context.pop, child: Text(context.l10n.cancel)),
                   Gaps.w8,
                   FilledButton(onPressed: _confirmEnabled && !_loading ? _save : null, child: Text(context.l10n.save)),
                 ],

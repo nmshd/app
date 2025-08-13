@@ -66,7 +66,7 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
   Widget build(BuildContext context) {
     final appBar = AppBar(
       title: Text(widget.title, maxLines: 2),
-      leading: BackButton(onPressed: widget.resetType ?? () => context.pop()),
+      leading: BackButton(onPressed: widget.resetType ?? context.pop),
     );
 
     if (!_controllersInitialized || !_rendererHintsLoaded) {
@@ -148,7 +148,7 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                OutlinedButton(onPressed: _isLoading ? null : widget.resetType ?? () => context.pop(), child: Text(context.l10n.cancel)),
+                OutlinedButton(onPressed: _isLoading ? null : widget.resetType ?? context.pop, child: Text(context.l10n.cancel)),
                 Gaps.w8,
                 FilledButton(onPressed: _saveEnabled && !_isLoading ? _createAttributes : null, child: Text(context.l10n.save)),
               ],
