@@ -107,7 +107,7 @@ class _ChooseExistingProfile extends StatelessWidget {
           Gaps.h16,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-            child: OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+            child: OutlinedButton(onPressed: context.pop, child: Text(context.l10n.cancel)),
           ),
         ],
       ),
