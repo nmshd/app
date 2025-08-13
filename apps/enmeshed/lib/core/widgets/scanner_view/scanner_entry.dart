@@ -125,7 +125,7 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
             left: 16,
             child: IconButton(
               style: IconButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.secondaryFixed),
-              icon: Icon(context.adaptiveBackIcon, color: Theme.of(context).colorScheme.onSecondaryFixed, size: 18),
+              icon: Icon(context.adaptiveBackIcon, color: Theme.of(context).colorScheme.onSecondaryFixed),
               onPressed: context.pop,
             ),
           ),
