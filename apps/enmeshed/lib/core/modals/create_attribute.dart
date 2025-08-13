@@ -247,12 +247,8 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
               spacing: 8,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
-                FilledButton(
-                  style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-                  onPressed: !_confirmEnabled ? null : _onCreateAttributePressed,
-                  child: Text(context.l10n.save),
-                ),
+                OutlinedButton(onPressed: context.pop, child: Text(context.l10n.cancel)),
+                FilledButton(onPressed: !_confirmEnabled ? null : _onCreateAttributePressed, child: Text(context.l10n.save)),
               ],
             ),
           ),
