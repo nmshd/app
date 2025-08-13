@@ -123,7 +123,7 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
           Positioned(
             top: MediaQuery.paddingOf(context).top + 4,
             left: 16,
-            child: IconButton(
+            child: IconButton.filled(
               style: IconButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.secondaryFixed),
               icon: Icon(context.adaptiveBackIcon, color: Theme.of(context).colorScheme.onSecondaryFixed),
               onPressed: context.pop,
