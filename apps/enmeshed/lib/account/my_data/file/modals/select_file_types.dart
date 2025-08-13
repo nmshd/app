@@ -105,7 +105,7 @@ class _SelectFileTypesState extends State<_SelectFileTypes> {
                 spacing: 8,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+                  OutlinedButton(onPressed: context.pop, child: Text(context.l10n.cancel)),
                   FilledButton(
                     onPressed: _selectedFilters.isNotEmpty
                         ? () {
@@ -138,7 +138,7 @@ class _NoFileTypesAvailable extends StatelessWidget {
           Text(context.l10n.files_filter_byFileTypeEmpty, style: Theme.of(context).textTheme.bodyMedium),
           Gaps.h32,
           Center(
-            child: FilledButton(onPressed: () => context.pop(), child: Text(context.l10n.error_understood)),
+            child: FilledButton(onPressed: context.pop, child: Text(context.l10n.error_understood)),
           ),
         ],
       ),

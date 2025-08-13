@@ -39,7 +39,7 @@ class EnterPasswordModal extends StatelessWidget {
                   UIBridgePasswordType.pin => context.l10n.passwordProtection_enterPin,
                 }, style: Theme.of(context).textTheme.titleLarge),
                 const Spacer(),
-                IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.close)),
+                IconButton(onPressed: context.pop, icon: const Icon(Icons.close)),
               ],
             ),
           ),

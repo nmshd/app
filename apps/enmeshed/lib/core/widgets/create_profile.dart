@@ -81,7 +81,7 @@ class _CreateProfileState extends State<CreateProfile> {
                       children: [
                         if (widget.onBackPressed != null) IconButton(icon: Icon(context.adaptiveBackIcon), onPressed: widget.onBackPressed),
                         Text(context.l10n.profiles_createNew, style: Theme.of(context).textTheme.titleLarge),
-                        IconButton(onPressed: _loading && !_confirmEnabled ? null : () => context.pop(), icon: const Icon(Icons.close)),
+                        IconButton(onPressed: _loading && !_confirmEnabled ? null : context.pop, icon: const Icon(Icons.close)),
                       ],
                     ),
                   ),
