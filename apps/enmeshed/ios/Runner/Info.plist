@@ -41,6 +41,8 @@
 		<key>LSApplicationQueriesSchemes</key>
 		<array>
 			<string>tel</string>
+			<string>openid-credential-offer
+			</string>
 		</array>
 		<key>LSRequiresIPhoneOS</key>
 		<true />
