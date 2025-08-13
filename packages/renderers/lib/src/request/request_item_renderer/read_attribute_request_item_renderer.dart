@@ -81,7 +81,6 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
               spacing: 8,
               children: [
                 Checkbox(value: _isChecked, onChanged: widget.item.isDecidable && !widget.item.mustBeAccepted ? _onUpdateCheckbox : null),
-
                 if (_choice != null)
                   Expanded(
                     child: AttributeRenderer(
