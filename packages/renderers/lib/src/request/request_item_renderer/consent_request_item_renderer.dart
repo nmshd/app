@@ -215,7 +215,7 @@ class _FullConsentDialog extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.surface,
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
+          leading: IconButton(icon: const Icon(Icons.close), onPressed: context.pop),
           title: TranslatedText('i18n://requestRenderer.consent.title'),
         ),
         body: Scrollbar(

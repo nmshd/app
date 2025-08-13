@@ -34,7 +34,7 @@ class _DeleteDeviceSheetState extends State<DeleteDeviceSheet> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(context.l10n.deviceInfo_removeDevice, style: Theme.of(context).textTheme.titleLarge),
-                  IconButton(onPressed: _isLoading ? null : () => context.pop(), icon: const Icon(Icons.close)),
+                  IconButton(onPressed: _isLoading ? null : context.pop, icon: const Icon(Icons.close)),
                 ],
               ),
               Gaps.h16,
@@ -86,7 +86,7 @@ class _DeleteDevice extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            OutlinedButton(onPressed: isLoading ? null : () => context.pop(), child: Text(context.l10n.devices_delete_cancel)),
+            OutlinedButton(onPressed: isLoading ? null : context.pop, child: Text(context.l10n.devices_delete_cancel)),
             Gaps.w8,
             FilledButton(onPressed: onDelete, child: Text(context.l10n.devices_delete)),
           ],

@@ -124,7 +124,7 @@ class _Error extends StatelessWidget {
               runAlignment: WrapAlignment.spaceBetween,
               spacing: 8,
               children: [
-                OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.profile_delete_error_cancel)),
+                OutlinedButton(onPressed: context.pop, child: Text(context.l10n.profile_delete_error_cancel)),
                 FilledButton(onPressed: onRetry, child: Text(context.l10n.profile_delete_error_retry)),
               ],
             ),

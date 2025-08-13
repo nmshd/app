@@ -58,7 +58,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            IconButton(icon: const Icon(Icons.clear), onPressed: () => context.pop()),
+            IconButton(icon: const Icon(Icons.clear), onPressed: context.pop),
             Gaps.h4,
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -229,7 +229,7 @@ class _InstructionsBottom extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               spacing: 8,
               children: [
-                OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+                OutlinedButton(onPressed: context.pop, child: Text(context.l10n.cancel)),
                 FilledButton(onPressed: onContinue, child: Text(buttonContinueText ?? context.l10n.instructions_scanQrCode)),
               ],
             ),

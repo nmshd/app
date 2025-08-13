@@ -47,7 +47,7 @@ class _DrawerThemePageState extends State<DrawerThemePage> {
               style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.onPrimaryContainer),
             ),
             const Spacer(),
-            IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.close)),
+            IconButton(onPressed: context.pop, icon: const Icon(Icons.close)),
           ],
         ),
         Expanded(
