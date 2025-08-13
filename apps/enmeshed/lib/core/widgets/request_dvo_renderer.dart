@@ -443,13 +443,10 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
               padding: EdgeInsets.only(right: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 8, top: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
+                spacing: 8,
                 children: [
-                  TextButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
-                  FilledButton(
-                    style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-                    onPressed: () => context.pop(selectedOption),
-                    child: Text(context.l10n.save),
-                  ),
+                  TextButton(onPressed: context.pop, child: Text(context.l10n.cancel)),
+                  FilledButton(onPressed: () => context.pop(selectedOption), child: Text(context.l10n.save)),
                 ],
               ),
             ),
