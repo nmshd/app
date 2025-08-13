@@ -176,7 +176,9 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+      value: choice.id == null
+          ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
+          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
     );
   }
 
@@ -201,7 +203,9 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+      value: choice.id == null
+          ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
+          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
     );
   }
 
@@ -220,7 +224,9 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+      value: choice.id == null
+          ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
+          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
     );
   }
 
