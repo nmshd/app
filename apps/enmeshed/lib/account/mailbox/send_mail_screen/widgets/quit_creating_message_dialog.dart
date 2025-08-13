@@ -37,7 +37,7 @@ class QuitCreatingMessageDialog extends StatelessWidget {
                   child: Text(context.l10n.mailbox_yesButton, style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
                 Gaps.w16,
-                FilledButton(onPressed: () => context.pop(), child: Text(context.l10n.mailbox_noButton)),
+                FilledButton(onPressed: context.pop, child: Text(context.l10n.mailbox_noButton)),
               ],
             ),
           ],

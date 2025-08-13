@@ -163,7 +163,7 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              OutlinedButton(onPressed: _saving ? null : () => context.pop(), child: Text(context.l10n.cancel)),
+              OutlinedButton(onPressed: _saving ? null : context.pop, child: Text(context.l10n.cancel)),
               Gaps.w8,
               FilledButton(onPressed: _saving || !_enabled ? null : _onSavePressed, child: Text(context.l10n.save)),
             ],

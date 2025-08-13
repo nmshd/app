@@ -92,7 +92,7 @@ class _SelectFileTagsState extends State<_SelectFileTags> {
                 spacing: 8,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+                  OutlinedButton(onPressed: context.pop, child: Text(context.l10n.cancel)),
                   FilledButton(
                     onPressed: _selectedTags.isNotEmpty
                         ? () {
@@ -125,7 +125,7 @@ class _NoTagsAvailable extends StatelessWidget {
           Text(context.l10n.files_filter_byTagEmpty, style: Theme.of(context).textTheme.bodyMedium),
           Gaps.h32,
           Center(
-            child: FilledButton(onPressed: () => context.pop(), child: Text(context.l10n.error_understood)),
+            child: FilledButton(onPressed: context.pop, child: Text(context.l10n.error_understood)),
           ),
         ],
       ),

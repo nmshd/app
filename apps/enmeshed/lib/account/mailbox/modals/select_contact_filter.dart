@@ -63,7 +63,7 @@ class _SelectContactFilterModalState extends State<_SelectContactFilterModal> {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             trailing: IconButton(
-              onPressed: () => context.pop(),
+              onPressed: context.pop,
               icon: Icon(Icons.close, size: 22, color: Theme.of(context).colorScheme.onSurface),
             ),
           ),

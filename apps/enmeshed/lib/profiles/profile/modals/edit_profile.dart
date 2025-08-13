@@ -80,7 +80,7 @@ class _EditProfileState extends State<_EditProfile> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(context.l10n.profile_edit, style: Theme.of(context).textTheme.titleLarge),
-                        IconButton(onPressed: _loading ? null : () => context.pop(), icon: const Icon(Icons.close)),
+                        IconButton(onPressed: _loading ? null : context.pop, icon: const Icon(Icons.close)),
                       ],
                     ),
                   ),
@@ -136,7 +136,7 @@ class _EditProfileState extends State<_EditProfile> {
                       spacing: 8,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+                        OutlinedButton(onPressed: context.pop, child: Text(context.l10n.cancel)),
                         FilledButton(onPressed: _confirmEnabled ? _confirm : null, child: Text(context.l10n.save)),
                       ],
                     ),
