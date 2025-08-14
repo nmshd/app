@@ -39,7 +39,7 @@ dependencies:
   mime_type: ^1.0.1
   mobile_scanner: ^7.0.1
   open_file: ^3.5.10
-  package_info_plus: ^8.3.0
+  package_info_plus: ^8.3.1
   path: any
   path_provider: ^2.1.5
   pdf: ^3.11.3
