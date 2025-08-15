@@ -1,7 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 
-import '../../../request_item_index.dart';
-import '../../../request_renderer_controller.dart';
+import '../../request_item_index.dart';
+import '../../request_renderer_controller.dart';
 
 void handleCheckboxChange({
   required bool isChecked,

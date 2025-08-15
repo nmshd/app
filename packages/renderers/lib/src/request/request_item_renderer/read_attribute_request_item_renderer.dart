@@ -7,7 +7,6 @@ import '../../custom_list_tile.dart';
 import '../open_attribute_switcher_function.dart';
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import 'decidable/checkbox_enabled_extension.dart';
 import 'extensions/extensions.dart';
 import 'widgets/validation_error_box.dart';
 
@@ -20,11 +19,9 @@ class ReadAttributeRequestItemRenderer extends StatefulWidget {
   final RequestValidationResultDTO? validationResult;
 
   final Future<FileDVO> Function(String) expandFileReference;
-  final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
 
   const ReadAttributeRequestItemRenderer({
-    super.key,
     required this.item,
     required this.itemIndex,
     required this.controller,
@@ -32,8 +29,8 @@ class ReadAttributeRequestItemRenderer extends StatefulWidget {
     required this.createAttribute,
     required this.validationResult,
     required this.expandFileReference,
-    required this.chooseFile,
     required this.openFileDetails,
+    super.key,
   });
 
   @override
