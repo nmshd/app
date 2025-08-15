@@ -5,7 +5,7 @@ version: 0.1.0
 
 environment:
   sdk: "^3.8.1"
-  flutter: ">=3.32.8"
+  flutter: ">=3.35.1"
 
 dependencies:
   enmeshed_runtime_bridge: ^1.0.0
