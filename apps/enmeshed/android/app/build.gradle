@@ -50,7 +50,7 @@ android {
 
     defaultConfig {
         applicationId "eu.enmeshed.app"
-        minSdkVersion 21
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
