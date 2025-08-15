@@ -14,7 +14,7 @@ jobs:
   ios:
     runs-on: imhotep
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Get changed files of the enmeshed_runtime_bridge package
         id: changed-enmeshed_runtime_bridge-files
         uses: step-security/changed-files@v46
@@ -68,7 +68,7 @@ jobs:
   android:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Get changed files of the enmeshed_runtime_bridge package
         id: changed-enmeshed_runtime_bridge-files
         uses: step-security/changed-files@v46
