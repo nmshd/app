@@ -394,37 +394,34 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
             ),
           ),
           Expanded(
-            child: ListView.separated(
-              itemCount: widget.choices.length,
-              separatorBuilder: (context, index) => const Divider(height: 2),
-              itemBuilder: (context, index) {
-                final item = widget.choices[index];
+            child: RadioGroup(
+              groupValue: selectedOption,
+              onChanged: (choice) {
+                if (choice == null) return;
+                setState(() => selectedOption = choice);
+              },
+              child: ListView.separated(
+                itemCount: widget.choices.length,
+                separatorBuilder: (context, index) => const Divider(height: 2),
+                itemBuilder: (context, index) {
+                  final item = widget.choices[index];
 
-                return ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (widget.valueHints != null)
-                        Expanded(
-                          child: AttributeRenderer(
+                  return RadioListTile(
+                    controlAffinity: ListTileControlAffinity.trailing,
+                    value: item,
+                    title: widget.valueHints != null
+                        ? AttributeRenderer(
                             attribute: item.attribute,
                             valueHints: widget.valueHints!,
                             showTitle: false,
                             expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                             openFileDetails: (file) =>
                                 context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
-                          ),
-                        ),
-                      Radio<AttributeSwitcherChoice>(
-                        value: item,
-                        groupValue: selectedOption,
-                        onChanged: (AttributeSwitcherChoice? value) => setState(() => selectedOption = value),
-                      ),
-                    ],
-                  ),
-                  onTap: () => setState(() => selectedOption = item),
-                );
-              },
+                          )
+                        : null,
+                  );
+                },
+              ),
             ),
           ),
           Container(
