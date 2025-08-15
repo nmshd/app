@@ -60,7 +60,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
       children: [
         DropdownButtonFormField<ValueHintsDefaultValue>(
           autovalidateMode: widget.autovalidateMode,
-          value: _selectedOption,
+          initialValue: _selectedOption,
           decoration: widget.decoration != null
               ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
               : inputDecoration(context).copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut)),
