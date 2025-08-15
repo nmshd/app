@@ -42,6 +42,7 @@
 		<array>
 			<string>tel</string>
 			<string>openid-credential-offer</string>
+			<string>openid4vp</string>
 		</array>
 		<key>LSRequiresIPhoneOS</key>
 		<true />
