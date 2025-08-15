@@ -26,37 +26,39 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
              controller?.value = ControllerTypeResolver.resolveType(inputValue: field.value, type: technicalType);
            }
 
-           return Column(
-             crossAxisAlignment: CrossAxisAlignment.start,
-             children: <Widget>[
-               if (fieldName != null)
-                 Text(
-                   field.context.translateFieldName(fieldName, mustBeFilledOut)!,
-                   style: field.value == null && mustBeFilledOut ? TextStyle(color: errorColor) : null,
-                 ),
-               ...values.map(
-                 (option) => InputDecorator(
-                   decoration:
-                       decoration?.copyWith(border: InputBorder.none, contentPadding: EdgeInsets.zero) ??
-                       const InputDecoration(border: InputBorder.none, contentPadding: EdgeInsets.zero),
-                   child: RadioListTile<ValueHintsDefaultValue>(
-                     contentPadding: EdgeInsets.zero,
-                     title: TranslatedText(option.displayName),
-                     value: option.key,
-                     groupValue: field.value,
-                     onChanged: (ValueHintsDefaultValue? value) {
-                       if (value == null) return;
+           return RadioGroup(
+             groupValue: field.value,
+             onChanged: (ValueHintsDefaultValue? value) {
+               if (value == null) return;
 
-                       controller?.value = ControllerTypeResolver.resolveType(inputValue: value, type: technicalType);
+               controller?.value = ControllerTypeResolver.resolveType(inputValue: value, type: technicalType);
 
-                       field.didChange(value);
-                     },
+               field.didChange(value);
+             },
+             child: Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: <Widget>[
+                 if (fieldName != null)
+                   Text(
+                     field.context.translateFieldName(fieldName, mustBeFilledOut)!,
+                     style: field.value == null && mustBeFilledOut ? TextStyle(color: errorColor) : null,
+                   ),
+                 ...values.map(
+                   (option) => InputDecorator(
+                     decoration:
+                         decoration?.copyWith(border: InputBorder.none, contentPadding: EdgeInsets.zero) ??
+                         const InputDecoration(border: InputBorder.none, contentPadding: EdgeInsets.zero),
+                     child: RadioListTile<ValueHintsDefaultValue>(
+                       contentPadding: EdgeInsets.zero,
+                       title: TranslatedText(option.displayName),
+                       value: option.key,
+                     ),
                    ),
                  ),
-               ),
-               if (field.value == null && mustBeFilledOut)
-                 Text(FlutterI18n.translate(field.context, 'errors.value_renderer.emptyField'), style: TextStyle(color: errorColor, fontSize: 12)),
-             ],
+                 if (field.value == null && mustBeFilledOut)
+                   Text(FlutterI18n.translate(field.context, 'errors.value_renderer.emptyField'), style: TextStyle(color: errorColor, fontSize: 12)),
+               ],
+             ),
            );
          },
        );
