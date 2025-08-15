@@ -65,5 +65,9 @@
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="openid-credential-offer" />
         </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="openid4vp" />
+        </intent>
     </queries>
 </manifest>
