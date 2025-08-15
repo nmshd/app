@@ -56,39 +56,40 @@ class _DrawerThemePageState extends State<DrawerThemePage> {
             thumbVisibility: true,
             child: SingleChildScrollView(
               controller: _scrollController,
-              child: Column(
-                children: [
-                  Padding(padding: const EdgeInsets.all(16), child: Text(context.l10n.drawer_theme_description)),
-                  RadioListTile(
-                    shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-                    title: Text(context.l10n.drawer_theme_modes_system),
-                    groupValue: themeSetting.themeMode,
-                    value: ThemeMode.system,
-                    onChanged: (v) => GetIt.I.get<ThemeModeModel>().setThemeMode(ThemeMode.system),
-                  ),
-                  RadioListTile(
-                    shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-                    title: Text(context.l10n.drawer_theme_modes_light),
-                    groupValue: themeSetting.themeMode,
-                    value: ThemeMode.light,
-                    onChanged: (v) => GetIt.I.get<ThemeModeModel>().setThemeMode(ThemeMode.light),
-                  ),
-                  RadioListTile(
-                    shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-                    title: Text(context.l10n.drawer_theme_modes_dark),
-                    groupValue: themeSetting.themeMode,
-                    value: ThemeMode.dark,
-                    onChanged: (v) => GetIt.I.get<ThemeModeModel>().setThemeMode(ThemeMode.dark),
-                  ),
-                  Gaps.h8,
-                  SwitchListTile(
-                    shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-                    title: const Text('AMOLED'),
-                    value: themeSetting.amoled,
-                    onChanged: (v) => GetIt.I.get<ThemeModeModel>().setAmoled(amoled: v),
-                  ),
-                  Padding(padding: const EdgeInsets.all(16), child: Text(context.l10n.drawer_theme_amoled)),
-                ],
+              child: RadioGroup(
+                groupValue: themeSetting.themeMode,
+                onChanged: (mode) {
+                  if (mode == null) return;
+                  GetIt.I.get<ThemeModeModel>().setThemeMode(mode);
+                },
+                child: Column(
+                  children: [
+                    Padding(padding: const EdgeInsets.all(16), child: Text(context.l10n.drawer_theme_description)),
+                    RadioListTile(
+                      shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                      title: Text(context.l10n.drawer_theme_modes_system),
+                      value: ThemeMode.system,
+                    ),
+                    RadioListTile(
+                      shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                      title: Text(context.l10n.drawer_theme_modes_light),
+                      value: ThemeMode.light,
+                    ),
+                    RadioListTile(
+                      shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                      title: Text(context.l10n.drawer_theme_modes_dark),
+                      value: ThemeMode.dark,
+                    ),
+                    Gaps.h8,
+                    SwitchListTile(
+                      shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                      title: const Text('AMOLED'),
+                      value: themeSetting.amoled,
+                      onChanged: (v) => GetIt.I.get<ThemeModeModel>().setAmoled(amoled: v),
+                    ),
+                    Padding(padding: const EdgeInsets.all(16), child: Text(context.l10n.drawer_theme_amoled)),
+                  ],
+                ),
               ),
             ),
           ),

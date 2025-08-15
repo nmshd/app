@@ -111,7 +111,7 @@ class _ConsentBox extends StatelessWidget {
                     thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
                       (Set<WidgetState> states) => states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close),
                     ),
-                    activeColor: context.customColors.onSuccess,
+                    activeThumbColor: context.customColors.onSuccess,
                     value: isChecked,
                     activeTrackColor: _isSwitchDisabled ? context.customColors.success.withValues(alpha: 0.16) : context.customColors.success,
                     onChanged: _isSwitchDisabled ? null : onUpdateCheckbox,
