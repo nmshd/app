@@ -33,7 +33,7 @@ dependencies:
   i18n_translated_text: ^1.0.2
   identity_recovery_kit: ^1.0.0
   image: ^4.5.4
-  image_picker: ^1.1.2
+  image_picker: ^1.2.0
   intl: any
   logger: ^2.6.1
   mime_type: ^1.0.1
