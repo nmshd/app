@@ -69,7 +69,7 @@ dev_dependencies:
       url: https://github.com/h4h13/msix.git
       ref: Fix-Flutter-3.27
   translations_cleaner: ^0.0.5
-  vector_graphics_compiler: ^1.1.17
+  vector_graphics_compiler: ^1.1.18
 
 flutter:
   generate: true
