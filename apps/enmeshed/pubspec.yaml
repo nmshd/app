@@ -7,6 +7,8 @@ environment:
   sdk: "^3.9.0"
   flutter: ">=3.35.1"
 
+resolution: workspace
+
 dependencies:
   app_links: ^6.4.1
   archive: ^4.0.7
