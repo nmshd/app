@@ -6,6 +6,8 @@ environment:
   sdk: "^3.9.0"
   flutter: ">=3.35.1"
 
+resolution: workspace
+
 dependencies:
   collection: any
   enmeshed_types: 1.0.0
