@@ -83,8 +83,8 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: _choice.id != null
-          ? AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: _choice.id!)
+      value: _choice.dvo != null
+          ? AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: _choice.dvo!.id)
           : AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: _choice.attribute),
     );
   }
@@ -108,10 +108,10 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
       isChecked = true;
     });
 
-    if (choice.id != null) {
+    if (choice.dvo != null) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
-        value: AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: choice.id!),
+        value: AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: choice.dvo!.id),
       );
     } else {
       widget.controller?.writeAtIndex(
@@ -130,13 +130,13 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
       final ProcessedIQLQueryDVO query => query.results,
     };
 
-    return {...results.map((result) => (id: result.id, attribute: result.content)), _getProposedChoice(), _choice}.toList();
+    return {...results.map((result) => (dvo: result, attribute: result.content)), _getProposedChoice(), _choice}.toList();
   }
 
-  ({String? id, AbstractAttribute attribute}) _getProposedChoice() {
+  ({LocalAttributeDVO? dvo, AbstractAttribute attribute}) _getProposedChoice() {
     return switch (widget.item.attribute) {
-      final DraftIdentityAttributeDVO dvo => (id: null, attribute: dvo.content),
-      final DraftRelationshipAttributeDVO dvo => (id: null, attribute: dvo.content),
+      final DraftIdentityAttributeDVO dvo => (dvo: null, attribute: dvo.content),
+      final DraftRelationshipAttributeDVO dvo => (dvo: null, attribute: dvo.content),
     };
   }
 }
