@@ -319,8 +319,11 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     final attribute = await showCreateAttributeModal(context: context, accountId: widget.accountId, initialValueType: valueType);
     if (attribute == null || !mounted) return null;
 
-    await _loadRequest(GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId));
-    return (id: attribute.id, attribute: attribute.content);
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    await _loadRequest(session);
+
+    final expandedAttribute = await session.expander.expandLocalAttributeDTO(attribute);
+    return (dvo: expandedAttribute, attribute: attribute.content);
   }
 }
 
