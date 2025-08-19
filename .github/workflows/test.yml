@@ -12,7 +12,7 @@ jobs:
       - run: dart pub global activate melos
       - run: melos bootstrap
       - run: melos generate_translations
-      - run: melos analyze
+      - run: dart analyze
       - run: melos format
       - run: melos clean_generated_translations && melos check_translations
 

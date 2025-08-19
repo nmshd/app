@@ -6,12 +6,14 @@ environment:
   sdk: "^3.9.0"
   flutter: ">=3.35.1"
 
+resolution: workspace
+
 dependencies:
   flex_seed_scheme: ^3.5.1
   flutter:
     sdk: flutter
   get_it: ^8.2.0
-  go_router: ^16.1.0
+  go_router: ^16.2.0
   logger: ^2.6.1
   path: any
   styled_text: ^8.1.0

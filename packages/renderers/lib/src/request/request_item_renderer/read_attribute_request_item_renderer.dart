@@ -50,9 +50,9 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
       _isChecked = widget.item.response is AcceptResponseItemDVO;
 
       _choice = switch (widget.item.response) {
-        final ReadAttributeAcceptResponseItemDVO response => (id: response.attribute.id, attribute: response.attribute.content),
-        final AttributeAlreadySharedAcceptResponseItemDVO response => (id: response.attribute.id, attribute: response.attribute.content),
-        final AttributeSuccessionAcceptResponseItemDVO response => (id: response.successor.id, attribute: response.successor.content),
+        final ReadAttributeAcceptResponseItemDVO response => (dvo: response.attribute, attribute: response.attribute.content),
+        final AttributeAlreadySharedAcceptResponseItemDVO response => (dvo: response.attribute, attribute: response.attribute.content),
+        final AttributeSuccessionAcceptResponseItemDVO response => (dvo: response.successor, attribute: response.successor.content),
         _ => null,
       };
     } else {
@@ -60,10 +60,10 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
       _choice = _getChoices().firstOrNull;
     }
 
-    if (_isChecked && _choice != null && _choice!.id != null) {
+    if (_isChecked && _choice != null && _choice!.dvo != null) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
-        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: _choice!.id!),
+        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: _choice!.dvo!.id),
       );
     }
   }
@@ -81,11 +81,11 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
               spacing: 8,
               children: [
                 Checkbox(value: _isChecked, onChanged: widget.item.isDecidable && !widget.item.mustBeAccepted ? _onUpdateCheckbox : null),
-                if (_choice != null)
+                if (_choice != null && (_choice!.dvo != null || _getQueryValueHints() != null))
                   Expanded(
                     child: AttributeRenderer(
                       attribute: _choice!.attribute,
-                      valueHints: _getQueryValueHints()!,
+                      valueHints: _choice!.dvo?.valueHints ?? _getQueryValueHints()!,
                       trailing: widget.item.isDecidable
                           ? Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: const Icon(Icons.chevron_right))
                           : null,
@@ -171,9 +171,9 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: choice.id == null
+      value: choice.dvo == null
           ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
-          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.dvo!.id),
     );
   }
 
@@ -198,9 +198,9 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: choice.id == null
+      value: choice.dvo == null
           ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
-          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.dvo!.id),
     );
   }
 
@@ -219,9 +219,9 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: choice.id == null
+      value: choice.dvo == null
           ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
-          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.dvo!.id),
     );
   }
 
@@ -229,7 +229,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
     return switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => query.valueHints,
       final ProcessedRelationshipAttributeQueryDVO query => query.valueHints,
-      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.valueHints,
+      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.valueHints ?? query.results.firstOrNull?.valueHints,
       final ProcessedIQLQueryDVO query => query.valueHints,
       final IdentityAttributeQueryDVO query => query.valueHints,
       final RelationshipAttributeQueryDVO query => query.valueHints,
@@ -246,6 +246,6 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
       final ProcessedIQLQueryDVO query => query.results,
     };
 
-    return results.map((result) => (id: result.id, attribute: result.content)).toSet();
+    return results.map((result) => (dvo: result, attribute: result.content)).toSet();
   }
 }
