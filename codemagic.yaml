@@ -16,7 +16,7 @@ workflows:
       events:
         - tag
       tag_patterns:
-        - pattern: "enmeshed-v+([0-9]).+([0-9]).+([0-9])"
+        - pattern: "+([0-9]).+([0-9]).+([0-9])"
           include: true
       cancel_previous_builds: false
 
@@ -38,7 +38,7 @@ workflows:
           BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "eu.enmeshed.app" --tracks="internal") + 1)) 
           flutter build appbundle --release \
             --build-number=$BUILD_NUMBER \
-            --build-name=${CM_TAG/#enmeshed-v/} \
+            --build-name=${CM_TAG} \
             --dart-define="app_baseUrl=$app_baseUrl" \
             --dart-define="app_clientId=$app_clientId" \
             --dart-define="app_clientSecret=$app_clientSecret"
@@ -74,7 +74,7 @@ workflows:
       events:
         - tag
       tag_patterns:
-        - pattern: "enmeshed-v+([0-9]).+([0-9]).+([0-9])"
+        - pattern: "+([0-9]).+([0-9]).+([0-9])"
           include: true
       cancel_previous_builds: false
     environment:
@@ -103,7 +103,7 @@ workflows:
       - name: Flutter build ipa
         script: |
           flutter build ipa --release \
-           --build-name=${CM_TAG/#enmeshed-v/} \
+           --build-name=${CM_TAG} \
            --export-options-plist=/Users/builder/export_options.plist \
            --dart-define="app_baseUrl=$app_baseUrl" \
            --dart-define="app_clientId=$app_clientId" \
@@ -143,7 +143,7 @@ workflows:
       events: []
       #   - tag
       # tag_patterns:
-      #   - pattern: "enmeshed-v+([0-9]).+([0-9]).+([0-9])"
+      #   - pattern: "+([0-9]).+([0-9]).+([0-9])"
       #     include: true
       # cancel_previous_builds: false
 
@@ -159,19 +159,15 @@ workflows:
 
       - name: Build appbundle with Flutter
         script: |
-          $VERSION = $CM_TAG -replace "enmeshed-v", ""
-
           flutter config --enable-windows-desktop
-          flutter build windows --release --build-number=$PROJECT_BUILD_NUMBER --build-name=$VERSION --dart-define="app_baseUrl=$app_baseUrl" --dart-define="app_clientId=$app_clientId" --dart-define="app_clientSecret=$app_clientSecret"
+          flutter build windows --release --build-number=$PROJECT_BUILD_NUMBER --build-name=$CM_TAG --dart-define="app_baseUrl=$app_baseUrl" --dart-define="app_clientId=$app_clientId" --dart-define="app_clientSecret=$app_clientSecret"
           cd build/windows/x64/runner/Release
           7z a -r ../release.zip ./*
         working_directory: apps/enmeshed
 
       - name: Build msix package
         script: |
-          $VERSION = $CM_TAG -replace "enmeshed-v", ""
-
-          flutter pub run msix:create --version "$VERSION.0"
+          flutter pub run msix:create --version "$CM_TAG.0"
         working_directory: apps/enmeshed
 
       - name: Build finished successfully
