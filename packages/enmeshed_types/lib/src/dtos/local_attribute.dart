@@ -4,11 +4,11 @@ import '../contents/contents.dart';
 import 'local_attribute_deletion_info.dart';
 import 'local_attribute_share_info.dart';
 
-class LocalAttributeDTO extends Equatable {
+class LocalAttributeDTO<T extends AbstractAttribute> extends Equatable {
   final String id;
   final String? parentId;
   final String createdAt;
-  final AbstractAttribute content;
+  final T content;
   final String? succeeds;
   final String? succeededBy;
   final LocalAttributeShareInfo? shareInfo;
@@ -44,7 +44,7 @@ class LocalAttributeDTO extends Equatable {
       id: json['id'],
       parentId: json['parentId'],
       createdAt: json['createdAt'],
-      content: AbstractAttribute.fromJson(json['content']),
+      content: AbstractAttribute.fromJson(json['content']) as T,
       succeeds: json['succeeds'],
       succeededBy: json['succeededBy'],
       shareInfo: LocalAttributeShareInfo.fromJsonNullable(json['shareInfo']),
