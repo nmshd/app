@@ -16,8 +16,12 @@ import '../types/types.dart';
 import '../utils/utils.dart';
 import '../widgets/widgets.dart';
 
-Future<LocalAttributeDTO?> showCreateAttributeModal({required BuildContext context, required String accountId, String? initialValueType}) async {
-  final attribute = await showModalBottomSheet<LocalAttributeDTO>(
+Future<LocalAttributeDTO<IdentityAttribute>?> showCreateIdentiyAttributeModal({
+  required BuildContext context,
+  required String accountId,
+  String? initialValueType,
+}) async {
+  final attribute = await showModalBottomSheet<LocalAttributeDTO<IdentityAttribute>>(
     context: context,
     isScrollControlled: true,
     builder: (builder) => ConstrainedBox(

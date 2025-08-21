@@ -11,7 +11,8 @@ class ResponseItemGroupRenderer extends StatelessWidget {
   final RequestItemGroupDVO requestItemGroup;
   final RequestItemIndex itemIndex;
   final OpenAttributeSwitcherFunction openAttributeSwitcher;
-  final CreateAttributeFunction createAttribute;
+  final CreateIdentityAttributeFunction createIdentityAttribute;
+  final ComposeRelationshipAttributeFunction composeRelationshipAttribute;
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
@@ -23,7 +24,8 @@ class ResponseItemGroupRenderer extends StatelessWidget {
     required this.itemIndex,
     required this.requestItemGroup,
     required this.openAttributeSwitcher,
-    required this.createAttribute,
+    required this.createIdentityAttribute,
+    required this.composeRelationshipAttribute,
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
@@ -40,7 +42,8 @@ class ResponseItemGroupRenderer extends StatelessWidget {
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,
         openAttributeSwitcher: openAttributeSwitcher,
-        createAttribute: createAttribute,
+        createIdentityAttribute: createIdentityAttribute,
+        composeRelationshipAttribute: composeRelationshipAttribute,
       );
     }).toList();
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: responseItems);

@@ -14,7 +14,8 @@ class ResponseItemRenderer extends StatelessWidget {
   final RequestItemDVO requestItem;
   final RequestItemIndex itemIndex;
   final OpenAttributeSwitcherFunction openAttributeSwitcher;
-  final CreateAttributeFunction createAttribute;
+  final CreateIdentityAttributeFunction createIdentityAttribute;
+  final ComposeRelationshipAttributeFunction composeRelationshipAttribute;
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
@@ -26,7 +27,8 @@ class ResponseItemRenderer extends StatelessWidget {
     required this.responseItem,
     required this.requestItem,
     required this.openAttributeSwitcher,
-    required this.createAttribute,
+    required this.createIdentityAttribute,
+    required this.composeRelationshipAttribute,
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
@@ -42,7 +44,8 @@ class ResponseItemRenderer extends StatelessWidget {
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,
         openAttributeSwitcher: openAttributeSwitcher,
-        createAttribute: createAttribute,
+        createIdentityAttribute: createIdentityAttribute,
+        composeRelationshipAttribute: composeRelationshipAttribute,
         controller: null,
         requestStatus: null,
         backgroundColor: null,
@@ -77,7 +80,8 @@ class ResponseItemRenderer extends StatelessWidget {
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,
         openAttributeSwitcher: openAttributeSwitcher,
-        createAttribute: createAttribute,
+        createIdentityAttribute: createIdentityAttribute,
+        composeRelationshipAttribute: composeRelationshipAttribute,
         controller: null,
         requestStatus: null,
         backgroundColor: null,
