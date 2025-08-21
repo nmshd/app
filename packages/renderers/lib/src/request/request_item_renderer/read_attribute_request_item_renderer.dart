@@ -164,9 +164,9 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
   String? get description {
     if (widget.item.description != null) return widget.item.description;
 
-    if (widget.item.query is RelationshipAttributeQueryDVO || widget.item.query is ProcessedRelationshipAttributeQueryDVO) {
-      return widget.item.query.description;
-    }
+    final query = widget.item.query;
+    if (query is RelationshipAttributeQueryDVO) return query.attributeCreationHints.description;
+    if (query is ProcessedRelationshipAttributeQueryDVO) return query.attributeCreationHints.description;
 
     return null;
   }
