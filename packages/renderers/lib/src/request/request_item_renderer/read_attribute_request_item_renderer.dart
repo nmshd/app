@@ -103,6 +103,11 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
                     ),
                   )
                 else if (_valueType == null)
+                  // TODO(jkoenig134): this case currently handles at least two different scenarios
+                  // 1. ThirdPartyRelationshipAttributeQueryDVO without results
+                  // 2. IQLQuery without results and without a valueType that can be composed
+                  // there MUST be a better way to actually find out if we really cannot compose an attribute
+                  // and the translation i18n string should be more generic (currently it is only for the third party relationship query)
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(right: 8.0),
