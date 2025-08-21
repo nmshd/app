@@ -97,9 +97,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
                       expandFileReference: widget.expandFileReference,
                       openFileDetails: widget.openFileDetails,
                       titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
-                      extraLine: widget.item.description != null
-                          ? Text(widget.item.description!, style: Theme.of(context).textTheme.labelMedium)
-                          : null,
+                      extraLine: description != null ? Text(description!, style: Theme.of(context).textTheme.labelMedium) : null,
                     ),
                   )
                 else if (_valueType == null)
@@ -125,7 +123,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
                 else
                   Expanded(
                     child: CustomListTile(
-                      title: 'i18n://dvo.attribute.name.$_valueType',
+                      title: title,
                       showTitle: true,
                       valueTextStyle: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.outlineVariant),
                       description: 'i18n://requestRenderer.noEntry',
@@ -136,9 +134,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
                             )
                           : null,
                       titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
-                      extraLine: widget.item.description != null
-                          ? Text(widget.item.description!, style: Theme.of(context).textTheme.labelMedium)
-                          : null,
+                      extraLine: description != null ? Text(description!, style: Theme.of(context).textTheme.labelMedium) : null,
                     ),
                   ),
               ],
@@ -148,6 +144,29 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
         ),
       ),
     );
+  }
+
+  String get title {
+    final query = widget.item.query;
+    if (query is RelationshipAttributeQueryDVO) {
+      return query.attributeCreationHints.title;
+    }
+
+    if (query is ProcessedRelationshipAttributeQueryDVO) {
+      return query.attributeCreationHints.title;
+    }
+
+    return 'i18n://dvo.attribute.name.$_valueType';
+  }
+
+  String? get description {
+    if (widget.item.description != null) return widget.item.description;
+
+    if (widget.item.query is RelationshipAttributeQueryDVO || widget.item.query is ProcessedRelationshipAttributeQueryDVO) {
+      return widget.item.query.description;
+    }
+
+    return null;
   }
 
   String? get _valueType => switch (widget.item.query) {
@@ -171,6 +190,12 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
   }
 
   Future<void> _createAttribute() async {
+    if (widget.item.query is ProcessedIdentityAttributeQueryDVO) return await _createIdentityAttribute();
+
+    // TODO: compose relationship attribute
+  }
+
+  Future<void> _createIdentityAttribute() async {
     final choice = await widget.createAttribute(valueType: _valueType!);
     if (choice == null || !mounted) return;
 
