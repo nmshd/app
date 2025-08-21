@@ -1,4 +1,5 @@
-export 'create_attribute.dart';
+export 'compose_relationship_attribute.dart';
+export 'create_identity_attribute.dart';
 export 'create_recovery_kit/create_recovery_kit.dart';
 export 'create_relationship_error_dialog.dart';
 export 'delete_attribute.dart';

@@ -70,6 +70,7 @@ class AttributeRenderer extends StatelessWidget {
         value: attribute.value,
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
+        extraLine: extraLine,
         trailing: trailing,
         expandFileReference: expandFileReference,
         openFileDetails: openFileDetails,

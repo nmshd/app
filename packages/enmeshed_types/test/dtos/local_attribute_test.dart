@@ -169,7 +169,7 @@ void main() {
         ).toJson(),
       };
       expect(
-        LocalAttributeDTO.fromJson(json),
+        LocalAttributeDTO<IdentityAttribute>.fromJson(json),
         equals(
           const LocalAttributeDTO(
             id: 'anId',
@@ -194,7 +194,7 @@ void main() {
         ).toJson(),
       };
       expect(
-        LocalAttributeDTO.fromJson(json),
+        LocalAttributeDTO<IdentityAttribute>.fromJson(json),
         equals(
           const LocalAttributeDTO(
             id: 'anId',
@@ -220,7 +220,7 @@ void main() {
         'succeeds': 'succeed',
       };
       expect(
-        LocalAttributeDTO.fromJson(json),
+        LocalAttributeDTO<IdentityAttribute>.fromJson(json),
         equals(
           const LocalAttributeDTO(
             id: 'anId',
@@ -246,7 +246,7 @@ void main() {
         'succeededBy': 'anAddress',
       };
       expect(
-        LocalAttributeDTO.fromJson(json),
+        LocalAttributeDTO<IdentityAttribute>.fromJson(json),
         equals(
           const LocalAttributeDTO(
             id: 'anId',
@@ -272,7 +272,7 @@ void main() {
         'shareInfo': const LocalAttributeShareInfo(requestReference: 'aRequestReference', peer: 'aPeer').toJson(),
       };
       expect(
-        LocalAttributeDTO.fromJson(json),
+        LocalAttributeDTO<IdentityAttribute>.fromJson(json),
         equals(
           const LocalAttributeDTO(
             id: 'anId',
@@ -301,7 +301,7 @@ void main() {
         'shareInfo': const LocalAttributeShareInfo(requestReference: 'aRequestReference', peer: 'aPeer').toJson(),
       };
       expect(
-        LocalAttributeDTO.fromJson(json),
+        LocalAttributeDTO<IdentityAttribute>.fromJson(json),
         equals(
           const LocalAttributeDTO(
             id: 'anId',
