@@ -192,13 +192,16 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
   }
 
   Future<void> _createAttribute() async {
-    if (widget.item.query is ProcessedIdentityAttributeQueryDVO) return await _createIdentityAttribute();
+    final query = widget.item.query;
+    if (query is ProcessedIdentityAttributeQueryDVO) return await _createIdentityAttribute();
+    if (query is ProcessedRelationshipAttributeQueryDVO) return await _composeRelationshipAttribute(query);
 
-    // TODO: compose relationship attribute
+    // this should never happen
+    throw Exception('Cannot create attribute for query: ${query.runtimeType}');
   }
 
   Future<void> _createIdentityAttribute() async {
-    final choice = await widget.createAttribute(valueType: _valueType!);
+    final choice = await widget.createIdentityAttribute(valueType: _valueType!);
     if (choice == null || !mounted) return;
 
     setState(() {
@@ -208,13 +211,32 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: choice.dvo == null
-          ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
-          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.dvo!.id),
+      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.dvo.id),
+    );
+  }
+
+  Future<void> _composeRelationshipAttribute(ProcessedRelationshipAttributeQueryDVO query) async {
+    final attribute = await widget.composeRelationshipAttribute(query: query);
+    if (attribute == null || !mounted) return;
+
+    setState(() {
+      _choice = (dvo: null, attribute: attribute);
+      _isChecked = true;
+    });
+
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
     );
   }
 
   Future<void> _openAttributeSwitcher(Set<AttributeSwitcherChoice> choices) async {
+    final query = widget.item.query;
+    // TODO(jkoenig134): this is a workaround for the fact that we cannot really switch between relationship attributes that are not stored yet
+    if (query is ProcessedRelationshipAttributeQueryDVO && _getChoices().isEmpty) {
+      return await _composeRelationshipAttribute(query);
+    }
+
     final valueType = _valueType;
 
     final valueHints = _getQueryValueHints();
@@ -283,6 +305,6 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
       final ProcessedIQLQueryDVO query => query.results,
     };
 
-    return results.map((result) => (dvo: result, attribute: result.content)).toSet();
+    return results.map<AttributeSwitcherChoice>((result) => (dvo: result, attribute: result.content)).toSet();
   }
 }
