@@ -16,7 +16,8 @@ class ReadAttributeRequestItemRenderer extends StatefulWidget {
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
   final OpenAttributeSwitcherFunction openAttributeSwitcher;
-  final CreateAttributeFunction createAttribute;
+  final CreateIdentityAttributeFunction createIdentityAttribute;
+  final ComposeRelationshipAttributeFunction composeRelationshipAttribute;
   final RequestValidationResultDTO? validationResult;
 
   final Future<FileDVO> Function(String) expandFileReference;
@@ -29,7 +30,8 @@ class ReadAttributeRequestItemRenderer extends StatefulWidget {
     required this.itemIndex,
     required this.controller,
     required this.openAttributeSwitcher,
-    required this.createAttribute,
+    required this.createIdentityAttribute,
+    required this.composeRelationshipAttribute,
     required this.validationResult,
     required this.expandFileReference,
     required this.chooseFile,

@@ -13,7 +13,8 @@ class RequestRenderer extends StatelessWidget {
   final RequestRendererController? controller;
   final LocalRequestDVO request;
   final OpenAttributeSwitcherFunction openAttributeSwitcher;
-  final CreateAttributeFunction createAttribute;
+  final CreateIdentityAttributeFunction createIdentityAttribute;
+  final ComposeRelationshipAttributeFunction composeRelationshipAttribute;
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
@@ -26,7 +27,8 @@ class RequestRenderer extends StatelessWidget {
     required this.request,
     required this.controller,
     required this.openAttributeSwitcher,
-    required this.createAttribute,
+    required this.createIdentityAttribute,
+    required this.composeRelationshipAttribute,
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
@@ -50,7 +52,8 @@ class RequestRenderer extends StatelessWidget {
             chooseFile: chooseFile,
             openFileDetails: openFileDetails,
             openAttributeSwitcher: openAttributeSwitcher,
-            createAttribute: createAttribute,
+            createIdentityAttribute: createIdentityAttribute,
+            composeRelationshipAttribute: composeRelationshipAttribute,
           );
         }
 
@@ -62,7 +65,8 @@ class RequestRenderer extends StatelessWidget {
           chooseFile: chooseFile,
           openFileDetails: openFileDetails,
           openAttributeSwitcher: openAttributeSwitcher,
-          createAttribute: createAttribute,
+          createIdentityAttribute: createIdentityAttribute,
+          composeRelationshipAttribute: composeRelationshipAttribute,
         );
       }).toList();
 
@@ -79,7 +83,8 @@ class RequestRenderer extends StatelessWidget {
           controller: controller,
           requestStatus: request.status,
           openAttributeSwitcher: openAttributeSwitcher,
-          createAttribute: createAttribute,
+          createIdentityAttribute: createIdentityAttribute,
+          composeRelationshipAttribute: composeRelationshipAttribute,
           expandFileReference: expandFileReference,
           chooseFile: chooseFile,
           openFileDetails: openFileDetails,
@@ -92,7 +97,8 @@ class RequestRenderer extends StatelessWidget {
         itemIndex: itemIndex,
         controller: controller,
         openAttributeSwitcher: openAttributeSwitcher,
-        createAttribute: createAttribute,
+        createIdentityAttribute: createIdentityAttribute,
+        composeRelationshipAttribute: composeRelationshipAttribute,
         requestStatus: request.status,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
