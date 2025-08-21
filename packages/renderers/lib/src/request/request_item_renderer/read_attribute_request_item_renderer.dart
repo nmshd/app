@@ -150,13 +150,8 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
 
   String get title {
     final query = widget.item.query;
-    if (query is RelationshipAttributeQueryDVO) {
-      return query.attributeCreationHints.title;
-    }
-
-    if (query is ProcessedRelationshipAttributeQueryDVO) {
-      return query.attributeCreationHints.title;
-    }
+    if (query is RelationshipAttributeQueryDVO) return query.attributeCreationHints.title;
+    if (query is ProcessedRelationshipAttributeQueryDVO) return query.attributeCreationHints.title;
 
     return 'i18n://dvo.attribute.name.$_valueType';
   }
