@@ -14,7 +14,6 @@ workspace:
   - packages/enmeshed_types
   - packages/enmeshed_ui_kit
   - packages/identity_recovery_kit
-  - packages/identity_recovery_kit/example
   - packages/renderers
   - packages/value_renderer
 
