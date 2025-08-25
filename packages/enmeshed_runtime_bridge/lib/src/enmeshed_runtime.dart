@@ -21,7 +21,7 @@ typedef RuntimeConfig = ({
   String clientSecret,
   String applicationId,
   bool useAppleSandbox,
-  String databaseFolder,
+  String databaseBaseFolder,
   Color? androidNotificationColor,
   Map<String, dynamic>? deciderModuleConfig,
 });
@@ -182,7 +182,7 @@ class EnmeshedRuntime with WidgetsBindingObserver {
       'platformClientId': runtimeConfig.clientId,
       'platformClientSecret': runtimeConfig.clientSecret,
     },
-    'databaseFolder': runtimeConfig.databaseFolder,
+    'databaseBaseFolder': runtimeConfig.databaseBaseFolder,
     'modules': {
       if (Platform.isWindows) 'pushNotification': {'enabled': false},
       if (Platform.isWindows) 'sse': {'enabled': true},
