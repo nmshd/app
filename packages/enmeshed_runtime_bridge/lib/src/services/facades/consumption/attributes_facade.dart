@@ -29,7 +29,7 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => CanCreateRepositoryAttributeResponse.fromJson(value));
   }
 
-  Future<Result<LocalAttributeDTO>> createRepositoryAttribute({
+  Future<Result<LocalAttributeDTO<IdentityAttribute>>> createRepositoryAttribute({
     required IdentityAttributeValue value,
     List<String>? tags,
     String? validFrom,
@@ -47,7 +47,7 @@ class AttributesFacade {
     );
 
     final json = result.valueToMap();
-    return Result.fromJson(json, (value) => LocalAttributeDTO.fromJson(value));
+    return Result.fromJson(json, (value) => LocalAttributeDTO<IdentityAttribute>.fromJson(value));
   }
 
   Future<Result<List<LocalAttributeDTO>>> getPeerSharedAttributes({
