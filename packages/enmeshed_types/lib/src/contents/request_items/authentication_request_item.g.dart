@@ -13,7 +13,9 @@ AuthenticationRequestItem _$AuthenticationRequestItemFromJson(Map<String, dynami
   mustBeAccepted: json['mustBeAccepted'] as bool,
 );
 
-Map<String, dynamic> _$AuthenticationRequestItemToJson(AuthenticationRequestItem instance) => <String, dynamic>{
+Map<String, dynamic> _$AuthenticationRequestItemToJson(
+  AuthenticationRequestItem instance,
+) => <String, dynamic>{
   '@type': instance.atType,
   'description': ?instance.description,
   'metadata': ?instance.metadata,

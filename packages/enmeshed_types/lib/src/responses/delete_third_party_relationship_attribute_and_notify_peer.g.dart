@@ -6,10 +6,14 @@ part of 'delete_third_party_relationship_attribute_and_notify_peer.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse _$DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponseFromJson(
+DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse
+_$DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponseFromJson(
   Map<String, dynamic> json,
-) => DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse(notificationId: json['notificationId'] as String?);
+) => DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse(
+  notificationId: json['notificationId'] as String?,
+);
 
-Map<String, dynamic> _$DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponseToJson(
+Map<String, dynamic>
+_$DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponseToJson(
   DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse instance,
 ) => <String, dynamic>{'notificationId': ?instance.notificationId};

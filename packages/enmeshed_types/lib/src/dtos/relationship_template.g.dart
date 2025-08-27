@@ -6,21 +6,33 @@ part of 'relationship_template.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RelationshipTemplateDTO _$RelationshipTemplateDTOFromJson(Map<String, dynamic> json) => RelationshipTemplateDTO(
+RelationshipTemplateDTO _$RelationshipTemplateDTOFromJson(
+  Map<String, dynamic> json,
+) => RelationshipTemplateDTO(
   id: json['id'] as String,
   isOwn: json['isOwn'] as bool,
   createdBy: json['createdBy'] as String,
   createdByDevice: json['createdByDevice'] as String,
   createdAt: json['createdAt'] as String,
-  content: RelationshipTemplateContentDerivation.fromJson(json['content'] as Map<String, dynamic>),
+  content: RelationshipTemplateContentDerivation.fromJson(
+    json['content'] as Map<String, dynamic>,
+  ),
   expiresAt: json['expiresAt'] as String?,
   maxNumberOfAllocations: (json['maxNumberOfAllocations'] as num?)?.toInt(),
   forIdentity: json['forIdentity'] as String?,
-  passwordProtection: json['passwordProtection'] == null ? null : PasswordProtection.fromJson(json['passwordProtection'] as Map<String, dynamic>),
-  reference: ObjectReferenceDTO.fromJson(json['reference'] as Map<String, dynamic>),
+  passwordProtection: json['passwordProtection'] == null
+      ? null
+      : PasswordProtection.fromJson(
+          json['passwordProtection'] as Map<String, dynamic>,
+        ),
+  reference: ObjectReferenceDTO.fromJson(
+    json['reference'] as Map<String, dynamic>,
+  ),
 );
 
-Map<String, dynamic> _$RelationshipTemplateDTOToJson(RelationshipTemplateDTO instance) => <String, dynamic>{
+Map<String, dynamic> _$RelationshipTemplateDTOToJson(
+  RelationshipTemplateDTO instance,
+) => <String, dynamic>{
   'id': instance.id,
   'isOwn': instance.isOwn,
   'createdBy': instance.createdBy,
