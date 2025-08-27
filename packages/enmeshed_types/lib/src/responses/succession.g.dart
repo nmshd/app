@@ -8,8 +8,8 @@ part of 'succession.dart';
 
 NotifyPeerAboutRepositoryAttributeSuccessionResponse _$NotifyPeerAboutRepositoryAttributeSuccessionResponseFromJson(Map<String, dynamic> json) =>
     NotifyPeerAboutRepositoryAttributeSuccessionResponse(
-      predecessor: LocalAttributeDTO.fromJson(json['predecessor'] as Map<String, dynamic>),
-      successor: LocalAttributeDTO.fromJson(json['successor'] as Map<String, dynamic>),
+      predecessor: LocalAttributeDTO<AbstractAttribute>.fromJson(json['predecessor'] as Map<String, dynamic>),
+      successor: LocalAttributeDTO<AbstractAttribute>.fromJson(json['successor'] as Map<String, dynamic>),
       notificationId: json['notificationId'] as String,
     );
 
@@ -21,8 +21,8 @@ Map<String, dynamic> _$NotifyPeerAboutRepositoryAttributeSuccessionResponseToJso
     };
 
 SucceedRepositoryAttributeResponse _$SucceedRepositoryAttributeResponseFromJson(Map<String, dynamic> json) => SucceedRepositoryAttributeResponse(
-  predecessor: LocalAttributeDTO.fromJson(json['predecessor'] as Map<String, dynamic>),
-  successor: LocalAttributeDTO.fromJson(json['successor'] as Map<String, dynamic>),
+  predecessor: LocalAttributeDTO<AbstractAttribute>.fromJson(json['predecessor'] as Map<String, dynamic>),
+  successor: LocalAttributeDTO<AbstractAttribute>.fromJson(json['successor'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$SucceedRepositoryAttributeResponseToJson(SucceedRepositoryAttributeResponse instance) => <String, dynamic>{
@@ -32,8 +32,8 @@ Map<String, dynamic> _$SucceedRepositoryAttributeResponseToJson(SucceedRepositor
 
 SucceedRelationshipAttributeAndNotifyPeerResponse _$SucceedRelationshipAttributeAndNotifyPeerResponseFromJson(Map<String, dynamic> json) =>
     SucceedRelationshipAttributeAndNotifyPeerResponse(
-      predecessor: LocalAttributeDTO.fromJson(json['predecessor'] as Map<String, dynamic>),
-      successor: LocalAttributeDTO.fromJson(json['successor'] as Map<String, dynamic>),
+      predecessor: LocalAttributeDTO<AbstractAttribute>.fromJson(json['predecessor'] as Map<String, dynamic>),
+      successor: LocalAttributeDTO<AbstractAttribute>.fromJson(json['successor'] as Map<String, dynamic>),
       notificationId: json['notificationId'] as String,
     );
 
