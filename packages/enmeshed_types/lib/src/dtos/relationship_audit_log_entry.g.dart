@@ -6,16 +6,23 @@ part of 'relationship_audit_log_entry.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RelationshipAuditLogEntryDTO _$RelationshipAuditLogEntryDTOFromJson(Map<String, dynamic> json) => RelationshipAuditLogEntryDTO(
+RelationshipAuditLogEntryDTO _$RelationshipAuditLogEntryDTOFromJson(
+  Map<String, dynamic> json,
+) => RelationshipAuditLogEntryDTO(
   createdAt: json['createdAt'] as String,
   createdBy: json['createdBy'] as String,
   createdByDevice: json['createdByDevice'] as String?,
   reason: $enumDecode(_$RelationshipAuditLogEntryReasonEnumMap, json['reason']),
-  oldStatus: $enumDecodeNullable(_$RelationshipStatusEnumMap, json['oldStatus']),
+  oldStatus: $enumDecodeNullable(
+    _$RelationshipStatusEnumMap,
+    json['oldStatus'],
+  ),
   newStatus: $enumDecode(_$RelationshipStatusEnumMap, json['newStatus']),
 );
 
-Map<String, dynamic> _$RelationshipAuditLogEntryDTOToJson(RelationshipAuditLogEntryDTO instance) => <String, dynamic>{
+Map<String, dynamic> _$RelationshipAuditLogEntryDTOToJson(
+  RelationshipAuditLogEntryDTO instance,
+) => <String, dynamic>{
   'createdAt': instance.createdAt,
   'createdBy': instance.createdBy,
   'createdByDevice': ?instance.createdByDevice,
@@ -30,12 +37,17 @@ const _$RelationshipAuditLogEntryReasonEnumMap = {
   RelationshipAuditLogEntryReason.RejectionOfCreation: 'RejectionOfCreation',
   RelationshipAuditLogEntryReason.RevocationOfCreation: 'RevocationOfCreation',
   RelationshipAuditLogEntryReason.Termination: 'Termination',
-  RelationshipAuditLogEntryReason.ReactivationRequested: 'ReactivationRequested',
-  RelationshipAuditLogEntryReason.AcceptanceOfReactivation: 'AcceptanceOfReactivation',
-  RelationshipAuditLogEntryReason.RejectionOfReactivation: 'RejectionOfReactivation',
-  RelationshipAuditLogEntryReason.RevocationOfReactivation: 'RevocationOfReactivation',
+  RelationshipAuditLogEntryReason.ReactivationRequested:
+      'ReactivationRequested',
+  RelationshipAuditLogEntryReason.AcceptanceOfReactivation:
+      'AcceptanceOfReactivation',
+  RelationshipAuditLogEntryReason.RejectionOfReactivation:
+      'RejectionOfReactivation',
+  RelationshipAuditLogEntryReason.RevocationOfReactivation:
+      'RevocationOfReactivation',
   RelationshipAuditLogEntryReason.Decomposition: 'Decomposition',
-  RelationshipAuditLogEntryReason.DecompositionDueToIdentityDeletion: 'DecompositionDueToIdentityDeletion',
+  RelationshipAuditLogEntryReason.DecompositionDueToIdentityDeletion:
+      'DecompositionDueToIdentityDeletion',
 };
 
 const _$RelationshipStatusEnumMap = {

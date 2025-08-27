@@ -6,12 +6,18 @@ part of 'propose_attribute_accept_response_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ProposeAttributeAcceptResponseItem _$ProposeAttributeAcceptResponseItemFromJson(Map<String, dynamic> json) => ProposeAttributeAcceptResponseItem(
+ProposeAttributeAcceptResponseItem _$ProposeAttributeAcceptResponseItemFromJson(
+  Map<String, dynamic> json,
+) => ProposeAttributeAcceptResponseItem(
   attributeId: json['attributeId'] as String,
-  attribute: AbstractAttribute.fromJson(json['attribute'] as Map<String, dynamic>),
+  attribute: AbstractAttribute.fromJson(
+    json['attribute'] as Map<String, dynamic>,
+  ),
 );
 
-Map<String, dynamic> _$ProposeAttributeAcceptResponseItemToJson(ProposeAttributeAcceptResponseItem instance) => <String, dynamic>{
+Map<String, dynamic> _$ProposeAttributeAcceptResponseItemToJson(
+  ProposeAttributeAcceptResponseItem instance,
+) => <String, dynamic>{
   '@type': instance.atType,
   'result': _$ResponseItemResultEnumMap[instance.result]!,
   'attributeId': instance.attributeId,

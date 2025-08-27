@@ -6,10 +6,16 @@ part of 'register_attribute_listener_accept_response_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RegisterAttributeListenerAcceptResponseItem _$RegisterAttributeListenerAcceptResponseItemFromJson(Map<String, dynamic> json) =>
-    RegisterAttributeListenerAcceptResponseItem(listenerId: json['listenerId'] as String);
+RegisterAttributeListenerAcceptResponseItem
+_$RegisterAttributeListenerAcceptResponseItemFromJson(
+  Map<String, dynamic> json,
+) => RegisterAttributeListenerAcceptResponseItem(
+  listenerId: json['listenerId'] as String,
+);
 
-Map<String, dynamic> _$RegisterAttributeListenerAcceptResponseItemToJson(RegisterAttributeListenerAcceptResponseItem instance) => <String, dynamic>{
+Map<String, dynamic> _$RegisterAttributeListenerAcceptResponseItemToJson(
+  RegisterAttributeListenerAcceptResponseItem instance,
+) => <String, dynamic>{
   '@type': instance.atType,
   'result': _$ResponseItemResultEnumMap[instance.result]!,
   'listenerId': instance.listenerId,

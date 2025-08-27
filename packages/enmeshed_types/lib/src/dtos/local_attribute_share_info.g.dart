@@ -6,7 +6,9 @@ part of 'local_attribute_share_info.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-LocalAttributeShareInfo _$LocalAttributeShareInfoFromJson(Map<String, dynamic> json) => LocalAttributeShareInfo(
+LocalAttributeShareInfo _$LocalAttributeShareInfoFromJson(
+  Map<String, dynamic> json,
+) => LocalAttributeShareInfo(
   requestReference: json['requestReference'] as String?,
   notificationReference: json['notificationReference'] as String?,
   peer: json['peer'] as String,
@@ -14,7 +16,9 @@ LocalAttributeShareInfo _$LocalAttributeShareInfoFromJson(Map<String, dynamic> j
   thirdPartyAddress: json['thirdPartyAddress'] as String?,
 );
 
-Map<String, dynamic> _$LocalAttributeShareInfoToJson(LocalAttributeShareInfo instance) => <String, dynamic>{
+Map<String, dynamic> _$LocalAttributeShareInfoToJson(
+  LocalAttributeShareInfo instance,
+) => <String, dynamic>{
   'requestReference': ?instance.requestReference,
   'notificationReference': ?instance.notificationReference,
   'peer': instance.peer,

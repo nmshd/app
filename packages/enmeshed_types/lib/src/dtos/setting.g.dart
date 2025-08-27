@@ -17,15 +17,20 @@ SettingDTO _$SettingDTOFromJson(Map<String, dynamic> json) => SettingDTO(
   succeedsAt: json['succeedsAt'] as String?,
 );
 
-Map<String, dynamic> _$SettingDTOToJson(SettingDTO instance) => <String, dynamic>{
-  'id': instance.id,
-  'key': instance.key,
-  'scope': _$SettingScopeEnumMap[instance.scope]!,
-  'value': instance.value,
-  'createdAt': instance.createdAt,
-  'reference': ?instance.reference,
-  'succeedsItem': ?instance.succeedsItem,
-  'succeedsAt': ?instance.succeedsAt,
-};
+Map<String, dynamic> _$SettingDTOToJson(SettingDTO instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'key': instance.key,
+      'scope': _$SettingScopeEnumMap[instance.scope]!,
+      'value': instance.value,
+      'createdAt': instance.createdAt,
+      'reference': ?instance.reference,
+      'succeedsItem': ?instance.succeedsItem,
+      'succeedsAt': ?instance.succeedsAt,
+    };
 
-const _$SettingScopeEnumMap = {SettingScope.Identity: 'Identity', SettingScope.Device: 'Device', SettingScope.Relationship: 'Relationship'};
+const _$SettingScopeEnumMap = {
+  SettingScope.Identity: 'Identity',
+  SettingScope.Device: 'Device',
+  SettingScope.Relationship: 'Relationship',
+};

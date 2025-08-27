@@ -6,7 +6,9 @@ part of 'delete_attribute_request_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DeleteAttributeRequestItem _$DeleteAttributeRequestItemFromJson(Map<String, dynamic> json) => DeleteAttributeRequestItem(
+DeleteAttributeRequestItem _$DeleteAttributeRequestItemFromJson(
+  Map<String, dynamic> json,
+) => DeleteAttributeRequestItem(
   title: json['title'] as String?,
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
@@ -15,7 +17,9 @@ DeleteAttributeRequestItem _$DeleteAttributeRequestItemFromJson(Map<String, dyna
   attributeId: json['attributeId'] as String,
 );
 
-Map<String, dynamic> _$DeleteAttributeRequestItemToJson(DeleteAttributeRequestItem instance) => <String, dynamic>{
+Map<String, dynamic> _$DeleteAttributeRequestItemToJson(
+  DeleteAttributeRequestItem instance,
+) => <String, dynamic>{
   '@type': instance.atType,
   'title': ?instance.title,
   'description': ?instance.description,

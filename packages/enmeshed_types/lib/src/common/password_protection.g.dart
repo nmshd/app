@@ -7,9 +7,13 @@ part of 'password_protection.dart';
 // **************************************************************************
 
 PasswordProtection _$PasswordProtectionFromJson(Map<String, dynamic> json) =>
-    PasswordProtection(password: json['password'] as String, passwordIsPin: json['passwordIsPin'] as bool?);
+    PasswordProtection(
+      password: json['password'] as String,
+      passwordIsPin: json['passwordIsPin'] as bool?,
+    );
 
-Map<String, dynamic> _$PasswordProtectionToJson(PasswordProtection instance) => <String, dynamic>{
-  'password': instance.password,
-  'passwordIsPin': ?instance.passwordIsPin,
-};
+Map<String, dynamic> _$PasswordProtectionToJson(PasswordProtection instance) =>
+    <String, dynamic>{
+      'password': instance.password,
+      'passwordIsPin': ?instance.passwordIsPin,
+    };

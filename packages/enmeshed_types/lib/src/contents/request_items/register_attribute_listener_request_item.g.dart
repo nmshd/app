@@ -6,7 +6,8 @@ part of 'register_attribute_listener_request_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RegisterAttributeListenerRequestItem _$RegisterAttributeListenerRequestItemFromJson(Map<String, dynamic> json) =>
+RegisterAttributeListenerRequestItem
+_$RegisterAttributeListenerRequestItemFromJson(Map<String, dynamic> json) =>
     RegisterAttributeListenerRequestItem(
       title: json['title'] as String?,
       description: json['description'] as String?,
@@ -16,7 +17,9 @@ RegisterAttributeListenerRequestItem _$RegisterAttributeListenerRequestItemFromJ
       query: AttributeQuery.fromJson(json['query'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$RegisterAttributeListenerRequestItemToJson(RegisterAttributeListenerRequestItem instance) => <String, dynamic>{
+Map<String, dynamic> _$RegisterAttributeListenerRequestItemToJson(
+  RegisterAttributeListenerRequestItem instance,
+) => <String, dynamic>{
   '@type': instance.atType,
   'title': ?instance.title,
   'description': ?instance.description,
