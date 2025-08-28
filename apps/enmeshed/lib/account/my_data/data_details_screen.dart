@@ -141,7 +141,7 @@ class _Header extends StatelessWidget {
                 icon: const Icon(Icons.add, size: 16),
                 label: Text(context.l10n.contactDetail_addEntry),
                 onPressed: () async {
-                  final attribute = await showCreateIdentiyAttributeModal(initialValueType: valueType, context: context, accountId: accountId);
+                  final attribute = await showCreateIdentityAttributeModal(initialValueType: valueType, context: context, accountId: accountId);
                   if (attribute != null) onAttributeCreated();
                 },
               ),

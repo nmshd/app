@@ -16,7 +16,7 @@ import '../types/types.dart';
 import '../utils/utils.dart';
 import '../widgets/widgets.dart';
 
-Future<LocalAttributeDTO<IdentityAttribute>?> showCreateIdentiyAttributeModal({
+Future<LocalAttributeDTO<IdentityAttribute>?> showCreateIdentityAttributeModal({
   required BuildContext context,
   required String accountId,
   String? initialValueType,
