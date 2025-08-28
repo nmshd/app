@@ -180,7 +180,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
 
   Future<void> _onTap() async {
     final choices = _getChoices();
-    choices.add(_choice!);
+    if (_choice != null) choices.add(_choice!);
 
     if (choices.isEmpty) return await _createAttribute();
 
