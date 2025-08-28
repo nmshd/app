@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
