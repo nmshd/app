@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../contents/contents.dart';
@@ -6,7 +7,8 @@ import '../data_view_object.dart';
 
 part 'local_attribute_dvo.g.dart';
 
-sealed class LocalAttributeDVO extends DataViewObject {
+// TODO make really equatable btuh
+sealed class LocalAttributeDVO extends DataViewObject with EquatableMixin {
   final AbstractAttribute content;
   final String owner;
 
@@ -61,6 +63,9 @@ sealed class LocalAttributeDVO extends DataViewObject {
     _ => throw Exception("Invalid type '${json['type']}'"),
   };
   Map<String, dynamic> toJson();
+
+  @override
+  List<Object?> get props => [id];
 }
 
 sealed class IdentityAttributeDVO extends LocalAttributeDVO {
