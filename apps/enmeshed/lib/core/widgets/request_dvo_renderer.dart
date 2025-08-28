@@ -320,7 +320,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     required String valueType,
     ValueHints? valueHints,
   }) async {
-    final attribute = await showCreateIdentiyAttributeModal(context: context, accountId: widget.accountId, initialValueType: valueType);
+    final attribute = await showCreateIdentityAttributeModal(context: context, accountId: widget.accountId, initialValueType: valueType);
     if (attribute == null || !mounted) return null;
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
@@ -392,7 +392,7 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                         icon: const Icon(Icons.add, size: 16),
                         label: Text(context.l10n.contactDetail_addEntry),
                         onPressed: () async {
-                          final attribute = await showCreateIdentiyAttributeModal(
+                          final attribute = await showCreateIdentityAttributeModal(
                             context: context,
                             accountId: widget.accountId,
                             initialValueType: widget.valueType,

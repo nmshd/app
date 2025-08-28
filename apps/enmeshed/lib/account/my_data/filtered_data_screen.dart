@@ -240,7 +240,7 @@ class _EmptyAttributeEntry extends StatelessWidget {
   }
 
   Future<void> _onCreateAttributePressed(BuildContext context) async {
-    final attribute = await showCreateIdentiyAttributeModal(initialValueType: valueType, context: context, accountId: accountId);
+    final attribute = await showCreateIdentityAttributeModal(initialValueType: valueType, context: context, accountId: accountId);
     if (attribute != null) onAttributeCreated();
   }
 }
