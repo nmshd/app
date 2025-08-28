@@ -110,7 +110,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
                   // and the translation i18n string should be more generic (currently it is only for the third party relationship query)
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
+                      padding: const EdgeInsets.only(right: 8),
                       child: Column(
                         children: [
                           TranslatedText(
