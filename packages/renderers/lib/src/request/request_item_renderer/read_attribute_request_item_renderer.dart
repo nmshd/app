@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
@@ -179,7 +180,15 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
 
   Future<void> _onTap() async {
     final choices = _getChoices();
-    if (_choice != null) choices.add(_choice!);
+
+    if (_choice != null && !choices.contains(_choice)) {
+      final matchingChoice = choices.firstWhereOrNull((c) => c.dvo?.id == _choice!.dvo?.id);
+      if (matchingChoice != null) {
+        _choice = matchingChoice;
+      } else {
+        choices.add(_choice!);
+      }
+    }
 
     if (choices.isEmpty) return await _createAttribute();
 
