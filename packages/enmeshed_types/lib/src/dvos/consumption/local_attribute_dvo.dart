@@ -7,7 +7,6 @@ import '../data_view_object.dart';
 
 part 'local_attribute_dvo.g.dart';
 
-// TODO make really equatable btuh
 sealed class LocalAttributeDVO extends DataViewObject with EquatableMixin {
   final AbstractAttribute content;
   final String owner;
