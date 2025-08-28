@@ -83,7 +83,7 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
         ],
         const Divider(height: 2),
         switch (_message!) {
-          final MailDVO mail => _MailInformation(message: mail),
+          final MailDVO mail => _MailInformation(message: mail, id: widget.accountId),
           final RequestMessageDVO requestMessage => _RequestInformation(message: requestMessage, account: _account!),
           _ => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -203,25 +203,56 @@ class _MessageInformationHeader extends StatelessWidget {
 
 class _MailInformation extends StatelessWidget {
   final MailDVO message;
+  final String id;
+  String credentialOffer = '';
 
-  const _MailInformation({required this.message});
+  _MailInformation({required this.message, required this.id});
 
   @override
   Widget build(BuildContext context) {
+    // we want to collect all credential offers into a list and not display them in the text
+
     final body = message.body
         .replaceAll(CustomRegExp.html, '')
         .replaceAllMapped(RegExp(r'(eid:\/\/[^\s\\]+)'), (match) => '<link>${match.group(1)}</link>')
         .replaceAllMapped(RegExp(r'(https?:\/\/[^\s\\]+)'), (match) => '<link>${match.group(1)}</link>')
-        .replaceAllMapped(RegExp(r'(openid-credential-offer:\/\/[^\s\\]+)'), (match) => '<link>${match.group(1)}</link>')
+        .replaceAllMapped(RegExp(r'(openid-credential-offer:\/\/[^\s\\]+)'), (match) {
+          credentialOffer = match.group(1)!;
+          return '';
+        })
         .replaceAllMapped(RegExp(r'(openid4vp:\/\/[^\s\\]+)'), (match) => '<link>${match.group(1)}</link>');
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: StyledText(
-        text: body,
-        style: Theme.of(context).textTheme.bodyLarge,
-        tags: {'link': StyledTextActionTag((link, _) => _launchUrl(link!), style: const TextStyle(decoration: TextDecoration.underline))},
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: StyledText(
+            text: body,
+            style: Theme.of(context).textTheme.bodyLarge,
+            tags: {
+              'link': StyledTextActionTag(
+                (link, _) => _launchUrl(link!),
+                style: const TextStyle(decoration: TextDecoration.underline),
+              ),
+            },
+          ),
+        ),
+        if (credentialOffer.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ElevatedButton.icon(
+              icon: const Icon(Icons.vpn_key),
+              label: const Text('Accept Credential Offer'),
+              onPressed: () => _acceptCredentialOffer(credentialOffer),
+            ),
+          ),
+      ],
     );
+  }
+
+  Future<void> _acceptCredentialOffer(String url) async {
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(id);
+    final result = await session.consumptionServices.openId4Vc.acceptCredentialOffer(credentialOffer);
   }
 
   Future<void> _launchUrl(String url) async {

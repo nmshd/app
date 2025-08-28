@@ -108,6 +108,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
           1 => context.l10n.contacts,
           2 => context.l10n.myData,
           3 => context.l10n.mailbox,
+          4 => 'Enmeshed Wallet',
           _ => throw Exception('Unknown index: $_selectedIndex'),
         }),
         actions: [
@@ -167,6 +168,15 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
               child: const Icon(Icons.mail),
             ),
           ),
+          NavigationDestination(
+            label: 'Wallet',
+            icon: Badge(
+              isLabelVisible: false,
+              textColor: Theme.of(context).colorScheme.onPrimary,
+              backgroundColor: Theme.of(context).colorScheme.error,
+              child: const Icon(Icons.wallet),
+            ),
+          ),
         ],
         onDestinationSelected: (index) {
           if (index == _selectedIndex) return;
@@ -176,6 +186,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
             1 => '/account/${widget.accountId}/contacts',
             2 => '/account/${widget.accountId}/my-data',
             3 => '/account/${widget.accountId}/mailbox',
+            4 => '/account/${widget.accountId}/verifiable-credentials',
             _ => throw Exception(),
           });
 
@@ -192,6 +203,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     if (widget.location.startsWith('/account/:accountId/contacts')) return 1;
     if (widget.location.startsWith('/account/:accountId/my-data')) return 2;
     if (widget.location.startsWith('/account/:accountId/mailbox')) return 3;
+    if (widget.location.startsWith('/account/:accountId/verifiable-credentials')) return 4;
 
     throw Exception();
   }
