@@ -209,7 +209,7 @@ void run(EnmeshedRuntime runtime) {
       final repositoryAttributesResult = await sender.consumptionServices.attributes.getRepositoryAttributes(
         query: {'isDefault': QueryValue.string('true')},
       );
-      expect(repositoryAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
+      expect(repositoryAttributesResult, isSuccessful<List<LocalAttributeDTO<IdentityAttribute>>>());
 
       expect(repositoryAttributesResult.value[0], defaultAttribute);
       expect(repositoryAttributesResult.value[0].isDefault, true);

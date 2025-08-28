@@ -109,20 +109,13 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
                         decoration:
                             widget.valueTypes[index] == 'BirthDate' ||
                                 _hintResponses[widget.valueTypes[index]]!.renderHints.editType != RenderHintsEditType.Complex
-                            ? InputDecoration(
+                            ? const InputDecoration(
                                 counterText: '',
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 hintMaxLines: 150,
                                 errorMaxLines: 150,
                                 helperMaxLines: 150,
-                                border: OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                  borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                  borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
-                                ),
+                                border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
                               )
                             : null,
                         expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),

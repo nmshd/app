@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../contents/contents.dart';
 import '../dtos/dtos.dart';
 
 part 'succession.g.dart';

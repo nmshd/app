@@ -5,7 +5,7 @@ version: 4.0.3
 
 environment:
   sdk: "^3.9.0"
-  flutter: ">=3.35.1"
+  flutter: ">=3.35.2"
 
 resolution: workspace
 
@@ -71,7 +71,7 @@ dev_dependencies:
       url: https://github.com/h4h13/msix.git
       ref: Fix-Flutter-3.27
   translations_cleaner: ^0.0.5
-  vector_graphics_compiler: ^1.1.18
+  vector_graphics_compiler: ^1.1.19
 
 flutter:
   generate: true
