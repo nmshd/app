@@ -517,6 +517,14 @@ final _router = GoRouter(
                 ),
               ],
             ),
+            GoRoute(
+              parentNavigatorKey: _shellNavigatorKey,
+              path: 'verifiable-credentials',
+              pageBuilder: (context, state) => NoTransitionPage<void>(
+                key: state.pageKey,
+                child: OpenId4VcView(accountId: state.pathParameters['accountId']!),
+              ),
+            ),
           ],
         ),
         GoRoute(
