@@ -21,9 +21,17 @@ class UploadFile extends StatefulWidget {
   final String accountId;
   final void Function(FileDVO) onFileUploaded;
   final bool popOnUpload;
+  final bool createRepositoryAttribute;
   final Widget? leading;
 
-  const UploadFile({required this.accountId, required this.onFileUploaded, this.popOnUpload = true, this.leading, super.key});
+  const UploadFile({
+    required this.accountId,
+    required this.onFileUploaded,
+    this.popOnUpload = true,
+    this.createRepositoryAttribute = true,
+    this.leading,
+    super.key,
+  });
 
   @override
   State<UploadFile> createState() => _UploadFileState();
@@ -160,7 +168,7 @@ class _UploadFileState extends State<UploadFile> {
     try {
       final file = await _uploadFile(_selectedFile!, _titleController.text);
 
-      final fileReference = await _createFileReferenceAttribute(file);
+      final fileReference = widget.createRepositoryAttribute ? await _createFileReferenceAttribute(file) : null;
 
       widget.onFileUploaded(file);
 
