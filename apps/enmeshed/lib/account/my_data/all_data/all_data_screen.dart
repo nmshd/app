@@ -37,7 +37,7 @@ class _AllDataScreenState extends State<AllDataScreen> {
         IconButton(
           icon: const Icon(Icons.add),
           onPressed: () async {
-            final attribute = await showCreateIdentiyAttributeModal(context: context, accountId: widget.accountId);
+            final attribute = await showCreateIdentityAttributeModal(context: context, accountId: widget.accountId);
             if (attribute != null) await _loadAttributes(syncBefore: true);
           },
         ),
