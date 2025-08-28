@@ -397,9 +397,17 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                             accountId: widget.accountId,
                             initialValueType: widget.valueType,
                           );
-                          if (attribute == null || !context.mounted) return;
+                          if (attribute == null) return;
 
-                          context.pop((id: attribute.id, attribute: attribute.content));
+                          final expanded = await GetIt.I
+                              .get<EnmeshedRuntime>()
+                              .getSession(widget.accountId)
+                              .expander
+                              .expandLocalAttributeDTO(attribute);
+
+                          if (!context.mounted) return;
+
+                          context.pop((dvo: expanded, attribute: attribute.content));
                         },
                       ),
                   ],
