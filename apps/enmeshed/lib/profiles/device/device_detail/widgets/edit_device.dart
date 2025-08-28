@@ -80,14 +80,7 @@ class _EditDeviceState extends State<EditDevice> {
                 textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
                   labelText: '${context.l10n.name}*',
-                  border: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
-                  ),
+                  border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
                 ),
                 onSubmitted: (value) => value.isEmpty ? _nameFocusNode.requestFocus() : _descriptionFocusNode.requestFocus(),
               ),
@@ -103,14 +96,7 @@ class _EditDeviceState extends State<EditDevice> {
                 textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
                   labelText: context.l10n.devices_edit_description,
-                  border: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
-                  ),
+                  border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
                 ),
                 onSubmitted: (value) => _confirmEnabled ? _save() : _nameFocusNode.requestFocus(),
               ),

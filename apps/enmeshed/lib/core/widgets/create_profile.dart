@@ -119,14 +119,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                 decoration: InputDecoration(
                                   labelText: '${context.l10n.profile_name}*',
                                   suffixIcon: IconButton(onPressed: _controller.clear, icon: const Icon(Icons.cancel_outlined)),
-                                  border: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                    borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
-                                  ),
+                                  border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
                                 ),
                               ),
                             ),
