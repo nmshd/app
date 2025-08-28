@@ -182,7 +182,7 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
-  Future<Result<List<LocalAttributeDTO>>> executeIdentityAttributeQuery({required IdentityAttributeQuery query}) async {
+  Future<Result<List<LocalAttributeDTO<IdentityAttribute>>>> executeIdentityAttributeQuery({required IdentityAttributeQuery query}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.executeIdentityAttributeQuery(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -193,7 +193,10 @@ class AttributesFacade {
     );
 
     final json = result.valueToMap();
-    return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
+    return Result.fromJson(
+      json,
+      (value) => List<LocalAttributeDTO<IdentityAttribute>>.from(value.map((e) => LocalAttributeDTO<IdentityAttribute>.fromJson(e))),
+    );
   }
 
   Future<Result<LocalAttributeDTO>> executeRelationshipAttributeQuery({required RelationshipAttributeQuery query}) async {
