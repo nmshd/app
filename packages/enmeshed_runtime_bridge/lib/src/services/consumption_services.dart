@@ -6,10 +6,12 @@ class ConsumptionServices {
   final IncomingRequestsFacade incomingRequests;
   final OutgoingRequestsFacade outgoingRequests;
   final SettingsFacade settings;
+  final OpenId4VcFacade openId4Vc;
 
   ConsumptionServices(AbstractEvaluator evaluator)
     : attributes = AttributesFacade(evaluator),
       incomingRequests = IncomingRequestsFacade(evaluator),
       outgoingRequests = OutgoingRequestsFacade(evaluator),
-      settings = SettingsFacade(evaluator);
+      settings = SettingsFacade(evaluator),
+      openId4Vc = OpenId4VcFacade(evaluator);
 }
