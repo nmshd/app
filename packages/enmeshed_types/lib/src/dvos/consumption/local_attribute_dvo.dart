@@ -64,6 +64,7 @@ sealed class LocalAttributeDVO extends DataViewObject with EquatableMixin {
   Map<String, dynamic> toJson();
 
   @override
+  // a LocalAttributeDVO is equal if id is equal as other fields are too volatile
   List<Object?> get props => [id];
 }
 
