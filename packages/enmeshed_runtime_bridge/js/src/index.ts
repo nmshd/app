@@ -1,3 +1,4 @@
+import { ILogger } from "@js-soft/logging-abstractions";
 import { SimpleLoggerFactory } from "@js-soft/simple-logger";
 import { Serializable } from "@js-soft/ts-serval";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
@@ -56,12 +57,16 @@ window.triggerRemoteNotificationEvent = function (notification: RemoteNotificati
 window.runtimeVersion = buildInformation.version;
 
 async function main() {
-  const config: AppConfigOverwrite = await window.flutter_inappwebview.callHandler("getRuntimeConfig");
+  const config: AppConfigOverwrite & { databaseBaseFolder: string } =
+    await window.flutter_inappwebview.callHandler("getRuntimeConfig");
 
   const loggerFactory = new SimpleLoggerFactory(LogLevel.Info);
   const fileAccess = new FileAccess();
   const notificationAccess = new NotificationAccess(loggerFactory);
   const languageProvider = new AppLanguageProvider();
+  const runtimeBridgeLogger = loggerFactory.getLogger("RuntimeBridge");
+
+  config.databaseFolder = buildDatabaseFolder(config.databaseBaseFolder, runtimeBridgeLogger);
 
   const runtime = await AppRuntime.create(
     config,
@@ -73,7 +78,6 @@ async function main() {
   );
   await runtime.start();
 
-  const runtimeBridgeLogger = loggerFactory.getLogger("RuntimeBridge");
   runtime.eventBus.subscribe("**", async (event) => {
     try {
       await window.flutter_inappwebview.callHandler("handleRuntimeEvent", event);
@@ -93,6 +97,27 @@ async function main() {
 
     window.runtime.eventBus.publish(new AppLanguageChangedEvent(language as LanguageISO639));
   };
+}
+
+function buildDatabaseFolder(baseFolder: string, logger: ILogger): string {
+  const semverWithPreidRegex = /^(\d+)\.\d+\.\d+(?:-([a-z]+)(?:\.\d+)+)?$/;
+  const semverMatches = semverWithPreidRegex.exec(buildInformation.version);
+  if (!semverMatches) {
+    logger.warn("Could not parse version for database folder", buildInformation.version);
+    return baseFolder;
+  }
+
+  const majorVersion = semverMatches[1];
+  if (parseInt(majorVersion) < 7) {
+    logger.warn(
+      `Using legacy database folder structure for versions < 7. Detected major version '${majorVersion}' in version '${buildInformation.version}'.`
+    );
+    return baseFolder;
+  }
+
+  if (semverMatches[2]) return `${baseFolder}/${buildInformation.version}`;
+
+  return `${baseFolder}/afterV7`;
 }
 
 main()

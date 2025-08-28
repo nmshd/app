@@ -7,8 +7,6 @@ import '../../custom_list_tile.dart';
 import '../open_attribute_switcher_function.dart';
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import 'decidable/checkbox_enabled_extension.dart';
-import 'extensions/extensions.dart';
 import 'widgets/validation_error_box.dart';
 
 class ReadAttributeRequestItemRenderer extends StatefulWidget {
@@ -60,7 +58,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
         _ => null,
       };
     } else {
-      _isChecked = widget.item.initiallyChecked;
+      _isChecked = widget.item.mustBeAccepted;
       _choice = _getChoices().firstOrNull;
     }
 
@@ -84,10 +82,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
             Row(
               spacing: 8,
               children: [
-                Checkbox(
-                  value: _isChecked,
-                  onChanged: widget.item.isDecidable && widget.item.checkboxEnabled && _getChoices().isNotEmpty ? _onUpdateCheckbox : null,
-                ),
+                Checkbox(value: _isChecked, onChanged: widget.item.isDecidable && !widget.item.mustBeAccepted ? _onUpdateCheckbox : null),
                 if (_choice != null && (_choice!.dvo != null || _getQueryValueHints() != null))
                   Expanded(
                     child: AttributeRenderer(

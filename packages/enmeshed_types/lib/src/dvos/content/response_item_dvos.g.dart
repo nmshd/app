@@ -252,58 +252,6 @@ Map<String, dynamic> _$FormFieldAcceptResponseItemDVOToJson(FormFieldAcceptRespo
   'response': instance.response.toJson(),
 };
 
-FreeTextAcceptResponseItemDVO _$FreeTextAcceptResponseItemDVOFromJson(Map<String, dynamic> json) => FreeTextAcceptResponseItemDVO(
-  id: json['id'] as String,
-  name: json['name'] as String,
-  description: json['description'] as String?,
-  image: json['image'] as String?,
-  type: json['type'] as String,
-  date: json['date'] as String?,
-  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
-  freeText: json['freeText'] as String,
-);
-
-Map<String, dynamic> _$FreeTextAcceptResponseItemDVOToJson(FreeTextAcceptResponseItemDVO instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'description': ?instance.description,
-  'image': ?instance.image,
-  'type': instance.type,
-  'date': ?instance.date,
-  'error': ?instance.error?.toJson(),
-  'warning': ?instance.warning?.toJson(),
-  'freeText': instance.freeText,
-};
-
-RegisterAttributeListenerAcceptResponseItemDVO _$RegisterAttributeListenerAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
-    RegisterAttributeListenerAcceptResponseItemDVO(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      description: json['description'] as String?,
-      image: json['image'] as String?,
-      type: json['type'] as String,
-      date: json['date'] as String?,
-      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
-      listenerId: json['listenerId'] as String,
-      listener: json['listener'] == null ? null : LocalAttributeListenerDVO.fromJson(json['listener'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$RegisterAttributeListenerAcceptResponseItemDVOToJson(RegisterAttributeListenerAcceptResponseItemDVO instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': ?instance.description,
-      'image': ?instance.image,
-      'type': instance.type,
-      'date': ?instance.date,
-      'error': ?instance.error?.toJson(),
-      'warning': ?instance.warning?.toJson(),
-      'listenerId': instance.listenerId,
-      'listener': ?instance.listener?.toJson(),
-    };
-
 TransferFileOwnershipAcceptResponseItemDVO _$TransferFileOwnershipAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
     TransferFileOwnershipAcceptResponseItemDVO(
       id: json['id'] as String,
