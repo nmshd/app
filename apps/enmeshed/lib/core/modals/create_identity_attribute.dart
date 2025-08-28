@@ -267,6 +267,7 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
     final createAttributeResult = await session.consumptionServices.attributes.createRepositoryAttribute(value: _identityAttribute!);
+    await session.consumptionServices.attributes.markAttributeAsViewed(attributeId: createAttributeResult.value.id);
 
     if (createAttributeResult.isSuccess) {
       if (mounted) context.pop(createAttributeResult.value);
