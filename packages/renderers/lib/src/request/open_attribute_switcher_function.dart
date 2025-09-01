@@ -11,6 +11,6 @@ typedef OpenAttributeSwitcherFunction =
     });
 
 typedef CreateIdentityAttributeFunction =
-    Future<({LocalAttributeDVO dvo, IdentityAttribute attribute})?> Function({required String valueType, ValueHints? valueHints});
+    Future<({LocalAttributeDVO dvo, IdentityAttribute attribute})?> Function({required String valueType, List<String>? tags});
 
 typedef ComposeRelationshipAttributeFunction = Future<RelationshipAttribute?> Function({required ProcessedRelationshipAttributeQueryDVO query});
