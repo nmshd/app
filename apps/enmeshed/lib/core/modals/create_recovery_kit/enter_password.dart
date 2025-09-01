@@ -164,14 +164,7 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
           icon: Icon(_obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined),
           onPressed: () => setState(() => _obscureText = !_obscureText),
         ),
-        border: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
-        ),
+        border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
       ),
       validator: widget.validator,
     );

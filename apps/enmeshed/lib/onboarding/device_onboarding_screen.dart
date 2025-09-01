@@ -90,10 +90,6 @@ class _DeviceOnboardingScreenState extends State<DeviceOnboardingScreen> {
                   hintText: _defaultProfileName,
                   suffixIcon: IconButton(onPressed: _controller.clear, icon: const Icon(Icons.cancel_outlined)),
                   border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  ),
                 ),
               ),
               Gaps.h16,

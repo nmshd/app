@@ -105,7 +105,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
                   // and the translation i18n string should be more generic (currently it is only for the third party relationship query)
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
+                      padding: const EdgeInsets.only(right: 8),
                       child: Column(
                         children: [
                           TranslatedText(
@@ -183,15 +183,16 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
 
   Future<void> _createAttribute() async {
     final query = widget.item.query;
-    if (query is ProcessedIdentityAttributeQueryDVO) return await _createIdentityAttribute();
+    if (query is ProcessedIdentityAttributeQueryDVO) return await _createIdentityAttribute(query.tags);
+    if (query is ProcessedIQLQueryDVO && _valueType != null) return await _createIdentityAttribute(query.tags);
     if (query is ProcessedRelationshipAttributeQueryDVO) return await _composeRelationshipAttribute(query);
 
     // this should never happen
     throw Exception('Cannot create attribute for query: ${query.runtimeType}');
   }
 
-  Future<void> _createIdentityAttribute() async {
-    final choice = await widget.createIdentityAttribute(valueType: _valueType!);
+  Future<void> _createIdentityAttribute(List<String>? tags) async {
+    final choice = await widget.createIdentityAttribute(valueType: _valueType!, tags: tags);
     if (choice == null || !mounted) return;
 
     setState(() {

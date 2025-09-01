@@ -316,10 +316,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     return choice;
   }
 
-  Future<({LocalAttributeDVO dvo, IdentityAttribute attribute})?> _createIdentityAttribute({
-    required String valueType,
-    ValueHints? valueHints,
-  }) async {
+  Future<({LocalAttributeDVO dvo, IdentityAttribute attribute})?> _createIdentityAttribute({required String valueType, List<String>? tags}) async {
     final attribute = await showCreateIdentityAttributeModal(context: context, accountId: widget.accountId, initialValueType: valueType);
     if (attribute == null || !mounted) return null;
 

@@ -20,16 +20,14 @@ Future<LocalAttributeDTO<IdentityAttribute>?> showCreateIdentityAttributeModal({
   required BuildContext context,
   required String accountId,
   String? initialValueType,
+  List<String>? tags,
 }) async {
   final attribute = await showModalBottomSheet<LocalAttributeDTO<IdentityAttribute>>(
     context: context,
     isScrollControlled: true,
     builder: (builder) => ConstrainedBox(
       constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
-      child: _CreateAttributeModal(
-        accountId: accountId,
-        initialValueType: initialValueType,
-      ),
+      child: _CreateAttributeModal(accountId: accountId, initialValueType: initialValueType, tags: tags),
     ),
   );
 
@@ -39,8 +37,9 @@ Future<LocalAttributeDTO<IdentityAttribute>?> showCreateIdentityAttributeModal({
 class _CreateAttributeModal extends StatefulWidget {
   final String accountId;
   final String? initialValueType;
+  final List<String>? tags;
 
-  const _CreateAttributeModal({required this.accountId, required this.initialValueType});
+  const _CreateAttributeModal({required this.accountId, required this.initialValueType, required this.tags});
 
   @override
   State<_CreateAttributeModal> createState() => _CreateAttributeModalState();
@@ -91,6 +90,7 @@ class _CreateAttributeModalState extends State<_CreateAttributeModal> {
               renderHints: _renderHints,
               valueHints: _valueHints,
               onBackPressed: widget.initialValueType == null ? () => setState(() => _valueType = null) : null,
+              tags: widget.tags,
             ),
     );
   }
@@ -153,6 +153,7 @@ class _CreateAttributePage extends StatefulWidget {
   final RenderHints renderHints;
   final ValueHints valueHints;
   final VoidCallback? onBackPressed;
+  final List<String>? tags;
 
   const _CreateAttributePage({
     required this.accountId,
@@ -160,6 +161,7 @@ class _CreateAttributePage extends StatefulWidget {
     required this.renderHints,
     required this.valueHints,
     required this.onBackPressed,
+    required this.tags,
   });
 
   @override
@@ -266,7 +268,10 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
-    final createAttributeResult = await session.consumptionServices.attributes.createRepositoryAttribute(value: _identityAttribute!);
+    final createAttributeResult = await session.consumptionServices.attributes.createRepositoryAttribute(
+      value: _identityAttribute!,
+      tags: widget.tags,
+    );
     await session.consumptionServices.attributes.markAttributeAsViewed(attributeId: createAttributeResult.value.id);
 
     if (createAttributeResult.isSuccess) {
