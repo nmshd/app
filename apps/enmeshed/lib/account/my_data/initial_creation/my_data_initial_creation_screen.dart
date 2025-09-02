@@ -115,9 +115,6 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
                               ? const InputDecoration(
                                   counterText: '',
                                   floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                  hintMaxLines: 150,
-                                  errorMaxLines: 150,
-                                  helperMaxLines: 150,
                                   border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
                                 )
                               : null,
@@ -257,7 +254,7 @@ class _InfoText extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 5),
         child: Text(text, style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
       ),
     );
