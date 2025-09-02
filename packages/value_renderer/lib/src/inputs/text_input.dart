@@ -22,7 +22,7 @@ class TextInput extends StatefulWidget {
 
   const TextInput({
     required this.mustBeFilledOut,
-    this.autovalidateMode,
+    this.autovalidateMode = AutovalidateMode.onUnfocus,
     this.controller,
     this.decoration,
     this.fieldName,
@@ -78,6 +78,8 @@ class TextInputState extends State<TextInput> {
       decoration: widget.decoration != null
           ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
           : inputDecoration(context).copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut)),
+      autovalidateMode: widget.autovalidateMode,
+      onTapOutside: (event) => FocusScope.of(context).unfocus(),
     );
   }
 
