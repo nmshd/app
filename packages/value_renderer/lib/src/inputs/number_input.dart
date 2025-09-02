@@ -85,6 +85,7 @@ class NumberInputState extends State<NumberInput> {
       decoration: widget.decoration != null
           ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
           : inputDecoration(context).copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut)),
+      onTapOutside: (event) => FocusScope.of(context).unfocus(),
     );
   }
 
