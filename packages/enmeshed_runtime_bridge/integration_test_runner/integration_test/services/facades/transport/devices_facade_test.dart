@@ -86,6 +86,15 @@ void run(EnmeshedRuntime runtime) {
       expect((onboardingToken.content as TokenContentDeviceSharedSecret).sharedSecret.profileName, profileName);
     });
 
+    test('fillDeviceOnboardingTokenWithNewDevice', () async {
+      final emptyToken = (await runtime.anonymousServices.tokens.createEmptyToken()).value;
+
+      final filledTokenResult = await session.transportServices.devices.fillDeviceOnboardingTokenWithNewDevice(
+        reference: emptyToken.reference.truncated,
+      );
+      expect(filledTokenResult, isSuccessful<TokenDTO>());
+    });
+
     test('updateDevice', () async {
       final device = (await session.transportServices.devices.createDevice(name: 'name', description: 'description')).value;
 
