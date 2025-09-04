@@ -221,8 +221,6 @@ class _FinalizeProfileTransferState extends State<_FinalizeProfileTransfer> {
         children: [
           Text(context.l10n.deviceOnboarding_desciption),
           Gaps.h24,
-          Text(context.l10n.deviceOnboarding_confirmation_text),
-          Gaps.h24,
           TextField(
             enabled: _defaultProfileName != null,
             maxLength: MaxLength.profileName,
@@ -243,7 +241,8 @@ class _FinalizeProfileTransferState extends State<_FinalizeProfileTransfer> {
             children: [
               OutlinedButton(onPressed: _otherAccounts == null ? null : _cancel, child: Text(context.l10n.cancel)),
               Gaps.w8,
-              FilledButton(onPressed: _otherAccounts == null ? null : _onboardDevice, child: Text(context.l10n.deviceOnboarding_confirm)),
+              // TODO(jkoenig134): translation
+              FilledButton(onPressed: _otherAccounts == null ? null : _onboardDevice, child: const Text('Profil übertragen')),
             ],
           ),
         ],
