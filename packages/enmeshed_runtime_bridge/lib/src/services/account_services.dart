@@ -8,18 +8,21 @@ class AccountServices {
 
   AccountServices(this._evaluator);
 
-  Future<LocalAccountDTO> createAccount({required String name}) async {
-    final result = await _evaluator.evaluateJavaScript('return await runtime.accountServices.createAccount(name)', arguments: {'name': name});
+  Future<LocalAccountDTO> createAccount({required String name, String? deviceName}) async {
+    final result = await _evaluator.evaluateJavaScript(
+      'return await runtime.accountServices.createAccount(name, deviceName ?? undefined)',
+      arguments: {'name': name, 'deviceName': ?deviceName},
+    );
 
     final value = result.valueToMap();
     final account = LocalAccountDTO.fromJson(value);
     return account;
   }
 
-  Future<LocalAccountDTO> onboardAccount(DeviceSharedSecret onboardingInfo, {String? name}) async {
+  Future<LocalAccountDTO> onboardAccount(DeviceSharedSecret onboardingInfo, {String? name, String? deviceName}) async {
     final result = await _evaluator.evaluateJavaScript(
-      'return await runtime.accountServices.onboardAccount(onboardingInfo, name ?? undefined)',
-      arguments: {'onboardingInfo': onboardingInfo.toJson(), 'name': ?name},
+      'return await runtime.accountServices.onboardAccount(onboardingInfo, name ?? undefined, deviceName ?? undefined)',
+      arguments: {'onboardingInfo': onboardingInfo.toJson(), 'name': ?name, 'deviceName': ?deviceName},
     );
 
     final value = result.valueToMap();
