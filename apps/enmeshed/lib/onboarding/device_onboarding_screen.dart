@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -116,7 +117,11 @@ class _DeviceOnboardingScreenState extends State<DeviceOnboardingScreen> {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
     final profileName = _controller.text.isEmpty ? _defaultProfileName! : _controller.text;
-    final account = await runtime.accountServices.onboardAccount(widget.deviceSharedSecret, name: profileName);
+
+    final deviceInfo = await DeviceInfoPlugin().deviceInfo;
+    final deviceName = deviceInfo.deviceName;
+
+    final account = await runtime.accountServices.onboardAccount(widget.deviceSharedSecret, name: profileName, deviceName: deviceName);
     await runtime.selectAccount(account.id);
 
     if (mounted) {

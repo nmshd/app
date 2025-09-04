@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:get_it/get_it.dart';
@@ -8,6 +9,7 @@ import 'package:logger/logger.dart';
 
 import '../generated/l10n/app_localizations.dart';
 import 'globals.dart';
+import 'utils/extensions.dart';
 import 'utils/settings_utils.dart';
 import 'utils/snackbars.dart';
 
@@ -54,9 +56,16 @@ class AppUIBridge extends UIBridge {
   Future<void> _useRecoveryKit(DeviceSharedSecret deviceOnboardingInfo) async {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
+    final deviceInfo = await DeviceInfoPlugin().deviceInfo;
+    final deviceName = deviceInfo.deviceName;
+
     late LocalAccountDTO onboardedAccount;
     try {
-      onboardedAccount = await runtime.accountServices.onboardAccount(deviceOnboardingInfo, name: deviceOnboardingInfo.profileName);
+      onboardedAccount = await runtime.accountServices.onboardAccount(
+        deviceOnboardingInfo,
+        name: deviceOnboardingInfo.profileName,
+        deviceName: deviceName,
+      );
     } on Exception catch (e) {
       if (e.toString().contains('error.app-runtime.onboardedAccountAlreadyExists')) {
         router.pop();
