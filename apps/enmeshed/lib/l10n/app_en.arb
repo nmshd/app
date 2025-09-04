@@ -92,7 +92,7 @@
   "onboarding_createNewAccount_description": "First time here?\nCreate a new profile.",
   "onboarding_createNewAccount_button": "Create user profile",
   "onboarding_restoreProfile_button": "Restore profile",
-  "onboarding_chooseOption": "You need a user profile to be able to use the enmeshed app.\nHere are two options for creating your user profile:",
+  "onboarding_chooseOption": "You need a profile to use the\nenmeshed app.\nThere are several ways to do this.",
   "onboarding_createIdentity": "Create your user profile",
   "onboarding_defaultIdentityName": "Profile",
   "onboarding_alreadyExist_title": "The profile already exists!",
