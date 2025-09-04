@@ -108,11 +108,6 @@ final _router = GoRouter(
     GoRoute(parentNavigatorKey: _rootNavigatorKey, path: '/scan-recovery-kit', builder: (context, state) => const ScanRecoveryKitScreen()),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/device-onboarding',
-      builder: (context, state) => DeviceOnboardingScreen(deviceSharedSecret: state.extra! as DeviceSharedSecret),
-    ),
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
       path: '/profiles',
       builder: (context, state) => ProfilesScreen(selectedAccountReference: state.uri.queryParameters['selectedAccountReference']),
     ),

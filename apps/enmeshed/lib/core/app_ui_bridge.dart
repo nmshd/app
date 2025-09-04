@@ -46,7 +46,7 @@ class AppUIBridge extends UIBridge {
     logger.d('showDeviceOnboarding for device ${deviceOnboardingInfo.id}');
 
     if (!deviceOnboardingInfo.isBackupDevice) {
-      await router.push('/device-onboarding', extra: deviceOnboardingInfo);
+      logger.e('showDeviceOnboarding only backup devices can be onboarded via recovery kit');
       return;
     }
 
