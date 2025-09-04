@@ -5,12 +5,11 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '/core/core.dart';
 import '../widgets/device_detail_header.dart';
-import 'widgets/device_detail_widgets.dart';
+import 'modals/modals.dart';
 
 class DeviceDetailScreen extends StatefulWidget {
   final String accountId;
@@ -55,14 +54,11 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
               device: _deviceDTO!,
               accountId: widget.accountId,
               reloadDevice: _loadDevice,
-              deleteDevice: _deleteDevice,
               editDevice: _editDevice,
             ),
             Gaps.h8,
             if (_devices != null && _devices!.length == 1)
               _RemoveRemainingDevice(device: _deviceDTO!)
-            else if (!_deviceDTO!.isOnboarded)
-              _ConnectDevice(device: _deviceDTO!)
             else if (!_deviceDTO!.isCurrentDevice)
               _RemoveOtherDevice(device: _deviceDTO!),
             _DeviceFirstConnected(device: _deviceDTO!),
@@ -92,19 +88,6 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
     final device = deviceResult.value;
 
     if (mounted) setState(() => _deviceDTO = device);
-  }
-
-  Future<void> _deleteDevice() async {
-    final confirmed = await showModalBottomSheet<bool>(
-      context: context,
-      isScrollControlled: true,
-      builder: (_) => DeleteDeviceSheet(device: _deviceDTO!, accountId: widget.accountId),
-    );
-
-    if (mounted && confirmed != null && confirmed) {
-      context.pop();
-      showSuccessSnackbar(context: context, text: context.l10n.deviceInfo_removeDevice_successful(_deviceDTO!.name));
-    }
   }
 
   Future<void> _editDevice() async {
@@ -148,24 +131,6 @@ class _DeviceFirstConnected extends StatelessWidget {
   }
 }
 
-class _ConnectDevice extends StatelessWidget {
-  final DeviceDTO device;
-
-  const _ConnectDevice({required this.device});
-
-  @override
-  Widget build(BuildContext context) {
-    return _DeviceInstructions(
-      title: context.l10n.deviceInfo_connectDevice_title,
-      instructions: [
-        context.l10n.deviceInfo_openApp(device.name),
-        context.l10n.deviceInfo_connectDevice_startConnecting,
-        context.l10n.deviceInfo_connectDevice_scan,
-      ],
-    );
-  }
-}
-
 class _RemoveRemainingDevice extends StatelessWidget {
   final DeviceDTO device;
 
@@ -196,7 +161,8 @@ class _RemoveOtherDevice extends StatelessWidget {
     return _DeviceInstructions(
       title: context.l10n.deviceInfo_removeConnectedDevice_title,
       instructions: [
-        context.l10n.deviceInfo_openApp(device.name),
+        // TODO(jkoenig134): the device should always have a name, can we ignore the fact that is is nullable?
+        context.l10n.deviceInfo_openApp(device.name ?? ''),
         context.l10n.deviceInfo_removeDevice_profileManagment,
         context.l10n.deviceInfo_removeDevice_chooseDelete,
         context.l10n.deviceInfo_removeDevice_deleteProfile,

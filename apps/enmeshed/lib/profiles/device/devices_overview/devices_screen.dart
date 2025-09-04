@@ -5,9 +5,10 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 
 import '/core/core.dart';
-import '../modals/add_or_connect_device.dart';
 import '../widgets/device_widgets.dart';
 
 class DevicesScreen extends StatefulWidget {
@@ -74,9 +75,10 @@ class _DevicesScreenState extends State<DevicesScreen> {
                 children: [
                   Text(context.l10n.devices_otherDevices, style: Theme.of(context).textTheme.titleMedium),
                   TextButton.icon(
-                    onPressed: () => addDevice(context: context, accountId: widget.accountId, reload: _reloadDevices),
-                    icon: const Icon(Icons.add),
-                    label: Text(context.l10n.devices_create),
+                    onPressed: _transferProfileToDevice,
+                    icon: const Icon(Icons.send_to_mobile_outlined),
+                    // TODO(jkoenig134): translation
+                    label: const Text('Dieses Profil übertragen'),
                   ),
                 ],
               ),
@@ -110,13 +112,57 @@ class _DevicesScreenState extends State<DevicesScreen> {
     setState(() => _account = account);
   }
 
+  Future<void> _transferProfileToDevice() async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => ScannerView(
+          onSubmit: _onSubmitTransferProfile,
+          lineUpQrCodeText: context.l10n.scanner_lineUpQrCode,
+          scanQrOrEnterUrlText: context.l10n.scanner_scanQrOrEnterUrl,
+          enterUrlText: context.l10n.scanner_enterUrl,
+          urlTitle: context.l10n.onboarding_connectWithUrl_title,
+          urlDescription: context.l10n.onboarding_connectWithUrl_description,
+          urlLabelText: context.l10n.scanner_enterUrl,
+          urlValidationErrorText: context.l10n.scanner_urlValidationError,
+          urlButtonText: context.l10n.onboarding_linkAccount,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _onSubmitTransferProfile({
+    required String content,
+    required VoidCallback pause,
+    required VoidCallback resume,
+    required BuildContext context,
+  }) async {
+    pause();
+    // TODO(jkoenig134): translation
+    unawaited(showLoadingDialog(context, 'Profil wird übertragen...'));
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    final result = await session.transportServices.devices.fillDeviceOnboardingTokenWithNewDevice(reference: content, profileName: _account!.name);
+    if (!context.mounted) return;
+
+    context.pop();
+
+    if (result.isSuccess) {
+      context.pop();
+      return;
+    }
+
+    GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
+    await context.push('/error-dialog', extra: result.error.code);
+    resume();
+  }
+
   Future<void> _reloadDevices({bool syncBefore = false}) async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
     if (syncBefore) await session.transportServices.account.syncDatawallet();
 
     final devicesResult = await session.transportServices.devices.getDevices();
-    final devices = devicesResult.value.where((device) => device.isOffboarded != true && !device.isBackupDevice).toList();
+    final devices = devicesResult.value.where((device) => device.isOnboarded && device.isOffboarded != true).toList();
 
     if (mounted) setState(() => _devices = devices);
   }

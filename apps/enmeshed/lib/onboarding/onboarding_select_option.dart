@@ -6,7 +6,6 @@ import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logger/logger.dart';
 
 import '/core/core.dart';
 import 'widgets/profiles_in_deletion_container.dart';
@@ -99,13 +98,31 @@ class _OnboardingSelectOptionState extends State<OnboardingSelectOption> {
                         ],
                       ),
                       Gaps.h24,
-                      Text(context.l10n.onboarding_existingIdentity, style: Theme.of(context).textTheme.titleLarge),
+                      Text('Bestehendes Profil übertragen', style: Theme.of(context).textTheme.titleLarge),
                       Gaps.h16,
-                      Text(context.l10n.onboarding_existingIdentity_description, textAlign: TextAlign.center),
+                      const Text('Übertragen sie ein bestehendes Profil auf dieses Gerät.', textAlign: TextAlign.center),
                       Gaps.h16,
-                      FilledButton(onPressed: () => _onboardingPressed(context), child: Text(context.l10n.scanner_scanQR)),
+                      FilledButton(
+                        onPressed: () => showTransferProfileModal(context: context),
+                        child: const Text('Übertragung starten'),
+                      ),
+                      Gaps.h24,
+                      Row(
+                        children: [
+                          const Expanded(child: Divider(thickness: 1)),
+                          Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Text(context.l10n.or)),
+                          const Expanded(child: Divider(thickness: 1)),
+                        ],
+                      ),
+                      Gaps.h24,
+                      Text('Sie haben ein Wiederherstellungskit?', style: Theme.of(context).textTheme.titleLarge),
                       Gaps.h16,
-                      TextButton(
+                      const Text(
+                        'Scannen Sie das Wiederherstellungskit um das Profil wiederherzustellen, wenn Sie ihr Gerät verloren haben.',
+                        textAlign: TextAlign.center,
+                      ),
+                      Gaps.h16,
+                      FilledButton(
                         onPressed: () => context.push('/restore-from-identity-recovery-kit'),
                         child: Text(context.l10n.onboarding_restoreProfile_button),
                       ),
@@ -125,49 +142,6 @@ class _OnboardingSelectOptionState extends State<OnboardingSelectOption> {
     final accountsInDeletion = await runtime.accountServices.getAccountsInDeletion();
 
     if (mounted) setState(() => _accountsInDeletion = accountsInDeletion);
-  }
-
-  void _onboardingPressed(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => ScannerView(
-          onSubmit: _onSubmit,
-          lineUpQrCodeText: context.l10n.scanner_lineUpQrCode,
-          scanQrOrEnterUrlText: context.l10n.scanner_scanQrOrEnterUrl,
-          enterUrlText: context.l10n.scanner_enterUrl,
-          urlTitle: context.l10n.onboarding_connectWithUrl_title,
-          urlDescription: context.l10n.onboarding_connectWithUrl_description,
-          urlLabelText: context.l10n.scanner_enterUrl,
-          urlValidationErrorText: context.l10n.scanner_urlValidationError,
-          urlButtonText: context.l10n.onboarding_linkAccount,
-        ),
-      ),
-    );
-  }
-
-  Future<void> _onSubmit({required String content, required VoidCallback pause, required VoidCallback resume, required BuildContext context}) async {
-    pause();
-
-    unawaited(showLoadingDialog(context, context.l10n.onboarding_receiveInformation));
-
-    final runtime = GetIt.I.get<EnmeshedRuntime>();
-    if (!context.mounted) return;
-
-    final result = await runtime.stringProcessor.processDeviceOnboardingReference(url: content);
-    if (result.isSuccess) {
-      resume();
-      return;
-    }
-
-    GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
-    if (!context.mounted) return;
-
-    await context.push('/error-dialog', extra: result.error.code);
-
-    if (!context.mounted) return;
-    if (context.canPop()) context.pop();
-
-    resume();
   }
 }
 

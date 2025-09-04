@@ -3,21 +3,18 @@ import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '/core/core.dart';
-import '../modals/add_or_connect_device.dart';
 import 'device_widgets.dart';
 
 class DeviceDetailHeader extends StatelessWidget {
   final DeviceDTO device;
   final String accountId;
   final Future<void> Function() reloadDevice;
-  final VoidCallback deleteDevice;
   final VoidCallback editDevice;
 
   const DeviceDetailHeader({
     required this.device,
     required this.accountId,
     required this.reloadDevice,
-    required this.deleteDevice,
     required this.editDevice,
     super.key,
   });
@@ -29,7 +26,8 @@ class DeviceDetailHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(device.name, style: Theme.of(context).textTheme.titleLarge),
+          // TODO(jkoenig134): the device should always have a name, can we ignore the fact that is is nullable?
+          Text(device.name ?? '', style: Theme.of(context).textTheme.titleLarge),
           if (device.description != null && device.description!.isNotEmpty) ...[
             Gaps.h8,
             Text(device.description!, style: Theme.of(context).textTheme.bodyMedium),
@@ -46,7 +44,7 @@ class DeviceDetailHeader extends StatelessWidget {
           ],
           if (!(device.isOffboarded ?? false)) ...[
             Gaps.h8,
-            _DeviceButtonBar(editDevice: editDevice, deleteDevice: deleteDevice, reloadDevice: reloadDevice, device: device, accountId: accountId),
+            _DeviceButtonBar(editDevice: editDevice, reloadDevice: reloadDevice, device: device, accountId: accountId),
           ],
         ],
       ),
@@ -56,14 +54,12 @@ class DeviceDetailHeader extends StatelessWidget {
 
 class _DeviceButtonBar extends StatelessWidget {
   final VoidCallback editDevice;
-  final VoidCallback deleteDevice;
   final Future<void> Function() reloadDevice;
   final DeviceDTO device;
   final String accountId;
 
   const _DeviceButtonBar({
     required this.editDevice,
-    required this.deleteDevice,
     required this.accountId,
     required this.reloadDevice,
     required this.device,
@@ -90,14 +86,9 @@ class _DeviceButtonBar extends StatelessWidget {
             style: OutlinedButton.styleFrom(padding: buttonPadding),
             icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error, size: 18),
             label: Text(device.isCurrentDevice ? context.l10n.deviceInfo_removeCurrentDevice : context.l10n.deviceInfo_removeDevice),
-            onPressed: device.isOnboarded ? null : deleteDevice,
+            // TODO(jkoenig134): it should be easily possible to delete the current device, we already have the text for this (above)
+            onPressed: null,
           ),
-          if (!device.isOnboarded)
-            FilledButton.icon(
-              icon: const Icon(Icons.qr_code, size: 18),
-              onPressed: () => connectDevice(context: context, accountId: accountId, reload: reloadDevice, device: device),
-              label: Text(context.l10n.deviceInfo_showQrCode),
-            ),
         ],
       ),
     );

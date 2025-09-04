@@ -16,8 +16,8 @@ Future<void> showDeleteProfileOrIdentityModal({required LocalAccountDTO localAcc
   final devicesResult = await session.transportServices.devices.getDevices();
   final devices = devicesResult.isSuccess ? devicesResult.value : <DeviceDTO>[];
 
-  final otherActiveDevices = devices.where((element) => element.isOnboarded && element.isOffboarded != true && !element.isCurrentDevice).toList()
-    ..sort((a, b) => a.name.compareTo(b.name));
+  final otherActiveDevices = devices.where((d) => d.isOnboarded && d.isOffboarded != true && !d.isCurrentDevice).toList()
+    ..sort((a, b) => (a.name ?? '').compareTo(b.name ?? ''));
 
   if (!context.mounted) return;
 
