@@ -7,7 +7,7 @@ repository: https://github.com/nmshd/app
 homepage: https://enmeshed.eu
 
 environment:
-  sdk: "^3.9.0"
+  sdk: "^3.9.2"
 
 resolution: workspace
 
