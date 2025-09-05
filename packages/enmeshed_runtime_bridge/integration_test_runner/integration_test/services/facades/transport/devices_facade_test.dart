@@ -117,7 +117,7 @@ void run(EnmeshedRuntime runtime) {
 
     test('setCommunicationLanguage', () async {
       final result = await session.transportServices.devices.setCommunicationLanguage(communicationLanguage: 'fr');
-      expect(result, isSuccessful());
+      expect(result, isSuccessful<void>());
     });
 
     test('setCommunicationLanguage with false input', () async {

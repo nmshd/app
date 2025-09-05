@@ -10,10 +10,10 @@ class _ResultFailingMatcher extends Matcher {
   Description describe(Description description) => description.add('result is failing');
 
   @override
-  bool matches(item, Map matchState) => item is Result && item.isError && item.error.code == code;
+  bool matches(dynamic item, Map<dynamic, dynamic> matchState) => item is Result && item.isError && item.error.code == code;
 
   @override
-  Description describeMismatch(item, Description mismatchDescription, Map matchState, bool verbose) {
+  Description describeMismatch(dynamic item, Description mismatchDescription, Map<dynamic, dynamic> matchState, bool verbose) {
     if (item is! Result) return mismatchDescription.add('is not a Result');
     if (item.isSuccess) return mismatchDescription.add('is not failing');
 
@@ -32,10 +32,10 @@ class _VoidResultFailingMatcher extends Matcher {
   Description describe(Description description) => description.add('result is failing');
 
   @override
-  bool matches(item, Map matchState) => item is VoidResult && item.isError && item.error.code == code;
+  bool matches(dynamic item, Map<dynamic, dynamic> matchState) => item is VoidResult && item.isError && item.error.code == code;
 
   @override
-  Description describeMismatch(item, Description mismatchDescription, Map matchState, bool verbose) {
+  Description describeMismatch(dynamic item, Description mismatchDescription, Map<dynamic, dynamic> matchState, bool verbose) {
     if (item is! VoidResult) return mismatchDescription.add('is not a Result');
     if (item.isSuccess) return mismatchDescription.add('is not failing');
 
@@ -52,14 +52,15 @@ class _ResultSuccessfulMatcher<T> extends Matcher {
   Description describe(Description description) => description.add('result is successful');
 
   @override
-  bool matches(item, Map matchState) => (item is VoidResult && item.isSuccess) || (item is Result && item.isSuccess && item.value is T);
+  bool matches(dynamic item, Map<dynamic, dynamic> matchState) =>
+      (item is VoidResult && item.isSuccess) || (item is Result && item.isSuccess && item.value is T);
 
   @override
-  Description describeMismatch(item, Description mismatchDescription, Map matchState, bool verbose) {
+  Description describeMismatch(dynamic item, Description mismatchDescription, Map<dynamic, dynamic> matchState, bool verbose) {
     if (item is! Result) return mismatchDescription.add('is not a VoidResult');
     if (item.isError) return mismatchDescription.add("failed with code '${item.error.code}' and message '${item.error.message}'");
 
-    return mismatchDescription.add('has value of type ${item.value.runtimeType}, but expected ${T.toString()}');
+    return mismatchDescription.add('has value of type ${item.value.runtimeType}, but expected $T');
   }
 }
 

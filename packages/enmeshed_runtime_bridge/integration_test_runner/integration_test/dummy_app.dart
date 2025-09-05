@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
       title: 'Dummy IntegrationTestApp',
       theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
       darkTheme: ThemeData.dark(useMaterial3: true),
-      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
     );
   }

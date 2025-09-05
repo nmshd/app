@@ -7,7 +7,7 @@ import 'transport_test.dart' as transport_test;
 
 void main() async => run(await setup());
 
-void run(EnmeshedRuntime runtime) async {
+void run(EnmeshedRuntime runtime) {
   anonymous_test.run(runtime);
   consumption_test.run(runtime);
   transport_test.run(runtime);

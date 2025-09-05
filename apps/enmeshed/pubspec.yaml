@@ -59,7 +59,6 @@ dependencies:
   url_launcher: ^6.3.2
   value_renderer: ^1.0.0
   vector_graphics: ^1.1.19
-  very_good_analysis: ^9.0.0
   watch_it: ^1.7.0
   win32_registry: ^2.1.0
 
