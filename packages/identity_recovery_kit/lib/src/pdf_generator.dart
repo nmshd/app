@@ -141,7 +141,6 @@ class PdfGenerator {
 
   pw.Row _buildNumberedText(int number, String infoText) {
     return pw.Row(
-      crossAxisAlignment: pw.CrossAxisAlignment.center,
       children: [
         pw.Text(
           '$number.',
@@ -161,7 +160,6 @@ class PdfGenerator {
   pw.Container _buildIdContainer() {
     return _buildTextContainer(
       child: pw.Row(
-        mainAxisAlignment: pw.MainAxisAlignment.start,
         children: [
           pw.Text(
             '${pdfTexts.addressLabel}: ',
@@ -218,7 +216,6 @@ class PdfGenerator {
           width: _getSize(485),
           child: pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
-            mainAxisAlignment: pw.MainAxisAlignment.start,
             children: [
               pw.SizedBox(height: _getSize(52)),
               pw.Text(

@@ -191,7 +191,7 @@ void run(EnmeshedRuntime runtime) {
   group('[AttributesFacade] getRepositoryAttributes', () {
     test('should return a valid list of repository attributes', () async {
       await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aGivenName'));
-      exchangeIdentityAttribute(sender, recipient, const SurnameAttributeValue(value: 'aSurname'));
+      await exchangeIdentityAttribute(sender, recipient, const SurnameAttributeValue(value: 'aSurname'));
 
       final repositoryAttributesResult = await sender.consumptionServices.attributes.getRepositoryAttributes();
       expect(repositoryAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
@@ -368,7 +368,7 @@ void run(EnmeshedRuntime runtime) {
   group('[AttributesFacade] getSharedVersionsOfAttribute', () {
     test('should get only latest shared versions of a repository attribute', () async {
       final recipientAddress = account2.address!;
-      final List<LocalAttributeDTO> versions = [];
+      final versions = <LocalAttributeDTO>[];
 
       final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
         value: const GivenNameAttributeValue(value: 'First Name'),
@@ -424,7 +424,7 @@ void run(EnmeshedRuntime runtime) {
       'should get only latest shared to peer versions of a repository attribute with property onlyLatestVersions: true',
       () async {
         final recipientAddress = account2.address!;
-        final List<LocalAttributeDTO> versions = [];
+        final versions = <LocalAttributeDTO>[];
 
         final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
           value: const GivenNameAttributeValue(value: 'First Name'),
@@ -482,7 +482,7 @@ void run(EnmeshedRuntime runtime) {
       'should get all shared to peer versions of a repository attribute with property onlyLatestVersions: false',
       () async {
         final recipientAddress = account2.address!;
-        final List<LocalAttributeDTO> versions = [];
+        final versions = <LocalAttributeDTO>[];
 
         final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
           value: const GivenNameAttributeValue(value: 'First Name'),
@@ -543,7 +543,7 @@ void run(EnmeshedRuntime runtime) {
 
       final recipient1Address = account2.address!;
       final recipient2Address = account3.address!;
-      final List<LocalAttributeDTO> versions = [];
+      final versions = <LocalAttributeDTO>[];
 
       final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
         value: const GivenNameAttributeValue(value: 'First Name'),
@@ -644,7 +644,7 @@ void run(EnmeshedRuntime runtime) {
 
       final recipient1Address = account2.address!;
       final recipient2Address = account3.address!;
-      final List<LocalAttributeDTO> versions = [];
+      final versions = <LocalAttributeDTO>[];
 
       final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
         value: const GivenNameAttributeValue(value: 'First Name'),
@@ -1313,7 +1313,7 @@ void run(EnmeshedRuntime runtime) {
       final identityAttribute = identityAttributeResult.value;
 
       final deletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
-      expect(deletionResult, isSuccessful());
+      expect(deletionResult, isSuccessful<void>());
     });
 
     test('should return an error trying to delete an already deleted attribute', () async {
@@ -1323,7 +1323,7 @@ void run(EnmeshedRuntime runtime) {
       final identityAttribute = identityAttributeResult.value;
 
       final successfulDeletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
-      expect(successfulDeletionResult, isSuccessful());
+      expect(successfulDeletionResult, isSuccessful<void>());
 
       final failingDeletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
       expect(failingDeletionResult, isFailingVoidResult('error.runtime.recordNotFound'));

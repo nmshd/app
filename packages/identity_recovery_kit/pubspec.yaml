@@ -7,8 +7,8 @@ repository: https://github.com/nmshd/app
 homepage: https://enmeshed.eu
 
 environment:
-  sdk: "^3.9.0"
-  flutter: ">=3.35.2"
+  sdk: "^3.9.2"
+  flutter: ">=3.35.3"
 
 resolution: workspace
 
@@ -18,6 +18,3 @@ dependencies:
   pdf: ^3.11.3
   qr: ^3.0.2
   qr_flutter: ^4.1.0
-
-dev_dependencies:
-  flutter_lints: ^6.0.0

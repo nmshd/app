@@ -3,8 +3,8 @@ description: A Dart package exposing a set of widgets and utilities to build Enm
 version: 1.0.0
 
 environment:
-  sdk: "^3.9.0"
-  flutter: ">=3.35.2"
+  sdk: "^3.9.2"
+  flutter: ">=3.35.3"
 
 resolution: workspace
 
@@ -19,6 +19,5 @@ dependencies:
   styled_text: ^8.1.0
 
 dev_dependencies:
-  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter

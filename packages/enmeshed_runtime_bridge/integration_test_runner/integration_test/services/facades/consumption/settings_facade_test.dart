@@ -69,7 +69,7 @@ void run(EnmeshedRuntime runtime) {
       final setting = (await session.consumptionServices.settings.createSetting(key: 'a-key', value: value)).value;
 
       final deleteResult = await session.consumptionServices.settings.deleteSetting(setting.id);
-      expect(deleteResult, isSuccessful());
+      expect(deleteResult, isSuccessful<void>());
 
       final result = await session.consumptionServices.settings.getSettings();
       expect(result, isSuccessful<List<SettingDTO>>());

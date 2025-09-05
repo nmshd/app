@@ -95,8 +95,8 @@ void run(EnmeshedRuntime runtime) {
 
   group('[AttributesFacade] LoadItemFromReference', () {
     group('File', () {
-      String fileReference = '';
-      String fileTokenReference = '';
+      var fileReference = '';
+      var fileTokenReference = '';
 
       setUpAll(() async {
         final file = await uploadFile(session);
@@ -120,8 +120,8 @@ void run(EnmeshedRuntime runtime) {
     });
 
     group('RelationshipTemplate', () {
-      String relationshipTemplateReference = '';
-      String relationshipTemplateTokenReference = '';
+      var relationshipTemplateReference = '';
+      var relationshipTemplateTokenReference = '';
 
       setUpAll(() async {
         final relationshipTemplate = (await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
@@ -149,8 +149,8 @@ void run(EnmeshedRuntime runtime) {
       });
     });
 
-    //TODO: add test for Token
-    //TODO: add test for DeviceOnboardingInfo
+    // TODO(jkoenig134): add test for Token
+    // TODO(jkoenig134): add test for DeviceOnboardingInfo
   });
 
   group('Un-/RegisterPushNotificationToken', () {
@@ -183,7 +183,7 @@ void run(EnmeshedRuntime runtime) {
     test('unregister push notification token', () async {
       final result = await session.transportServices.account.unregisterPushNotificationToken();
 
-      expect(result, isSuccessful());
+      expect(result, isSuccessful<void>());
     });
   });
 }

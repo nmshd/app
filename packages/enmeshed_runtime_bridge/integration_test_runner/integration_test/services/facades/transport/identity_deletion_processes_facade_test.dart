@@ -29,7 +29,7 @@ void run(EnmeshedRuntime runtime) {
     if (!activeIdentityDeletionProcess.isSuccess) {
       return;
     }
-    Result abortResult;
+    Result<IdentityDeletionProcessDTO> abortResult;
     if (activeIdentityDeletionProcess.value.status == IdentityDeletionProcessStatus.Approved) {
       abortResult = await session.transportServices.identityDeletionProcesses.cancelIdentityDeletionProcess();
       if (abortResult.isError) throw abortResult.error;

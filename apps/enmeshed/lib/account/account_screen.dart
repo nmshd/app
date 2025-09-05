@@ -31,6 +31,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
   final List<StreamSubscription<void>> _subscriptions = [];
 
   late final TabController _tabController;
+  late final AppLifecycleListener _appLifecycleListener;
   List<LocalAccountDTO> _accountsInDeletion = [];
 
   LocalAccountDTO? _account;
@@ -68,7 +69,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
         }),
       );
 
-    AppLifecycleListener(
+    _appLifecycleListener = AppLifecycleListener(
       onResume: () async {
         final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
         await session.transportServices.account.syncDatawallet();
@@ -88,6 +89,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     }
 
     _tabController.dispose();
+    _appLifecycleListener.dispose();
 
     super.dispose();
   }

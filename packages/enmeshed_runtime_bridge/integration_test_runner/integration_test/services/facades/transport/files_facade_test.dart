@@ -131,13 +131,13 @@ void run(EnmeshedRuntime runtime) {
         reference: 'RklMTG93cDV2Yk5JaUh6QWZ5aGp8M3xKZ2h6dXFKa003TW1Id0hyb3k3akd3dmdleXFXVEdVd3h2QWUwWlRBeXXX',
       );
 
-      // TODO: why unknown
+      // TODO(jkoenig134): why unknown
       expect(result, isFailing('error.runtime.unknown'));
     });
   });
 
   group('[FilesFacade] downloadFile', () {
-    // TODO: re-enable test
+    // TODO(jkoenig134): re-enable test
     test('should allow to download a file', skip: true, () async {
       final responseResult = await session.transportServices.files.downloadFile(fileId: globalFile.id);
 
@@ -238,7 +238,7 @@ void run(EnmeshedRuntime runtime) {
       expect(getFileResult, isSuccessful<FileDTO>());
 
       final deleteFileResult = await session.transportServices.files.deleteFile(fileId: fileId);
-      expect(deleteFileResult, isSuccessful());
+      expect(deleteFileResult, isSuccessful<void>());
 
       final getFileAfterDeletionResult = await session.transportServices.files.getFile(fileId: fileId);
       expect(getFileAfterDeletionResult.error.code, 'error.runtime.recordNotFound');

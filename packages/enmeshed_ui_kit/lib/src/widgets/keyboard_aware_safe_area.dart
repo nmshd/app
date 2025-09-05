@@ -12,13 +12,13 @@ class KeyboardAwareSafeArea extends StatelessWidget {
   final Widget child;
 
   const KeyboardAwareSafeArea({
+    required this.child,
     this.left = true,
     this.top = true,
     this.right = true,
     this.bottom = true,
     this.minimum = EdgeInsets.zero,
     this.maintainBottomViewPadding = false,
-    required this.child,
     super.key,
   });
 

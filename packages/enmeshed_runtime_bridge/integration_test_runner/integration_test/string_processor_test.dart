@@ -11,7 +11,7 @@ void run(EnmeshedRuntime enmeshedRuntime) {
   group('[StringProcessor]', () {
     final uiBridge = FakeUIBridge();
 
-    bool isRegistered = false;
+    var isRegistered = false;
     setUp(() async {
       // We use setUp instead of setUpAll to ensure that the UI bridge isn't injected for other tests. See [setUpAll]s description for more information.
       if (!isRegistered) {
