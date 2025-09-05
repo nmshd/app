@@ -16,8 +16,8 @@ class DeviceDetailHeader extends StatelessWidget {
     required this.device,
     required this.accountId,
     required this.reloadDevice,
-    required this.editDevice,
     required this.deleteDevice,
+    required this.editDevice,
     super.key,
   });
 
