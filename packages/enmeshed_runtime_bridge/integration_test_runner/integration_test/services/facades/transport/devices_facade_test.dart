@@ -91,6 +91,8 @@ void run(EnmeshedRuntime runtime) {
 
       final filledTokenResult = await session.transportServices.devices.fillDeviceOnboardingTokenWithNewDevice(
         reference: emptyToken.reference.truncated,
+        profileName: 'profileName',
+        isAdmin: true,
       );
       expect(filledTokenResult, isSuccessful<TokenDTO>());
     });

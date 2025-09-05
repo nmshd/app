@@ -138,7 +138,11 @@ class _DevicesScreenState extends State<DevicesScreen> {
     unawaited(showLoadingDialog(context, context.l10n.transferProfile_scan_transferInProgress));
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
-    final result = await session.transportServices.devices.fillDeviceOnboardingTokenWithNewDevice(reference: content, profileName: _account!.name);
+    final result = await session.transportServices.devices.fillDeviceOnboardingTokenWithNewDevice(
+      reference: content,
+      profileName: _account!.name,
+      isAdmin: true,
+    );
     if (!context.mounted) return;
 
     context.pop();
