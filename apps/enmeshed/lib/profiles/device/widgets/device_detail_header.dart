@@ -9,8 +9,8 @@ class DeviceDetailHeader extends StatelessWidget {
   final DeviceDTO device;
   final String accountId;
   final Future<void> Function() reloadDevice;
-  final VoidCallback editDevice;
   final VoidCallback? deleteDevice;
+  final VoidCallback editDevice;
 
   const DeviceDetailHeader({
     required this.device,
