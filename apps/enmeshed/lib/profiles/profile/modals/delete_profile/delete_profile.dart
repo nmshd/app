@@ -25,8 +25,6 @@ Future<void> showDeleteProfileOrIdentityModal({
 
   assert(!deleteProfile || otherActiveDevices.isNotEmpty, 'If deleteProfile is true, there should be at least one other active device.');
 
-  assert(!deleteProfile || otherActiveDevices.isNotEmpty, 'If deleteProfile is true, there should be at least one other active device.');
-
   if (!context.mounted) return;
 
   await showModalBottomSheet<void>(
