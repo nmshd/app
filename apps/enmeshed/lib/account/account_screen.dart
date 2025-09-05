@@ -89,6 +89,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     }
 
     _tabController.dispose();
+    _appLifecycleListener.dispose();
 
     super.dispose();
   }
