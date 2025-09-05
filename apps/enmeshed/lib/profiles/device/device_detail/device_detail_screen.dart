@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '/core/core.dart';
+import '../../profile/modals/delete_profile/delete_profile.dart';
 import '../widgets/device_detail_header.dart';
 import 'widgets/device_detail_widgets.dart';
 
@@ -94,7 +95,21 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
     if (mounted) setState(() => _deviceDTO = device);
   }
 
-  Future<void> _deleteDevice() async {
+  VoidCallback? get _deleteDevice {
+    if (_deviceDTO == null) return null;
+
+    if (!_deviceDTO!.isOnboarded) return _deleteNonOnboardedDevice;
+
+    // current device can be deleted only if there is at least one other active device
+    if (_deviceDTO!.isCurrentDevice &&
+        _devices!.where((device) => device.isOnboarded && device.isOffboarded != true && !device.isCurrentDevice).isNotEmpty) {
+      return _deleteCurrentDevice;
+    }
+
+    return null;
+  }
+
+  Future<void> _deleteNonOnboardedDevice() async {
     final confirmed = await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
@@ -105,6 +120,13 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
       context.pop();
       showSuccessSnackbar(context: context, text: context.l10n.deviceInfo_removeDevice_successful(_deviceDTO!.name));
     }
+  }
+
+  Future<void> _deleteCurrentDevice() async {
+    final accountDTO = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccount(widget.accountId);
+    if (!mounted) return;
+
+    await showDeleteProfileOrIdentityModal(context: context, localAccount: accountDTO, deleteProfile: true);
   }
 
   Future<void> _editDevice() async {
