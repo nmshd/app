@@ -20,6 +20,11 @@ class DeviceCard extends StatelessWidget {
       color: device.isCurrentDevice ? Theme.of(context).colorScheme.secondaryContainer : Theme.of(context).colorScheme.surfaceContainerHighest,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
       clipBehavior: Clip.hardEdge,
+      child: InkWell(
+        onTap: () async {
+          await context.push('/account/$accountId/devices/${device.id}');
+          await reloadDevices();
+        },
         child: Padding(
           padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12),
           child: Row(
