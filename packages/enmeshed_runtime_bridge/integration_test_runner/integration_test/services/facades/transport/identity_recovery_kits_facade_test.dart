@@ -20,7 +20,7 @@ void run(EnmeshedRuntime runtime) {
     test('createIdentityRecoveryKit', () async {
       final result = await session.transportServices.identityRecoveryKits.createIdentityRecoveryKit(
         profileName: 'aProfileName',
-        passwordProtection: PasswordProtection(password: 'aPassword'),
+        passwordProtection: const PasswordProtection(password: 'aPassword'),
       );
       expect(result, isSuccessful<TokenDTO>());
     });
@@ -28,7 +28,7 @@ void run(EnmeshedRuntime runtime) {
     test('checkForExistingIdentityRecoveryKit', () async {
       await session.transportServices.identityRecoveryKits.createIdentityRecoveryKit(
         profileName: 'aProfileName',
-        passwordProtection: PasswordProtection(password: 'aPassword'),
+        passwordProtection: const PasswordProtection(password: 'aPassword'),
       );
 
       final result = await session.transportServices.identityRecoveryKits.checkForExistingIdentityRecoveryKit();

@@ -8,8 +8,9 @@ void main() async => run(await setup());
 
 void run(EnmeshedRuntime enmeshedRuntime) {
   final uiBridge = FakeUIBridge();
-
-  setUpAll(() async {
-    enmeshedRuntime.registerUIBridge(uiBridge);
+  group('[UIBridge]', () {
+    test('successfully registering the UI Bridge', () async {
+      expect(enmeshedRuntime.registerUIBridge(uiBridge), completes);
+    });
   });
 }
