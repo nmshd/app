@@ -80,7 +80,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('[RelationshipTemplatesFacade] getRelationshipTemplates', () {
-    late String expiryDate = generateExpiryString();
+    late var expiryDate = generateExpiryString();
 
     setUpAll(() async {
       expiryDate = generateExpiryString();
@@ -234,11 +234,11 @@ void run(EnmeshedRuntime runtime) {
   group('[RelationshipTemplatesFacade] Password Protection', () {
     final relationshipTemplateContent = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
 
-    final passwordProtections = [PasswordProtection(password: 'aPassword'), PasswordProtection(password: '1234', passwordIsPin: true)];
+    final passwordProtections = [const PasswordProtection(password: 'aPassword'), const PasswordProtection(password: '1234', passwordIsPin: true)];
 
     for (final passwordProtection in passwordProtections) {
       test(
-        'should create a password protected template with password \'${passwordProtection.password}\' and passwordIsPin \'${passwordProtection.passwordIsPin}\'',
+        "should create a password protected template with password '${passwordProtection.password}' and passwordIsPin '${passwordProtection.passwordIsPin}'",
         () async {
           final templateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
             expiresAt: generateExpiryString(),
@@ -252,7 +252,7 @@ void run(EnmeshedRuntime runtime) {
       );
 
       test(
-        'should exchange a password protected template with password \'${passwordProtection.password}\' and passwordIsPin \'${passwordProtection.passwordIsPin}\'',
+        "should exchange a password protected template with password '${passwordProtection.password}' and passwordIsPin '${passwordProtection.passwordIsPin}'",
         () async {
           final templateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
             expiresAt: generateExpiryString(),

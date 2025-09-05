@@ -12,7 +12,7 @@ Future<EnmeshedRuntime> setup() async {
 
   final eventBus = MockEventBus();
   // reset event bus before each test to get rid of old events
-  setUp(() => eventBus.reset());
+  setUp(eventBus.reset);
 
   final runtime = EnmeshedRuntime(
     runtimeConfig: (

@@ -6,7 +6,7 @@ import 'anonymous/backbone_compatibility_facade_test.dart' as backbone_compatibi
 
 void main() async => run(await setup());
 
-void run(EnmeshedRuntime runtime) async {
+void run(EnmeshedRuntime runtime) {
   anonymous_tokens_facade_test.run(runtime);
   backbone_compatibility_facade_test.run(runtime);
 }
