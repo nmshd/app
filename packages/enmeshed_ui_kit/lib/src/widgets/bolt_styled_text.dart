@@ -12,7 +12,7 @@ class BoldStyledText extends StatelessWidget {
     return StyledText(
       text: text,
       style: style,
-      tags: {'bold': StyledTextTag(style: TextStyle(fontWeight: FontWeight.bold))},
+      tags: {'bold': StyledTextTag(style: const TextStyle(fontWeight: FontWeight.bold))},
     );
   }
 }
