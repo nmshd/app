@@ -74,11 +74,9 @@ class _DevicesScreenState extends State<DevicesScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(context.l10n.devices_otherDevices, style: Theme.of(context).textTheme.titleMedium),
-                  TextButton.icon(
+                  FilledButton(
                     onPressed: _transferProfileToDevice,
-                    icon: const Icon(Icons.send_to_mobile_outlined),
-                    // TODO(jkoenig134): translation
-                    label: const Text('Dieses Profil übertragen'),
+                    child: Text(context.l10n.devices_transferProfile),
                   ),
                 ],
               ),
@@ -120,11 +118,11 @@ class _DevicesScreenState extends State<DevicesScreen> {
           lineUpQrCodeText: context.l10n.scanner_lineUpQrCode,
           scanQrOrEnterUrlText: context.l10n.scanner_scanQrOrEnterUrl,
           enterUrlText: context.l10n.scanner_enterUrl,
-          urlTitle: context.l10n.onboarding_connectWithUrl_title,
-          urlDescription: context.l10n.onboarding_connectWithUrl_description,
+          urlTitle: context.l10n.transferProfile_scan_url_title,
+          urlDescription: context.l10n.transferProfile_scan_url_description,
           urlLabelText: context.l10n.scanner_enterUrl,
           urlValidationErrorText: context.l10n.scanner_urlValidationError,
-          urlButtonText: context.l10n.onboarding_linkAccount,
+          urlButtonText: context.l10n.transferProfile_scan_url_button,
         ),
       ),
     );
@@ -137,8 +135,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
     required BuildContext context,
   }) async {
     pause();
-    // TODO(jkoenig134): translation
-    unawaited(showLoadingDialog(context, 'Profil wird übertragen...'));
+    unawaited(showLoadingDialog(context, context.l10n.transferProfile_scan_transferInProgress));
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
     final result = await session.transportServices.devices.fillDeviceOnboardingTokenWithNewDevice(reference: content, profileName: _account!.name);
@@ -152,7 +149,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
     }
 
     GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
-    await context.push('/error-dialog', extra: result.error.code);
+    await context.push('/error-dialog', extra: 'error.transferProfile.invalidQRCode');
     resume();
   }
 

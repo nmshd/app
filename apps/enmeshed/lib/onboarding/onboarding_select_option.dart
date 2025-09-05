@@ -98,14 +98,13 @@ class _OnboardingSelectOptionState extends State<OnboardingSelectOption> {
                         ],
                       ),
                       Gaps.h24,
-                      // TODO(jkoenig134): translations
-                      Text('Bestehendes Profil übertragen', style: Theme.of(context).textTheme.titleLarge),
+                      Text(context.l10n.onboarding_transferProfile, style: Theme.of(context).textTheme.titleLarge),
                       Gaps.h16,
-                      const Text('Übertragen sie ein bestehendes Profil auf dieses Gerät.', textAlign: TextAlign.center),
+                      Text(context.l10n.onboarding_transferProfile_description, textAlign: TextAlign.center),
                       Gaps.h16,
                       FilledButton(
                         onPressed: () => showTransferProfileModal(context: context),
-                        child: const Text('Übertragung starten'),
+                        child: Text(context.l10n.onboarding_transferProfile_button),
                       ),
                       Gaps.h24,
                       Row(
@@ -116,16 +115,13 @@ class _OnboardingSelectOptionState extends State<OnboardingSelectOption> {
                         ],
                       ),
                       Gaps.h24,
-                      Text('Sie haben ein Wiederherstellungskit?', style: Theme.of(context).textTheme.titleLarge),
+                      Text(context.l10n.onboarding_receryKit, style: Theme.of(context).textTheme.titleLarge),
                       Gaps.h16,
-                      const Text(
-                        'Scannen Sie das Wiederherstellungskit um das Profil wiederherzustellen, wenn Sie ihr Gerät verloren haben.',
-                        textAlign: TextAlign.center,
-                      ),
+                      Text(context.l10n.onboarding_receryKit_description, textAlign: TextAlign.center),
                       Gaps.h16,
                       FilledButton(
                         onPressed: () => context.push('/restore-from-identity-recovery-kit'),
-                        child: Text(context.l10n.onboarding_restoreProfile_button),
+                        child: Text(context.l10n.onboarding_receryKit_button),
                       ),
                     ],
                   ),

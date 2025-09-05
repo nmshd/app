@@ -286,8 +286,7 @@ class _MoreProfiles extends StatelessWidget {
                   MenuItemButton(onPressed: () => _onCreateProfilePressed(context), child: Text(context.l10n.profiles_createNew)),
                   MenuItemButton(
                     onPressed: () => showTransferProfileModal(context: context),
-                    // TODO(jkoenig134): translation
-                    child: const Text('Profil auf dieses Gerät übertragen'),
+                    child: Text(context.l10n.transferProfile_title),
                   ),
                   MenuItemButton(
                     onPressed: () => context.push('/restore-from-identity-recovery-kit'),

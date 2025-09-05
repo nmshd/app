@@ -10,7 +10,11 @@ import 'deletion_type.dart';
 import 'should_delete_identity.dart';
 import 'should_delete_profile.dart';
 
-Future<void> showDeleteProfileOrIdentityModal({required LocalAccountDTO localAccount, required BuildContext context}) async {
+Future<void> showDeleteProfileOrIdentityModal({
+  required LocalAccountDTO localAccount,
+  required BuildContext context,
+  bool deleteProfile = false,
+}) async {
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(localAccount.address!);
 
   final devicesResult = await session.transportServices.devices.getDevices();
@@ -19,6 +23,8 @@ Future<void> showDeleteProfileOrIdentityModal({required LocalAccountDTO localAcc
   final otherActiveDevices = devices.where((d) => d.isOnboarded && d.isOffboarded != true && !d.isCurrentDevice).toList()
     ..sort((a, b) => (a.name ?? '').compareTo(b.name ?? ''));
 
+  assert(!deleteProfile || otherActiveDevices.isNotEmpty, 'If deleteProfile is true, there should be at least one other active device.');
+
   if (!context.mounted) return;
 
   await showModalBottomSheet<void>(
@@ -26,7 +32,13 @@ Future<void> showDeleteProfileOrIdentityModal({required LocalAccountDTO localAcc
     isScrollControlled: true,
     builder: (context) => ConstrainedBox(
       constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
-      child: _DeleteProfileOrIdentityModal(localAccount: localAccount, otherActiveDevices: otherActiveDevices, devices: devices, session: session),
+      child: _DeleteProfileOrIdentityModal(
+        localAccount: localAccount,
+        otherActiveDevices: otherActiveDevices,
+        devices: devices,
+        session: session,
+        deleteProfile: deleteProfile,
+      ),
     ),
   );
 }
@@ -36,8 +48,15 @@ class _DeleteProfileOrIdentityModal extends StatefulWidget {
   final List<DeviceDTO> otherActiveDevices;
   final List<DeviceDTO> devices;
   final Session session;
+  final bool deleteProfile;
 
-  const _DeleteProfileOrIdentityModal({required this.localAccount, required this.otherActiveDevices, required this.devices, required this.session});
+  const _DeleteProfileOrIdentityModal({
+    required this.localAccount,
+    required this.otherActiveDevices,
+    required this.devices,
+    required this.session,
+    required this.deleteProfile,
+  });
 
   @override
   State<_DeleteProfileOrIdentityModal> createState() => _DeleteProfileOrIdentityModalState();
@@ -50,9 +69,16 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
   }
 
   int _lastIndex = 0;
-  int _index = 0;
+  late int _index;
 
   late final DeletionType _deletionType;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _index = widget.deleteProfile ? 1 : 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +106,7 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
           deleteIdentity: () => setState(() => _currentIndex = 2),
         ),
         1 => ShouldDeleteProfile(
+          onBackPressed: widget.deleteProfile ? null : () => setState(() => _currentIndex = 0),
           cancel: () => setState(() => _currentIndex = 0),
           delete: () => setState(() {
             _deletionType = DeletionType.profile;

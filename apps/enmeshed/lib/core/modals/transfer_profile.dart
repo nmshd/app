@@ -39,7 +39,7 @@ class _TransferProfileModalState extends State<_TransferProfileModal> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const BottomSheetHeader(title: 'Profil auf dieses Gerät übertragen'),
+          BottomSheetHeader(title: context.l10n.transferProfile_title),
           AnimatedSwitcher(
             layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
               return AnimatedSize(
@@ -60,7 +60,7 @@ class _TransferProfileModalState extends State<_TransferProfileModal> {
               );
             },
             child: _sharedSecret == null
-                ? _TransferProfile(setSharedSecret: (sharedSecret) => setState(() => _sharedSecret = sharedSecret))
+                ? _TransferProfileScan(setSharedSecret: (sharedSecret) => setState(() => _sharedSecret = sharedSecret))
                 : _FinalizeProfileTransfer(deviceSharedSecret: _sharedSecret!),
           ),
         ],
@@ -69,16 +69,16 @@ class _TransferProfileModalState extends State<_TransferProfileModal> {
   }
 }
 
-class _TransferProfile extends StatefulWidget {
+class _TransferProfileScan extends StatefulWidget {
   final void Function(DeviceSharedSecret sharedSecret) setSharedSecret;
 
-  const _TransferProfile({required this.setSharedSecret});
+  const _TransferProfileScan({required this.setSharedSecret});
 
   @override
-  State<_TransferProfile> createState() => _TransferProfileState();
+  State<_TransferProfileScan> createState() => _TransferProfileScanState();
 }
 
-class _TransferProfileState extends State<_TransferProfile> {
+class _TransferProfileScanState extends State<_TransferProfileScan> {
   EmptyTokenDTO? _token;
   late Timer _timer;
 
@@ -102,9 +102,9 @@ class _TransferProfileState extends State<_TransferProfile> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
-          child: Text('Scannen Sie den QR-Code, um Ihr Profil auf dieses Gerät zu übertragen.'),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Text(context.l10n.transferProfile_presentQRCode_description),
         ),
         if (_token != null) QrImageView(data: _token!.reference.url, size: 200),
         if (_token == null)
@@ -134,8 +134,6 @@ class _TransferProfileState extends State<_TransferProfile> {
       return;
     } else if (fetchedToken.isError) {
       GetIt.I.get<Logger>().e('An error occurred when trying to fetch the token: ${fetchedToken.error.code}');
-
-      // TODO(jkoenig134): is this correct?
       await _refreshQRCode();
 
       return;
@@ -153,8 +151,7 @@ class _TransferProfileState extends State<_TransferProfile> {
 
     if (content is! TokenContentDeviceSharedSecret) {
       GetIt.I.get<Logger>().e('Token content is not a DeviceSharedSecret: $content');
-      // TODO(jkoenig134): provide an error code in extra
-      await context.push('/error-dialog');
+      await context.push('/error-dialog', extra: 'error.transferProfile.transferFailed');
       await _refreshQRCode();
       _startTimer();
       return;
@@ -166,6 +163,8 @@ class _TransferProfileState extends State<_TransferProfile> {
   }
 
   Future<void> _refreshQRCode() async {
+    if (_token != null) setState(() => _token = null);
+
     final response = await GetIt.I.get<EnmeshedRuntime>().anonymousServices.tokens.createEmptyToken();
     if (!mounted || response.isError) return;
 
@@ -219,7 +218,7 @@ class _FinalizeProfileTransferState extends State<_FinalizeProfileTransfer> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(context.l10n.deviceOnboarding_desciption),
+          Text(context.l10n.transferProfile_finalize_description),
           Gaps.h24,
           TextField(
             enabled: _defaultProfileName != null,
@@ -241,8 +240,7 @@ class _FinalizeProfileTransferState extends State<_FinalizeProfileTransfer> {
             children: [
               OutlinedButton(onPressed: _otherAccounts == null ? null : _cancel, child: Text(context.l10n.cancel)),
               Gaps.w8,
-              // TODO(jkoenig134): translation
-              FilledButton(onPressed: _otherAccounts == null ? null : _onboardDevice, child: const Text('Profil übertragen')),
+              FilledButton(onPressed: _otherAccounts == null ? null : _onboardDevice, child: Text(context.l10n.transferProfile_finalize_accept)),
             ],
           ),
         ],

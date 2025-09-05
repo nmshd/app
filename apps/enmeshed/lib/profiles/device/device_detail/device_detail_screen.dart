@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 
 import '/core/core.dart';
+import '../../profile/modals/delete_profile/delete_profile.dart';
 import '../widgets/device_detail_header.dart';
 import 'modals/modals.dart';
 
@@ -55,6 +56,7 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
               accountId: widget.accountId,
               reloadDevice: _loadDevice,
               editDevice: _editDevice,
+              deleteDevice: !_deviceDTO!.isCurrentDevice || _devices?.length == 1 ? null : _deleteCurrentDevice,
             ),
             Gaps.h8,
             if (_devices != null && _devices!.length == 1)
@@ -74,7 +76,7 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
     await session.transportServices.account.syncDatawallet();
 
     final devicesResult = await session.transportServices.devices.getDevices();
-    final devices = devicesResult.value.where((device) => device.isOffboarded == null || !device.isOffboarded!).toList();
+    final devices = devicesResult.value.where((device) => device.isOnboarded && device.isOffboarded != true).toList();
 
     if (mounted) setState(() => _devices = devices);
   }
@@ -96,6 +98,13 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
       isScrollControlled: true,
       builder: (_) => EditDevice(accountId: widget.accountId, device: _deviceDTO!, onDevicesChanged: _loadDevice),
     );
+  }
+
+  Future<void> _deleteCurrentDevice() async {
+    final accountDTO = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccount(widget.accountId);
+    if (!mounted) return;
+
+    await showDeleteProfileOrIdentityModal(context: context, localAccount: accountDTO, deleteProfile: true);
   }
 }
 
