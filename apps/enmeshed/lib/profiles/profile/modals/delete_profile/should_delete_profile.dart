@@ -6,19 +6,27 @@ import 'package:vector_graphics/vector_graphics.dart';
 import '/core/core.dart';
 
 class ShouldDeleteProfile extends StatelessWidget {
+  final VoidCallback? onBackPressed;
   final VoidCallback cancel;
   final VoidCallback delete;
   final String profileName;
   final List<DeviceDTO> otherActiveDevices;
 
-  const ShouldDeleteProfile({required this.cancel, required this.delete, required this.profileName, required this.otherActiveDevices, super.key});
+  const ShouldDeleteProfile({
+    required this.onBackPressed,
+    required this.cancel,
+    required this.delete,
+    required this.profileName,
+    required this.otherActiveDevices,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        BottomSheetHeader(title: context.l10n.profile_delete_device, onBackPressed: cancel),
+        BottomSheetHeader(title: context.l10n.profile_delete_device, onBackPressed: onBackPressed),
         Padding(
           padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
           child: Column(

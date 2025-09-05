@@ -10,7 +10,7 @@ class DeviceDetailHeader extends StatelessWidget {
   final DeviceDTO device;
   final String accountId;
   final Future<void> Function() reloadDevice;
-  final VoidCallback deleteDevice;
+  final VoidCallback? deleteDevice;
   final VoidCallback editDevice;
 
   const DeviceDetailHeader({
@@ -56,7 +56,7 @@ class DeviceDetailHeader extends StatelessWidget {
 
 class _DeviceButtonBar extends StatelessWidget {
   final VoidCallback editDevice;
-  final VoidCallback deleteDevice;
+  final VoidCallback? deleteDevice;
   final Future<void> Function() reloadDevice;
   final DeviceDTO device;
   final String accountId;
@@ -90,7 +90,7 @@ class _DeviceButtonBar extends StatelessWidget {
             style: OutlinedButton.styleFrom(padding: buttonPadding),
             icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error, size: 18),
             label: Text(device.isCurrentDevice ? context.l10n.deviceInfo_removeCurrentDevice : context.l10n.deviceInfo_removeDevice),
-            onPressed: device.isOnboarded ? null : deleteDevice,
+            onPressed: deleteDevice,
           ),
           if (!device.isOnboarded)
             FilledButton.icon(
