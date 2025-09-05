@@ -1,14 +1,14 @@
-include: package:flutter_lints/flutter.yaml
+include: package:very_good_analysis/analysis_options.yaml
 
 linter:
   rules:
-    prefer_single_quotes: true
-    sort_pub_dependencies: true
-    prefer_final_locals: true
-    prefer_final_in_for_each: true
-    prefer_final_fields: true
-    unnecessary_parenthesis: true
-    always_declare_return_types: true
+    lines_longer_than_80_chars: false
+    sort_constructors_first: false
+    public_member_api_docs: false
+    always_use_package_imports: false
+    avoid_setters_without_getters: false
+    require_trailing_commas: false
+    avoid_catches_without_on_clauses: false
     use_null_aware_elements: true
 
 formatter:
