@@ -5,7 +5,6 @@ import '/src/attribute/attribute_renderer.dart';
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
 import 'decidable/widgets/handle_checkbox_change.dart';
-import 'extensions/extensions.dart';
 import 'widgets/validation_error_box.dart';
 
 class CreateAttributeRequestItemRenderer extends StatefulWidget {
@@ -40,7 +39,7 @@ class _CreateAttributeRequestItemRendererState extends State<CreateAttributeRequ
     if (widget.item.response != null) {
       _isChecked = widget.item.response is AcceptResponseItemDVO;
     } else {
-      _isChecked = widget.item.initiallyChecked;
+      _isChecked = widget.item.mustBeAccepted;
     }
 
     if (_isChecked) {
@@ -58,7 +57,7 @@ class _CreateAttributeRequestItemRendererState extends State<CreateAttributeRequ
           Row(
             spacing: 8,
             children: [
-              Checkbox(value: _isChecked, onChanged: widget.item.isDecidable && !widget.item.initiallyChecked ? _onUpdateCheckbox : null),
+              Checkbox(value: _isChecked, onChanged: widget.item.isDecidable && !widget.item.mustBeAccepted ? _onUpdateCheckbox : null),
               Expanded(
                 child: AttributeRenderer(
                   attribute: widget.item.attribute.content,

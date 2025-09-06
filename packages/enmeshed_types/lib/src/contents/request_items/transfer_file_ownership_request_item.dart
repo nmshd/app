@@ -10,11 +10,9 @@ class TransferFileOwnershipRequestItem extends RequestItemDerivation {
   final String? ownershipToken;
 
   const TransferFileOwnershipRequestItem({
-    super.title,
     super.description,
     super.metadata,
     required super.mustBeAccepted,
-    super.requireManualDecision,
     required this.fileReference,
     this.ownershipToken,
   }) : super(atType: 'TransferFileOwnershipRequestItem');
