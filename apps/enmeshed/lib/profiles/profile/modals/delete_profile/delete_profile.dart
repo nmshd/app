@@ -20,8 +20,8 @@ Future<void> showDeleteProfileOrIdentityModal({
   final devicesResult = await session.transportServices.devices.getDevices();
   final devices = devicesResult.isSuccess ? devicesResult.value : <DeviceDTO>[];
 
-  final otherActiveDevices = devices.where((element) => element.isOnboarded && element.isOffboarded != true && !element.isCurrentDevice).toList()
-    ..sort((a, b) => a.name.compareTo(b.name));
+  final otherActiveDevices = devices.where((d) => d.isOnboarded && d.isOffboarded != true && !d.isCurrentDevice).toList()
+    ..sort((a, b) => (a.name ?? '').compareTo(b.name ?? ''));
 
   assert(!deleteProfile || otherActiveDevices.isNotEmpty, 'If deleteProfile is true, there should be at least one other active device.');
 

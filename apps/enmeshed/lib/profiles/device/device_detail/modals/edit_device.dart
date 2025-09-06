@@ -36,7 +36,7 @@ class _EditDeviceState extends State<EditDevice> {
     _nameController.addListener(() => setState(() {}));
     _descriptionController.addListener(() => setState(() {}));
 
-    _nameController.text = widget.device.name;
+    _nameController.text = widget.device.name ?? '';
     _descriptionController.text = widget.device.description ?? '';
 
     _nameFocusNode.requestFocus();

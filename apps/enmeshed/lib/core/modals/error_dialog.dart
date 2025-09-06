@@ -34,6 +34,8 @@ class ErrorDialog extends StatelessWidget {
       'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_title,
       'error.recordNotFoundOnScanRecoveryKit' => context.l10n.restoreFromIdentityRecovery_errorTitleOnAlreadyUsedRecoveryKit,
       'error.app-runtime.onboardedAccountAlreadyExists' => context.l10n.restoreFromIdentityRecovery_errorTitleOnExistingProfile,
+      'error.transferProfile.transferFailed' => context.l10n.transferProfile_error_title,
+      'error.transferProfile.invalidQRCode' => context.l10n.transferProfile_scan_error_invalidQRCode_title,
       _ => context.l10n.errorDialog_title,
     };
   }
@@ -46,6 +48,8 @@ class ErrorDialog extends StatelessWidget {
       'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_description,
       'error.recordNotFoundOnScanRecoveryKit' => context.l10n.restoreFromIdentityRecovery_errorDescriptionOnAlreadyUsedRecoveryKit,
       'error.app-runtime.onboardedAccountAlreadyExists' => context.l10n.restoreFromIdentityRecovery_errorDescriptionOnExistingProfile,
+      'error.transferProfile.transferFailed' => context.l10n.transferProfile_error_description,
+      'error.transferProfile.invalidQRCode' => context.l10n.transferProfile_scan_error_invalidQRCode_description,
       _ => context.l10n.errorDialog_description,
     };
   }

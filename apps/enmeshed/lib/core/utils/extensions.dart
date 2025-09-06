@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:feature_flags/feature_flags.dart';
@@ -75,4 +76,16 @@ extension DateType on DateTime {
       return 'other';
     }
   }
+}
+
+extension DeviceName on BaseDeviceInfo {
+  String get deviceName => switch (this) {
+    final AndroidDeviceInfo a => '${a.manufacturer} ${a.model}',
+    final IosDeviceInfo i => i.modelName,
+    final LinuxDeviceInfo l => l.prettyName,
+    final MacOsDeviceInfo m => m.modelName,
+    final WebBrowserInfo w => w.userAgent ?? 'Web Browser',
+    final WindowsDeviceInfo w => 'Windows ${w.majorVersion}',
+    final BaseDeviceInfo _ => 'Unknown Device',
+  };
 }

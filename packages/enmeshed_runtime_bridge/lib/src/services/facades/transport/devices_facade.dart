@@ -73,6 +73,20 @@ class DevicesFacade {
     return Result.fromJson(json, (value) => TokenDTO.fromJson(value));
   }
 
+  Future<Result<TokenDTO>> fillDeviceOnboardingTokenWithNewDevice({required String reference, String? profileName, bool? isAdmin}) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.transportServices.devices.fillDeviceOnboardingTokenWithNewDevice(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {'reference': reference, 'profileName': ?profileName, 'isAdmin': ?isAdmin},
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => TokenDTO.fromJson(value));
+  }
+
   Future<Result<DeviceDTO>> updateDevice(String id, {String? name, String? description}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.devices.updateDevice(request)

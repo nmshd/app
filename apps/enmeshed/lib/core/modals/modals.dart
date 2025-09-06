@@ -9,3 +9,4 @@ export 'error_dialog.dart';
 export 'feedback/feedback.dart';
 export 'restore_identity.dart';
 export 'succeed_attribute.dart';
+export 'transfer_profile.dart';
