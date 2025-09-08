@@ -16,5 +16,4 @@ dependencies:
   flutter:
     sdk: flutter
   pdf: ^3.11.3
-  qr: ^3.0.2
   qr_flutter: ^4.1.0
