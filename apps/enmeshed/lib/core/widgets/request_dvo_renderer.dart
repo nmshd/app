@@ -14,7 +14,6 @@ import '../modals/modals.dart';
 import '../types/types.dart';
 import '../utils/utils.dart';
 import 'contact_circle_avatar.dart';
-import 'file_chooser.dart';
 
 class RequestDVORenderer extends StatefulWidget {
   final String accountId;
@@ -156,7 +155,6 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     createIdentityAttribute: _createIdentityAttribute,
                     composeRelationshipAttribute: _composeRelationshipAttribute,
                     expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                    chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
                     openFileDetails: (file, [LocalAttributeDVO? attribute]) => context.push(
                       '/account/${widget.accountId}/my-data/files/${file.id}',
                       extra: createFileRecord(file: file, fileReferenceAttribute: attribute),
