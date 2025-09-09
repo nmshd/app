@@ -73,7 +73,7 @@ void run(EnmeshedRuntime runtime) {
       expect(message.content.toJson(), {
         '@type': 'Mail',
         'body': 'b',
-        'cc': [],
+        'cc': <String>[],
         'subject': 'a',
         'to': [session2Address],
       });
@@ -91,7 +91,7 @@ void run(EnmeshedRuntime runtime) {
       expect(message.content.toJson(), {
         '@type': 'Mail',
         'body': 'b',
-        'cc': [],
+        'cc': <String>[],
         'subject': 'a',
         'to': [session2Address],
       });
@@ -116,7 +116,7 @@ void run(EnmeshedRuntime runtime) {
       expect(message.content.toJson(), {
         '@type': 'Mail',
         'body': 'b',
-        'cc': [],
+        'cc': <String>[],
         'subject': 'a',
         'to': [session2Address],
       });

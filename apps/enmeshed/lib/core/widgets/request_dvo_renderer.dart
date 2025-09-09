@@ -10,7 +10,7 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:logger/logger.dart';
 import 'package:renderers/renderers.dart';
 
-import '../modals/create_attribute.dart';
+import '../modals/modals.dart';
 import '../types/types.dart';
 import '../utils/utils.dart';
 import 'contact_circle_avatar.dart';
@@ -152,7 +152,8 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     request: _request!,
                     controller: _controller,
                     openAttributeSwitcher: _openAttributeSwitcher,
-                    createAttribute: _createAttribute,
+                    createIdentityAttribute: _createIdentityAttribute,
+                    composeRelationshipAttribute: _composeRelationshipAttribute,
                     expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                     openFileDetails: (file, [LocalAttributeDVO? attribute]) => context.push(
                       '/account/${widget.accountId}/my-data/files/${file.id}',
@@ -313,8 +314,8 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     return choice;
   }
 
-  Future<AttributeSwitcherChoice?> _createAttribute({required String valueType, ValueHints? valueHints}) async {
-    final attribute = await showCreateAttributeModal(context: context, accountId: widget.accountId, initialValueType: valueType);
+  Future<({LocalAttributeDVO dvo, IdentityAttribute attribute})?> _createIdentityAttribute({required String valueType, List<String>? tags}) async {
+    final attribute = await showCreateIdentityAttributeModal(context: context, accountId: widget.accountId, initialValueType: valueType);
     if (attribute == null || !mounted) return null;
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
@@ -322,6 +323,11 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
 
     final expandedAttribute = await session.expander.expandLocalAttributeDTO(attribute);
     return (dvo: expandedAttribute, attribute: attribute.content);
+  }
+
+  Future<RelationshipAttribute?> _composeRelationshipAttribute({required ProcessedRelationshipAttributeQueryDVO query}) async {
+    final attribute = await showComposeRelationshipAttributeModal(context: context, accountId: widget.accountId, query: query);
+    return attribute;
   }
 }
 
@@ -381,14 +387,22 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                         icon: const Icon(Icons.add, size: 16),
                         label: Text(context.l10n.contactDetail_addEntry),
                         onPressed: () async {
-                          final attribute = await showCreateAttributeModal(
+                          final attribute = await showCreateIdentityAttributeModal(
                             context: context,
                             accountId: widget.accountId,
                             initialValueType: widget.valueType,
                           );
-                          if (attribute == null || !context.mounted) return;
+                          if (attribute == null) return;
 
-                          context.pop((id: attribute.id, attribute: attribute.content));
+                          final expanded = await GetIt.I
+                              .get<EnmeshedRuntime>()
+                              .getSession(widget.accountId)
+                              .expander
+                              .expandLocalAttributeDTO(attribute);
+
+                          if (!context.mounted) return;
+
+                          context.pop((dvo: expanded, attribute: attribute.content));
                         },
                       ),
                   ],

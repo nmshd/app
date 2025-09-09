@@ -18,7 +18,7 @@ class ManualDecisionRequired extends StatelessWidget {
       child: InkWell(
         onTap: onUpdateManualDecision != null ? () => onUpdateManualDecision!(!isManualDecisionAccepted) : null,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: 8,
@@ -37,7 +37,7 @@ class ManualDecisionRequired extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0).copyWith(right: 8),
+                  padding: const EdgeInsets.symmetric(vertical: 8).copyWith(right: 8),
                   child: TranslatedText(i18nKey, style: Theme.of(context).textTheme.bodySmall),
                 ),
               ),

@@ -10,4 +10,7 @@ typedef OpenAttributeSwitcherFunction =
       ValueHints? valueHints,
     });
 
-typedef CreateAttributeFunction = Future<AttributeSwitcherChoice?> Function({required String valueType, ValueHints? valueHints});
+typedef CreateIdentityAttributeFunction =
+    Future<({LocalAttributeDVO dvo, IdentityAttribute attribute})?> Function({required String valueType, List<String>? tags});
+
+typedef ComposeRelationshipAttributeFunction = Future<RelationshipAttribute?> Function({required ProcessedRelationshipAttributeQueryDVO query});

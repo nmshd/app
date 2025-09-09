@@ -16,7 +16,7 @@ class AutoLoadingProfilePicture extends StatelessWidget {
     required this.accountId,
     required this.profileName,
     this.decorative = false,
-    this.radius = 28.0,
+    this.radius = 28,
     this.onPressed,
     super.key,
   });
@@ -43,7 +43,7 @@ class ProfilePicture extends StatelessWidget {
   final bool decorative;
   final VoidCallback? onPressed;
 
-  const ProfilePicture({required this.profileName, this.decorative = false, super.key, this.image, this.radius = 28.0, this.onPressed});
+  const ProfilePicture({required this.profileName, this.decorative = false, super.key, this.image, this.radius = 28, this.onPressed});
 
   @override
   Widget build(BuildContext context) {

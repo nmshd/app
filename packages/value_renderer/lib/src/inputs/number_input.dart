@@ -72,20 +72,20 @@ class NumberInputState extends State<NumberInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      child: TextFormField(
-        controller: _controller,
-        keyboardType: TextInputType.number,
-        validator: (value) => validateInput(value),
-        inputFormatters: [
-          widget.technicalType == RenderHintsTechnicalType.Float
-              ? FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))
-              : FilteringTextInputFormatter.digitsOnly,
-        ],
-        decoration: widget.decoration != null
-            ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
-            : inputDecoration(context).copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut)),
-      ),
+    return TextFormField(
+      controller: _controller,
+      keyboardType: TextInputType.number,
+      validator: (value) => validateInput(value),
+      inputFormatters: [
+        widget.technicalType == RenderHintsTechnicalType.Float
+            ? FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))
+            : FilteringTextInputFormatter.digitsOnly,
+      ],
+      autovalidateMode: AutovalidateMode.onUnfocus,
+      decoration: widget.decoration != null
+          ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
+          : inputDecoration(context).copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut)),
+      onTapOutside: (event) => FocusScope.of(context).unfocus(),
     );
   }
 

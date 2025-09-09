@@ -37,6 +37,7 @@ class _MyDataViewState extends State<MyDataView> {
     _subscriptions
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _loadUnviewedIdentityFileReferenceAttributes().catchError((_) {})))
+      ..add(runtime.eventBus.on<AttributeDeletedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<AttributeCreatedEvent>().listen((_) => _reload().catchError((_) {})));
   }
 

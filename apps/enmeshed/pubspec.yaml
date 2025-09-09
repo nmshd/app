@@ -4,8 +4,8 @@ publish_to: "none"
 version: 4.0.3
 
 environment:
-  sdk: "^3.9.0"
-  flutter: ">=3.35.1"
+  sdk: "^3.9.2"
+  flutter: ">=3.35.3"
 
 resolution: workspace
 
@@ -29,9 +29,9 @@ dependencies:
   flutter_markdown: ^0.7.7
   flutter_native_splash: ^2.4.6
   flutter_pin_code_fields: ^2.2.0
-  flutter_slidable: ^4.0.0
+  flutter_slidable: ^4.0.1
   get_it: ^8.2.0
-  go_router: ^16.2.0
+  go_router: ^16.2.1
   i18n_translated_text: ^1.0.2
   identity_recovery_kit: ^1.0.0
   image: ^4.5.4
@@ -58,20 +58,17 @@ dependencies:
   url_launcher: ^6.3.2
   value_renderer: ^1.0.0
   vector_graphics: ^1.1.19
-  very_good_analysis: ^9.0.0
-  watch_it: ^1.6.5
+  watch_it: ^1.7.0
   win32_registry: ^2.1.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.4
-  flutter_test:
-    sdk: flutter
   msix:
     git:
       url: https://github.com/h4h13/msix.git
       ref: Fix-Flutter-3.27
   translations_cleaner: ^0.0.5
-  vector_graphics_compiler: ^1.1.18
+  vector_graphics_compiler: ^1.1.19
 
 flutter:
   generate: true

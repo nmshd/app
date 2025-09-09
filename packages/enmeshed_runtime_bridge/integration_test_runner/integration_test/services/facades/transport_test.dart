@@ -13,7 +13,7 @@ import 'transport/tokens_facade_test.dart' as tokens_facade_test;
 
 void main() async => run(await setup());
 
-void run(EnmeshedRuntime runtime) async {
+void run(EnmeshedRuntime runtime) {
   account_facade_test.run(runtime);
   devices_facade_test.run(runtime);
   files_facade_test.run(runtime);

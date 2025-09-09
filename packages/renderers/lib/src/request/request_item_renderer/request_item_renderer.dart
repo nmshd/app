@@ -20,7 +20,8 @@ class RequestItemRenderer extends StatelessWidget {
   final RequestRendererController? controller;
   final LocalRequestStatus? requestStatus;
   final OpenAttributeSwitcherFunction openAttributeSwitcher;
-  final CreateAttributeFunction createAttribute;
+  final CreateIdentityAttributeFunction createIdentityAttribute;
+  final ComposeRelationshipAttributeFunction composeRelationshipAttribute;
 
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO, [LocalAttributeDVO?]) openFileDetails;
@@ -35,7 +36,8 @@ class RequestItemRenderer extends StatelessWidget {
     required this.controller,
     required this.requestStatus,
     required this.openAttributeSwitcher,
-    required this.createAttribute,
+    required this.createIdentityAttribute,
+    required this.composeRelationshipAttribute,
     required this.expandFileReference,
     required this.openFileDetails,
     required this.backgroundColor,
@@ -53,7 +55,8 @@ class RequestItemRenderer extends StatelessWidget {
           item: dvo,
           itemIndex: itemIndex,
           openAttributeSwitcher: openAttributeSwitcher,
-          createAttribute: createAttribute,
+          createIdentityAttribute: createIdentityAttribute,
+          composeRelationshipAttribute: composeRelationshipAttribute,
           expandFileReference: expandFileReference,
           openFileDetails: openFileDetails,
           validationResult: validationResult,

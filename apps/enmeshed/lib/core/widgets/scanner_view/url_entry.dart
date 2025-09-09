@@ -64,8 +64,7 @@ class _UrlEntryState extends State<UrlEntry> {
                   onFieldSubmitted: isUrlValid ? (value) => widget.onSubmit(content: value) : null,
                   controller: _controller,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.outline)),
-                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.outline)),
+                    border: const OutlineInputBorder(),
                     labelText: widget.urlLabelText,
                     labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                     errorMaxLines: 3,

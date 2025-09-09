@@ -39,6 +39,7 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
   final _hintResponses = <String, GetHintsResponse>{};
   final _attributeValues = <String, IdentityAttribute?>{};
   final _valueRendererValidationErrors = <String>[];
+  final _formKey = GlobalKey<FormState>();
 
   bool _saveEnabled = false;
   bool _isLoading = false;
@@ -88,53 +89,46 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
               child: Text(widget.description, style: Theme.of(context).textTheme.bodyMedium),
             ),
             Gaps.h24,
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: widget.valueTypes.length,
-              separatorBuilder: (context, index) => Gaps.h16,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    children: [
-                      ValueRenderer(
-                        fieldName: addressDataInitialAttributeTypes.contains(widget.valueTypes[index])
-                            ? null
-                            : 'i18n://dvo.attribute.name.${widget.valueTypes[index]}',
-                        renderHints: _hintResponses[widget.valueTypes[index]]!.renderHints,
-                        valueHints: _hintResponses[widget.valueTypes[index]]!.valueHints,
-                        controller: _controllers[widget.valueTypes[index]],
-                        valueType: widget.valueTypes[index],
-                        decoration:
-                            widget.valueTypes[index] == 'BirthDate' ||
-                                _hintResponses[widget.valueTypes[index]]!.renderHints.editType != RenderHintsEditType.Complex
-                            ? InputDecoration(
-                                counterText: '',
-                                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                hintMaxLines: 150,
-                                errorMaxLines: 150,
-                                helperMaxLines: 150,
-                                border: OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                  borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                  borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
-                                ),
-                              )
-                            : null,
-                        expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                        chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
-                        openFileDetails: (file) =>
-                            context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
-                      ),
-                      _getExplanationForAttribute(widget.valueTypes[index], context),
-                    ],
-                  ),
-                );
-              },
+            Form(
+              key: _formKey,
+              child: ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: widget.valueTypes.length,
+                separatorBuilder: (context, index) => Gaps.h16,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      children: [
+                        ValueRenderer(
+                          fieldName: addressDataInitialAttributeTypes.contains(widget.valueTypes[index])
+                              ? null
+                              : 'i18n://dvo.attribute.name.${widget.valueTypes[index]}',
+                          renderHints: _hintResponses[widget.valueTypes[index]]!.renderHints,
+                          valueHints: _hintResponses[widget.valueTypes[index]]!.valueHints,
+                          controller: _controllers[widget.valueTypes[index]],
+                          valueType: widget.valueTypes[index],
+                          decoration:
+                              widget.valueTypes[index] == 'BirthDate' ||
+                                  _hintResponses[widget.valueTypes[index]]!.renderHints.editType != RenderHintsEditType.Complex
+                              ? const InputDecoration(
+                                  counterText: '',
+                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
+                                )
+                              : null,
+                          expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
+                          chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
+                          openFileDetails: (file) =>
+                              context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
+                        ),
+                        _getExplanationForAttribute(widget.valueTypes[index], context),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -183,7 +177,7 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
           _valueRendererValidationErrors.remove(valueType);
         }
 
-        _updateSaveEnabled();
+        if (mounted) setState(() => _saveEnabled = _attributeValues.isNotEmpty || _valueRendererValidationErrors.isNotEmpty);
       });
     }
 
@@ -222,6 +216,8 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
   }
 
   Future<void> _createAttributes() async {
+    if (!_formKey.currentState!.validate()) return;
+
     if (mounted) {
       setState(() {
         _isLoading = true;
@@ -246,14 +242,6 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
     }
     widget.onAttributesCreated();
   }
-
-  void _updateSaveEnabled() {
-    if (_attributeValues.isNotEmpty && _valueRendererValidationErrors.isEmpty) {
-      if (mounted) setState(() => _saveEnabled = true);
-    } else {
-      if (mounted) setState(() => _saveEnabled = false);
-    }
-  }
 }
 
 class _InfoText extends StatelessWidget {
@@ -266,7 +254,7 @@ class _InfoText extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 5),
         child: Text(text, style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
       ),
     );

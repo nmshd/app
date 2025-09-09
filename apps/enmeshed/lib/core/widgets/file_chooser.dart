@@ -149,6 +149,7 @@ class _FileChooserState extends State<_FileChooser> {
         widget.onSelectedAttachmentsChanged?.call();
       },
       popOnUpload: false,
+      createRepositoryAttribute: false,
       leading: IconButton(icon: Icon(context.adaptiveBackIcon), onPressed: () => setState(() => _mode = _FileChooserMode.existing)),
     );
   }

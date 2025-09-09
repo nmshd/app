@@ -41,39 +41,39 @@ Future<RelationshipDTO> establishRelationship({required Session requestor, requi
 
 Future<RelationshipDTO> establishRelationshipAndSync({required Session requestor, required Session templator}) async {
   await establishRelationship(requestor: requestor, templator: templator);
-  return await syncUntilHasRelationship(templator);
+  return syncUntilHasRelationship(templator);
 }
 
 Future<RelationshipDTO> syncUntilHasRelationship(Session session) async {
-  int retries = 0;
+  var retries = 0;
 
   do {
     final syncResult = await session.transportServices.account.syncEverything();
     if (syncResult.value.relationships.isNotEmpty) return syncResult.value.relationships.first;
 
     retries++;
-    await Future.delayed(Duration(seconds: 5 * retries));
+    await Future<void>.delayed(Duration(seconds: 5 * retries));
   } while (retries < 10);
 
   throw Exception('Could not sync until having a relationship');
 }
 
 Future<MessageDTO> syncUntilHasMessage(Session session) async {
-  int retries = 0;
+  var retries = 0;
 
   do {
     final syncResult = await session.transportServices.account.syncEverything();
     if (syncResult.value.messages.isNotEmpty) return syncResult.value.messages.first;
 
     retries++;
-    await Future.delayed(Duration(seconds: 5 * retries));
+    await Future<void>.delayed(Duration(seconds: 5 * retries));
   } while (retries < 10);
 
   throw Exception('Could not sync until having a message');
 }
 
 Future<MessageDTO> syncUntilHasMessageWithNotification(Session session, String notificationId) async {
-  int retries = 0;
+  var retries = 0;
 
   do {
     final syncResult = await session.transportServices.account.syncEverything();
@@ -82,7 +82,7 @@ Future<MessageDTO> syncUntilHasMessageWithNotification(Session session, String n
     }
 
     retries++;
-    await Future.delayed(Duration(seconds: 5 * retries));
+    await Future<void>.delayed(Duration(seconds: 5 * retries));
   } while (retries < 10);
 
   throw Exception('Could not sync until having a message');
@@ -91,7 +91,7 @@ Future<MessageDTO> syncUntilHasMessageWithNotification(Session session, String n
 Future<List<MessageDTO>> syncUntilHasMessages(Session session, {required int expectedNumberOfMessages}) async {
   final messages = <MessageDTO>[];
 
-  int retries = 0;
+  var retries = 0;
 
   do {
     final syncResult = await session.transportServices.account.syncEverything();
@@ -100,7 +100,7 @@ Future<List<MessageDTO>> syncUntilHasMessages(Session session, {required int exp
     if (messages.length >= expectedNumberOfMessages) return messages;
 
     retries++;
-    await Future.delayed(Duration(seconds: 5 * retries));
+    await Future<void>.delayed(Duration(seconds: 5 * retries));
   } while (retries < 10);
 
   throw Exception('Could not sync until having $expectedNumberOfMessages messages');
@@ -108,7 +108,7 @@ Future<List<MessageDTO>> syncUntilHasMessages(Session session, {required int exp
 
 Future<RelationshipDTO> ensureActiveRelationship(Session session1, Session session2) async {
   final session2Address = (await session2.transportServices.account.getIdentityInfo()).value.address;
-  List<RelationshipDTO> relationships = (await session1.transportServices.relationships.getRelationships(
+  var relationships = (await session1.transportServices.relationships.getRelationships(
     query: {'peer': QueryValue.string(session2Address)},
   )).value;
 
@@ -126,7 +126,7 @@ Future<RelationshipDTO> ensureActiveRelationship(Session session1, Session sessi
 
 Future<RelationshipDTO> ensureTerminatedRelationship(Session session1, Session session2) async {
   final session2Address = (await session2.transportServices.account.getIdentityInfo()).value.address;
-  List<RelationshipDTO> relationships = (await session1.transportServices.relationships.getRelationships(
+  var relationships = (await session1.transportServices.relationships.getRelationships(
     query: {'peer': QueryValue.string(session2Address)},
   )).value;
 
@@ -163,7 +163,7 @@ Future<RelationshipDTO> establishRelationshipBetweenSessionsAndSync(Session sess
   );
   assert(createRelationshipResult.isSuccess);
 
-  return await syncUntilHasRelationship(session1);
+  return syncUntilHasRelationship(session1);
 }
 
 Future<LocalAttributeDTO> exchangeIdentityAttribute(Session sender, Session recipient, IdentityAttributeValue attributeValue) async {
@@ -337,7 +337,7 @@ Future<LocalAttributeDTO> executeFullCreateAndShareRelationshipAttributeFlow(
   );
 
   final responseMessage = await syncUntilHasMessage(sender);
-  final sharedAttributeId = responseMessage.content.toJson()['response']['items'][0]['attributeId'];
+  final sharedAttributeId = responseMessage.content.toJson()['response']['items'][0]['attributeId'] as String;
 
   await eventBus.waitForEvent<OutgoingRequestStatusChangedEvent>(
     eventTargetAddress: senderAddress,
@@ -389,7 +389,7 @@ Future<LocalAttributeDTO> executeFullRequestAndShareThirdPartyRelationshipAttrib
     predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
   );
 
-  final thirdPartyRelationshipAttributeId = responseMessage.content.toJson()['response']['items'][0]['attributeId'];
+  final thirdPartyRelationshipAttributeId = responseMessage.content.toJson()['response']['items'][0]['attributeId'] as String;
 
   await eventBus.waitForEvent<OutgoingRequestStatusChangedEvent>(
     eventTargetAddress: recipientAddress,

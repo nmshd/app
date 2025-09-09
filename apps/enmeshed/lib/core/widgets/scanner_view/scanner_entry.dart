@@ -303,7 +303,7 @@ class AnimatedScannerOverlay extends CustomPainter {
     required this.animationValue,
     required this.animateDirection,
     required this.scanWindowColor,
-    this.shadowOffset = 6.0,
+    this.shadowOffset = 6,
   }) : maxOffsetUp = scanWindow.top + shadowOffset,
        maxOffsetDown = scanWindow.bottom - shadowOffset;
 
@@ -311,7 +311,7 @@ class AnimatedScannerOverlay extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..color = scanWindowColor
-      ..strokeWidth = 2.0
+      ..strokeWidth = 2
       ..style = PaintingStyle.fill;
 
     final lineY = scanWindow.top + (scanWindow.height * animationValue);
@@ -322,7 +322,7 @@ class AnimatedScannerOverlay extends CustomPainter {
 
     final shadowPaint = Paint()
       ..color = scanWindowColor
-      ..strokeWidth = 10.0
+      ..strokeWidth = 10
       ..style = PaintingStyle.stroke
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
 

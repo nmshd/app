@@ -4,13 +4,13 @@ class MockEventBus extends EventBus {
   final List<Event> _events = [];
 
   MockEventBus() {
-    on<Event>().listen((event) => _events.add(event));
+    on<Event>().listen(_events.add);
   }
 
   Future<T> waitForEvent<T extends Event>({
     required String eventTargetAddress,
     bool Function(T)? predicate,
-    timeout = const Duration(minutes: 1),
+    Duration timeout = const Duration(minutes: 1),
   }) async {
     bool eventMatches(Event event) => event is T && event.eventTargetAddress == eventTargetAddress && (predicate == null || predicate(event));
 

@@ -15,7 +15,8 @@ class ReadAttributeRequestItemRenderer extends StatefulWidget {
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
   final OpenAttributeSwitcherFunction openAttributeSwitcher;
-  final CreateAttributeFunction createAttribute;
+  final CreateIdentityAttributeFunction createIdentityAttribute;
+  final ComposeRelationshipAttributeFunction composeRelationshipAttribute;
   final RequestValidationResultDTO? validationResult;
 
   final Future<FileDVO> Function(String) expandFileReference;
@@ -26,7 +27,8 @@ class ReadAttributeRequestItemRenderer extends StatefulWidget {
     required this.itemIndex,
     required this.controller,
     required this.openAttributeSwitcher,
-    required this.createAttribute,
+    required this.createIdentityAttribute,
+    required this.composeRelationshipAttribute,
     required this.validationResult,
     required this.expandFileReference,
     required this.openFileDetails,
@@ -94,15 +96,18 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
                       expandFileReference: widget.expandFileReference,
                       openFileDetails: widget.openFileDetails,
                       titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
-                      extraLine: widget.item.description != null
-                          ? Text(widget.item.description!, style: Theme.of(context).textTheme.labelMedium)
-                          : null,
+                      extraLine: description != null ? Text(description!, style: Theme.of(context).textTheme.labelMedium) : null,
                     ),
                   )
                 else if (_valueType == null)
+                  // TODO(jkoenig134): this case currently handles at least two different scenarios
+                  // 1. ThirdPartyRelationshipAttributeQueryDVO without results
+                  // 2. IQLQuery without results and without a valueType that can be composed
+                  // there MUST be a better way to actually find out if we really cannot compose an attribute
+                  // and the translation i18n string should be more generic (currently it is only for the third party relationship query)
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
+                      padding: const EdgeInsets.only(right: 8),
                       child: Column(
                         children: [
                           TranslatedText(
@@ -117,7 +122,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
                 else
                   Expanded(
                     child: CustomListTile(
-                      title: 'i18n://dvo.attribute.name.$_valueType',
+                      title: title,
                       showTitle: true,
                       valueTextStyle: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.outlineVariant),
                       description: 'i18n://requestRenderer.noEntry',
@@ -128,9 +133,7 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
                             )
                           : null,
                       titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
-                      extraLine: widget.item.description != null
-                          ? Text(widget.item.description!, style: Theme.of(context).textTheme.labelMedium)
-                          : null,
+                      extraLine: description != null ? Text(description!, style: Theme.of(context).textTheme.labelMedium) : null,
                     ),
                   ),
               ],
@@ -140,6 +143,24 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
         ),
       ),
     );
+  }
+
+  String get title {
+    final query = widget.item.query;
+    if (query is RelationshipAttributeQueryDVO) return query.attributeCreationHints.title;
+    if (query is ProcessedRelationshipAttributeQueryDVO) return query.attributeCreationHints.title;
+
+    return 'i18n://dvo.attribute.name.$_valueType';
+  }
+
+  String? get description {
+    if (widget.item.description != null) return widget.item.description;
+
+    final query = widget.item.query;
+    if (query is RelationshipAttributeQueryDVO) return query.attributeCreationHints.description;
+    if (query is ProcessedRelationshipAttributeQueryDVO) return query.attributeCreationHints.description;
+
+    return null;
   }
 
   String? get _valueType => switch (widget.item.query) {
@@ -163,7 +184,17 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
   }
 
   Future<void> _createAttribute() async {
-    final choice = await widget.createAttribute(valueType: _valueType!);
+    final query = widget.item.query;
+    if (query is ProcessedIdentityAttributeQueryDVO) return await _createIdentityAttribute(query.tags);
+    if (query is ProcessedIQLQueryDVO && _valueType != null) return await _createIdentityAttribute(query.tags);
+    if (query is ProcessedRelationshipAttributeQueryDVO) return await _composeRelationshipAttribute(query);
+
+    // this should never happen
+    throw Exception('Cannot create attribute for query: ${query.runtimeType}');
+  }
+
+  Future<void> _createIdentityAttribute(List<String>? tags) async {
+    final choice = await widget.createIdentityAttribute(valueType: _valueType!, tags: tags);
     if (choice == null || !mounted) return;
 
     setState(() {
@@ -173,13 +204,32 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: choice.dvo == null
-          ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
-          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.dvo!.id),
+      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.dvo.id),
+    );
+  }
+
+  Future<void> _composeRelationshipAttribute(ProcessedRelationshipAttributeQueryDVO query) async {
+    final attribute = await widget.composeRelationshipAttribute(query: query);
+    if (attribute == null || !mounted) return;
+
+    setState(() {
+      _choice = (dvo: null, attribute: attribute);
+      _isChecked = true;
+    });
+
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
     );
   }
 
   Future<void> _openAttributeSwitcher(Set<AttributeSwitcherChoice> choices) async {
+    final query = widget.item.query;
+    // TODO(jkoenig134): this is a workaround for the fact that we cannot really switch between relationship attributes that are not stored yet
+    if (query is ProcessedRelationshipAttributeQueryDVO && _getChoices().isEmpty) {
+      return await _composeRelationshipAttribute(query);
+    }
+
     final valueType = _valueType;
 
     final valueHints = _getQueryValueHints();
@@ -248,6 +298,6 @@ class _ReadAttributeRequestItemRendererState extends State<ReadAttributeRequestI
       final ProcessedIQLQueryDVO query => query.results,
     };
 
-    return results.map((result) => (dvo: result, attribute: result.content)).toSet();
+    return results.map<AttributeSwitcherChoice>((result) => (dvo: result, attribute: result.content)).toSet();
   }
 }
