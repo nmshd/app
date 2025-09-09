@@ -66,8 +66,6 @@ class RequestItemRenderer extends StatelessWidget {
           item: dvo,
           itemIndex: itemIndex,
           openAttributeSwitcher: openAttributeSwitcher,
-          createIdentityAttribute: createIdentityAttribute,
-          composeRelationshipAttribute: composeRelationshipAttribute,
           expandFileReference: expandFileReference,
           openFileDetails: openFileDetails,
           validationResult: validationResult,
