@@ -56,10 +56,12 @@ class _ProposeAttributeRequestItemRendererState extends State<ProposeAttributeRe
       _choice = _getProposedChoice();
     }
 
-    if (_isChecked && _choice.dvo != null) {
+    if (_isChecked) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
-        value: AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: _choice.dvo!.id),
+        value: _choice.dvo == null
+            ? AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: _choice.attribute)
+            : AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: _choice.dvo!.id),
       );
     }
   }
