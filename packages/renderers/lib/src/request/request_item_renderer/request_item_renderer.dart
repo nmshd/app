@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 import '../open_attribute_switcher_function.dart';
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import 'decidable/decidable.dart';
-import 'request_item_renderers.dart';
+import 'authentication_request_item_renderer.dart';
+import 'consent_request_item_renderer.dart';
+import 'create_attribute_request_item_renderer.dart';
+import 'propose_attribute_request_item_renderer.dart';
+import 'read_attribute_request_item_renderer.dart';
+import 'share_attribute_request_item_renderer.dart';
+import 'transfer_file_ownership_request_item_renderer.dart';
 
 class RequestItemRenderer extends StatelessWidget {
   final RequestItemDVO item;
@@ -17,7 +22,6 @@ class RequestItemRenderer extends StatelessWidget {
   final ComposeRelationshipAttributeFunction composeRelationshipAttribute;
 
   final Future<FileDVO> Function(String) expandFileReference;
-  final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO, [LocalAttributeDVO?]) openFileDetails;
 
   final Color? backgroundColor;
@@ -33,7 +37,6 @@ class RequestItemRenderer extends StatelessWidget {
     required this.createIdentityAttribute,
     required this.composeRelationshipAttribute,
     required this.expandFileReference,
-    required this.chooseFile,
     required this.openFileDetails,
     required this.backgroundColor,
     required this.validationResult,
@@ -53,22 +56,17 @@ class RequestItemRenderer extends StatelessWidget {
           createIdentityAttribute: createIdentityAttribute,
           composeRelationshipAttribute: composeRelationshipAttribute,
           expandFileReference: expandFileReference,
-          chooseFile: chooseFile,
           openFileDetails: openFileDetails,
           validationResult: validationResult,
         ),
-        final ProposeAttributeRequestItemDVO dvo => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          child: dvo.isDecidable
-              ? DecidableProposeAttributeRequestItemRenderer(
-                  controller: controller,
-                  item: dvo,
-                  itemIndex: itemIndex,
-                  openAttributeSwitcher: openAttributeSwitcher,
-                  expandFileReference: expandFileReference,
-                  openFileDetails: openFileDetails,
-                )
-              : ProposeAttributeRequestItemRenderer(item: dvo),
+        final ProposeAttributeRequestItemDVO dvo => ProposeAttributeRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          openAttributeSwitcher: openAttributeSwitcher,
+          expandFileReference: expandFileReference,
+          openFileDetails: openFileDetails,
+          validationResult: validationResult,
         ),
         final CreateAttributeRequestItemDVO dvo => CreateAttributeRequestItemRenderer(
           item: dvo,

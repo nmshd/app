@@ -17,7 +17,6 @@ class RequestItemGroupRenderer extends StatelessWidget {
   final ComposeRelationshipAttributeFunction composeRelationshipAttribute;
 
   final Future<FileDVO> Function(String) expandFileReference;
-  final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO, [LocalAttributeDVO?]) openFileDetails;
 
   final RequestValidationResultDTO? validationResult;
@@ -31,7 +30,6 @@ class RequestItemGroupRenderer extends StatelessWidget {
     required this.createIdentityAttribute,
     required this.composeRelationshipAttribute,
     required this.expandFileReference,
-    required this.chooseFile,
     required this.openFileDetails,
     required this.validationResult,
     super.key,
@@ -49,7 +47,6 @@ class RequestItemGroupRenderer extends StatelessWidget {
         createIdentityAttribute: createIdentityAttribute,
         composeRelationshipAttribute: composeRelationshipAttribute,
         expandFileReference: expandFileReference,
-        chooseFile: chooseFile,
         openFileDetails: openFileDetails,
         backgroundColor: Theme.of(context).colorScheme.surface,
         validationResult: validationResult?.items[index],

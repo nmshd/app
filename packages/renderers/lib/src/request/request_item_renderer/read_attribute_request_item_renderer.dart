@@ -19,11 +19,9 @@ class ReadAttributeRequestItemRenderer extends StatefulWidget {
   final RequestValidationResultDTO? validationResult;
 
   final Future<FileDVO> Function(String) expandFileReference;
-  final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
 
   const ReadAttributeRequestItemRenderer({
-    super.key,
     required this.item,
     required this.itemIndex,
     required this.controller,
@@ -32,8 +30,8 @@ class ReadAttributeRequestItemRenderer extends StatefulWidget {
     required this.composeRelationshipAttribute,
     required this.validationResult,
     required this.expandFileReference,
-    required this.chooseFile,
     required this.openFileDetails,
+    super.key,
   });
 
   @override

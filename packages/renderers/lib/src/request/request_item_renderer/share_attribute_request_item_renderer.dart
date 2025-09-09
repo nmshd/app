@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../attribute/attribute_renderer.dart';
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import 'decidable/widgets/handle_checkbox_change.dart';
+import 'utils/utils.dart';
 import 'widgets/validation_error_box.dart';
 
 class ShareAttributeRequestItemRenderer extends StatefulWidget {

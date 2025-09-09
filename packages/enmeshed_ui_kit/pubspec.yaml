@@ -17,7 +17,3 @@ dependencies:
   logger: ^2.6.1
   path: any
   styled_text: ^8.1.0
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
