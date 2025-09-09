@@ -1,6 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '/src/attribute/attribute_renderer.dart';
 import '../../custom_list_tile.dart';
@@ -15,6 +14,8 @@ class ProposeAttributeRequestItemRenderer extends StatefulWidget {
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
   final OpenAttributeSwitcherFunction openAttributeSwitcher;
+  final CreateIdentityAttributeFunction createIdentityAttribute;
+  final ComposeRelationshipAttributeFunction composeRelationshipAttribute;
   final RequestValidationResultDTO? validationResult;
 
   final Future<FileDVO> Function(String) expandFileReference;
@@ -25,6 +26,8 @@ class ProposeAttributeRequestItemRenderer extends StatefulWidget {
     required this.itemIndex,
     required this.controller,
     required this.openAttributeSwitcher,
+    required this.createIdentityAttribute,
+    required this.composeRelationshipAttribute,
     required this.validationResult,
     required this.expandFileReference,
     required this.openFileDetails,
@@ -47,9 +50,9 @@ class _ProposeAttributeRequestItemRendererState extends State<ProposeAttributeRe
       _isChecked = widget.item.response is AcceptResponseItemDVO;
 
       _choice = switch (widget.item.response) {
-        final ProposeAttributeAcceptResponseItemDVO response => (id: response.attribute.id, attribute: response.attribute.content),
-        final AttributeAlreadySharedAcceptResponseItemDVO response => (id: response.attribute.id, attribute: response.attribute.content),
-        final AttributeSuccessionAcceptResponseItemDVO response => (id: response.successor.id, attribute: response.successor.content),
+        final ProposeAttributeAcceptResponseItemDVO response => (dvo: response.attribute, attribute: response.attribute.content),
+        final AttributeAlreadySharedAcceptResponseItemDVO response => (dvo: response.attribute, attribute: response.attribute.content),
+        final AttributeSuccessionAcceptResponseItemDVO response => (dvo: response.successor, attribute: response.successor.content),
         _ => null,
       };
     } else {
@@ -57,10 +60,10 @@ class _ProposeAttributeRequestItemRendererState extends State<ProposeAttributeRe
       _choice = _getChoices().firstOrNull;
     }
 
-    if (_isChecked && _choice != null && _choice!.id != null) {
+    if (_isChecked && _choice != null && _choice!.dvo != null) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
-        value: AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: _choice!.id!),
+        value: AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: _choice!.dvo!.id),
       );
     }
   }
@@ -68,7 +71,7 @@ class _ProposeAttributeRequestItemRendererState extends State<ProposeAttributeRe
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: _onTap,
+      onTap: widget.item.isDecidable ? _onTap : null,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         child: Column(
@@ -77,51 +80,39 @@ class _ProposeAttributeRequestItemRendererState extends State<ProposeAttributeRe
             Row(
               spacing: 8,
               children: [
-                Checkbox(value: _isChecked, onChanged: widget.item.checkboxEnabled ? _onUpdateCheckbox : null),
-                if (_choice != null)
+                Checkbox(
+                  value: _isChecked,
+                  onChanged: widget.item.isDecidable && widget.item.checkboxEnabled && _getChoices().isNotEmpty ? _onUpdateCheckbox : null,
+                ),
+                if (_choice != null && (_choice!.dvo != null || _getQueryValueHints() != null))
                   Expanded(
                     child: AttributeRenderer(
                       attribute: _choice!.attribute,
-                      valueHints: _getQueryValueHints()!,
-                      trailing: Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: const Icon(Icons.chevron_right)),
+                      valueHints: _choice!.dvo?.valueHints ?? _getQueryValueHints()!,
+                      trailing: widget.item.isDecidable
+                          ? Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: const Icon(Icons.chevron_right))
+                          : null,
                       expandFileReference: widget.expandFileReference,
                       openFileDetails: widget.openFileDetails,
                       titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
-                      extraLine: widget.item.description != null
-                          ? Text(widget.item.description!, style: Theme.of(context).textTheme.labelMedium)
-                          : null,
-                    ),
-                  )
-                else if (_valueType == null)
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Column(
-                        children: [
-                          TranslatedText(
-                            'i18n://dvo.attributeQuery.ThirdPartyRelationshipAttributeQuery.noResults',
-                            style: TextStyle(color: Theme.of(context).colorScheme.error),
-                          ),
-                          if (widget.item.description != null) Text(widget.item.description!, style: Theme.of(context).textTheme.labelMedium),
-                        ],
-                      ),
+                      extraLine: description != null ? Text(description!, style: Theme.of(context).textTheme.labelMedium) : null,
                     ),
                   )
                 else
                   Expanded(
                     child: CustomListTile(
-                      title: 'i18n://dvo.attribute.name.$_valueType',
+                      title: title,
                       showTitle: true,
                       valueTextStyle: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.outlineVariant),
                       description: 'i18n://requestRenderer.noEntry',
-                      trailing: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
-                      ),
-                      titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
-                      extraLine: widget.item.description != null
-                          ? Text(widget.item.description!, style: Theme.of(context).textTheme.labelMedium)
+                      trailing: widget.item.isDecidable
+                          ? Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 12),
+                              child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
+                            )
                           : null,
+                      titleOverride: widget.item.isDecidable && widget.item.mustBeAccepted ? (title) => '$title*' : null,
+                      extraLine: description != null ? Text(description!, style: Theme.of(context).textTheme.labelMedium) : null,
                     ),
                   ),
               ],
@@ -133,24 +124,91 @@ class _ProposeAttributeRequestItemRendererState extends State<ProposeAttributeRe
     );
   }
 
-  String? get _valueType => switch (widget.item.query) {
-    final IdentityAttributeQueryDVO query => query.valueType,
-    final RelationshipAttributeQueryDVO query => query.valueType,
-    final ThirdPartyRelationshipAttributeQueryDVO _ => null,
-    final IQLQueryDVO query => query.valueType,
-    final ProcessedIdentityAttributeQueryDVO query => query.valueType,
-    final ProcessedRelationshipAttributeQueryDVO query => query.valueType,
-    final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.valueType,
-    final ProcessedIQLQueryDVO query => query.valueType,
-  };
+  String get title {
+    final query = widget.item.query;
+    if (query is RelationshipAttributeQueryDVO) return query.attributeCreationHints.title;
+    if (query is ProcessedRelationshipAttributeQueryDVO) return query.attributeCreationHints.title;
+
+    return 'i18n://dvo.attribute.name.$_valueType';
+  }
+
+  String? get description {
+    if (widget.item.description != null) return widget.item.description;
+
+    final query = widget.item.query;
+    if (query is RelationshipAttributeQueryDVO) return query.attributeCreationHints.description;
+    if (query is ProcessedRelationshipAttributeQueryDVO) return query.attributeCreationHints.description;
+
+    return null;
+  }
+
+  String get _valueType =>
+      switch (widget.item.query) {
+        final IdentityAttributeQueryDVO query => query.valueType,
+        final RelationshipAttributeQueryDVO query => query.valueType,
+        final ThirdPartyRelationshipAttributeQueryDVO _ => null,
+        final IQLQueryDVO query => query.valueType,
+        final ProcessedIdentityAttributeQueryDVO query => query.valueType,
+        final ProcessedRelationshipAttributeQueryDVO query => query.valueType,
+        final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.valueType,
+        final ProcessedIQLQueryDVO query => query.valueType,
+      } ??
+      widget.item.attribute.valueType;
 
   Future<void> _onTap() async {
     final choices = _getChoices();
     if (_choice != null) choices.add(_choice!);
 
-    if (choices.isEmpty) {
-      // This should never happen
-      throw Exception('No choices available for attribute switcher');
+    if (choices.isEmpty) return await _createAttribute();
+
+    await _openAttributeSwitcher(choices);
+  }
+
+  Future<void> _createAttribute() async {
+    final query = widget.item.query;
+    if (query is ProcessedIdentityAttributeQueryDVO) return await _createIdentityAttribute(query.tags);
+    if (query is ProcessedIQLQueryDVO) return await _createIdentityAttribute(query.tags);
+    if (query is ProcessedRelationshipAttributeQueryDVO) return await _composeRelationshipAttribute(query);
+
+    // this should never happen
+    throw Exception('Cannot create attribute for query: ${query.runtimeType}');
+  }
+
+  Future<void> _createIdentityAttribute(List<String>? tags) async {
+    final choice = await widget.createIdentityAttribute(valueType: _valueType, tags: tags);
+    if (choice == null || !mounted) return;
+
+    setState(() {
+      _choice = choice;
+      _isChecked = true;
+    });
+
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: choice.dvo.id),
+    );
+  }
+
+  Future<void> _composeRelationshipAttribute(ProcessedRelationshipAttributeQueryDVO query) async {
+    final attribute = await widget.composeRelationshipAttribute(query: query);
+    if (attribute == null || !mounted) return;
+
+    setState(() {
+      _choice = (dvo: null, attribute: attribute);
+      _isChecked = true;
+    });
+
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: attribute),
+    );
+  }
+
+  Future<void> _openAttributeSwitcher(Set<AttributeSwitcherChoice> choices) async {
+    final query = widget.item.query;
+    // TODO(jkoenig134): this is a workaround for the fact that we cannot really switch between relationship attributes that are not stored yet
+    if (query is ProcessedRelationshipAttributeQueryDVO && _getChoices().isEmpty) {
+      return await _composeRelationshipAttribute(query);
     }
 
     final valueType = _valueType;
@@ -171,11 +229,11 @@ class _ProposeAttributeRequestItemRendererState extends State<ProposeAttributeRe
       _isChecked = true;
     });
 
-    if (choice.id != null) throw Exception('Choice should not have an ID when updating an attribute');
-
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: choice.id!),
+      value: choice.dvo == null
+          ? AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: choice.attribute)
+          : AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: choice.dvo!.id),
     );
   }
 
@@ -194,16 +252,22 @@ class _ProposeAttributeRequestItemRendererState extends State<ProposeAttributeRe
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: choice.id!),
+      value: choice.dvo == null
+          ? AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: choice.attribute)
+          : AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: choice.dvo!.id),
     );
   }
 
   ValueHints? _getQueryValueHints() {
-    return switch (widget.item.query as ProcessedAttributeQueryDVO) {
+    return switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => query.valueHints,
       final ProcessedRelationshipAttributeQueryDVO query => query.valueHints,
-      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.valueHints,
+      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.valueHints ?? query.results.firstOrNull?.valueHints,
       final ProcessedIQLQueryDVO query => query.valueHints,
+      final IdentityAttributeQueryDVO query => query.valueHints,
+      final RelationshipAttributeQueryDVO query => query.valueHints,
+      final ThirdPartyRelationshipAttributeQueryDVO _ => null,
+      final IQLQueryDVO query => query.valueHints,
     };
   }
 
@@ -215,6 +279,11 @@ class _ProposeAttributeRequestItemRendererState extends State<ProposeAttributeRe
       final ProcessedIQLQueryDVO query => query.results,
     };
 
-    return results.map((result) => (id: result.id, attribute: result.content)).toSet();
+    final choices = results.map<AttributeSwitcherChoice>((result) => (dvo: result, attribute: result.content)).toSet();
+
+    final proposedAttribute = widget.item.attribute;
+    choices.add((dvo: null, attribute: proposedAttribute.content));
+
+    return choices;
   }
 }
