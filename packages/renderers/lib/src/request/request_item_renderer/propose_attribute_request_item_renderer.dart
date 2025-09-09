@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +54,7 @@ class _ProposeAttributeRequestItemRendererState extends State<ProposeAttributeRe
       };
     } else {
       _isChecked = widget.item.initiallyChecked;
-      _choice = _getProposedChoice();
+      _choice = _getInitialChoice();
     }
 
     if (_isChecked) {
@@ -213,15 +214,33 @@ class _ProposeAttributeRequestItemRendererState extends State<ProposeAttributeRe
   }
 
   Set<AttributeSwitcherChoice> _getChoices() {
-    final results = switch (widget.item.query as ProcessedAttributeQueryDVO) {
-      final ProcessedIdentityAttributeQueryDVO query => query.results,
-      final ProcessedRelationshipAttributeQueryDVO query => query.results,
-      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.results,
-      final ProcessedIQLQueryDVO query => query.results,
-    };
+    final proposedChoice = (dvo: null, attribute: widget.item.attribute.content);
 
-    return {...results.map((result) => (dvo: result, attribute: result.content)), _getProposedChoice(), _choice};
+    final queriedChoices = (widget.item.query as ProcessedAttributeQueryDVO)._queriedChoices;
+    if (queriedChoices.isEmpty) return {proposedChoice};
+
+    final matchingAttribute = queriedChoices.firstWhereOrNull((r) => r.attribute == proposedChoice.attribute);
+    if (matchingAttribute != null) return queriedChoices;
+
+    return {...queriedChoices, proposedChoice};
   }
 
-  ({LocalAttributeDVO? dvo, AbstractAttribute attribute}) _getProposedChoice() => (dvo: null, attribute: widget.item.attribute.content);
+  AttributeSwitcherChoice _getInitialChoice() {
+    final proposedAttribute = widget.item.attribute.content;
+
+    final queriedChoices = (widget.item.query as ProcessedAttributeQueryDVO)._queriedChoices;
+    final matchingAttribute = queriedChoices.firstWhereOrNull((r) => r.attribute == proposedAttribute);
+    if (matchingAttribute != null) return matchingAttribute;
+
+    return (dvo: null, attribute: proposedAttribute);
+  }
+}
+
+extension on ProcessedAttributeQueryDVO {
+  Set<AttributeSwitcherChoice> get _queriedChoices => switch (this) {
+    final ProcessedIdentityAttributeQueryDVO query => query.results,
+    final ProcessedRelationshipAttributeQueryDVO query => query.results,
+    final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.results,
+    final ProcessedIQLQueryDVO query => query.results,
+  }.map((e) => (dvo: e, attribute: e.content)).toSet();
 }
