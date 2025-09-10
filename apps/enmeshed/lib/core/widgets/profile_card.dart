@@ -12,11 +12,11 @@ class ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 1,
+      elevation: 0,
       margin: EdgeInsets.zero,
       child: ListTile(
         onTap: () => onAccountSelected(account),
-        tileColor: Theme.of(context).colorScheme.surfaceContainerLow,
+        tileColor: Theme.of(context).colorScheme.surfaceContainer,
         title: Text(
           account.name,
           maxLines: 2,
