@@ -60,6 +60,9 @@ class _DevicesScreenState extends State<DevicesScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: appBar,
+      floatingActionButton: otherDevices.isEmpty
+          ? null
+          : FloatingActionButton(onPressed: _transferProfileToDevice, child: const Icon(Icons.send_to_mobile_outlined)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -70,15 +73,9 @@ class _DevicesScreenState extends State<DevicesScreen> {
               Gaps.h24,
               DeviceCard(accountId: widget.accountId, device: currentDevice, reloadDevices: _reloadDevices),
               Gaps.h24,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(context.l10n.devices_otherDevices, style: Theme.of(context).textTheme.titleMedium),
-                  FilledButton(
-                    onPressed: _transferProfileToDevice,
-                    child: Text(context.l10n.devices_transferProfile),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(context.l10n.devices_otherDevices, style: Theme.of(context).textTheme.titleMedium),
               ),
               Expanded(
                 child: RefreshIndicator(
@@ -89,6 +86,10 @@ class _DevicesScreenState extends State<DevicesScreen> {
                           text: context.l10n.devices_empty,
                           wrapInListView: true,
                           description: context.l10n.devices_empty_description,
+                          action: FilledButton(
+                            onPressed: _transferProfileToDevice,
+                            child: Text(context.l10n.devices_transferProfile),
+                          ),
                         )
                       : ListView.separated(
                           itemCount: otherDevices.length,
