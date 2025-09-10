@@ -16,10 +16,11 @@ class DeviceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
+      elevation: 0,
       color: device.isCurrentDevice ? Theme.of(context).colorScheme.secondaryContainer : Theme.of(context).colorScheme.surfaceContainerHighest,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
       clipBehavior: Clip.hardEdge,
+      margin: EdgeInsets.zero,
       child: InkWell(
         onTap: () async {
           await context.push('/account/$accountId/devices/${device.id}');
