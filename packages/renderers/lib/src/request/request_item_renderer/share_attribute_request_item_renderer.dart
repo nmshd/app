@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../attribute/attribute_renderer.dart';
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import 'extensions/extensions.dart';
 import 'utils/utils.dart';
 import 'widgets/validation_error_box.dart';
 
@@ -40,7 +39,7 @@ class _ShareAttributeRequestItemRendererState extends State<ShareAttributeReques
     if (widget.item.response != null) {
       _isChecked = widget.item.response is AcceptResponseItemDVO;
     } else {
-      _isChecked = widget.item.initiallyChecked;
+      _isChecked = widget.item.mustBeAccepted;
     }
 
     if (_isChecked) widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
@@ -56,7 +55,7 @@ class _ShareAttributeRequestItemRendererState extends State<ShareAttributeReques
           Row(
             spacing: 8,
             children: [
-              Checkbox(value: _isChecked, onChanged: widget.item.checkboxEnabled ? _onUpdateCheckbox : null),
+              Checkbox(value: _isChecked, onChanged: widget.item.isDecidable && !widget.item.mustBeAccepted ? _onUpdateCheckbox : null),
               Expanded(
                 child: AttributeRenderer(
                   attribute: widget.item.attribute.content,

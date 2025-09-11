@@ -103,16 +103,6 @@ class DataViewExpander {
     return ResponseItemDVO.fromJson(value);
   }
 
-  Future<LocalAttributeListenerDVO> expandLocalAttributeListenerDTO(LocalAttributeListenerDTO attributeListener) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await session.expander.expandLocalAttributeListenerDTO(attributeListener)',
-      arguments: {'attributeListener': attributeListener.toJson()},
-    );
-
-    final value = result.valueToMap();
-    return LocalAttributeListenerDVO.fromJson(value);
-  }
-
   // dart will now allow us to implement this properly
   // expandResponseGroupOrItem(responseGroupOrItem: ResponseItemGroupJSON | ResponseItemJSON): Promise<ResponseItemGroupDVO | ResponseItemDVO>;
 
