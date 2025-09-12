@@ -87,7 +87,7 @@ services:
   database:
     container_name: bkb-postgres
     hostname: postgres
-    image: postgres@sha256:8a56bef4c60bef3d26193cb9d810fce93def8fd0c459f4a9b14240fbd7559a1d
+    image: postgres@sha256:feff5b24fedd610975a1f5e743c51a4b360437f4dc3a11acf740dcd708f413f6
     environment:
       - POSTGRES_PASSWORD=Passw0rd
       - POSTGRES_DB=enmeshed
@@ -111,7 +111,7 @@ services:
   rabbitmq:
     container_name: bkb-rabbitmq
     hostname: rabbitmq
-    image: rabbitmq:4.1.4-alpine@sha256:cf0c933e4dbcefd1df477cfd8073a96f9e047626c15e73383df11020b0a45424
+    image: rabbitmq:4.1.4-alpine@sha256:de06c7406caeee1f6eced4ac48110f5ae6cef4bae5db059282d4d8a9569d3907
     ports:
       - "5672:5672"
 
