@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -161,7 +162,10 @@ class _CreateProfileState extends State<CreateProfile> {
 
     setState(() => _loading = true);
 
-    final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.createAccount(name: _controller.text);
+    final deviceInfo = await DeviceInfoPlugin().deviceInfo;
+    final deviceName = deviceInfo.deviceName;
+
+    final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.createAccount(name: _controller.text, deviceName: deviceName);
 
     if (_newProfilePicture != null) {
       await saveProfilePicture(byteData: _newProfilePicture!, accountReference: account.id);

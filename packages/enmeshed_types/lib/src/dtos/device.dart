@@ -5,7 +5,7 @@ class DeviceDTO extends Equatable {
   final bool isAdmin;
   final String? publicKey;
   final String? certificate;
-  final String name;
+  final String? name;
   final String? description;
   final String createdAt;
   final String createdByDevice;
@@ -24,7 +24,7 @@ class DeviceDTO extends Equatable {
     required this.isAdmin,
     this.publicKey,
     this.certificate,
-    required this.name,
+    this.name,
     this.description,
     required this.createdAt,
     required this.createdByDevice,
@@ -60,7 +60,7 @@ class DeviceDTO extends Equatable {
     'isAdmin': isAdmin,
     if (publicKey != null) 'publicKey': publicKey,
     if (certificate != null) 'certificate': certificate,
-    'name': name,
+    if (name != null) 'name': name,
     if (description != null) 'description': description,
     'createdAt': createdAt,
     'createdByDevice': createdByDevice,

@@ -21,4 +21,15 @@ class AnonymousTokensFacade {
     final value = result.valueToMap();
     return Result.fromJson(value, (x) => TokenDTO.fromJson(x));
   }
+
+  Future<Result<EmptyTokenDTO>> createEmptyToken() async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await runtime.anonymousServices.tokens.createEmptyToken()
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+    );
+
+    final value = result.valueToMap();
+    return Result.fromJson(value, (x) => EmptyTokenDTO.fromJson(x));
+  }
 }

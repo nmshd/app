@@ -13,4 +13,5 @@ linter:
     constant_identifier_names: false
 
 formatter:
+  trailing_commas: preserve
   page_width: 150
