@@ -5,6 +5,7 @@ import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
@@ -99,21 +100,39 @@ class _TransferProfileScanState extends State<_TransferProfileScan> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text(context.l10n.transferProfile_presentQRCode_description),
-        ),
-        if (_token != null) QrImageView(data: _token!.reference.url, size: 200),
-        if (_token == null)
-          const SizedBox(
-            width: 200,
-            height: 200,
-            child: Padding(padding: EdgeInsets.all(50), child: CircularProgressIndicator()),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: 32,
+        children: [
+          BoldStyledText(context.l10n.transferProfile_presentQRCode_description),
+          Card(
+            margin: EdgeInsets.zero,
+            color: Theme.of(context).colorScheme.surfaceContainer,
+            child: Center(
+              child: (_token == null)
+                  ? const SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: Padding(padding: EdgeInsets.all(50), child: CircularProgressIndicator()),
+                    )
+                  : QrImageView(
+                      data: _token!.reference.url,
+                      size: 200,
+                      dataModuleStyle: QrDataModuleStyle(color: Theme.of(context).colorScheme.onSurface, dataModuleShape: QrDataModuleShape.square),
+                      eyeStyle: QrEyeStyle(color: Theme.of(context).colorScheme.onSurface, eyeShape: QrEyeShape.square),
+                    ),
+            ),
           ),
-      ],
+          FilledButton.tonalIcon(
+            onPressed: _token == null ? null : () => Clipboard.setData(ClipboardData(text: _token!.reference.url)),
+            label: Text(context.l10n.onboarding_transferProfile_copyUrlLink),
+            icon: const Icon(Icons.file_copy_outlined),
+          ),
+        ],
+      ),
     );
   }
 
