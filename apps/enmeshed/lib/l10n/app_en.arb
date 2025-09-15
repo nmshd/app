@@ -295,16 +295,9 @@
   "profile_deletePhoto": "Remove",
   "profile_editPhoto": "Change",
   "devices_title": "Manage Devices",
-  "devices_description": "Your <bold>{profileName}</bold> profile is shared with the following devices. If you want to end synchronisation with one of the devices, remove it from the list.",
-  "@devices_description": {
-    "placeholders": {
-      "profileName": {
-        "type": "String"
-      }
-    }
-  },
+  "devices_description": "Your profile will be shared with the following devices. If you wish to stop synchronising with one of the devices, remove it from the list.",
   "devices_otherDevices": "Other Devices",
-  "devices_transferProfile": "Transfer profile",
+  "devices_transferProfile": "Transfer profile to new device",
   "devices_empty": "Share this profile with other devices",
   "devices_empty_description": "First install the enmeshed app on the new device and then initiate the connection using an existing profile.",
   "devices_edit": "Edit Device",

@@ -62,15 +62,47 @@ class _DevicesScreenState extends State<DevicesScreen> {
       appBar: appBar,
       floatingActionButton: otherDevices.isEmpty
           ? null
-          : FloatingActionButton(onPressed: _transferProfileToDevice, child: const Icon(Icons.send_to_mobile_outlined)),
+          : FloatingActionButton(
+              onPressed: _transferProfileToDevice,
+              tooltip: context.l10n.devices_transferProfile,
+              child: const Icon(Icons.send_to_mobile_outlined),
+            ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              BoldStyledText(context.l10n.devices_description(_account!.name)),
-              Gaps.h24,
+              Card(
+                color: Theme.of(context).colorScheme.surfaceContainer,
+                margin: EdgeInsets.zero,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    spacing: 16,
+                    children: [
+                      AutoLoadingProfilePicture(
+                        accountId: widget.accountId,
+                        profileName: _account!.name,
+                        radius: 60,
+                        decorative: true,
+                      ),
+                      Text(
+                        _account!.name,
+                        style: Theme.of(context).textTheme.titleLarge,
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        context.l10n.devices_description,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // BoldStyledText(context.l10n.devices_description(_account!.name)),
+              Gaps.h32,
               DeviceCard(accountId: widget.accountId, device: currentDevice, reloadDevices: _reloadDevices),
               Gaps.h24,
               Padding(
