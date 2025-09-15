@@ -118,7 +118,7 @@ class _OnboardingSelectOptionState extends State<OnboardingSelectOption> {
                           ),
                           PopupMenuItem<void>(
                             onTap: () => context.push('/restore-from-identity-recovery-kit'),
-                            child: Text(context.l10n.onboarding_receryKit),
+                            child: Text(context.l10n.onboarding_recoveryKit),
                           ),
                         ],
                         icon: const Icon(Icons.add),

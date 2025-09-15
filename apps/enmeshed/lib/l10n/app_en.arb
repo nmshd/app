@@ -95,7 +95,7 @@
       }
     }
   },
-  "onboarding_receryKit": "Restore profile",
+  "onboarding_recoveryKit": "Restore profile",
   "onboarding_chooseOption": "You need a profile to use the\nenmeshed app.\nThere are several ways to do this.",
   "onboarding_optionsDescription": "Create a new profile if you are here for the first time, or transfer an existing profile from another device. Scan the recovery kit if you have lost access to your device.",
   "onboarding_createIdentity": "Create your user profile",
@@ -301,7 +301,7 @@
   "profile_deletePhoto": "Remove",
   "profile_editPhoto": "Change",
   "devices_title": "Manage Devices",
-  "devices_description": "Your profile will be shared with the following devices. If you wish to stop synchronising with one of the devices, remove it from the list.",
+  "devices_description": "Your profile is shared with the following devices. If you wish to stop synchronising with one of the devices, remove it from the list.",
   "devices_otherDevices": "Other Devices",
   "devices_transferProfile": "Transfer profile to new device",
   "devices_empty": "Share this profile with other devices",
