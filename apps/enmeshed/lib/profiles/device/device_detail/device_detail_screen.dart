@@ -5,13 +5,12 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '/core/core.dart';
 import '../../profile/modals/delete_profile/delete_profile.dart';
 import '../widgets/device_detail_header.dart';
-import 'widgets/device_detail_widgets.dart';
+import 'modals/modals.dart';
 
 class DeviceDetailScreen extends StatefulWidget {
   final String accountId;
@@ -56,14 +55,12 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
               device: _deviceDTO!,
               accountId: widget.accountId,
               reloadDevice: _loadDevice,
-              deleteDevice: _deleteDevice,
               editDevice: _editDevice,
+              deleteDevice: !_deviceDTO!.isCurrentDevice || _devices?.length == 1 ? null : _deleteCurrentDevice,
             ),
             Gaps.h8,
             if (_devices != null && _devices!.length == 1)
               _RemoveRemainingDevice(device: _deviceDTO!)
-            else if (!_deviceDTO!.isOnboarded)
-              _ConnectDevice(device: _deviceDTO!)
             else if (!_deviceDTO!.isCurrentDevice)
               _RemoveOtherDevice(device: _deviceDTO!),
             _DeviceFirstConnected(device: _deviceDTO!),
@@ -79,7 +76,7 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
     await session.transportServices.account.syncDatawallet();
 
     final devicesResult = await session.transportServices.devices.getDevices();
-    final devices = devicesResult.value.where((device) => device.isOffboarded == null || !device.isOffboarded!).toList();
+    final devices = devicesResult.value.where((device) => device.isOnboarded && device.isOffboarded != true).toList();
 
     if (mounted) setState(() => _devices = devices);
   }
@@ -95,31 +92,12 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
     if (mounted) setState(() => _deviceDTO = device);
   }
 
-  VoidCallback? get _deleteDevice {
-    if (_deviceDTO == null) return null;
-
-    if (!_deviceDTO!.isOnboarded) return _deleteNonOnboardedDevice;
-
-    // current device can be deleted only if there is at least one other active device
-    if (_deviceDTO!.isCurrentDevice &&
-        _devices!.where((device) => device.isOnboarded && device.isOffboarded != true && !device.isCurrentDevice).isNotEmpty) {
-      return _deleteCurrentDevice;
-    }
-
-    return null;
-  }
-
-  Future<void> _deleteNonOnboardedDevice() async {
-    final confirmed = await showModalBottomSheet<bool>(
+  Future<void> _editDevice() async {
+    await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
-      builder: (_) => DeleteDeviceSheet(device: _deviceDTO!, accountId: widget.accountId),
+      builder: (_) => EditDevice(accountId: widget.accountId, device: _deviceDTO!, onDevicesChanged: _loadDevice),
     );
-
-    if (mounted && confirmed != null && confirmed) {
-      context.pop();
-      showSuccessSnackbar(context: context, text: context.l10n.deviceInfo_removeDevice_successful(_deviceDTO!.name));
-    }
   }
 
   Future<void> _deleteCurrentDevice() async {
@@ -127,14 +105,6 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
     if (!mounted) return;
 
     await showDeleteProfileOrIdentityModal(context: context, localAccount: accountDTO, deleteProfile: true);
-  }
-
-  Future<void> _editDevice() async {
-    await showModalBottomSheet<bool>(
-      context: context,
-      isScrollControlled: true,
-      builder: (_) => EditDevice(accountId: widget.accountId, device: _deviceDTO!, onDevicesChanged: _loadDevice),
-    );
   }
 }
 
@@ -170,24 +140,6 @@ class _DeviceFirstConnected extends StatelessWidget {
   }
 }
 
-class _ConnectDevice extends StatelessWidget {
-  final DeviceDTO device;
-
-  const _ConnectDevice({required this.device});
-
-  @override
-  Widget build(BuildContext context) {
-    return _DeviceInstructions(
-      title: context.l10n.deviceInfo_connectDevice_title,
-      instructions: [
-        context.l10n.deviceInfo_openApp(device.name),
-        context.l10n.deviceInfo_connectDevice_startConnecting,
-        context.l10n.deviceInfo_connectDevice_scan,
-      ],
-    );
-  }
-}
-
 class _RemoveRemainingDevice extends StatelessWidget {
   final DeviceDTO device;
 
@@ -218,7 +170,7 @@ class _RemoveOtherDevice extends StatelessWidget {
     return _DeviceInstructions(
       title: context.l10n.deviceInfo_removeConnectedDevice_title,
       instructions: [
-        context.l10n.deviceInfo_openApp(device.name),
+        context.l10n.deviceInfo_openApp(device.name ?? ''),
         context.l10n.deviceInfo_removeDevice_profileManagment,
         context.l10n.deviceInfo_removeDevice_chooseDelete,
         context.l10n.deviceInfo_removeDevice_deleteProfile,

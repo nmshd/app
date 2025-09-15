@@ -5,9 +5,10 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 
 import '/core/core.dart';
-import '../modals/add_or_connect_device.dart';
 import '../widgets/device_widgets.dart';
 
 class DevicesScreen extends StatefulWidget {
@@ -59,26 +60,40 @@ class _DevicesScreenState extends State<DevicesScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: appBar,
+      floatingActionButton: otherDevices.isEmpty
+          ? null
+          : FloatingActionButton(
+              onPressed: _transferProfileToDevice,
+              tooltip: context.l10n.devices_transferProfile,
+              child: const Icon(Icons.send_to_mobile_outlined),
+            ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              BoldStyledText(context.l10n.devices_description(_account!.name)),
-              Gaps.h24,
+              Card(
+                color: Theme.of(context).colorScheme.surfaceContainer,
+                margin: EdgeInsets.zero,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    spacing: 16,
+                    children: [
+                      AutoLoadingProfilePicture(accountId: widget.accountId, profileName: _account!.name, radius: 60, decorative: true),
+                      Text(_account!.name, style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
+                      Text(context.l10n.devices_description, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
+                    ],
+                  ),
+                ),
+              ),
+              Gaps.h32,
               DeviceCard(accountId: widget.accountId, device: currentDevice, reloadDevices: _reloadDevices),
               Gaps.h24,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(context.l10n.devices_otherDevices, style: Theme.of(context).textTheme.titleMedium),
-                  TextButton.icon(
-                    onPressed: () => addDevice(context: context, accountId: widget.accountId, reload: _reloadDevices),
-                    icon: const Icon(Icons.add),
-                    label: Text(context.l10n.devices_create),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(context.l10n.devices_otherDevices, style: Theme.of(context).textTheme.titleMedium),
               ),
               Expanded(
                 child: RefreshIndicator(
@@ -89,6 +104,10 @@ class _DevicesScreenState extends State<DevicesScreen> {
                           text: context.l10n.devices_empty,
                           wrapInListView: true,
                           description: context.l10n.devices_empty_description,
+                          action: FilledButton(
+                            onPressed: _transferProfileToDevice,
+                            child: Text(context.l10n.devices_transferProfile),
+                          ),
                         )
                       : ListView.separated(
                           itemCount: otherDevices.length,
@@ -110,13 +129,60 @@ class _DevicesScreenState extends State<DevicesScreen> {
     setState(() => _account = account);
   }
 
+  Future<void> _transferProfileToDevice() async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => ScannerView(
+          onSubmit: _onSubmitTransferProfile,
+          lineUpQrCodeText: context.l10n.scanner_lineUpQrCode,
+          scanQrOrEnterUrlText: context.l10n.scanner_scanQrOrEnterUrl,
+          enterUrlText: context.l10n.scanner_enterUrl,
+          urlTitle: context.l10n.transferProfile_scan_url_title,
+          urlDescription: context.l10n.transferProfile_scan_url_description,
+          urlLabelText: context.l10n.scanner_enterUrl,
+          urlValidationErrorText: context.l10n.scanner_urlValidationError,
+          urlButtonText: context.l10n.transferProfile_scan_url_button,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _onSubmitTransferProfile({
+    required String content,
+    required VoidCallback pause,
+    required VoidCallback resume,
+    required BuildContext context,
+  }) async {
+    pause();
+    unawaited(showLoadingDialog(context, context.l10n.transferProfile_scan_transferInProgress));
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    final result = await session.transportServices.devices.fillDeviceOnboardingTokenWithNewDevice(
+      reference: content,
+      profileName: _account!.name,
+      isAdmin: true,
+    );
+    if (!context.mounted) return;
+
+    context.pop();
+
+    if (result.isSuccess) {
+      context.pop();
+      return;
+    }
+
+    GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
+    await context.push('/error-dialog', extra: 'error.transferProfile.invalidQRCode');
+    resume();
+  }
+
   Future<void> _reloadDevices({bool syncBefore = false}) async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
     if (syncBefore) await session.transportServices.account.syncDatawallet();
 
     final devicesResult = await session.transportServices.devices.getDevices();
-    final devices = devicesResult.value.where((device) => device.isOffboarded != true && !device.isBackupDevice).toList();
+    final devices = devicesResult.value.where((device) => device.isOnboarded && device.isOffboarded != true).toList();
 
     if (mounted) setState(() => _devices = devices);
   }
