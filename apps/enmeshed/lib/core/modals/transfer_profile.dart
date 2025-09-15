@@ -156,7 +156,7 @@ class _TransferProfileModalState extends State<_TransferProfileModal> {
       await runtime.selectAccount(account.id);
 
       if (mounted) {
-        showSuccessSnackbar(context: context, text: 'Das Profil <bold>${account.name}</bold> wurde erfolgreich übertragen.');
+        showSuccessSnackbar(context: context, text: context.l10n.onboarding_transferProfile_success(account.name));
         context.go('/account/${account.id}/home');
         unawaited(context.push('/profiles'));
       }

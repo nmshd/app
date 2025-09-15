@@ -87,6 +87,14 @@
   "onboarding_createNewAccount": "Neues Profil erstellen",
   "onboarding_transferProfile": "Bestehendes Profil übertragen",
   "onboarding_transferProfile_copyUrlLink": "URL-Link kopieren",
+  "onboarding_transferProfile_success": "Das Profil <bold>{accountName}</bold> wurde erfolgreich übertragen.",
+  "@onboarding_transferProfile_success": {
+    "placeholders": {
+      "accountName": {
+        "type": "String"
+      }
+    }
+  },
   "onboarding_receryKit": "Profil wiederherstellen",
   "onboarding_chooseOption": "Sie benötigen ein Profil, um die\nenmeshed App nutzen zu können.\nHierfür gibt es verschiedene Möglichkeiten.",
   "onboarding_optionsDescription": "Legen Sie ein neues Profil an, wenn Sie zum ersten Mal hier sind, oder übertragen Sie ein bestehendes Profil von einem anderen Gerät. Scannen Sie das Widerherstellungskit, wenn Sie Zugriff auf Ihr Gerät verloren haben.",

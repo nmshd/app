@@ -87,6 +87,14 @@
   "onboarding_createNewAccount": "Create new user profile",
   "onboarding_transferProfile": "Transfer existing profile",
   "onboarding_transferProfile_copyUrlLink": "Copy URL link",
+  "onboarding_transferProfile_success": "The profile <bold>{accountName}</bold> has been successfully transferred.",
+  "@onboarding_transferProfile_success": {
+    "placeholders": {
+      "accountName": {
+        "type": "String"
+      }
+    }
+  },
   "onboarding_receryKit": "Restore profile",
   "onboarding_chooseOption": "You need a profile to use the\nenmeshed app.\nThere are several ways to do this.",
   "onboarding_optionsDescription": "Create a new profile if you are here for the first time, or transfer an existing profile from another device. Scan the recovery kit if you have lost access to your device.",
