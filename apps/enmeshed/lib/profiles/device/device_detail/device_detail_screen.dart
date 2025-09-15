@@ -170,7 +170,6 @@ class _RemoveOtherDevice extends StatelessWidget {
     return _DeviceInstructions(
       title: context.l10n.deviceInfo_removeConnectedDevice_title,
       instructions: [
-        // TODO(jkoenig134): the device should always have a name, can we ignore the fact that is is nullable?
         context.l10n.deviceInfo_openApp(device.name ?? ''),
         context.l10n.deviceInfo_removeDevice_profileManagment,
         context.l10n.deviceInfo_removeDevice_chooseDelete,

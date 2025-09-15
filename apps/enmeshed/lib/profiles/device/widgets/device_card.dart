@@ -34,7 +34,6 @@ class DeviceCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // TODO(jkoenig134): the device should always have a name, can we ignore the fact that is is nullable?
                     Text(device.name ?? '', maxLines: 2, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.titleMedium),
                     if (device.description != null && device.description!.isNotEmpty)
                       Text(device.description!, maxLines: 2, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodyMedium),

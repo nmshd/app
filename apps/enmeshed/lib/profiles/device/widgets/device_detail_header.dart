@@ -28,7 +28,6 @@ class DeviceDetailHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // TODO(jkoenig134): the device should always have a name, can we ignore the fact that is is nullable?
           Text(device.name ?? '', style: Theme.of(context).textTheme.titleLarge),
           if (device.description != null && device.description!.isNotEmpty) ...[
             Gaps.h8,
