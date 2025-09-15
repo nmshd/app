@@ -3,7 +3,6 @@ import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '/core/core.dart';
-import '../modals/add_or_connect_device.dart';
 import 'device_widgets.dart';
 
 class DeviceDetailHeader extends StatelessWidget {
@@ -29,7 +28,7 @@ class DeviceDetailHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(device.name, style: Theme.of(context).textTheme.titleLarge),
+          Text(device.name ?? '', style: Theme.of(context).textTheme.titleLarge),
           if (device.description != null && device.description!.isNotEmpty) ...[
             Gaps.h8,
             Text(device.description!, style: Theme.of(context).textTheme.bodyMedium),
@@ -92,12 +91,6 @@ class _DeviceButtonBar extends StatelessWidget {
             label: Text(device.isCurrentDevice ? context.l10n.deviceInfo_removeCurrentDevice : context.l10n.deviceInfo_removeDevice),
             onPressed: deleteDevice,
           ),
-          if (!device.isOnboarded)
-            FilledButton.icon(
-              icon: const Icon(Icons.qr_code, size: 18),
-              onPressed: () => connectDevice(context: context, accountId: accountId, reload: reloadDevice, device: device),
-              label: Text(context.l10n.deviceInfo_showQrCode),
-            ),
         ],
       ),
     );

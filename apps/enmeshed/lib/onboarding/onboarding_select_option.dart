@@ -6,7 +6,6 @@ import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logger/logger.dart';
 
 import '/core/core.dart';
 import 'widgets/profiles_in_deletion_container.dart';
@@ -41,73 +40,91 @@ class _OnboardingSelectOptionState extends State<OnboardingSelectOption> {
   Widget build(BuildContext context) {
     final leftTriangleColor = Theme.of(context).colorScheme.surfaceContainerLow;
     final rightTriangleColor = Theme.of(context).colorScheme.surfaceContainerHigh;
+    final topColor = Theme.of(context).colorScheme.surface;
     final bottomColor = Theme.of(context).colorScheme.primaryContainer;
 
-    return Scrollbar(
-      thumbVisibility: true,
-      child: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-        child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: MediaQuery.sizeOf(context).height),
-          child: Padding(
-            padding: EdgeInsets.only(top: MediaQuery.paddingOf(context).top + 16),
+    return Scaffold(
+      backgroundColor: bottomColor,
+      body: Scrollbar(
+        thumbVisibility: true,
+        child: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: MediaQuery.sizeOf(context).height),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                if (_accountsInDeletion.isNotEmpty) ...[
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: ProfilesInDeletionContainer(accountsInDeletion: _accountsInDeletion, onDeleted: _loadAccountsInDeletion),
-                  ),
-                  Gaps.h48,
-                ],
-                Column(
-                  children: [
-                    Text(
-                      context.l10n.onboarding_createIdentity,
-                      style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
+                ColoredBox(
+                  color: topColor,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: MediaQuery.paddingOf(context).top + 16 + 64, bottom: 24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        if (_accountsInDeletion.isNotEmpty) ...[
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            child: ProfilesInDeletionContainer(accountsInDeletion: _accountsInDeletion, onDeleted: _loadAccountsInDeletion),
+                          ),
+                          Gaps.h48,
+                        ],
+                        SizedBox(
+                          height: 64,
+                          child: Image.asset(switch (Theme.of(context).brightness) {
+                            Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
+                            Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
+                          }),
+                        ),
+                        Gaps.h24,
+                        Text(
+                          context.l10n.onboarding_createIdentity,
+                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
+                          textAlign: TextAlign.center,
+                        ),
+                        Gaps.h16,
+                        Text(context.l10n.onboarding_chooseOption, textAlign: TextAlign.center),
+                        Gaps.h16,
+                      ],
                     ),
-                    Gaps.h16,
-                    Text(context.l10n.onboarding_chooseOption, textAlign: TextAlign.center),
-                    Gaps.h16,
-                  ],
+                  ),
                 ),
                 CustomPaint(
-                  painter: _BackgroundPainter(leftTriangleColor: leftTriangleColor, rightTriangleColor: rightTriangleColor, bottomColor: bottomColor),
+                  painter: _BackgroundPainter(
+                    leftTriangleColor: leftTriangleColor,
+                    rightTriangleColor: rightTriangleColor,
+                    topColor: topColor,
+                    bottomColor: bottomColor,
+                  ),
                   child: const SizedBox(width: double.infinity, height: 120),
                 ),
                 Container(
                   color: bottomColor,
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 16,
+                    horizontal: 36,
+                    vertical: 36,
                   ).add(EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom)),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                    spacing: 16,
                     children: [
-                      Text(context.l10n.onboarding_createNewAccount, style: Theme.of(context).textTheme.titleLarge),
-                      Gaps.h16,
-                      Text(context.l10n.onboarding_createNewAccount_description, textAlign: TextAlign.center),
-                      Gaps.h16,
-                      FilledButton(onPressed: widget.createAccount, child: Text(context.l10n.onboarding_createNewAccount_button)),
-                      Gaps.h24,
-                      Row(
-                        children: [
-                          const Expanded(child: Divider(thickness: 1)),
-                          Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Text(context.l10n.or)),
-                          const Expanded(child: Divider(thickness: 1)),
+                      Text(context.l10n.onboarding_optionsDescription, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
+                      PopupMenuButton(
+                        itemBuilder: (context) => [
+                          PopupMenuItem<void>(
+                            onTap: widget.createAccount,
+                            child: Text(context.l10n.onboarding_createNewAccount),
+                          ),
+                          PopupMenuItem<void>(
+                            onTap: () => showTransferProfileModal(context: context),
+                            child: Text(context.l10n.onboarding_transferProfile),
+                          ),
+                          PopupMenuItem<void>(
+                            onTap: () => context.push('/restore-from-identity-recovery-kit'),
+                            child: Text(context.l10n.onboarding_recoveryKit),
+                          ),
                         ],
-                      ),
-                      Gaps.h24,
-                      Text(context.l10n.onboarding_existingIdentity, style: Theme.of(context).textTheme.titleLarge),
-                      Gaps.h16,
-                      Text(context.l10n.onboarding_existingIdentity_description, textAlign: TextAlign.center),
-                      Gaps.h16,
-                      FilledButton(onPressed: () => _onboardingPressed(context), child: Text(context.l10n.scanner_scanQR)),
-                      Gaps.h16,
-                      TextButton(
-                        onPressed: () => context.push('/restore-from-identity-recovery-kit'),
-                        child: Text(context.l10n.onboarding_restoreProfile_button),
+                        icon: const Icon(Icons.add),
+                        iconColor: Theme.of(context).colorScheme.onPrimary,
+                        style: IconButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
+                        position: PopupMenuPosition.under,
                       ),
                     ],
                   ),
@@ -126,57 +143,15 @@ class _OnboardingSelectOptionState extends State<OnboardingSelectOption> {
 
     if (mounted) setState(() => _accountsInDeletion = accountsInDeletion);
   }
-
-  void _onboardingPressed(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => ScannerView(
-          onSubmit: _onSubmit,
-          lineUpQrCodeText: context.l10n.scanner_lineUpQrCode,
-          scanQrOrEnterUrlText: context.l10n.scanner_scanQrOrEnterUrl,
-          enterUrlText: context.l10n.scanner_enterUrl,
-          urlTitle: context.l10n.onboarding_connectWithUrl_title,
-          urlDescription: context.l10n.onboarding_connectWithUrl_description,
-          urlLabelText: context.l10n.scanner_enterUrl,
-          urlValidationErrorText: context.l10n.scanner_urlValidationError,
-          urlButtonText: context.l10n.onboarding_linkAccount,
-        ),
-      ),
-    );
-  }
-
-  Future<void> _onSubmit({required String content, required VoidCallback pause, required VoidCallback resume, required BuildContext context}) async {
-    pause();
-
-    unawaited(showLoadingDialog(context, context.l10n.onboarding_receiveInformation));
-
-    final runtime = GetIt.I.get<EnmeshedRuntime>();
-    if (!context.mounted) return;
-
-    final result = await runtime.stringProcessor.processDeviceOnboardingReference(url: content);
-    if (result.isSuccess) {
-      resume();
-      return;
-    }
-
-    GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
-    if (!context.mounted) return;
-
-    await context.push('/error-dialog', extra: result.error.code);
-
-    if (!context.mounted) return;
-    if (context.canPop()) context.pop();
-
-    resume();
-  }
 }
 
 class _BackgroundPainter extends CustomPainter {
   final Color leftTriangleColor;
   final Color rightTriangleColor;
+  final Color topColor;
   final Color bottomColor;
 
-  _BackgroundPainter({required this.leftTriangleColor, required this.rightTriangleColor, required this.bottomColor});
+  _BackgroundPainter({required this.leftTriangleColor, required this.rightTriangleColor, required this.bottomColor, required this.topColor});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -188,6 +163,10 @@ class _BackgroundPainter extends CustomPainter {
       ..color = leftTriangleColor
       ..style = PaintingStyle.fill;
 
+    final topPaint = Paint()
+      ..color = topColor
+      ..style = PaintingStyle.fill;
+
     final bottomPaint = Paint()
       ..color = bottomColor
       ..style = PaintingStyle.fill;
@@ -196,6 +175,12 @@ class _BackgroundPainter extends CustomPainter {
       ..moveTo(0, 0)
       ..lineTo(size.width / 2, size.height / 2)
       ..lineTo(0, size.height)
+      ..close();
+
+    final topPath = Path()
+      ..moveTo(0, 0)
+      ..lineTo(size.width / 2, size.height / 2)
+      ..lineTo(size.width, 0)
       ..close();
 
     final bottomPath = Path()
@@ -212,6 +197,7 @@ class _BackgroundPainter extends CustomPainter {
 
     canvas
       ..drawPath(leftPath, leftPaint)
+      ..drawPath(topPath, topPaint)
       ..drawPath(bottomPath, bottomPaint)
       ..drawPath(rightPath, rightPaint);
   }

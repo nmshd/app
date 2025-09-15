@@ -46,7 +46,7 @@ class ShouldDeleteProfile extends StatelessWidget {
                     children: otherActiveDevices
                         .map(
                           (e) => Chip(
-                            label: Text(e.name),
+                            label: Text(e.name ?? ''),
                             color: WidgetStatePropertyAll(Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.12)),
                             labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                             padding: const EdgeInsets.all(4),
