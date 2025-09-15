@@ -16,10 +16,11 @@ class DeviceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
+      elevation: 0,
       color: device.isCurrentDevice ? Theme.of(context).colorScheme.secondaryContainer : Theme.of(context).colorScheme.surfaceContainerHighest,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
       clipBehavior: Clip.hardEdge,
+      margin: EdgeInsets.zero,
       child: InkWell(
         onTap: () async {
           await context.push('/account/$accountId/devices/${device.id}');
@@ -33,7 +34,7 @@ class DeviceCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(device.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.titleMedium),
+                    Text(device.name ?? '', maxLines: 2, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.titleMedium),
                     if (device.description != null && device.description!.isNotEmpty)
                       Text(device.description!, maxLines: 2, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodyMedium),
                     if (!device.isOnboarded) ...[

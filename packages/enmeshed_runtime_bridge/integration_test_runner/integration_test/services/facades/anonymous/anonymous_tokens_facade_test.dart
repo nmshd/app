@@ -33,5 +33,14 @@ void run(EnmeshedRuntime runtime) {
       expect(token.id, equals(uploadedToken.id));
       expect(token.content, equals(uploadedToken.content));
     });
+
+    test('should create an empty Token', () async {
+      final result = await runtime.anonymousServices.tokens.createEmptyToken();
+      expect(result, isSuccessful<EmptyTokenDTO>());
+
+      final emptyToken = result.value;
+      expect(emptyToken.id, isNotEmpty);
+      expect(emptyToken.reference.truncated, isNotEmpty);
+    });
   });
 }
