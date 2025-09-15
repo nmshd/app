@@ -88,7 +88,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
                   ),
                 ),
               ),
-              // BoldStyledText(context.l10n.devices_description(_account!.name)),
               Gaps.h32,
               DeviceCard(accountId: widget.accountId, device: currentDevice, reloadDevices: _reloadDevices),
               Gaps.h24,
