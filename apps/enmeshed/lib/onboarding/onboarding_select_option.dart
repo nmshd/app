@@ -105,23 +105,26 @@ class _OnboardingSelectOptionState extends State<OnboardingSelectOption> {
                   child: Column(
                     spacing: 16,
                     children: [
-                      Text(context.l10n.onboarding_optionsDescription, style: Theme.of(context).textTheme.bodyMedium),
-                      MenuAnchor(
-                        menuChildren: [
-                          MenuItemButton(onPressed: widget.createAccount, child: Text(context.l10n.onboarding_createNewAccount)),
-                          MenuItemButton(
-                            onPressed: () => showTransferProfileModal(context: context),
+                      Text(context.l10n.onboarding_optionsDescription, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
+                      PopupMenuButton(
+                        itemBuilder: (context) => [
+                          PopupMenuItem<void>(
+                            onTap: widget.createAccount,
+                            child: Text(context.l10n.onboarding_createNewAccount),
+                          ),
+                          PopupMenuItem<void>(
+                            onTap: () => showTransferProfileModal(context: context),
                             child: Text(context.l10n.onboarding_transferProfile),
                           ),
-                          MenuItemButton(
-                            onPressed: () => context.push('/restore-from-identity-recovery-kit'),
+                          PopupMenuItem<void>(
+                            onTap: () => context.push('/restore-from-identity-recovery-kit'),
                             child: Text(context.l10n.onboarding_receryKit),
                           ),
                         ],
-                        builder: (context, controller, _) => IconButton.filled(
-                          onPressed: () => controller.isOpen ? controller.close() : controller.open(),
-                          icon: controller.isOpen ? const Icon(Icons.close) : const Icon(Icons.add),
-                        ),
+                        icon: const Icon(Icons.add),
+                        iconColor: Theme.of(context).colorScheme.onPrimary,
+                        style: IconButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
+                        position: PopupMenuPosition.under,
                       ),
                     ],
                   ),

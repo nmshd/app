@@ -81,22 +81,9 @@ class _DevicesScreenState extends State<DevicesScreen> {
                   child: Column(
                     spacing: 16,
                     children: [
-                      AutoLoadingProfilePicture(
-                        accountId: widget.accountId,
-                        profileName: _account!.name,
-                        radius: 60,
-                        decorative: true,
-                      ),
-                      Text(
-                        _account!.name,
-                        style: Theme.of(context).textTheme.titleLarge,
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        context.l10n.devices_description,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        textAlign: TextAlign.center,
-                      ),
+                      AutoLoadingProfilePicture(accountId: widget.accountId, profileName: _account!.name, radius: 60, decorative: true),
+                      Text(_account!.name, style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
+                      Text(context.l10n.devices_description, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
                     ],
                   ),
                 ),
