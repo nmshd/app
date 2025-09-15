@@ -209,6 +209,7 @@ class EnmeshedRuntime with WidgetsBindingObserver {
 
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/loki.js');
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
+    await controller.injectJavascriptFileFromAsset(assetFilePath: 'assets/js/sodium.js');
   }
 
   Future<VoidResult> run() async {

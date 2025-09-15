@@ -37,6 +37,15 @@ class ScanScreen extends StatelessWidget {
 
   Future<void> _onSubmit({required String content, required VoidCallback pause, required VoidCallback resume, required BuildContext context}) async {
     pause();
+
+    if (content.startsWith('openid-credential-offer://')) {
+      // First, replace the current page with the fallback page
+      context.pushReplacement('/account/$accountId/verifiable-credentials');
+      // Then, push the next page on top
+      await context.push('/account/$accountId/verifiable-credentials/introduction', extra: content);
+      return;
+    }
+
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
     if (!context.mounted) return;

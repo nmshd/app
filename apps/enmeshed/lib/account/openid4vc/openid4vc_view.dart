@@ -1,7 +1,7 @@
-import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
-import 'package:enmeshed_types/enmeshed_types.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OpenId4VcView extends StatefulWidget {
   const OpenId4VcView({required this.accountId, super.key});
@@ -9,64 +9,95 @@ class OpenId4VcView extends StatefulWidget {
   final String accountId;
 
   @override
-  OpenId4VcViewState createState() => OpenId4VcViewState();
+  State<OpenId4VcView> createState() => _OpenId4VcViewState();
 }
 
-class OpenId4VcViewState extends State<OpenId4VcView> {
-  String credentialOfferUrl = '';
-  List<VerifiableCredentialDTO> credentialsAccepted = [];
+class _OpenId4VcViewState extends State<OpenId4VcView> {
+  List<Map<String, dynamic>> _claims = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadStoredClaims();
+  }
+
+  Future<void> _loadStoredClaims() async {
+    final preferences = await SharedPreferences.getInstance();
+    final storedClaims = preferences.getStringList('storedClaims') ?? [];
+
+    for (var raw in storedClaims) {
+      try {
+        final map = json.decode(raw);
+        _claims.add(map as Map<String, dynamic>);
+      } catch (_) {
+        print('Error decoding stored claim: $raw');
+      }
+    }
+
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('OpenID4VC - ${widget.accountId}'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              decoration: const InputDecoration(
-                labelText: 'CredentialOffer-URL',
-              ),
-              onChanged: (value) => credentialOfferUrl = value,
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                final url = credentialOfferUrl;
-                final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
-                final result = await session.consumptionServices.openId4Vc.acceptCredentialOffer(url);
-                if (result.isError) {
-                  if (mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: ${result.error.message}')));
-                  }
-                } else {
-                  if (mounted) {
-                    VerifiableCredentialDTO credential = result.value;
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Credential accepted: ${credential.data}')));
-                  }
-                }
+      appBar: AppBar(title: const Text('Stored Claims')),
+      body: _claims.isEmpty
+          ? const Center(child: Text('No stored claims'))
+          : ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: _claims.length,
+              itemBuilder: (context, index) {
+                final claim = _claims[index];
+
+                return Card(
+                  color: Color(int.parse((claim['offerBackgroundColor'] as String).replaceFirst('#', '0xff'))),
+                  margin: const EdgeInsets.only(bottom: 16),
+                  elevation: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                claim['title'] as String,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 22,
+                                  color: Color(int.parse((claim['offerTextColor'] as String).replaceFirst('#', '0xff'))),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                "Issued at: ${claim['issuedAt'] ?? 'N/A'}",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color(int.parse((claim['offerTextColor'] as String).replaceFirst('#', '0xff'))).withOpacity(0.7),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        if (claim['offerLogo'] != null)
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              claim['offerLogo'] as String,
+                              width: 70,
+                              height: 70,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) => const Icon(Icons.image_not_supported, size: 40),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                );
               },
-              child: const Text('Submit'),
             ),
-            // build a list view which shows all accepted credentials
-            Expanded(
-              child: ListView.builder(
-                itemCount: credentialsAccepted.length,
-                itemBuilder: (context, index) {
-                  final credential = credentialsAccepted[index];
-                  return ListTile(
-                    title: Text('Credential ${index + 1}'),
-                    subtitle: Text(credential.data),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

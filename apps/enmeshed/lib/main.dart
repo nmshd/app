@@ -2,6 +2,9 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:croppy/croppy.dart';
+import 'package:enmeshed/account/openid4vc/open_id4vc_credential_accepted_view.dart';
+import 'package:enmeshed/account/openid4vc/open_id4vc_introduction_view.dart';
+import 'package:enmeshed/account/openid4vc/open_id4vc_offer_view.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -131,7 +134,7 @@ final _router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/enter-password-popup',
       pageBuilder: (context, state) => ModalPage(
-        isScrollControlled: true,
+        isScrollControlled: true, 
         builder: (context) {
           final extra = state.extra! as ({UIBridgePasswordType passwordType, int? pinLength, int? attempt, int? passwordLocationIndicator});
           return EnterPasswordModal(
@@ -524,6 +527,47 @@ final _router = GoRouter(
                 key: state.pageKey,
                 child: OpenId4VcView(accountId: state.pathParameters['accountId']!),
               ),
+              routes: [
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'introduction',
+                  builder: (context, state) => OpenId4VcIntroductionView(
+                    offerUrl: state.extra != null ? state.extra! as String : '',
+                    accountId: state.pathParameters['accountId']!,
+                  ),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'resolved-offer',
+                  builder: (context, state) => OpenId4VcOfferView(
+                    offerToAccept: state.extra != null ? state.extra! as String : '',
+                    accountId: state.pathParameters['accountId']!,
+                  ),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'accepted-credentials',
+                  builder: (context, state) => OpenIdCredentialAcceptedView(
+                    offerTitle: state.extra is Map && (state.extra! as Map).containsKey('offerTitle')
+                        ? (state.extra! as Map)['offerTitle'] as String
+                        : '',
+                    status: state.extra is Map && (state.extra! as Map).containsKey('status') ? (state.extra! as Map)['status'] as String : '',
+                    credentialsText: state.extra is Map && (state.extra! as Map).containsKey('credentialsText')
+                        ? (state.extra! as Map)['credentialsText'] as String
+                        : '',
+                    offerLogo: state.extra is Map && (state.extra! as Map).containsKey('offerLogo')
+                        ? (state.extra! as Map)['offerLogo'] as String
+                        : '',
+                    offerBackgroundColor: state.extra is Map && (state.extra! as Map).containsKey('offerBackgroundColor')
+                        ? (state.extra! as Map)['offerBackgroundColor'] as String
+                        : '',
+                    offerTextColor: state.extra is Map && (state.extra! as Map).containsKey('offerTextColor')
+                        ? (state.extra! as Map)['offerTextColor'] as String
+                        : '',
+                    accountId: state.pathParameters['accountId']!,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
