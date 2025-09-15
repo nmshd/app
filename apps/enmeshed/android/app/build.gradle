@@ -31,7 +31,11 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "eu.enmeshed.app"
+<<<<<<< HEAD
     compileSdkVersion flutter.compileSdkVersion
+=======
+    compileSdkVersion 36
+>>>>>>> d3f6c8fd (WIP)
     ndkVersion "27.0.12077973"
 
     compileOptions {

@@ -64,3 +64,6 @@ melos:
     build_runner:
       run: melos exec --depends-on build_runner -- "dart run build_runner build --delete-conflicting-outputs && dart format ."
       description: Run build runner in all packages that depend on it (e.g. for regenerating types)
+
+dependencies:
+  dart_jsonwebtoken: ^3.2.0
