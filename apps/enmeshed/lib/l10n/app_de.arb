@@ -305,7 +305,7 @@
   "devices_otherDevices": "Weitere Geräte",
   "devices_transferProfile": "Profil auf neues Gerät übertragen",
   "devices_empty": "Dieses Profil an weitere Geräte übertragen",
-  "devices_empty_description": "Installieren Sie zuerst die enmeshed-App auf Ihrem neuen Gerät. Übertragen diese Profil anschließend auf das neue Gerät.",
+  "devices_empty_description": "Installieren Sie zuerst die enmeshed-App auf Ihrem neuen Gerät. Übertragen Sie dieses Profil anschließend auf das neue Gerät.",
   "devices_edit": "Gerät bearbeiten",
   "devices_edit_description": "Beschreibung",
   "deviceInfo_warningSemanticsLabel": "Warnhinweis",
