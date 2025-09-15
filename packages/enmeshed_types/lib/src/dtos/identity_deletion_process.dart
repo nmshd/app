@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'identity_deletion_process.g.dart';
 
-enum IdentityDeletionProcessStatus { WaitingForApproval, Rejected, Approved, Cancelled }
+enum IdentityDeletionProcessStatus { Approved, Cancelled }
 
 @JsonSerializable(includeIfNull: false)
 class IdentityDeletionProcessDTO extends Equatable {
@@ -11,9 +11,6 @@ class IdentityDeletionProcessDTO extends Equatable {
   final IdentityDeletionProcessStatus status;
   final String? createdAt;
   final String? createdByDevice;
-  final String? approvalPeriodEndsAt;
-  final String? rejectedAt;
-  final String? rejectedByDevice;
   final String? approvedAt;
   final String? approvedByDevice;
   final String? gracePeriodEndsAt;
@@ -25,9 +22,6 @@ class IdentityDeletionProcessDTO extends Equatable {
     required this.status,
     this.createdAt,
     this.createdByDevice,
-    this.approvalPeriodEndsAt,
-    this.rejectedAt,
-    this.rejectedByDevice,
     this.approvedAt,
     this.approvedByDevice,
     this.gracePeriodEndsAt,
@@ -45,9 +39,6 @@ class IdentityDeletionProcessDTO extends Equatable {
     status,
     createdAt,
     createdByDevice,
-    approvalPeriodEndsAt,
-    rejectedAt,
-    rejectedByDevice,
     approvedAt,
     approvedByDevice,
     gracePeriodEndsAt,
