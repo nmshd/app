@@ -67,6 +67,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
               tooltip: context.l10n.devices_transferProfile,
               child: const Icon(Icons.send_to_mobile_outlined),
             ),
+
       body: RefreshIndicator(
         onRefresh: _reloadDevices,
         child: Scrollbar(
