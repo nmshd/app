@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
 import '/core/core.dart';
-import '../widgets/device_widgets.dart';
+import '../widgets/device_card.dart';
 
 class DevicesScreen extends StatefulWidget {
   final String accountId;
@@ -67,57 +67,65 @@ class _DevicesScreenState extends State<DevicesScreen> {
               tooltip: context.l10n.devices_transferProfile,
               child: const Icon(Icons.send_to_mobile_outlined),
             ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Card(
-                color: Theme.of(context).colorScheme.surfaceContainer,
-                margin: EdgeInsets.zero,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    spacing: 16,
-                    children: [
-                      AutoLoadingProfilePicture(accountId: widget.accountId, profileName: _account!.name, radius: 60, decorative: true),
-                      Text(_account!.name, style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
-                      Text(context.l10n.devices_description, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
-                    ],
+      body: RefreshIndicator(
+        onRefresh: _reloadDevices,
+        child: Scrollbar(
+          thumbVisibility: true,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Card(
+                    color: Theme.of(context).colorScheme.surfaceContainer,
+                    margin: const EdgeInsets.symmetric(vertical: 16),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        spacing: 16,
+                        children: [
+                          AutoLoadingProfilePicture(accountId: widget.accountId, profileName: _account!.name, radius: 60, decorative: true),
+                          Text(_account!.name, style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
+                          Text(context.l10n.devices_description, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              Gaps.h32,
-              DeviceCard(accountId: widget.accountId, device: currentDevice, reloadDevices: _reloadDevices),
-              Gaps.h24,
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Text(context.l10n.devices_otherDevices, style: Theme.of(context).textTheme.titleMedium),
-              ),
-              Expanded(
-                child: RefreshIndicator(
-                  onRefresh: _reloadDevices,
-                  child: otherDevices.isEmpty
-                      ? EmptyListIndicator(
-                          icon: Icons.send_to_mobile_outlined,
-                          text: context.l10n.devices_empty,
-                          wrapInListView: true,
-                          description: context.l10n.devices_empty_description,
-                          action: FilledButton(
-                            onPressed: _transferProfileToDevice,
-                            child: Text(context.l10n.devices_transferProfile),
-                          ),
-                        )
-                      : ListView.separated(
-                          itemCount: otherDevices.length,
-                          separatorBuilder: (_, _) => Gaps.h16,
-                          itemBuilder: (context, index) =>
-                              DeviceCard(accountId: widget.accountId, device: otherDevices[index], reloadDevices: _reloadDevices),
-                        ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: DeviceCard(accountId: widget.accountId, device: currentDevice, reloadDevices: _reloadDevices),
+                  ),
                 ),
-              ),
-            ],
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(context.l10n.devices_otherDevices, style: Theme.of(context).textTheme.titleMedium),
+                  ),
+                ),
+                if (otherDevices.isEmpty)
+                  SliverToBoxAdapter(
+                    child: EmptyListIndicator(
+                      icon: Icons.send_to_mobile_outlined,
+                      text: context.l10n.devices_empty,
+                      description: context.l10n.devices_empty_description,
+                      action: FilledButton(
+                        onPressed: _transferProfileToDevice,
+                        child: Text(context.l10n.devices_transferProfile),
+                      ),
+                    ),
+                  )
+                else
+                  SliverList.separated(
+                    itemCount: otherDevices.length,
+                    separatorBuilder: (_, _) => Gaps.h16,
+                    itemBuilder: (context, index) =>
+                        DeviceCard(accountId: widget.accountId, device: otherDevices[index], reloadDevices: _reloadDevices),
+                  ),
+                const SliverToBoxAdapter(child: SizedBox(height: 80)),
+              ],
+            ),
           ),
         ),
       ),
