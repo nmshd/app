@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
 import '/core/core.dart';
-import '../widgets/device_card.dart';
+import '../widgets/device_widgets.dart';
 
 class DevicesScreen extends StatefulWidget {
   final String accountId;
