@@ -7,5 +7,5 @@ class AcceptFormFieldRequestItemParameters extends AcceptRequestItemParameters {
   const AcceptFormFieldRequestItemParameters({required this.response});
 
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), 'response': response};
+  Map<String, dynamic> toJson() => {...super.toJson(), 'response': response.toJson()};
 }
