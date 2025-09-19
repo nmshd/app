@@ -100,7 +100,6 @@ class _NumberFormFieldSettingsRendererState extends State<NumberFormFieldSetting
               ? RejectRequestItemParameters()
               : AcceptFormFieldRequestItemParameters(
                   response: FormFieldNumResponse(
-                    // TODO: this
                     widget.item.settings is IntegerFormFieldSettings ? int.parse(newValue) : double.parse(newValue.replaceAll(',', '.')),
                   ),
                 ),
