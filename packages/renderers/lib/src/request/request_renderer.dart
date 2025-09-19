@@ -71,7 +71,7 @@ class RequestRenderer extends StatelessWidget {
     return Form(
       key: formKey,
       autovalidateMode: AutovalidateMode.onUnfocus,
-      child: Column(children: requestItems),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: requestItems),
     );
   }
 }

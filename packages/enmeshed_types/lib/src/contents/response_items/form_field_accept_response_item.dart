@@ -27,6 +27,7 @@ sealed class FormFieldAcceptResponseType {
     num() => FormFieldNumResponse(json),
     bool() => FormFieldBoolResponse(json),
     List<String>() => FormFieldStringListResponse(json),
+    List<dynamic>() => FormFieldStringListResponse(List<String>.from(json)),
     _ => throw Exception('Invalid type for FormFieldAcceptResponseType: ${json.runtimeType}'),
   };
 

@@ -31,19 +31,7 @@ class DebugScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               FutureBuilder(
-                builder: (_, s) => !s.hasData ? const CircularProgressIndicator() : _CopyableText(title: 'Address: ', text: s.data!.value.address),
-                future: () async {
-                  final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
-                  final lastUsedAccount = accounts.reduce(
-                    (value, element) => (value.lastAccessedAt ?? '').compareTo(element.lastAccessedAt ?? '') == 1 ? value : element,
-                  );
-                  final session = GetIt.I.get<EnmeshedRuntime>().getSession(lastUsedAccount.id);
-
-                  return session.transportServices.account.getIdentityInfo();
-                }(),
-              ),
-              FutureBuilder(
-                builder: (_, s) => !s.hasData ? const CircularProgressIndicator() : _CopyableText(title: 'Push Token: ', text: s.data!),
+                builder: (_, s) => _CopyableText(title: 'Push Token: ', text: s.data),
                 future: Push.instance.token.timeout(const Duration(seconds: 5)).catchError((_) => 'timeout', test: (e) => e is TimeoutException),
               ),
               if (kDebugMode) const _PasswordTester(),
@@ -203,7 +191,7 @@ class DebugScreen extends StatelessWidget {
 
 class _CopyableText extends StatelessWidget {
   final String title;
-  final String text;
+  final String? text;
 
   const _CopyableText({required this.title, required this.text});
 
@@ -215,20 +203,23 @@ class _CopyableText extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: Text(
-                text,
-                style: text == 'timeout' ? TextStyle(color: Theme.of(context).colorScheme.error) : null,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+          if (text == null)
+            const CircularProgressIndicator()
+          else
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Text(
+                  text!,
+                  style: text == 'timeout' ? TextStyle(color: Theme.of(context).colorScheme.error) : null,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
-          ),
           IconButton(
             icon: const Icon(Icons.copy),
-            onPressed: text == 'timeout' ? null : () => Clipboard.setData(ClipboardData(text: text)),
+            onPressed: text == 'timeout' || text == null ? null : () => Clipboard.setData(ClipboardData(text: text!)),
           ),
         ],
       ),

@@ -73,6 +73,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
       title: title ?? subtitle ?? const Text(''),
       subtitle: title != null ? subtitle : null,
       iconColor: Theme.of(context).colorScheme.onSurfaceVariant,
+      expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
       children: requestItems,
     );
   }
