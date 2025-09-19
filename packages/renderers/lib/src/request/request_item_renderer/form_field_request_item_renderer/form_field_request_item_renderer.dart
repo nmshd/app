@@ -31,11 +31,8 @@ class _DecidableFormFieldRequestItemRendererState extends State<FormFieldRequest
   Widget build(BuildContext context) {
     final title = widget.item.title;
 
-    return InkWell(
-      splashColor: Colors.transparent,
-      hoverColor: Colors.transparent,
-      focusColor: Colors.transparent,
-      highlightColor: Colors.transparent,
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       onTap: _onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
