@@ -49,17 +49,13 @@ class _NumberFormFieldSettingsRendererState extends State<NumberFormFieldSetting
 
     if (widget.item.response is FormFieldAcceptResponseItemDVO) {
       final response = widget.item.response as FormFieldAcceptResponseItemDVO;
-      final unit = switch (widget.item.settings) {
-        final IntegerFormFieldSettings s => s.unit,
-        final DoubleFormFieldSettings s => s.unit,
-        _ => null,
-      };
+      final unit = widget.item.settings.unit;
 
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 4),
         child: Text(
           '${NumberFormat().format((response.response as FormFieldNumResponse).value)}${unit ?? ''}',
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
       );
     }
@@ -75,23 +71,16 @@ class _NumberFormFieldSettingsRendererState extends State<NumberFormFieldSetting
           contentPadding: const EdgeInsets.symmetric(vertical: 4),
           isDense: true,
           suffixStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface),
-          suffix: switch (widget.item.settings) {
-            final IntegerFormFieldSettings s =>
-              s.unit == null
-                  ? null
-                  : Padding(
-                      padding: const EdgeInsets.only(left: 2),
-                      child: Text(s.unit!, style: Theme.of(context).textTheme.bodyLarge),
-                    ),
-            final DoubleFormFieldSettings s =>
-              s.unit == null
-                  ? null
-                  : Padding(
-                      padding: const EdgeInsets.only(left: 2),
-                      child: Text(s.unit!, style: Theme.of(context).textTheme.bodyLarge),
-                    ),
-            _ => null,
-          },
+          prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0, maxWidth: 200),
+          prefixIcon: widget.item.settings.unit == null
+              ? null
+              : Container(
+                  margin: const EdgeInsets.only(right: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(color: Theme.of(context).colorScheme.secondaryContainer, borderRadius: BorderRadius.circular(4)),
+                  child: Text(widget.item.settings.unit!, style: Theme.of(context).textTheme.bodyLarge),
+                ),
+          counterText: '',
         ),
         keyboardType: widget.item.settings is IntegerFormFieldSettings
             ? TextInputType.number
@@ -99,8 +88,9 @@ class _NumberFormFieldSettingsRendererState extends State<NumberFormFieldSetting
         inputFormatters: [
           widget.item.settings is IntegerFormFieldSettings
               ? FilteringTextInputFormatter.digitsOnly
-              : FilteringTextInputFormatter.allow(RegExp(r'^\d*[,|.]?\d{0,2}')),
+              : FilteringTextInputFormatter.allow(RegExp(r'^\d+[,|.]?\d{0,4}')),
         ],
+        maxLength: 16,
         controller: _textController,
         onTap: () => _focusNode.requestFocus(),
         onTapOutside: (_) => _focusNode.unfocus(),
@@ -118,4 +108,12 @@ class _NumberFormFieldSettingsRendererState extends State<NumberFormFieldSetting
       ),
     );
   }
+}
+
+extension on FormFieldSettings {
+  String? get unit => switch (this) {
+    final IntegerFormFieldSettings s => s.unit,
+    final DoubleFormFieldSettings s => s.unit,
+    _ => null,
+  };
 }
