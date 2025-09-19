@@ -33,7 +33,7 @@ class _DecidableFormFieldRequestItemRendererState extends State<FormFieldRequest
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: _onTap,
+      onTap: () => _onTap?.call(),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         child: Column(
@@ -51,19 +51,19 @@ class _DecidableFormFieldRequestItemRendererState extends State<FormFieldRequest
                 item: widget.item,
                 controller: widget.controller,
                 itemIndex: widget.itemIndex,
-                setOnTap: _setOnTap,
+                setOnTap: (onTap) => _onTap = onTap,
               ),
               DoubleFormFieldSettings() => NumberFormFieldSettingsRenderer(
                 item: widget.item,
                 controller: widget.controller,
                 itemIndex: widget.itemIndex,
-                setOnTap: _setOnTap,
+                setOnTap: (onTap) => _onTap = onTap,
               ),
               IntegerFormFieldSettings() => NumberFormFieldSettingsRenderer(
                 item: widget.item,
                 controller: widget.controller,
                 itemIndex: widget.itemIndex,
-                setOnTap: _setOnTap,
+                setOnTap: (onTap) => _onTap = onTap,
               ),
               RatingFormFieldSettings() => RatingFormFieldSettingsRenderer(
                 item: widget.item,
@@ -79,7 +79,7 @@ class _DecidableFormFieldRequestItemRendererState extends State<FormFieldRequest
                 item: widget.item,
                 controller: widget.controller,
                 itemIndex: widget.itemIndex,
-                setOnTap: _setOnTap,
+                setOnTap: (onTap) => _onTap = onTap,
               ),
             },
             if (widget.item.description != null) Text(widget.item.description!, style: Theme.of(context).textTheme.labelMedium),
@@ -90,6 +90,4 @@ class _DecidableFormFieldRequestItemRendererState extends State<FormFieldRequest
       ),
     );
   }
-
-  void _setOnTap(VoidCallback? onTap) => WidgetsBinding.instance.addPostFrameCallback((_) => setState(() => _onTap = onTap));
 }
