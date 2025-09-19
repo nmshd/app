@@ -28,28 +28,39 @@ class _DateFormFieldSettingsRendererState extends State<DateFormFieldSettingsRen
     super.initState();
 
     widget.setOnTap(() => _onTap());
-
-    if (widget.item.response is FormFieldAcceptResponseItemDVO) {
-      final response = widget.item.response as FormFieldAcceptResponseItemDVO;
-      _value = DateTime.tryParse((response.response as FormFieldStringResponse).value);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.item.response is RejectResponseItemDVO) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Text(
+          FlutterI18n.translate(context, 'requestRenderer.formField.noValue'),
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outlineVariant),
+        ),
+      );
+    }
+
+    if (widget.item.response is FormFieldAcceptResponseItemDVO) {
+      final response = widget.item.response as FormFieldAcceptResponseItemDVO;
+
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Text(
+          DateFormat.yMd(Localizations.localeOf(context).languageCode).format(DateTime.parse((response.response as FormFieldStringResponse).value)),
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Text(
         _value == null
             ? FlutterI18n.translate(context, 'requestRenderer.formField.noValue')
             : DateFormat.yMd(Localizations.localeOf(context).languageCode).format(_value!),
-        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-          color: _value == null
-              ? Theme.of(context).colorScheme.outlineVariant
-              : widget.item.isDecidable
-              ? null
-              : Theme.of(context).colorScheme.outline,
-        ),
+        style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: _value == null ? Theme.of(context).colorScheme.outlineVariant : null),
       ),
     );
   }
