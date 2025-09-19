@@ -50,10 +50,7 @@ class _StringFormFieldSettingsRendererState extends State<StringFormFieldSetting
 
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Text(
-          (response.response as FormFieldStringResponse).value,
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
-        ),
+        child: Text((response.response as FormFieldStringResponse).value, style: Theme.of(context).textTheme.bodyLarge),
       );
     }
 
