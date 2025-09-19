@@ -7,10 +7,8 @@ import '../request_renderer_controller.dart';
 import 'authentication_request_item_renderer.dart';
 import 'consent_request_item_renderer.dart';
 import 'create_attribute_request_item_renderer.dart';
-import 'free_text_request_item_renderer.dart';
 import 'propose_attribute_request_item_renderer.dart';
 import 'read_attribute_request_item_renderer.dart';
-import 'register_attribute_listener_request_item_renderer.dart';
 import 'share_attribute_request_item_renderer.dart';
 import 'transfer_file_ownership_request_item_renderer.dart';
 
@@ -97,17 +95,6 @@ class RequestItemRenderer extends StatelessWidget {
           item: dvo,
           itemIndex: itemIndex,
           validationResult: validationResult,
-        ),
-        final RegisterAttributeListenerRequestItemDVO dvo => RegisterAttributeListenerRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-        ),
-        final FreeTextRequestItemDVO dvo => FreeTextRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-          requestStatus: requestStatus,
         ),
         final TransferFileOwnershipRequestItemDVO dvo => TransferFileOwnershipRequestItemRenderer(
           controller: controller,
