@@ -79,12 +79,7 @@ extension on Set<String> {
       return;
     }
 
-    if (multiSelection) {
-      add(value);
-      return;
-    }
-
-    clear();
+    if (!multiSelection) clear();
     add(value);
   }
 }
