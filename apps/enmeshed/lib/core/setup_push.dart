@@ -26,22 +26,22 @@ Future<void> setupPush(EnmeshedRuntime runtime) async {
     }
   });
 
-  Push.instance.addOnNotificationTap((data) {
+  Push.instance.addOnNotificationTap((data) async {
     logger.i('Notification was tapped:\nData: $data');
 
     final content = extractContentFromMessageData(data);
     if (content == null) return;
-    runtime.triggerRemoteNotificationEvent(content: content);
+    await runtime.triggerRemoteNotificationEvent(content: content);
   });
 
-  Push.instance.addOnMessage((message) {
+  Push.instance.addOnMessage((message) async {
     message.debugLog('foreground');
-    triggerRemoteNotificationEvent(runtime, message);
+    await triggerRemoteNotificationEvent(runtime, message);
   });
 
-  Push.instance.addOnBackgroundMessage((message) {
+  Push.instance.addOnBackgroundMessage((message) async {
     message.debugLog('background');
-    triggerRemoteNotificationEvent(runtime, message);
+    await triggerRemoteNotificationEvent(runtime, message);
   });
 }
 

@@ -30,8 +30,8 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
   void initState() {
     super.initState();
 
-    _loadDevice();
-    _getDevices();
+    unawaited(_loadDevice());
+    unawaited(_getDevices());
   }
 
   @override

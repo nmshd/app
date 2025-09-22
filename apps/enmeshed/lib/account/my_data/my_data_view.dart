@@ -31,7 +31,7 @@ class _MyDataViewState extends State<MyDataView> {
   void initState() {
     super.initState();
 
-    _reload();
+    unawaited(_reload());
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     _subscriptions
@@ -44,7 +44,7 @@ class _MyDataViewState extends State<MyDataView> {
   @override
   void dispose() {
     for (final subscription in _subscriptions) {
-      subscription.cancel();
+      unawaited(subscription.cancel());
     }
 
     super.dispose();

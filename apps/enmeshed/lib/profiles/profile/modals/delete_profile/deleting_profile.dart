@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -28,7 +30,7 @@ class _DeletingProfileState extends State<DeletingProfile> {
   void initState() {
     super.initState();
 
-    _runDeletion();
+    unawaited(_runDeletion());
   }
 
   @override

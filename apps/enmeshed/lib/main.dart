@@ -271,9 +271,10 @@ final _router = GoRouter(
           path: 'feedback',
           builder: (context, state) {
             return InstructionsScreen(
-              onContinue: (context) => context
-                ..pop()
-                ..giveFeedback(state.pathParameters['accountId']!),
+              onContinue: (context) async {
+                context.pop();
+                await context.giveFeedback(state.pathParameters['accountId']!);
+              },
               title: context.l10n.instructions_giveFeedback_title,
               subtitle: context.l10n.instructions_giveFeedback_subtitle,
               informationTitle: context.l10n.instructions_giveFeedback_informationTitle,
@@ -529,7 +530,7 @@ class EnmeshedApp extends StatelessWidget with WatchItMixin {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    unawaited(SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]));
 
     unawaited(SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge));
 

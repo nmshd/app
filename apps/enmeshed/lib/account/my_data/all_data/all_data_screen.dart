@@ -26,7 +26,7 @@ class _AllDataScreenState extends State<AllDataScreen> {
   void initState() {
     super.initState();
 
-    _loadAttributes();
+    unawaited(_loadAttributes());
   }
 
   @override

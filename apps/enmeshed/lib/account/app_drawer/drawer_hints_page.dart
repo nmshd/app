@@ -32,12 +32,12 @@ class DrawerHintsPageState extends State<DrawerHintsPage> {
 
     _subscription = GetIt.I.get<EnmeshedRuntime>().eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _loadHints().catchError((_) {}));
 
-    _loadHints();
+    unawaited(_loadHints());
   }
 
   @override
   void dispose() {
-    _subscription.cancel();
+    unawaited(_subscription.cancel());
 
     super.dispose();
   }
