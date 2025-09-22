@@ -54,6 +54,8 @@ class _StringFormFieldSettingsRendererState extends State<StringFormFieldSetting
       );
     }
 
+    // TODO(jkoenig134): handle min, max and allowNewlines
+
     return TextField(
       focusNode: _focusNode,
       showCursor: _focusNode.hasFocus,
