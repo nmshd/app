@@ -26,14 +26,14 @@ class _OnboardingSelectOptionState extends State<OnboardingSelectOption> {
   void initState() {
     super.initState();
 
-    _loadAccountsInDeletion();
+    unawaited(_loadAccountsInDeletion());
   }
 
   @override
   void didUpdateWidget(covariant OnboardingSelectOption oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    _loadAccountsInDeletion();
+    unawaited(_loadAccountsInDeletion());
   }
 
   @override

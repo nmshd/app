@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     FlutterNativeSplash.remove();
-    _init(GoRouter.of(context));
+    unawaited(_init(GoRouter.of(context)));
   }
 
   @override

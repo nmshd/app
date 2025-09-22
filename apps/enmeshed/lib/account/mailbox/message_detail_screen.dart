@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -30,7 +32,7 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
   void initState() {
     super.initState();
 
-    _loadData();
+    unawaited(_loadData());
   }
 
   @override

@@ -30,9 +30,10 @@ class FeedbackErrorDialog extends StatelessWidget {
     );
   }
 
-  void _giveFeedback(BuildContext context) => context
-    ..pop()
-    ..giveFeedback(accountId);
+  Future<void> _giveFeedback(BuildContext context) async {
+    context.pop();
+    await context.giveFeedback(accountId);
+  }
 
   Future<void> _reSendMail(BuildContext context) async {
     if (feedbackMailUri == null) return;

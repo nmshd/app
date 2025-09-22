@@ -39,7 +39,7 @@ class _HomeViewState extends State<HomeView> {
 
     _scrollController = ScrollController();
 
-    _reload();
+    unawaited(_reload());
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     _subscriptions
@@ -58,7 +58,7 @@ class _HomeViewState extends State<HomeView> {
     _scrollController.dispose();
 
     for (final subscription in _subscriptions) {
-      subscription.cancel();
+      unawaited(subscription.cancel());
     }
 
     super.dispose();
@@ -66,9 +66,9 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void didUpdateWidget(covariant HomeView oldWidget) {
-    if (oldWidget.accountId != widget.accountId) _reload();
-
     super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.accountId != widget.accountId) unawaited(_reload());
   }
 
   @override

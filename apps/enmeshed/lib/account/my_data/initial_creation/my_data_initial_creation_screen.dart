@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
@@ -51,7 +52,7 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
     super.initState();
 
     _setupControllers();
-    _loadRenderHints();
+    unawaited(_loadRenderHints());
   }
 
   @override

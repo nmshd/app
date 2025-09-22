@@ -7,6 +7,7 @@ import '../request_renderer_controller.dart';
 import 'authentication_request_item_renderer.dart';
 import 'consent_request_item_renderer.dart';
 import 'create_attribute_request_item_renderer.dart';
+import 'form_field_request_item_renderer/form_field_request_item_renderer.dart';
 import 'propose_attribute_request_item_renderer.dart';
 import 'read_attribute_request_item_renderer.dart';
 import 'share_attribute_request_item_renderer.dart';
@@ -102,6 +103,12 @@ class RequestItemRenderer extends StatelessWidget {
           itemIndex: itemIndex,
           expandFileReference: expandFileReference,
           openFileDetails: openFileDetails,
+          validationResult: validationResult,
+        ),
+        final FormFieldRequestItemDVO dvo => FormFieldRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
           validationResult: validationResult,
         ),
         _ => throw Exception("Invalid type '${item.type}'"),

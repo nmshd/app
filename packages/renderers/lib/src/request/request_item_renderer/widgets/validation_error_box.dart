@@ -4,8 +4,9 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 class ValidationErrorBox extends StatelessWidget {
   final RequestValidationResultDTO validationResult;
+  final String? rendererName;
 
-  const ValidationErrorBox({required this.validationResult, super.key});
+  const ValidationErrorBox({required this.validationResult, this.rendererName, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,9 @@ class ValidationErrorBox extends StatelessWidget {
             Icon(Icons.error, color: Theme.of(context).colorScheme.onError),
             Expanded(
               child: TranslatedText(
-                'i18n://requestRenderer.errors.${validationResult.code!}',
+                rendererName != null
+                    ? 'i18n://requestRenderer.$rendererName.errors.${validationResult.code!}'
+                    : 'i18n://requestRenderer.errors.${validationResult.code!}',
                 style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onError),
               ),
             ),

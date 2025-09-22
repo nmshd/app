@@ -17,9 +17,10 @@ class FeedbackSuccessDialog extends StatelessWidget {
       content: Text(context.l10n.giveFeedback_success_description, textAlign: TextAlign.center),
       actions: [
         OutlinedButton(
-          onPressed: () => context
-            ..pop()
-            ..giveFeedback(accountId),
+          onPressed: () async {
+            context.pop();
+            await context.giveFeedback(accountId);
+          },
           child: Text(context.l10n.giveFeedback_success_newFeedback),
         ),
         FilledButton(onPressed: context.pop, child: Text(context.l10n.close)),

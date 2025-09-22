@@ -769,6 +769,10 @@
       }
     }
   },
+  "common": {
+    "yes": "Ja",
+    "no": "Nein"
+  },
   "dvo": {
     "attribute": {
       "description": {
@@ -1179,6 +1183,30 @@
       "defaultLinkDisplayText": "Link öffnen",
       "showFullConsent": "Gesamten Text anzeigen",
       "title": "Einverständniserklärung"
+    },
+    "formField": {
+      "noValue": "Kein Wert",
+      "datePicker": {
+        "adjustDateDialog": {
+          "title": "Datum anpassen",
+          "description": "Möchten Sie das eingegebene Datum ändern oder entfernen?",
+          "remove": "Entfernen",
+          "change": "Ändern"
+        }
+      },
+      "errors": {
+        "error": {
+          "consumption": {
+            "requests": {
+              "decide": {
+                "validation": {
+                  "mustBeAcceptedItemNotAccepted": "Bitte geben Sie einen Wert ein."
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "description": {
       "transferFileOwnership": "Neues Dokument in Ihrer Wallet"
