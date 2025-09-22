@@ -1,11 +1,11 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:renderers/src/request/request_item_renderer/form_field_request_item_renderer/boolean_form_field_settings_renderer.dart';
-import 'package:renderers/src/request/request_item_renderer/form_field_request_item_renderer/date_form_field_settings_renderer.dart';
 
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
 import '../widgets/validation_error_box.dart';
+import 'boolean_form_field_settings_renderer.dart';
+import 'date_form_field_settings_renderer.dart';
 import 'number_form_field_settings_renderer.dart';
 import 'rating_form_field_settings_renderer.dart';
 import 'selection_form_field_settings_renderer.dart';
