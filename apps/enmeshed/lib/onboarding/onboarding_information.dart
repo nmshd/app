@@ -98,8 +98,8 @@ class _OnboardingInformationState extends State<OnboardingInformation> {
                     activeDotColor: Theme.of(context).colorScheme.primary,
                     dotColor: Theme.of(context).colorScheme.primaryContainer,
                   ),
-                  onDotClicked: (index) {
-                    _pageController.animateToPage(index, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                  onDotClicked: (index) async {
+                    await _pageController.animateToPage(index, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                   },
                 ),
                 Align(

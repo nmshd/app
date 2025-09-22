@@ -28,7 +28,7 @@ class _DrawerMainPageState extends State<DrawerMainPage> {
   void initState() {
     super.initState();
 
-    _checkNotificationPermission();
+    unawaited(_checkNotificationPermission());
   }
 
   @override
@@ -74,31 +74,35 @@ class _DrawerMainPageState extends State<DrawerMainPage> {
               ),
               const Divider(indent: 16, endIndent: 16),
               ListTile(
-                onTap: () => context
-                  ..pop()
-                  ..push('/legal-notice'),
+                onTap: () async {
+                  context.pop();
+                  await context.push('/legal-notice');
+                },
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 title: Text(context.l10n.legalNotice, style: Theme.of(context).textTheme.labelLarge),
               ),
               ListTile(
-                onTap: () => context
-                  ..pop()
-                  ..push('/data-protection'),
+                onTap: () async {
+                  context.pop();
+                  await context.push('/data-protection');
+                },
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 title: Text(context.l10n.dataProtection, style: Theme.of(context).textTheme.labelLarge),
               ),
               ListTile(
-                onTap: () => context
-                  ..pop()
-                  ..push('/imprint'),
+                onTap: () async {
+                  context.pop();
+                  await context.push('/imprint');
+                },
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 title: Text(context.l10n.imprint, style: Theme.of(context).textTheme.labelLarge),
               ),
               const Divider(indent: 16, endIndent: 16),
               ListTile(
-                onTap: () => context
-                  ..pop()
-                  ..push('/account/${widget.accountId}/feedback'),
+                onTap: () async {
+                  context.pop();
+                  await context.push('/account/${widget.accountId}/feedback');
+                },
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 title: Text(context.l10n.drawer_hints_giveFeedback, style: Theme.of(context).textTheme.labelLarge),
               ),
@@ -111,9 +115,10 @@ class _DrawerMainPageState extends State<DrawerMainPage> {
             children: [
               Expanded(
                 child: TenTapDetector(
-                  onTenTap: () => context
-                    ..pop()
-                    ..push('/debug'),
+                  onTenTap: () async {
+                    context.pop();
+                    await context.push('/debug');
+                  },
                   child: FutureBuilder(
                     builder: (ctx, snap) => Text(
                       'App-Version\n${snap.hasData ? snap.data : '...'}',

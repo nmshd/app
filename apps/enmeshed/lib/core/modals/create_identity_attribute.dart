@@ -55,7 +55,7 @@ class _CreateAttributeModalState extends State<_CreateAttributeModal> {
   void initState() {
     super.initState();
 
-    if (widget.initialValueType != null) _onValueTypeSelected(widget.initialValueType!);
+    if (widget.initialValueType != null) unawaited(_onValueTypeSelected(widget.initialValueType!));
   }
 
   @override
@@ -285,7 +285,7 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
     final errorCode = createAttributeResult.error.code;
     if (_isDuplicateEntryError(errorCode)) {
       setState(() => _errorCode = errorCode);
-      _scrollToBottom();
+      await _scrollToBottom();
 
       return;
     }
@@ -309,10 +309,10 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
 
   bool _isDuplicateEntryError(String? errorCode) => errorCode != null && errorCode.contains('cannotCreateDuplicateRepositoryAttribute');
 
-  void _scrollToBottom() {
+  Future<void> _scrollToBottom() async {
     if (!_scrollController.hasClients || !_scrollController.position.hasViewportDimension) return;
 
-    _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+    await _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
   }
 }
 
@@ -333,7 +333,7 @@ class _EditableAttributesState extends State<_EditableAttributes> {
   void initState() {
     super.initState();
 
-    _loadEditableAttributes();
+    unawaited(_loadEditableAttributes());
   }
 
   @override

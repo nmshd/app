@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
@@ -255,14 +256,14 @@ class _FileSelectedState extends State<_FileSelected> {
   void initState() {
     super.initState();
 
-    _updateFileSize();
+    unawaited(_updateFileSize());
   }
 
   @override
   void didUpdateWidget(covariant _FileSelected oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.file.path != widget.file.path) _updateFileSize();
+    if (oldWidget.file.path != widget.file.path) unawaited(_updateFileSize());
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +52,7 @@ class MessageListTile extends StatelessWidget {
       controller!.closeView(null);
     }
 
-    context.push('/account/$accountId/mailbox/${message.id}');
+    unawaited(context.push('/account/$accountId/mailbox/${message.id}'));
   }
 
   Color _avatarColor(BuildContext context) {

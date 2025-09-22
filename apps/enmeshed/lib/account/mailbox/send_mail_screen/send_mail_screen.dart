@@ -42,7 +42,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
     _subjectController.addListener(() => setState(() {}));
     _messageController.addListener(() => setState(() {}));
 
-    _loadContacts();
+    unawaited(_loadContacts());
     _recipient = widget.contact;
   }
 

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -24,7 +26,7 @@ class _LegalTextScreenState extends State<LegalTextScreen> {
   void initState() {
     super.initState();
 
-    _loadFile();
+    unawaited(_loadFile());
   }
 
   @override
