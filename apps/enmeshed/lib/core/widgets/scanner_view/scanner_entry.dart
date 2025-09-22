@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -50,10 +51,10 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
       ..addListener(() => setState(() {}))
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          _animationController.reverse();
+          unawaited(_animationController.reverse());
           animationDirection = ScannerAnimationDirection.reverse;
         } else if (status == AnimationStatus.dismissed) {
-          _animationController.forward();
+          unawaited(_animationController.forward());
           animationDirection = ScannerAnimationDirection.forward;
         }
       });
@@ -63,7 +64,7 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
 
   @override
   void dispose() {
-    _cameraController.dispose();
+    unawaited(_cameraController.dispose());
     _animationController.dispose();
 
     super.dispose();

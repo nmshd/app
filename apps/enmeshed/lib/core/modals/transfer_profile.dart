@@ -39,7 +39,7 @@ class _TransferProfileModalState extends State<_TransferProfileModal> {
   void initState() {
     super.initState();
 
-    _refreshQRCode();
+    unawaited(_refreshQRCode());
     _startTimer();
   }
 

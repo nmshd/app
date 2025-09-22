@@ -43,7 +43,7 @@ class _MailboxViewState extends State<MailboxView> {
     _filterOption = MailboxFilterOption.incoming;
     _filteredContactId = widget.filteredContactId;
 
-    _reload(isFirstTime: true, syncBefore: true);
+    unawaited(_reload(isFirstTime: true, syncBefore: true));
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     _subscriptions
@@ -57,7 +57,7 @@ class _MailboxViewState extends State<MailboxView> {
   @override
   void dispose() {
     for (final subscription in _subscriptions) {
-      subscription.cancel();
+      unawaited(subscription.cancel());
     }
 
     super.dispose();
@@ -75,13 +75,13 @@ class _MailboxViewState extends State<MailboxView> {
             selectedFilterOption: _filterOption,
             setFilter: (filter) {
               setState(() => _filterOption = filter);
-              _reload();
+              unawaited(_reload());
             },
             filteredContactId: _filteredContactId,
             contacts: _contacts!,
             setFilteredContactId: (contactId) {
               setState(() => _filteredContactId = contactId);
-              _reload();
+              unawaited(_reload());
             },
           ),
         ),

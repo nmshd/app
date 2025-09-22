@@ -40,7 +40,7 @@ class _ContactsViewState extends State<ContactsView> {
   void initState() {
     super.initState();
 
-    _reload(syncBefore: true, isFirstTime: true);
+    unawaited(_reload(syncBefore: true, isFirstTime: true));
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     _subscriptions
@@ -58,7 +58,7 @@ class _ContactsViewState extends State<ContactsView> {
     widget.setSuggestionsBuilder(null);
 
     for (final subscription in _subscriptions) {
-      subscription.cancel();
+      unawaited(subscription.cancel());
     }
 
     super.dispose();
@@ -244,7 +244,7 @@ class _ContactsViewState extends State<ContactsView> {
                 ..closeView(null);
               FocusScope.of(context).unfocus();
 
-              context.push('/account/${widget.accountId}/contacts/${item.id}');
+              unawaited(context.push('/account/${widget.accountId}/contacts/${item.id}'));
             },
           ),
         )

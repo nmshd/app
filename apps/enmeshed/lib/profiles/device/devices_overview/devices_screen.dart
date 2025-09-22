@@ -32,13 +32,13 @@ class _DevicesScreenState extends State<DevicesScreen> {
 
     _subscription = GetIt.I.get<EnmeshedRuntime>().eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadDevices());
 
-    _reloadDevices(syncBefore: true);
-    _loadAccount();
+    unawaited(_reloadDevices(syncBefore: true));
+    unawaited(_loadAccount());
   }
 
   @override
   void dispose() {
-    _subscription.cancel();
+    unawaited(_subscription.cancel());
 
     super.dispose();
   }

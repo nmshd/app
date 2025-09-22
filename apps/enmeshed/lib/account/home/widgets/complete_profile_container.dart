@@ -34,22 +34,20 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
     _subscriptions
       ..add(eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reload()))
       ..add(eventBus.on<AccountSelectedEvent>().listen((_) => _reload()));
-    _reload();
+    unawaited(_reload());
   }
 
   @override
   void didUpdateWidget(covariant CompleteProfileContainer oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.accountId != widget.accountId) {
-      _reload();
-    }
+    if (oldWidget.accountId != widget.accountId) unawaited(_reload());
   }
 
   @override
   void dispose() {
     for (final subscription in _subscriptions) {
-      subscription.cancel();
+      unawaited(subscription.cancel());
     }
 
     super.dispose();

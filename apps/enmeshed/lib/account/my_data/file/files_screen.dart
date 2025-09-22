@@ -49,13 +49,13 @@ class _FilesScreenState extends State<FilesScreen> {
       ..add(runtime.eventBus.on<AttributeDeletedEvent>().listen((_) => _reloadAndApplyFilters().catchError((_) {})))
       ..add(runtime.eventBus.on<AttributeWasViewedAtChangedEvent>().listen((_) => _reloadAndApplyFilters().catchError((_) {})));
 
-    _reloadAndApplyFilters().then((_) => widget.initialCreation ? _uploadFile() : null);
+    unawaited(_reloadAndApplyFilters().then((_) => widget.initialCreation ? _uploadFile() : null));
   }
 
   @override
   void dispose() {
     for (final subscription in _subscriptions) {
-      subscription.cancel();
+      unawaited(subscription.cancel());
     }
 
     super.dispose();
@@ -227,8 +227,8 @@ class _FilesScreenState extends State<FilesScreen> {
     return (a, b) => b.file.createdAt.compareTo(a.file.createdAt);
   }
 
-  void _uploadFile() {
-    showModalBottomSheet<void>(
+  Future<void> _uploadFile() async {
+    await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       builder: (_) => UploadFile(accountId: widget.accountId, onFileUploaded: (_) => _loadFiles()),
@@ -280,7 +280,7 @@ class _FilesScreenState extends State<FilesScreen> {
             ..closeView(null);
           FocusScope.of(context).unfocus();
 
-          context.push('/account/${widget.accountId}/my-data/files/${item.file.id}', extra: item);
+          unawaited(context.push('/account/${widget.accountId}/my-data/files/${item.file.id}', extra: item));
         },
       ),
     );

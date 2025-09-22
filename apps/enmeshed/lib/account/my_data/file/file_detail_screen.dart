@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -41,12 +43,12 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     _tags = <String>{..._fileDVO?.tags ?? [], ...widget.preLoadedFile?.tags ?? []}.toList();
 
     if (_fileDVO == null) {
-      _load();
+      unawaited(_load());
     } else {
-      _loadSharedWith();
+      unawaited(_loadSharedWith());
     }
 
-    _markIdentityFileReferenceAttributeAsViewed();
+    unawaited(_markIdentityFileReferenceAttributeAsViewed());
   }
 
   @override
@@ -268,8 +270,8 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     await shareFile(
       session: session,
       fileDVO: _fileDVO!,
-      onError: () {
-        if (mounted) showDownloadFileErrorDialog(context);
+      onError: () async {
+        if (mounted) await showDownloadFileErrorDialog(context);
       },
     );
 
@@ -283,8 +285,8 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     await moveFileOnDevice(
       session: session,
       fileDVO: _fileDVO!,
-      onError: () {
-        if (mounted) showDownloadFileErrorDialog(context);
+      onError: () async {
+        if (mounted) await showDownloadFileErrorDialog(context);
       },
     );
 
@@ -298,8 +300,8 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     await openFile(
       session: session,
       fileDVO: _fileDVO!,
-      onError: () {
-        if (mounted) showDownloadFileErrorDialog(context);
+      onError: () async {
+        if (mounted) await showDownloadFileErrorDialog(context);
       },
     );
 

@@ -39,7 +39,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
 
     _session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
-    _reload();
+    unawaited(_reload());
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     _subscriptions
@@ -58,7 +58,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
     _scrollController.dispose();
 
     for (final subscription in _subscriptions) {
-      subscription.cancel();
+      unawaited(subscription.cancel());
     }
 
     super.dispose();

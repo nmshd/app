@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +33,9 @@ class _ContactExchangedAttributesScreenState extends State<ContactExchangedAttri
 
     _session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
-    _loadReceivedPeerAttributes();
-    _loadSentPeerAttribute();
-    _loadContactName();
+    unawaited(_loadReceivedPeerAttributes());
+    unawaited(_loadSentPeerAttribute());
+    unawaited(_loadContactName());
   }
 
   @override

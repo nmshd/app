@@ -55,9 +55,9 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
       ..add(runtime.eventBus.on<AttributeCreatedEvent>().listen((_) => _loadUnviewedIdentityFileReferenceAttributes().catchError((_) {})))
       ..add(runtime.eventBus.on<MessageWasReadAtChangedEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
       ..add(
-        runtime.eventBus.on<MessageReceivedEvent>().listen((_) {
-          _loadUnreadMessages().catchError((_) {});
-          _loadUnviewedIdentityFileReferenceAttributes().catchError((_) {});
+        runtime.eventBus.on<MessageReceivedEvent>().listen((_) async {
+          await _loadUnreadMessages().catchError((_) {});
+          await _loadUnviewedIdentityFileReferenceAttributes().catchError((_) {});
         }),
       )
       ..add(runtime.eventBus.on<RelationshipDecomposedBySelfEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
@@ -76,16 +76,16 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
       },
     );
 
-    _loadAccount();
-    _reloadContactRequests();
-    _loadUnreadMessages();
-    _loadUnviewedIdentityFileReferenceAttributes();
+    unawaited(_loadAccount());
+    unawaited(_reloadContactRequests());
+    unawaited(_loadUnreadMessages());
+    unawaited(_loadUnviewedIdentityFileReferenceAttributes());
   }
 
   @override
   void dispose() {
     for (final subscription in _subscriptions) {
-      subscription.cancel();
+      unawaited(subscription.cancel());
     }
 
     _tabController.dispose();
