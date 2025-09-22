@@ -23,7 +23,7 @@ class EmptyListIndicator extends StatelessWidget {
     this.description,
     this.action,
     super.key,
-  }) : assert(isFiltered == false || filteredText != null, 'filteredText must be provided when isFiltered is true');
+  }) : assert(!isFiltered || filteredText != null, 'filteredText must be provided when isFiltered is true');
 
   @override
   Widget build(BuildContext context) {

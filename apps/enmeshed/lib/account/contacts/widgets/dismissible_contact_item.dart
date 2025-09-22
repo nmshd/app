@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +81,7 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
             openContactRequest: widget.item.openRequests.firstOrNull,
             onTap: () {
               widget.onTap();
-              _slidableController.close();
+              unawaited(_slidableController.close());
             },
             trailing:
                 widget.trailing ??

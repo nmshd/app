@@ -34,18 +34,18 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
         .get<EnmeshedRuntime>()
         .eventBus
         .on<LocalAccountDeletionDateChangedEvent>(eventTargetAddress: _currentAccount?.address)
-        .listen((event) {
-          _loadAccounts();
+        .listen((event) async {
+          await _loadAccounts();
           if (event.data.deletionDate != null) return;
-          _onAccountSelected(event.data);
+          await _onAccountSelected(event.data);
         });
 
-    _loadAccounts();
+    unawaited(_loadAccounts());
   }
 
   @override
   void dispose() {
-    _subscription.cancel();
+    unawaited(_subscription.cancel());
 
     super.dispose();
   }
@@ -96,8 +96,8 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
     );
   }
 
-  void _onCreateProfilePressed() {
-    showModalBottomSheet<void>(
+  Future<void> _onCreateProfilePressed() async {
+    await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       builder: (_) => CreateProfile(onProfileCreated: _onAccountSelected),

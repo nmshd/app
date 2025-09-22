@@ -23,7 +23,7 @@ mixin ContactSharedFilesMixin<T extends ContactSharedFilesWidget> on State<T> {
   void initState() {
     super.initState();
 
-    loadSharedFiles(syncBefore: true);
+    unawaited(loadSharedFiles(syncBefore: true));
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     _subscriptions
@@ -34,7 +34,7 @@ mixin ContactSharedFilesMixin<T extends ContactSharedFilesWidget> on State<T> {
   @override
   void dispose() {
     for (final subscription in _subscriptions) {
-      subscription.cancel();
+      unawaited(subscription.cancel());
     }
 
     super.dispose();

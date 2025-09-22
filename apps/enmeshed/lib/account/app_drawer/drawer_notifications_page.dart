@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -23,14 +25,14 @@ class DrawerNotificationsPageState extends State<DrawerNotificationsPage> with W
     super.initState();
 
     WidgetsBinding.instance.addObserver(this);
-    _recheckPermission();
+    unawaited(_recheckPermission());
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state != AppLifecycleState.resumed) return;
 
-    _recheckPermission();
+    unawaited(_recheckPermission());
   }
 
   @override

@@ -64,10 +64,10 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
     _request = widget.requestDVO;
 
-    _updateIdentityInfo();
+    unawaited(_updateIdentityInfo());
 
     if (_request == null) {
-      _loadRequestAndController(session);
+      unawaited(_loadRequestAndController(session));
     } else {
       _setController(session, _request!);
     }
@@ -89,10 +89,10 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
       _request = widget.requestDVO;
       _controller.dispose();
 
-      _updateIdentityInfo();
+      unawaited(_updateIdentityInfo());
 
       if (_request == null) {
-        _loadRequestAndController(session);
+        unawaited(_loadRequestAndController(session));
       } else {
         _setController(session, _request!);
       }

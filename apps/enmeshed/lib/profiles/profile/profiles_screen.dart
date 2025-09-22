@@ -35,13 +35,13 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     _subscriptions.add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadAccounts().catchError((_) {})));
 
-    _reloadAccounts();
+    unawaited(_reloadAccounts());
   }
 
   @override
   void dispose() {
     for (final subscription in _subscriptions) {
-      subscription.cancel();
+      unawaited(subscription.cancel());
     }
 
     super.dispose();
@@ -115,8 +115,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     await showEditProfileModal(
       context: context,
       localAccount: _selectedAccount,
-      onEditAccount: () {
-        _reloadAccounts();
+      onEditAccount: () async {
+        await _reloadAccounts();
         GetIt.I.get<EnmeshedRuntime>().eventBus.publish(ProfileEditedEvent(eventTargetAddress: _selectedAccount.address!));
       },
       initialProfilePicture: _selectedAccountProfilePicture,
@@ -172,8 +172,10 @@ class _CurrentProfileHeader extends StatelessWidget {
               ),
               TextButton(
                 style: TextButton.styleFrom(padding: const EdgeInsets.all(8), minimumSize: Size.zero),
-                onPressed: () {
-                  Clipboard.setData(ClipboardData(text: selectedAccount.address!));
+                onPressed: () async {
+                  await Clipboard.setData(ClipboardData(text: selectedAccount.address!));
+                  if (!context.mounted) return;
+
                   showSuccessSnackbar(context: context, text: context.l10n.profiles_copiedAddressToClipboard);
                 },
                 child: Text(
@@ -325,8 +327,8 @@ class _MoreProfiles extends StatelessWidget {
     );
   }
 
-  void _onCreateProfilePressed(BuildContext context) {
-    showModalBottomSheet<void>(
+  Future<void> _onCreateProfilePressed(BuildContext context) async {
+    await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       builder: (_) => CreateProfile(onProfileCreated: (account) => _onAccountSelected(account, context)),
