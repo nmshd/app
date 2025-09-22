@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'identity_deletion_process.g.dart';
 
-enum IdentityDeletionProcessStatus { Approved, Cancelled }
+enum IdentityDeletionProcessStatus { Active, Cancelled }
 
 @JsonSerializable(includeIfNull: false)
 class IdentityDeletionProcessDTO extends Equatable {
@@ -11,8 +11,6 @@ class IdentityDeletionProcessDTO extends Equatable {
   final IdentityDeletionProcessStatus status;
   final String? createdAt;
   final String? createdByDevice;
-  final String? approvedAt;
-  final String? approvedByDevice;
   final String? gracePeriodEndsAt;
   final String? cancelledAt;
   final String? cancelledByDevice;
@@ -22,8 +20,6 @@ class IdentityDeletionProcessDTO extends Equatable {
     required this.status,
     this.createdAt,
     this.createdByDevice,
-    this.approvedAt,
-    this.approvedByDevice,
     this.gracePeriodEndsAt,
     this.cancelledAt,
     this.cancelledByDevice,
@@ -34,15 +30,5 @@ class IdentityDeletionProcessDTO extends Equatable {
   Map<String, dynamic> toJson() => _$IdentityDeletionProcessDTOToJson(this);
 
   @override
-  List<Object?> get props => [
-    id,
-    status,
-    createdAt,
-    createdByDevice,
-    approvedAt,
-    approvedByDevice,
-    gracePeriodEndsAt,
-    cancelledAt,
-    cancelledByDevice,
-  ];
+  List<Object?> get props => [id, status, createdAt, createdByDevice, gracePeriodEndsAt, cancelledAt, cancelledByDevice];
 }
