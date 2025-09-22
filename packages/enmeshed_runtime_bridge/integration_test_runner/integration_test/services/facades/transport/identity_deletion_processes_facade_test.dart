@@ -30,7 +30,7 @@ void run(EnmeshedRuntime runtime) {
       return;
     }
     Result<IdentityDeletionProcessDTO> abortResult;
-    if (activeIdentityDeletionProcess.value.status == IdentityDeletionProcessStatus.Approved) {
+    if (activeIdentityDeletionProcess.value.status == IdentityDeletionProcessStatus.Active) {
       abortResult = await session.transportServices.identityDeletionProcesses.cancelIdentityDeletionProcess();
       if (abortResult.isError) throw abortResult.error;
     }
@@ -43,11 +43,11 @@ void run(EnmeshedRuntime runtime) {
       expect(result, isSuccessful<IdentityDeletionProcessDTO>());
 
       final identityDeletionProcess = result.value;
-      expect(identityDeletionProcess.status, IdentityDeletionProcessStatus.Approved);
+      expect(identityDeletionProcess.status, IdentityDeletionProcessStatus.Active);
 
       final event = await eventBus.waitForEvent<IdentityDeletionProcessStatusChangedEvent>(eventTargetAddress: account.address!);
       expect(event.data.id, identityDeletionProcess.id);
-      expect(event.data.status, IdentityDeletionProcessStatus.Approved);
+      expect(event.data.status, IdentityDeletionProcessStatus.Active);
     });
 
     test('should return an error trying to initiate an IdentityDeletionProcess if there already is one', () async {
@@ -115,7 +115,7 @@ void run(EnmeshedRuntime runtime) {
       expect(identityDeletionProcesses[0].id, cancelledIdentityDeletionProcess.id);
       expect(identityDeletionProcesses[0].status, IdentityDeletionProcessStatus.Cancelled);
       expect(identityDeletionProcesses[1].id, activeIdentityDeletionProcess.id);
-      expect(identityDeletionProcesses[1].status, IdentityDeletionProcessStatus.Approved);
+      expect(identityDeletionProcesses[1].status, IdentityDeletionProcessStatus.Active);
     });
 
     test('should return an empty list trying to get all IdentityDeletionProcesses if there are none', () async {
@@ -150,7 +150,7 @@ void run(EnmeshedRuntime runtime) {
 
     test('should return an error trying to cancel an IdentityDeletionProcess if there is none active', () async {
       final result = await session.transportServices.identityDeletionProcesses.cancelIdentityDeletionProcess();
-      expect(result, isFailing('error.runtime.identityDeletionProcess.noApprovedIdentityDeletionProcess'));
+      expect(result, isFailing('error.runtime.identityDeletionProcess.noActiveIdentityDeletionProcess'));
     });
   });
 }
