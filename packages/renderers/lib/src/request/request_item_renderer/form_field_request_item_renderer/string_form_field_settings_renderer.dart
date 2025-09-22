@@ -54,11 +54,10 @@ class _StringFormFieldSettingsRendererState extends State<StringFormFieldSetting
       );
     }
 
-    // TODO(jkoenig134): handle min, max and allowNewlines
-
     return TextField(
       focusNode: _focusNode,
       showCursor: _focusNode.hasFocus,
+      maxLines: (widget.item.settings as StringFormFieldSettings).allowNewlines == true ? null : 1,
       decoration: InputDecoration(
         hintText: FlutterI18n.translate(context, 'requestRenderer.formField.noValue'),
         border: InputBorder.none,
