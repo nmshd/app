@@ -46,6 +46,14 @@ class ScanScreen extends StatelessWidget {
       return;
     }
 
+    if (content.startsWith('openid4vp://')) {
+      // First, replace the current page with the fallback page
+      context.pushReplacement('/account/$accountId/verifiable-credentials');
+      // Then, push the next page on top
+      await context.push('/account/$accountId/verifiable-credentials/introduction-presentation', extra: content);
+      return;
+    }
+
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
     if (!context.mounted) return;

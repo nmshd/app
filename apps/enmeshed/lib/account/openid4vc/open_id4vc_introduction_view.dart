@@ -71,7 +71,7 @@ class _OpenId4VcIntroductionViewState extends State<OpenId4VcIntroductionView> w
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

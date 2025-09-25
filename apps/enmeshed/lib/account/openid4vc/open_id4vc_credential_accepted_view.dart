@@ -14,6 +14,7 @@ enum CredentialType {
 }
 
 class OpenIdCredentialAcceptedView extends StatefulWidget {
+  final String credentialId;
   final String offerTitle;
   final String credentialsText;
   final String accountId;
@@ -33,6 +34,7 @@ class OpenIdCredentialAcceptedView extends StatefulWidget {
     required this.offerLogo,
     required this.offerBackgroundColor,
     required this.offerTextColor,
+    required this.credentialId,
     this.ignoredKeys = const ['cnf', 'iss', 'iat', '_sd', '_sd_alg'],
     super.key,
   });
@@ -91,6 +93,7 @@ class _OpenIdCredentialAcceptedViewState extends State<OpenIdCredentialAcceptedV
         'offerTextColor': widget.offerTextColor,
         'rawCredentialData': widget.credentialsText,
         'credentialType': credentialType.name,
+        'id': widget.credentialId,
       });
     }
   }
@@ -118,7 +121,7 @@ class _OpenIdCredentialAcceptedViewState extends State<OpenIdCredentialAcceptedV
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -133,7 +136,7 @@ class _OpenIdCredentialAcceptedViewState extends State<OpenIdCredentialAcceptedV
                   color: Color(int.parse(widget.offerBackgroundColor.replaceFirst('#', '0xff'))),
                   elevation: 2,
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
