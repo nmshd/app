@@ -31,48 +31,6 @@ class DevicesFacade {
     return Result.fromJson(json, (value) => List<DeviceDTO>.from(value.map((e) => DeviceDTO.fromJson(e))));
   }
 
-  Future<Result<DeviceDTO>> createDevice({String? name, String? description, bool? isAdmin}) async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.devices.createDevice(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {'name': ?name, 'description': ?description, 'isAdmin': ?isAdmin},
-      },
-    );
-
-    final json = result.valueToMap();
-    return Result.fromJson(json, (value) => DeviceDTO.fromJson(value));
-  }
-
-  Future<Result<DeviceSharedSecret>> getDeviceOnboardingInfo(String id, {String? profileName}) async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.devices.getDeviceOnboardingInfo(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {'id': id, 'profileName': ?profileName},
-      },
-    );
-
-    final json = result.valueToMap();
-    return Result.fromJson(json, (value) => DeviceSharedSecret.fromJson(value));
-  }
-
-  Future<Result<TokenDTO>> createDeviceOnboardingToken(String id, {String? expiresAt, String? profileName}) async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.devices.createDeviceOnboardingToken(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {'id': id, 'expiresAt': ?expiresAt, 'profileName': ?profileName},
-      },
-    );
-
-    final json = result.valueToMap();
-    return Result.fromJson(json, (value) => TokenDTO.fromJson(value));
-  }
-
   Future<Result<TokenDTO>> fillDeviceOnboardingTokenWithNewDevice({required String reference, String? profileName, bool? isAdmin}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.devices.fillDeviceOnboardingTokenWithNewDevice(request)

@@ -1,5 +1,6 @@
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 import 'widgets/red_shrinked_divider.dart';
@@ -28,10 +29,13 @@ class OnboardingWelcome extends StatelessWidget {
                       child: Center(
                         child: Hero(
                           tag: 'logo',
-                          child: Image.asset(switch (Theme.of(context).brightness) {
-                            Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
-                            Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
-                          }),
+                          child: TenTapDetector(
+                            onTenTap: () => context.push('/debug'),
+                            child: Image.asset(switch (Theme.of(context).brightness) {
+                              Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
+                              Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
+                            }),
+                          ),
                         ),
                       ),
                     ),
