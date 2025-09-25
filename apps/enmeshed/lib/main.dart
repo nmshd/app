@@ -5,6 +5,9 @@ import 'package:croppy/croppy.dart';
 import 'package:enmeshed/account/openid4vc/open_id4vc_credential_accepted_view.dart';
 import 'package:enmeshed/account/openid4vc/open_id4vc_introduction_view.dart';
 import 'package:enmeshed/account/openid4vc/open_id4vc_offer_view.dart';
+import 'package:enmeshed/account/openid4vc/open_id4vc_presentation_offer_view.dart';
+import 'package:enmeshed/account/openid4vc/open_id4vp_introduction_view.dart';
+import 'package:enmeshed/account/openid4vc/open_id4vp_presentation_accepted_view.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -129,7 +132,7 @@ final _router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/enter-password-popup',
       pageBuilder: (context, state) => ModalPage(
-        isScrollControlled: true, 
+        isScrollControlled: true,
         builder: (context) {
           final extra = state.extra! as ({UIBridgePasswordType passwordType, int? pinLength, int? attempt, int? passwordLocationIndicator});
           return EnterPasswordModal(
@@ -534,8 +537,24 @@ final _router = GoRouter(
                 ),
                 GoRoute(
                   parentNavigatorKey: _rootNavigatorKey,
+                  path: 'introduction-presentation',
+                  builder: (context, state) => OpenId4VpIntroductionView(
+                    presentationRequestUrl: state.extra != null ? state.extra! as String : '',
+                    accountId: state.pathParameters['accountId']!,
+                  ),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
                   path: 'resolved-offer',
                   builder: (context, state) => OpenId4VcOfferView(
+                    offerToAccept: state.extra != null ? state.extra! as String : '',
+                    accountId: state.pathParameters['accountId']!,
+                  ),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'resolved-presentation',
+                  builder: (context, state) => OpenId4VcPresentationOfferView(
                     offerToAccept: state.extra != null ? state.extra! as String : '',
                     accountId: state.pathParameters['accountId']!,
                   ),
@@ -560,8 +579,14 @@ final _router = GoRouter(
                     offerTextColor: state.extra is Map && (state.extra! as Map).containsKey('offerTextColor')
                         ? (state.extra! as Map)['offerTextColor'] as String
                         : '',
+                    credentialId: state.extra is Map && (state.extra! as Map).containsKey('id') ? (state.extra! as Map)['id'] as String : '',
                     accountId: state.pathParameters['accountId']!,
                   ),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'accepted-presentation',
+                  builder: (context, state) => OpenIdPresentationAcceptedView(response: state.extra as int? ?? 0),
                 ),
               ],
             ),

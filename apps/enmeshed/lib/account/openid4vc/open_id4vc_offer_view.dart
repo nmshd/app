@@ -255,7 +255,20 @@ class _OpenId4VcOfferViewState extends State<OpenId4VcOfferView> {
                           }
 
                           final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
-                          final result = await session.consumptionServices.openId4Vc.acceptFetchedCredentialOffer(widget.offerToAccept, pinCode);
+                          final offerDataJson = (const JsonDecoder().convert(widget.offerToAccept)) as Map<String, dynamic>;
+                          var credentialsToAccept = <String>[];
+
+                          // determine which credentials to pick from the offer
+                          if (offerDataJson['credentialOfferPayload']['credentials'] != null) {
+                            credentialsToAccept = (offerDataJson['credentialOfferPayload']['credentials'] as List).cast<String>();
+                          } else if (offerDataJson['credentialOfferPayload']['credential_configuration_ids'] != null) {
+                            credentialsToAccept = (offerDataJson['credentialOfferPayload']['credential_configuration_ids'] as List).cast<String>();
+                          }
+                          final result = await session.consumptionServices.openId4Vc.acceptFetchedCredentialOffer(
+                            widget.offerToAccept,
+                            pinCode,
+                            credentialsToAccept,
+                          );
                           final args = {
                             'offerTitle': credentialName,
                             'status': result.value.status,
@@ -263,6 +276,7 @@ class _OpenId4VcOfferViewState extends State<OpenId4VcOfferView> {
                             'offerLogo': offerLogo,
                             'offerBackgroundColor': offerBackgroundColor,
                             'offerTextColor': offerTextColor,
+                            'id': result.value.id,
                           };
                           if (context.mounted) {
                             context.pushReplacement(
