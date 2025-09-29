@@ -43,9 +43,9 @@ class _OpenId4VcViewState extends State<OpenId4VcView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Stored Claims')),
+      appBar: AppBar(title: const Text('Stored credentials')),
       body: _claims.isEmpty
-          ? const Center(child: Text('No stored claims'))
+          ? const Center(child: Text('No stored credentials'))
           : RefreshIndicator(
               onRefresh: _loadStoredClaims,
               displacement: 40, // how far the spinner appears from top

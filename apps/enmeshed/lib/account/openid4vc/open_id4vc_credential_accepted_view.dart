@@ -198,7 +198,9 @@ class _OpenIdCredentialAcceptedViewState extends State<OpenIdCredentialAcceptedV
                       final storedClaims = (preferences.getStringList('storedClaims') ?? [])..add(storedClaim);
                       await preferences.setStringList('storedClaims', storedClaims);
                       if (context.mounted) {
-                        context.pop();
+                        context
+                          ..pop()
+                          ..pushReplacement('/account/${widget.accountId}/verifiable-credentials');
                       }
                     },
                     child: const Text(
