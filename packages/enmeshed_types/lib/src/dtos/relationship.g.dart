@@ -8,7 +8,7 @@ part of 'relationship.dart';
 
 RelationshipDTO _$RelationshipDTOFromJson(Map<String, dynamic> json) => RelationshipDTO(
   id: json['id'] as String,
-  template: RelationshipTemplateDTO.fromJson(json['template'] as Map<String, dynamic>),
+  templateId: json['templateId'] as String,
   status: $enumDecode(_$RelationshipStatusEnumMap, json['status']),
   peer: json['peer'] as String,
   peerIdentity: IdentityDTO.fromJson(json['peerIdentity'] as Map<String, dynamic>),
@@ -19,7 +19,7 @@ RelationshipDTO _$RelationshipDTOFromJson(Map<String, dynamic> json) => Relation
 
 Map<String, dynamic> _$RelationshipDTOToJson(RelationshipDTO instance) => <String, dynamic>{
   'id': instance.id,
-  'template': instance.template.toJson(),
+  'templateId': instance.templateId,
   'status': _$RelationshipStatusEnumMap[instance.status]!,
   'peer': instance.peer,
   'peerIdentity': instance.peerIdentity.toJson(),
