@@ -258,12 +258,14 @@ class _OpenId4VcOfferViewState extends State<OpenId4VcOfferView> {
                           final offerDataJson = (const JsonDecoder().convert(widget.offerToAccept)) as Map<String, dynamic>;
                           var credentialsToAccept = <String>[];
 
-                          // determine which credentials to pick from the offer
+                          // determine which credentials to pick from the offer for all supported types of offers
+
                           if (offerDataJson['credentialOfferPayload']['credentials'] != null) {
                             credentialsToAccept = (offerDataJson['credentialOfferPayload']['credentials'] as List).cast<String>();
                           } else if (offerDataJson['credentialOfferPayload']['credential_configuration_ids'] != null) {
                             credentialsToAccept = (offerDataJson['credentialOfferPayload']['credential_configuration_ids'] as List).cast<String>();
                           }
+                          
                           final result = await session.consumptionServices.openId4Vc.acceptFetchedCredentialOffer(
                             widget.offerToAccept,
                             pinCode,
