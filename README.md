@@ -16,10 +16,9 @@ This project is tested with BrowserStack.
 
 ## Apps
 
-| App                               | Description                                                              |
-| --------------------------------- | ------------------------------------------------------------------------ |
-| [connector_ui](apps/connector_ui) | A simple UI showcasing the dart [connector_sdk](packages/connector_sdk). |
-| [enmeshed](apps/enmeshed)         | The enmeshed app.                                                        |
+| App                       | Description       |
+| ------------------------- | ----------------- |
+| [enmeshed](apps/enmeshed) | The enmeshed app. |
 
 ## Documentation
 
