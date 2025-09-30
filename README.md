@@ -8,18 +8,20 @@ This project is tested with BrowserStack.
 
 ## Packages
 
-| Package                                                     | Description                                                 |
-| ----------------------------------------------------------- | ----------------------------------------------------------- |
-| [connector_sdk](packages/connector_sdk)                     | A Dart SDK for the enmeshed Connector API.                  |
-| [enmeshed_runtime_bridge](packages/enmeshed_runtime_bridge) | A bridge between the enmeshed TypeScript runtime and Dart.  |
-| [enmeshed_types](packages/enmeshed_types)                   | enmeshed types translated from TypeScript / JSON into Dart. |
+| Package                                                     | Description                                                      |
+| ----------------------------------------------------------- | ---------------------------------------------------------------- |
+| [enmeshed_runtime_bridge](packages/enmeshed_runtime_bridge) | A bridging library to access the TypeScript Runtime from Dart.   |
+| [enmeshed_types](packages/enmeshed_types)                   | enmeshed types translated from TypeScript / JSON into Dart.      |
+| [enmeshed_ui_kit](packages/enmeshed_ui_kit)                 | A UI kit for building enmeshed applications.                     |
+| [identity_recovery_kit](packages/identity_recovery_kit)     | A library for generating identity recovery kit PDFs.             |
+| [renderers](packages/renderers)                             | A collection of renderers for different enmeshed data types.     |
+| [value_renderer](packages/value_renderer)                   | A renderer displaying inputs for different enmeshed value types. |
 
 ## Apps
 
-| App                               | Description                                                              |
-| --------------------------------- | ------------------------------------------------------------------------ |
-| [connector_ui](apps/connector_ui) | A simple UI showcasing the dart [connector_sdk](packages/connector_sdk). |
-| [enmeshed](apps/enmeshed)         | The enmeshed app.                                                        |
+| App                       | Description       |
+| ------------------------- | ----------------- |
+| [enmeshed](apps/enmeshed) | The enmeshed app. |
 
 ## Documentation
 
