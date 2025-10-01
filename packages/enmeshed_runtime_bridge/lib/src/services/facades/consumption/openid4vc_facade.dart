@@ -8,7 +8,7 @@ import '../utilities/utilities.dart';
 /*
   Note: The keystore is managed within the apps preferences. This is a temporary solution, but this should
   be replaced by a more secure solution before leaving the alpha stage.
-
+  
   To do so the keystore is stored and loaded from the SharedPreferences upon each facade call.
 */
 
@@ -24,7 +24,7 @@ class OpenId4VcFacade {
       await _evaluator.evaluateJavaScript(
         '''
         const parsedMap = new Map(JSON.parse(keyStore));
-        window.fakeKeyStorage = parsedMap;
+        window.enmeshedFileSystem = parsedMap;
         ''',
         arguments: {'keyStore': keyStore},
       );
@@ -42,7 +42,7 @@ class OpenId4VcFacade {
       '''
       const result = await session.consumptionServices.openId4Vc.resolveCredentialOffer(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      const keyStorage = JSON.stringify(Array.from(window.fakeKeyStorage));
+      const keyStorage = JSON.stringify(Array.from(window.enmeshedFileSystem));
       return { value: result.value , keyStorage: keyStorage}''',
       arguments: {
         'request': {'credentialOfferUrl': url},
@@ -58,7 +58,7 @@ class OpenId4VcFacade {
       '''
       const result = await session.consumptionServices.openId4Vc.fetchCredentialOffer(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      const keyStorage = JSON.stringify(Array.from(window.fakeKeyStorage));
+      const keyStorage = JSON.stringify(Array.from(window.enmeshedFileSystem));
       return { value: result.value , keyStorage: keyStorage}''',
       arguments: {
         'request': {'credentialOfferUrl': url},
@@ -79,7 +79,7 @@ class OpenId4VcFacade {
         '''
         const result = await session.consumptionServices.openId4Vc.resolveFetchedCredentialOffer(request)
         if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-        const keyStorage = JSON.stringify(Array.from(window.fakeKeyStorage));
+        const keyStorage = JSON.stringify(Array.from(window.enmeshedFileSystem));
         return { value: result.value , keyStorage: keyStorage}''',
         arguments: {
           'request': {'data': fetchedOfferJson, 'requestedCredentials': requestedCredentials},
@@ -93,7 +93,7 @@ class OpenId4VcFacade {
       '''
       const result = await session.consumptionServices.openId4Vc.resolveFetchedCredentialOffer(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      const keyStorage = JSON.stringify(Array.from(window.fakeKeyStorage));
+      const keyStorage = JSON.stringify(Array.from(window.enmeshedFileSystem));
       return { value: result.value , keyStorage: keyStorage}''',
       arguments: {
         'request': {'data': fetchedOfferJson, 'pinCode': pinCode, 'requestedCredentials': requestedCredentials},
@@ -109,7 +109,7 @@ class OpenId4VcFacade {
       '''
       const result = await session.consumptionServices.openId4Vc.fetchProofRequest(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      const keyStorage = JSON.stringify(Array.from(window.fakeKeyStorage));
+      const keyStorage = JSON.stringify(Array.from(window.enmeshedFileSystem));
       return { value: result.value , keyStorage: keyStorage}''',
       arguments: {
         'request': {'proofRequestUrl': url},
@@ -125,7 +125,7 @@ class OpenId4VcFacade {
       '''
       const result = await session.consumptionServices.openId4Vc.acceptProofRequest(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      const keyStorage = JSON.stringify(Array.from(window.fakeKeyStorage));
+      const keyStorage = JSON.stringify(Array.from(window.enmeshedFileSystem));
       return { value: result.value , keyStorage: keyStorage}''',
       arguments: {
         'request': {'jsonEncodedRequest': fetchedRequestJson},
