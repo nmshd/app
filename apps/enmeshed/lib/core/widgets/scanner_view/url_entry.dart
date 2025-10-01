@@ -96,8 +96,12 @@ class _UrlEntryState extends State<UrlEntry> {
   bool get isUrlValid => validateUrl(_controller.text) == null;
 
   String? validateUrl(String? value) {
+<<<<<<< HEAD
     // https://regex101.com/r/suck0H/1
     final urlRegExp = RegExp(r'^https?:\/\/.*\/r\/[a-zA-Z0-9]+(\?app\=.+)?#[a-zA-Z0-9-_]+$');
+=======
+    final urlRegExp = RegExp(r'^(nmshd:\/\/(qr#|tr#))|(https?:\/\/)|(openid-credential-offer:\/\/)|(openid4vp:\/\/)');
+>>>>>>> 6412e0b0 (feat: add rules to enable openid triggering via text input field)
 
     if (value != null && (!urlRegExp.hasMatch(value) || value.length < 15)) {
       return widget.urlValidationErrorText;
