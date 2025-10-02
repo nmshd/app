@@ -6,9 +6,7 @@ part of 'transfer_file_ownership_request_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TransferFileOwnershipRequestItem _$TransferFileOwnershipRequestItemFromJson(
-  Map<String, dynamic> json,
-) => TransferFileOwnershipRequestItem(
+TransferFileOwnershipRequestItem _$TransferFileOwnershipRequestItemFromJson(Map<String, dynamic> json) => TransferFileOwnershipRequestItem(
   title: json['title'] as String?,
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
@@ -17,9 +15,7 @@ TransferFileOwnershipRequestItem _$TransferFileOwnershipRequestItemFromJson(
   ownershipToken: json['ownershipToken'] as String?,
 );
 
-Map<String, dynamic> _$TransferFileOwnershipRequestItemToJson(
-  TransferFileOwnershipRequestItem instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$TransferFileOwnershipRequestItemToJson(TransferFileOwnershipRequestItem instance) => <String, dynamic>{
   '@type': instance.atType,
   'description': ?instance.description,
   'metadata': ?instance.metadata,

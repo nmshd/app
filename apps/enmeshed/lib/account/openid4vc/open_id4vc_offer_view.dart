@@ -265,7 +265,7 @@ class _OpenId4VcOfferViewState extends State<OpenId4VcOfferView> {
                           } else if (offerDataJson['credentialOfferPayload']['credential_configuration_ids'] != null) {
                             credentialsToAccept = (offerDataJson['credentialOfferPayload']['credential_configuration_ids'] as List).cast<String>();
                           }
-                          
+
                           final result = await session.consumptionServices.openId4Vc.acceptFetchedCredentialOffer(
                             widget.offerToAccept,
                             pinCode,

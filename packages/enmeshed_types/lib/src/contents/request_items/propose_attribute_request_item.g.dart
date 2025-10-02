@@ -6,22 +6,16 @@ part of 'propose_attribute_request_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ProposeAttributeRequestItem _$ProposeAttributeRequestItemFromJson(
-  Map<String, dynamic> json,
-) => ProposeAttributeRequestItem(
+ProposeAttributeRequestItem _$ProposeAttributeRequestItemFromJson(Map<String, dynamic> json) => ProposeAttributeRequestItem(
   title: json['title'] as String?,
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
   mustBeAccepted: json['mustBeAccepted'] as bool,
   query: AttributeQuery.fromJson(json['query'] as Map<String, dynamic>),
-  attribute: AbstractAttribute.fromJson(
-    json['attribute'] as Map<String, dynamic>,
-  ),
+  attribute: AbstractAttribute.fromJson(json['attribute'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$ProposeAttributeRequestItemToJson(
-  ProposeAttributeRequestItem instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$ProposeAttributeRequestItemToJson(ProposeAttributeRequestItem instance) => <String, dynamic>{
   '@type': instance.atType,
   'description': ?instance.description,
   'metadata': ?instance.metadata,

@@ -6,9 +6,7 @@ part of 'read_attribute_request_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ReadAttributeRequestItem _$ReadAttributeRequestItemFromJson(
-  Map<String, dynamic> json,
-) => ReadAttributeRequestItem(
+ReadAttributeRequestItem _$ReadAttributeRequestItemFromJson(Map<String, dynamic> json) => ReadAttributeRequestItem(
   title: json['title'] as String?,
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
@@ -16,9 +14,7 @@ ReadAttributeRequestItem _$ReadAttributeRequestItemFromJson(
   query: AttributeQuery.fromJson(json['query'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$ReadAttributeRequestItemToJson(
-  ReadAttributeRequestItem instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$ReadAttributeRequestItemToJson(ReadAttributeRequestItem instance) => <String, dynamic>{
   '@type': instance.atType,
   'description': ?instance.description,
   'metadata': ?instance.metadata,

@@ -9,9 +9,7 @@ part of 'response.dart';
 Response _$ResponseFromJson(Map<String, dynamic> json) => Response(
   result: $enumDecode(_$ResponseResultEnumMap, json['result']),
   requestId: json['requestId'] as String,
-  items: (json['items'] as List<dynamic>)
-      .map((e) => ResponseItem.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  items: (json['items'] as List<dynamic>).map((e) => ResponseItem.fromJson(e as Map<String, dynamic>)).toList(),
 );
 
 Map<String, dynamic> _$ResponseToJson(Response instance) => <String, dynamic>{
@@ -21,7 +19,4 @@ Map<String, dynamic> _$ResponseToJson(Response instance) => <String, dynamic>{
   'items': instance.items.map((e) => e.toJson()).toList(),
 };
 
-const _$ResponseResultEnumMap = {
-  ResponseResult.Accepted: 'Accepted',
-  ResponseResult.Rejected: 'Rejected',
-};
+const _$ResponseResultEnumMap = {ResponseResult.Accepted: 'Accepted', ResponseResult.Rejected: 'Rejected'};

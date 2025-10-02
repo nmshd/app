@@ -6,37 +6,29 @@ part of 'local_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-LocalRequestDTO _$LocalRequestDTOFromJson(Map<String, dynamic> json) =>
-    LocalRequestDTO(
-      id: json['id'] as String,
-      isOwn: json['isOwn'] as bool,
-      peer: json['peer'] as String,
-      createdAt: json['createdAt'] as String,
-      status: $enumDecode(_$LocalRequestStatusEnumMap, json['status']),
-      content: Request.fromJson(json['content'] as Map<String, dynamic>),
-      source: json['source'] == null
-          ? null
-          : LocalRequestSourceDTO.fromJson(
-              json['source'] as Map<String, dynamic>,
-            ),
-      response: json['response'] == null
-          ? null
-          : LocalResponseDTO.fromJson(json['response'] as Map<String, dynamic>),
-      wasAutomaticallyDecided: json['wasAutomaticallyDecided'] as bool?,
-    );
+LocalRequestDTO _$LocalRequestDTOFromJson(Map<String, dynamic> json) => LocalRequestDTO(
+  id: json['id'] as String,
+  isOwn: json['isOwn'] as bool,
+  peer: json['peer'] as String,
+  createdAt: json['createdAt'] as String,
+  status: $enumDecode(_$LocalRequestStatusEnumMap, json['status']),
+  content: Request.fromJson(json['content'] as Map<String, dynamic>),
+  source: json['source'] == null ? null : LocalRequestSourceDTO.fromJson(json['source'] as Map<String, dynamic>),
+  response: json['response'] == null ? null : LocalResponseDTO.fromJson(json['response'] as Map<String, dynamic>),
+  wasAutomaticallyDecided: json['wasAutomaticallyDecided'] as bool?,
+);
 
-Map<String, dynamic> _$LocalRequestDTOToJson(LocalRequestDTO instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'isOwn': instance.isOwn,
-      'peer': instance.peer,
-      'createdAt': instance.createdAt,
-      'status': _$LocalRequestStatusEnumMap[instance.status]!,
-      'content': instance.content.toJson(),
-      'source': ?instance.source?.toJson(),
-      'response': ?instance.response?.toJson(),
-      'wasAutomaticallyDecided': ?instance.wasAutomaticallyDecided,
-    };
+Map<String, dynamic> _$LocalRequestDTOToJson(LocalRequestDTO instance) => <String, dynamic>{
+  'id': instance.id,
+  'isOwn': instance.isOwn,
+  'peer': instance.peer,
+  'createdAt': instance.createdAt,
+  'status': _$LocalRequestStatusEnumMap[instance.status]!,
+  'content': instance.content.toJson(),
+  'source': ?instance.source?.toJson(),
+  'response': ?instance.response?.toJson(),
+  'wasAutomaticallyDecided': ?instance.wasAutomaticallyDecided,
+};
 
 const _$LocalRequestStatusEnumMap = {
   LocalRequestStatus.Draft: 'Draft',

@@ -15,14 +15,8 @@ TokenDTO _$TokenDTOFromJson(Map<String, dynamic> json) => TokenDTO(
   expiresAt: json['expiresAt'] as String,
   isEphemeral: json['isEphemeral'] as bool,
   forIdentity: json['forIdentity'] as String?,
-  passwordProtection: json['passwordProtection'] == null
-      ? null
-      : PasswordProtection.fromJson(
-          json['passwordProtection'] as Map<String, dynamic>,
-        ),
-  reference: ObjectReferenceDTO.fromJson(
-    json['reference'] as Map<String, dynamic>,
-  ),
+  passwordProtection: json['passwordProtection'] == null ? null : PasswordProtection.fromJson(json['passwordProtection'] as Map<String, dynamic>),
+  reference: ObjectReferenceDTO.fromJson(json['reference'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$TokenDTOToJson(TokenDTO instance) => <String, dynamic>{
