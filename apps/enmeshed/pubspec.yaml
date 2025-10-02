@@ -43,6 +43,8 @@ dependencies:
   intl: any
   iso_mdoc: ^1.6.0
   json_annotation: ^4.9.0
+  iso_mdoc: ^1.6.0
+  json_annotation: ^4.9.0
   logger: ^2.6.1
   mime_type: ^1.0.1
   mobile_scanner: ^7.0.1
@@ -76,6 +78,7 @@ dev_dependencies:
   translations_cleaner: ^0.0.5
   vector_graphics_compiler: ^1.1.19
   json_serializable: ^6.8.0
+  json_serializable: ^6.8.0
 
 flutter:
   generate: true
@@ -88,6 +91,7 @@ flutter:
       transformers:
         - package: vector_graphics_compiler
     - path: assets/svg_without_transforming/
+    - path: assets/js/
     - path: assets/js/
 
 # dart run flutter_launcher_icons

@@ -13,8 +13,12 @@ FileDVO _$FileDVOFromJson(Map<String, dynamic> json) => FileDVO(
   image: json['image'] as String?,
   type: json['type'] as String,
   date: json['date'] as String?,
-  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null
+      ? null
+      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null
+      ? null
+      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   filename: json['filename'] as String,
   tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
   filesize: const IntegerConverter().fromJson(json['filesize'] as Object),
@@ -25,7 +29,9 @@ FileDVO _$FileDVOFromJson(Map<String, dynamic> json) => FileDVO(
   mimetype: json['mimetype'] as String,
   isOwn: json['isOwn'] as bool,
   title: json['title'] as String,
-  reference: ObjectReferenceDTO.fromJson(json['reference'] as Map<String, dynamic>),
+  reference: ObjectReferenceDTO.fromJson(
+    json['reference'] as Map<String, dynamic>,
+  ),
 );
 
 Map<String, dynamic> _$FileDVOToJson(FileDVO instance) => <String, dynamic>{

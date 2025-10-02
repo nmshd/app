@@ -6,10 +6,15 @@ part of 'attribute_already_shared_accept_response_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AttributeAlreadySharedAcceptResponseItem _$AttributeAlreadySharedAcceptResponseItemFromJson(Map<String, dynamic> json) =>
-    AttributeAlreadySharedAcceptResponseItem(attributeId: json['attributeId'] as String);
+AttributeAlreadySharedAcceptResponseItem
+_$AttributeAlreadySharedAcceptResponseItemFromJson(Map<String, dynamic> json) =>
+    AttributeAlreadySharedAcceptResponseItem(
+      attributeId: json['attributeId'] as String,
+    );
 
-Map<String, dynamic> _$AttributeAlreadySharedAcceptResponseItemToJson(AttributeAlreadySharedAcceptResponseItem instance) => <String, dynamic>{
+Map<String, dynamic> _$AttributeAlreadySharedAcceptResponseItemToJson(
+  AttributeAlreadySharedAcceptResponseItem instance,
+) => <String, dynamic>{
   '@type': instance.atType,
   'result': _$ResponseItemResultEnumMap[instance.result]!,
   'attributeId': instance.attributeId,

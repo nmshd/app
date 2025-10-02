@@ -6,15 +6,23 @@ part of 'request_item_dvos.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RequestItemGroupDVO _$RequestItemGroupDVOFromJson(Map<String, dynamic> json) => RequestItemGroupDVO(
+RequestItemGroupDVO _$RequestItemGroupDVOFromJson(
+  Map<String, dynamic> json,
+) => RequestItemGroupDVO(
   isDecidable: json['isDecidable'] as bool,
-  items: (json['items'] as List<dynamic>).map((e) => RequestItemDVODerivation.fromJson(e as Map<String, dynamic>)).toList(),
+  items: (json['items'] as List<dynamic>)
+      .map((e) => RequestItemDVODerivation.fromJson(e as Map<String, dynamic>))
+      .toList(),
   title: json['title'] as String?,
   description: json['description'] as String?,
-  response: json['response'] == null ? null : ResponseItemGroupDVO.fromJson(json['response'] as Map<String, dynamic>),
+  response: json['response'] == null
+      ? null
+      : ResponseItemGroupDVO.fromJson(json['response'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$RequestItemGroupDVOToJson(RequestItemGroupDVO instance) => <String, dynamic>{
+Map<String, dynamic> _$RequestItemGroupDVOToJson(
+  RequestItemGroupDVO instance,
+) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': ?instance.description,
@@ -29,21 +37,32 @@ Map<String, dynamic> _$RequestItemGroupDVOToJson(RequestItemGroupDVO instance) =
   'response': ?instance.response?.toJson(),
 };
 
-ReadAttributeRequestItemDVO _$ReadAttributeRequestItemDVOFromJson(Map<String, dynamic> json) => ReadAttributeRequestItemDVO(
+ReadAttributeRequestItemDVO _$ReadAttributeRequestItemDVOFromJson(
+  Map<String, dynamic> json,
+) => ReadAttributeRequestItemDVO(
   id: json['id'] as String,
   name: json['name'] as String,
   description: json['description'] as String?,
   image: json['image'] as String?,
   date: json['date'] as String?,
-  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null
+      ? null
+      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null
+      ? null
+      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   mustBeAccepted: json['mustBeAccepted'] as bool,
   isDecidable: json['isDecidable'] as bool,
-  response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  response: json['response'] == null
+      ? null
+      : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  requireManualDecision: json['requireManualDecision'] as bool?,
   query: AttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$ReadAttributeRequestItemDVOToJson(ReadAttributeRequestItemDVO instance) => <String, dynamic>{
+Map<String, dynamic> _$ReadAttributeRequestItemDVOToJson(
+  ReadAttributeRequestItemDVO instance,
+) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': ?instance.description,
@@ -58,23 +77,36 @@ Map<String, dynamic> _$ReadAttributeRequestItemDVOToJson(ReadAttributeRequestIte
   'query': instance.query.toJson(),
 };
 
-ProposeAttributeRequestItemDVO _$ProposeAttributeRequestItemDVOFromJson(Map<String, dynamic> json) => ProposeAttributeRequestItemDVO(
+ProposeAttributeRequestItemDVO _$ProposeAttributeRequestItemDVOFromJson(
+  Map<String, dynamic> json,
+) => ProposeAttributeRequestItemDVO(
   id: json['id'] as String,
   name: json['name'] as String,
   description: json['description'] as String?,
   image: json['image'] as String?,
   date: json['date'] as String?,
-  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null
+      ? null
+      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null
+      ? null
+      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   mustBeAccepted: json['mustBeAccepted'] as bool,
   isDecidable: json['isDecidable'] as bool,
-  response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  response: json['response'] == null
+      ? null
+      : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  requireManualDecision: json['requireManualDecision'] as bool?,
   query: AttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
-  attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
+  attribute: DraftAttributeDVO.fromJson(
+    json['attribute'] as Map<String, dynamic>,
+  ),
   proposedValueOverruled: json['proposedValueOverruled'] as bool,
 );
 
-Map<String, dynamic> _$ProposeAttributeRequestItemDVOToJson(ProposeAttributeRequestItemDVO instance) => <String, dynamic>{
+Map<String, dynamic> _$ProposeAttributeRequestItemDVOToJson(
+  ProposeAttributeRequestItemDVO instance,
+) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': ?instance.description,
@@ -91,22 +123,35 @@ Map<String, dynamic> _$ProposeAttributeRequestItemDVOToJson(ProposeAttributeRequ
   'proposedValueOverruled': instance.proposedValueOverruled,
 };
 
-CreateAttributeRequestItemDVO _$CreateAttributeRequestItemDVOFromJson(Map<String, dynamic> json) => CreateAttributeRequestItemDVO(
+CreateAttributeRequestItemDVO _$CreateAttributeRequestItemDVOFromJson(
+  Map<String, dynamic> json,
+) => CreateAttributeRequestItemDVO(
   id: json['id'] as String,
   name: json['name'] as String,
   description: json['description'] as String?,
   image: json['image'] as String?,
   date: json['date'] as String?,
-  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null
+      ? null
+      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null
+      ? null
+      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   mustBeAccepted: json['mustBeAccepted'] as bool,
   isDecidable: json['isDecidable'] as bool,
-  response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
-  attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
+  response: json['response'] == null
+      ? null
+      : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  requireManualDecision: json['requireManualDecision'] as bool?,
+  attribute: DraftAttributeDVO.fromJson(
+    json['attribute'] as Map<String, dynamic>,
+  ),
   sourceAttributeId: json['sourceAttributeId'] as String?,
 );
 
-Map<String, dynamic> _$CreateAttributeRequestItemDVOToJson(CreateAttributeRequestItemDVO instance) => <String, dynamic>{
+Map<String, dynamic> _$CreateAttributeRequestItemDVOToJson(
+  CreateAttributeRequestItemDVO instance,
+) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': ?instance.description,
@@ -122,22 +167,35 @@ Map<String, dynamic> _$CreateAttributeRequestItemDVOToJson(CreateAttributeReques
   'sourceAttributeId': ?instance.sourceAttributeId,
 };
 
-DeleteAttributeRequestItemDVO _$DeleteAttributeRequestItemDVOFromJson(Map<String, dynamic> json) => DeleteAttributeRequestItemDVO(
+DeleteAttributeRequestItemDVO _$DeleteAttributeRequestItemDVOFromJson(
+  Map<String, dynamic> json,
+) => DeleteAttributeRequestItemDVO(
   id: json['id'] as String,
   name: json['name'] as String,
   description: json['description'] as String?,
   image: json['image'] as String?,
   date: json['date'] as String?,
-  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null
+      ? null
+      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null
+      ? null
+      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   mustBeAccepted: json['mustBeAccepted'] as bool,
   isDecidable: json['isDecidable'] as bool,
-  response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  response: json['response'] == null
+      ? null
+      : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  requireManualDecision: json['requireManualDecision'] as bool?,
   attributeId: json['attributeId'] as String,
-  attribute: LocalAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
+  attribute: LocalAttributeDVO.fromJson(
+    json['attribute'] as Map<String, dynamic>,
+  ),
 );
 
-Map<String, dynamic> _$DeleteAttributeRequestItemDVOToJson(DeleteAttributeRequestItemDVO instance) => <String, dynamic>{
+Map<String, dynamic> _$DeleteAttributeRequestItemDVOToJson(
+  DeleteAttributeRequestItemDVO instance,
+) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': ?instance.description,
@@ -153,23 +211,36 @@ Map<String, dynamic> _$DeleteAttributeRequestItemDVOToJson(DeleteAttributeReques
   'attribute': instance.attribute.toJson(),
 };
 
-ShareAttributeRequestItemDVO _$ShareAttributeRequestItemDVOFromJson(Map<String, dynamic> json) => ShareAttributeRequestItemDVO(
+ShareAttributeRequestItemDVO _$ShareAttributeRequestItemDVOFromJson(
+  Map<String, dynamic> json,
+) => ShareAttributeRequestItemDVO(
   id: json['id'] as String,
   name: json['name'] as String,
   description: json['description'] as String?,
   image: json['image'] as String?,
   date: json['date'] as String?,
-  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null
+      ? null
+      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null
+      ? null
+      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   mustBeAccepted: json['mustBeAccepted'] as bool,
   isDecidable: json['isDecidable'] as bool,
-  response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
-  attribute: DraftIdentityAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
+  response: json['response'] == null
+      ? null
+      : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  requireManualDecision: json['requireManualDecision'] as bool?,
+  attribute: DraftIdentityAttributeDVO.fromJson(
+    json['attribute'] as Map<String, dynamic>,
+  ),
   sourceAttributeId: json['sourceAttributeId'] as String,
   thirdPartyAddress: json['thirdPartyAddress'] as String?,
 );
 
-Map<String, dynamic> _$ShareAttributeRequestItemDVOToJson(ShareAttributeRequestItemDVO instance) => <String, dynamic>{
+Map<String, dynamic> _$ShareAttributeRequestItemDVOToJson(
+  ShareAttributeRequestItemDVO instance,
+) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': ?instance.description,
@@ -186,21 +257,31 @@ Map<String, dynamic> _$ShareAttributeRequestItemDVOToJson(ShareAttributeRequestI
   'thirdPartyAddress': ?instance.thirdPartyAddress,
 };
 
-AuthenticationRequestItemDVO _$AuthenticationRequestItemDVOFromJson(Map<String, dynamic> json) => AuthenticationRequestItemDVO(
+AuthenticationRequestItemDVO _$AuthenticationRequestItemDVOFromJson(
+  Map<String, dynamic> json,
+) => AuthenticationRequestItemDVO(
   id: json['id'] as String,
   name: json['name'] as String,
   description: json['description'] as String?,
   image: json['image'] as String?,
   date: json['date'] as String?,
-  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null
+      ? null
+      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null
+      ? null
+      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   mustBeAccepted: json['mustBeAccepted'] as bool,
   isDecidable: json['isDecidable'] as bool,
-  response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
-  title: json['title'] as String,
+  response: json['response'] == null
+      ? null
+      : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  requireManualDecision: json['requireManualDecision'] as bool?,
 );
 
-Map<String, dynamic> _$AuthenticationRequestItemDVOToJson(AuthenticationRequestItemDVO instance) => <String, dynamic>{
+Map<String, dynamic> _$AuthenticationRequestItemDVOToJson(
+  AuthenticationRequestItemDVO instance,
+) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': ?instance.description,
@@ -215,24 +296,35 @@ Map<String, dynamic> _$AuthenticationRequestItemDVOToJson(AuthenticationRequestI
   'title': instance.title,
 };
 
-ConsentRequestItemDVO _$ConsentRequestItemDVOFromJson(Map<String, dynamic> json) => ConsentRequestItemDVO(
+ConsentRequestItemDVO _$ConsentRequestItemDVOFromJson(
+  Map<String, dynamic> json,
+) => ConsentRequestItemDVO(
   id: json['id'] as String,
   name: json['name'] as String,
   description: json['description'] as String?,
   image: json['image'] as String?,
   date: json['date'] as String?,
-  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null
+      ? null
+      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null
+      ? null
+      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   mustBeAccepted: json['mustBeAccepted'] as bool,
   isDecidable: json['isDecidable'] as bool,
-  response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  response: json['response'] == null
+      ? null
+      : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  requireManualDecision: json['requireManualDecision'] as bool?,
   consent: json['consent'] as String,
   link: json['link'] as String?,
   linkDisplayText: json['linkDisplayText'] as String?,
   requiresInteraction: json['requiresInteraction'] as bool?,
 );
 
-Map<String, dynamic> _$ConsentRequestItemDVOToJson(ConsentRequestItemDVO instance) => <String, dynamic>{
+Map<String, dynamic> _$ConsentRequestItemDVOToJson(
+  ConsentRequestItemDVO instance,
+) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': ?instance.description,
@@ -250,22 +342,35 @@ Map<String, dynamic> _$ConsentRequestItemDVOToJson(ConsentRequestItemDVO instanc
   'requiresInteraction': ?instance.requiresInteraction,
 };
 
-FormFieldRequestItemDVO _$FormFieldRequestItemDVOFromJson(Map<String, dynamic> json) => FormFieldRequestItemDVO(
+FormFieldRequestItemDVO _$FormFieldRequestItemDVOFromJson(
+  Map<String, dynamic> json,
+) => FormFieldRequestItemDVO(
   id: json['id'] as String,
   name: json['name'] as String,
   description: json['description'] as String?,
   image: json['image'] as String?,
   date: json['date'] as String?,
-  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null
+      ? null
+      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null
+      ? null
+      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   mustBeAccepted: json['mustBeAccepted'] as bool,
   isDecidable: json['isDecidable'] as bool,
-  response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  response: json['response'] == null
+      ? null
+      : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  requireManualDecision: json['requireManualDecision'] as bool?,
   title: json['title'] as String,
-  settings: FormFieldSettings.fromJson(json['settings'] as Map<String, dynamic>),
+  settings: FormFieldSettings.fromJson(
+    json['settings'] as Map<String, dynamic>,
+  ),
 );
 
-Map<String, dynamic> _$FormFieldRequestItemDVOToJson(FormFieldRequestItemDVO instance) => <String, dynamic>{
+Map<String, dynamic> _$FormFieldRequestItemDVOToJson(
+  FormFieldRequestItemDVO instance,
+) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': ?instance.description,
@@ -281,23 +386,116 @@ Map<String, dynamic> _$FormFieldRequestItemDVOToJson(FormFieldRequestItemDVO ins
   'settings': instance.settings.toJson(),
 };
 
-TransferFileOwnershipRequestItemDVO _$TransferFileOwnershipRequestItemDVOFromJson(Map<String, dynamic> json) => TransferFileOwnershipRequestItemDVO(
+FreeTextRequestItemDVO _$FreeTextRequestItemDVOFromJson(
+  Map<String, dynamic> json,
+) => FreeTextRequestItemDVO(
   id: json['id'] as String,
   name: json['name'] as String,
   description: json['description'] as String?,
   image: json['image'] as String?,
   date: json['date'] as String?,
-  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null
+      ? null
+      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null
+      ? null
+      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   mustBeAccepted: json['mustBeAccepted'] as bool,
   isDecidable: json['isDecidable'] as bool,
-  response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
-  fileReference: json['fileReference'] as String,
-  file: FileDVO.fromJson(json['file'] as Map<String, dynamic>),
-  ownershipToken: json['ownershipToken'] as String?,
+  response: json['response'] == null
+      ? null
+      : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  requireManualDecision: json['requireManualDecision'] as bool?,
+  freeText: json['freeText'] as String,
 );
 
-Map<String, dynamic> _$TransferFileOwnershipRequestItemDVOToJson(TransferFileOwnershipRequestItemDVO instance) => <String, dynamic>{
+Map<String, dynamic> _$FreeTextRequestItemDVOToJson(
+  FreeTextRequestItemDVO instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'description': ?instance.description,
+  'image': ?instance.image,
+  'type': instance.type,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
+  'isDecidable': instance.isDecidable,
+  'response': ?instance.response?.toJson(),
+  'mustBeAccepted': instance.mustBeAccepted,
+  'requireManualDecision': ?instance.requireManualDecision,
+  'freeText': instance.freeText,
+};
+
+RegisterAttributeListenerRequestItemDVO
+_$RegisterAttributeListenerRequestItemDVOFromJson(Map<String, dynamic> json) =>
+    RegisterAttributeListenerRequestItemDVO(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      date: json['date'] as String?,
+      error: json['error'] == null
+          ? null
+          : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null
+          ? null
+          : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      mustBeAccepted: json['mustBeAccepted'] as bool,
+      isDecidable: json['isDecidable'] as bool,
+      response: json['response'] == null
+          ? null
+          : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+      requireManualDecision: json['requireManualDecision'] as bool?,
+      query: AttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$RegisterAttributeListenerRequestItemDVOToJson(
+  RegisterAttributeListenerRequestItemDVO instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'description': ?instance.description,
+  'image': ?instance.image,
+  'type': instance.type,
+  'date': ?instance.date,
+  'error': ?instance.error?.toJson(),
+  'warning': ?instance.warning?.toJson(),
+  'isDecidable': instance.isDecidable,
+  'response': ?instance.response?.toJson(),
+  'mustBeAccepted': instance.mustBeAccepted,
+  'requireManualDecision': ?instance.requireManualDecision,
+  'query': instance.query.toJson(),
+};
+
+TransferFileOwnershipRequestItemDVO
+_$TransferFileOwnershipRequestItemDVOFromJson(Map<String, dynamic> json) =>
+    TransferFileOwnershipRequestItemDVO(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      date: json['date'] as String?,
+      error: json['error'] == null
+          ? null
+          : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null
+          ? null
+          : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      mustBeAccepted: json['mustBeAccepted'] as bool,
+      isDecidable: json['isDecidable'] as bool,
+      response: json['response'] == null
+          ? null
+          : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+      requireManualDecision: json['requireManualDecision'] as bool?,
+      fileReference: json['fileReference'] as String,
+      file: FileDVO.fromJson(json['file'] as Map<String, dynamic>),
+      ownershipToken: json['ownershipToken'] as String?,
+    );
+
+Map<String, dynamic> _$TransferFileOwnershipRequestItemDVOToJson(
+  TransferFileOwnershipRequestItemDVO instance,
+) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': ?instance.description,
