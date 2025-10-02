@@ -8,6 +8,7 @@ import 'package:enmeshed/account/openid4vc/open_id4vc_offer_view.dart';
 import 'package:enmeshed/account/openid4vc/open_id4vc_presentation_offer_view.dart';
 import 'package:enmeshed/account/openid4vc/open_id4vp_introduction_view.dart';
 import 'package:enmeshed/account/openid4vc/open_id4vp_presentation_accepted_view.dart';
+import 'package:enmeshed/account/openid4vc/openid4vc_card_detail_view.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -531,6 +532,15 @@ final _router = GoRouter(
                 child: OpenId4VcView(accountId: state.pathParameters['accountId']!),
               ),
               routes: [
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: ':credentialId',
+                  builder: (context, state) => OpenId4VcCardDetailView(
+                    credentialId: state.pathParameters['credentialId']!,
+                    accountId: state.pathParameters['accountId']!,
+                    displayInformation: state.extra is Map<String, dynamic> ? state.extra! as Map<String, dynamic> : null,
+                  ),
+                ),
                 GoRoute(
                   parentNavigatorKey: _rootNavigatorKey,
                   path: 'introduction',

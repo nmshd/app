@@ -50,6 +50,7 @@ abstract class IdentityAttributeValue extends AttributeValue {
       'Website' => WebsiteAttributeValue.fromJson(json),
       'SchematizedXML' => SchematizedXMLAttributeValue.fromJson(json),
       'Statement' => StatementAttributeValue.fromJson(json),
+      'VerifiableCredential' => VerifiableCredentialAttributeValue.fromJson(json),
       _ => throw Exception('Unknown IdentityAttributeValue: $type'),
     };
   }

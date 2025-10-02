@@ -91,7 +91,6 @@ class _OpenIdCredentialAcceptedViewState extends State<OpenIdCredentialAcceptedV
         'offerLogo': widget.offerLogo,
         'offerBackgroundColor': widget.offerBackgroundColor,
         'offerTextColor': widget.offerTextColor,
-        'rawCredentialData': widget.credentialsText,
         'credentialType': credentialType.name,
         'id': widget.credentialId,
       });
