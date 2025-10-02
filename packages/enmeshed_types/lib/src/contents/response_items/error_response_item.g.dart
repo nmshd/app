@@ -7,18 +7,14 @@ part of 'error_response_item.dart';
 // **************************************************************************
 
 ErrorResponseItem _$ErrorResponseItemFromJson(Map<String, dynamic> json) =>
-    ErrorResponseItem(
-      code: json['code'] as String,
-      message: json['message'] as String,
-    );
+    ErrorResponseItem(code: json['code'] as String, message: json['message'] as String);
 
-Map<String, dynamic> _$ErrorResponseItemToJson(ErrorResponseItem instance) =>
-    <String, dynamic>{
-      '@type': instance.atType,
-      'result': _$ResponseItemResultEnumMap[instance.result]!,
-      'code': instance.code,
-      'message': instance.message,
-    };
+Map<String, dynamic> _$ErrorResponseItemToJson(ErrorResponseItem instance) => <String, dynamic>{
+  '@type': instance.atType,
+  'result': _$ResponseItemResultEnumMap[instance.result]!,
+  'code': instance.code,
+  'message': instance.message,
+};
 
 const _$ResponseItemResultEnumMap = {
   ResponseItemResult.Accepted: 'Accepted',

@@ -6,50 +6,32 @@ part of 'message_dvos.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RequestMessageDVO _$RequestMessageDVOFromJson(
-  Map<String, dynamic> json,
-) => RequestMessageDVO(
+RequestMessageDVO _$RequestMessageDVOFromJson(Map<String, dynamic> json) => RequestMessageDVO(
   id: json['id'] as String,
   name: json['name'] as String,
   description: json['description'] as String?,
   image: json['image'] as String?,
   type: json['type'] as String,
   date: json['date'] as String?,
-  error: json['error'] == null
-      ? null
-      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null
-      ? null
-      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   createdByDevice: json['createdByDevice'] as String,
   createdAt: json['createdAt'] as String,
   createdBy: IdentityDVO.fromJson(json['createdBy'] as Map<String, dynamic>),
-  recipients: (json['recipients'] as List<dynamic>)
-      .map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  attachments: (json['attachments'] as List<dynamic>)
-      .map((e) => FileDVO.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  recipients: (json['recipients'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
+  attachments: (json['attachments'] as List<dynamic>).map((e) => FileDVO.fromJson(e as Map<String, dynamic>)).toList(),
   isOwn: json['isOwn'] as bool,
-  recipientCount: const IntegerConverter().fromJson(
-    json['recipientCount'] as Object,
-  ),
-  attachmentCount: const IntegerConverter().fromJson(
-    json['attachmentCount'] as Object,
-  ),
+  recipientCount: const IntegerConverter().fromJson(json['recipientCount'] as Object),
+  attachmentCount: const IntegerConverter().fromJson(json['attachmentCount'] as Object),
   status: $enumDecode(_$MessageStatusEnumMap, json['status']),
   statusText: json['statusText'] as String,
   peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
-  content: MessageContentDerivation.fromJson(
-    json['content'] as Map<String, dynamic>,
-  ),
+  content: MessageContentDerivation.fromJson(json['content'] as Map<String, dynamic>),
   wasReadAt: json['wasReadAt'] as String?,
   request: LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$RequestMessageDVOToJson(
-  RequestMessageDVO instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$RequestMessageDVOToJson(RequestMessageDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': ?instance.description,
@@ -74,57 +56,35 @@ Map<String, dynamic> _$RequestMessageDVOToJson(
   'request': instance.request.toJson(),
 };
 
-const _$MessageStatusEnumMap = {
-  MessageStatus.Received: 'Received',
-  MessageStatus.Delivering: 'Delivering',
-  MessageStatus.Delivered: 'Delivered',
-};
+const _$MessageStatusEnumMap = {MessageStatus.Received: 'Received', MessageStatus.Delivering: 'Delivering', MessageStatus.Delivered: 'Delivered'};
 
-RequestMessageErrorDVO _$RequestMessageErrorDVOFromJson(
-  Map<String, dynamic> json,
-) => RequestMessageErrorDVO(
+RequestMessageErrorDVO _$RequestMessageErrorDVOFromJson(Map<String, dynamic> json) => RequestMessageErrorDVO(
   id: json['id'] as String,
   name: json['name'] as String,
   description: json['description'] as String?,
   image: json['image'] as String?,
   type: json['type'] as String,
   date: json['date'] as String?,
-  error: json['error'] == null
-      ? null
-      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null
-      ? null
-      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   createdByDevice: json['createdByDevice'] as String,
   createdAt: json['createdAt'] as String,
   createdBy: IdentityDVO.fromJson(json['createdBy'] as Map<String, dynamic>),
-  recipients: (json['recipients'] as List<dynamic>)
-      .map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  attachments: (json['attachments'] as List<dynamic>)
-      .map((e) => FileDVO.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  recipients: (json['recipients'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
+  attachments: (json['attachments'] as List<dynamic>).map((e) => FileDVO.fromJson(e as Map<String, dynamic>)).toList(),
   isOwn: json['isOwn'] as bool,
-  recipientCount: const IntegerConverter().fromJson(
-    json['recipientCount'] as Object,
-  ),
-  attachmentCount: const IntegerConverter().fromJson(
-    json['attachmentCount'] as Object,
-  ),
+  recipientCount: const IntegerConverter().fromJson(json['recipientCount'] as Object),
+  attachmentCount: const IntegerConverter().fromJson(json['attachmentCount'] as Object),
   status: $enumDecode(_$MessageStatusEnumMap, json['status']),
   statusText: json['statusText'] as String,
   peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
-  content: MessageContentDerivation.fromJson(
-    json['content'] as Map<String, dynamic>,
-  ),
+  content: MessageContentDerivation.fromJson(json['content'] as Map<String, dynamic>),
   wasReadAt: json['wasReadAt'] as String?,
   code: json['code'] as String,
   message: json['message'] as String,
 );
 
-Map<String, dynamic> _$RequestMessageErrorDVOToJson(
-  RequestMessageErrorDVO instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$RequestMessageErrorDVOToJson(RequestMessageErrorDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': ?instance.description,
@@ -157,41 +117,23 @@ MailDVO _$MailDVOFromJson(Map<String, dynamic> json) => MailDVO(
   image: json['image'] as String?,
   type: json['type'] as String,
   date: json['date'] as String?,
-  error: json['error'] == null
-      ? null
-      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null
-      ? null
-      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   createdByDevice: json['createdByDevice'] as String,
   createdAt: json['createdAt'] as String,
   createdBy: IdentityDVO.fromJson(json['createdBy'] as Map<String, dynamic>),
-  recipients: (json['recipients'] as List<dynamic>)
-      .map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  attachments: (json['attachments'] as List<dynamic>)
-      .map((e) => FileDVO.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  recipients: (json['recipients'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
+  attachments: (json['attachments'] as List<dynamic>).map((e) => FileDVO.fromJson(e as Map<String, dynamic>)).toList(),
   isOwn: json['isOwn'] as bool,
-  recipientCount: const IntegerConverter().fromJson(
-    json['recipientCount'] as Object,
-  ),
-  attachmentCount: const IntegerConverter().fromJson(
-    json['attachmentCount'] as Object,
-  ),
+  recipientCount: const IntegerConverter().fromJson(json['recipientCount'] as Object),
+  attachmentCount: const IntegerConverter().fromJson(json['attachmentCount'] as Object),
   status: $enumDecode(_$MessageStatusEnumMap, json['status']),
   statusText: json['statusText'] as String,
   peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
-  content: MessageContentDerivation.fromJson(
-    json['content'] as Map<String, dynamic>,
-  ),
+  content: MessageContentDerivation.fromJson(json['content'] as Map<String, dynamic>),
   wasReadAt: json['wasReadAt'] as String?,
-  to: (json['to'] as List<dynamic>)
-      .map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  cc: (json['cc'] as List<dynamic>)
-      .map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  to: (json['to'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
+  cc: (json['cc'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
   subject: json['subject'] as String,
   body: json['body'] as String,
   toCount: const IntegerConverter().fromJson(json['toCount'] as Object),

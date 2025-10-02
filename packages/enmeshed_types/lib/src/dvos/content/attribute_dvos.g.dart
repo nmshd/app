@@ -6,26 +6,18 @@ part of 'attribute_dvos.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DraftIdentityAttributeDVO _$DraftIdentityAttributeDVOFromJson(
-  Map<String, dynamic> json,
-) => DraftIdentityAttributeDVO(
+DraftIdentityAttributeDVO _$DraftIdentityAttributeDVOFromJson(Map<String, dynamic> json) => DraftIdentityAttributeDVO(
   id: json['id'] as String,
   name: json['name'] as String,
   description: json['description'] as String?,
   image: json['image'] as String?,
   type: json['type'] as String,
   date: json['date'] as String?,
-  error: json['error'] == null
-      ? null
-      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null
-      ? null
-      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   content: AbstractAttribute.fromJson(json['content'] as Map<String, dynamic>),
   owner: IdentityDVO.fromJson(json['owner'] as Map<String, dynamic>),
-  renderHints: RenderHints.fromJson(
-    json['renderHints'] as Map<String, dynamic>,
-  ),
+  renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
   valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
   valueType: json['valueType'] as String,
   isOwn: json['isOwn'] as bool,
@@ -36,9 +28,7 @@ DraftIdentityAttributeDVO _$DraftIdentityAttributeDVOFromJson(
   tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
 );
 
-Map<String, dynamic> _$DraftIdentityAttributeDVOToJson(
-  DraftIdentityAttributeDVO instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$DraftIdentityAttributeDVOToJson(DraftIdentityAttributeDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': ?instance.description,
@@ -60,26 +50,18 @@ Map<String, dynamic> _$DraftIdentityAttributeDVOToJson(
   'tags': instance.tags,
 };
 
-DraftRelationshipAttributeDVO _$DraftRelationshipAttributeDVOFromJson(
-  Map<String, dynamic> json,
-) => DraftRelationshipAttributeDVO(
+DraftRelationshipAttributeDVO _$DraftRelationshipAttributeDVOFromJson(Map<String, dynamic> json) => DraftRelationshipAttributeDVO(
   id: json['id'] as String,
   name: json['name'] as String,
   description: json['description'] as String?,
   image: json['image'] as String?,
   type: json['type'] as String,
   date: json['date'] as String?,
-  error: json['error'] == null
-      ? null
-      : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null
-      ? null
-      : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
   content: AbstractAttribute.fromJson(json['content'] as Map<String, dynamic>),
   owner: IdentityDVO.fromJson(json['owner'] as Map<String, dynamic>),
-  renderHints: RenderHints.fromJson(
-    json['renderHints'] as Map<String, dynamic>,
-  ),
+  renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
   valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
   valueType: json['valueType'] as String,
   isOwn: json['isOwn'] as bool,
@@ -92,9 +74,7 @@ DraftRelationshipAttributeDVO _$DraftRelationshipAttributeDVOFromJson(
   confidentiality: json['confidentiality'] as String,
 );
 
-Map<String, dynamic> _$DraftRelationshipAttributeDVOToJson(
-  DraftRelationshipAttributeDVO instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$DraftRelationshipAttributeDVOToJson(DraftRelationshipAttributeDVO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': ?instance.description,

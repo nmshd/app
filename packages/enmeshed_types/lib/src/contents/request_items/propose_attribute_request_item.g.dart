@@ -11,14 +11,10 @@ ProposeAttributeRequestItem _$ProposeAttributeRequestItemFromJson(Map<String, dy
   metadata: json['metadata'] as Map<String, dynamic>?,
   mustBeAccepted: json['mustBeAccepted'] as bool,
   query: AttributeQuery.fromJson(json['query'] as Map<String, dynamic>),
-  attribute: AbstractAttribute.fromJson(
-    json['attribute'] as Map<String, dynamic>,
-  ),
+  attribute: AbstractAttribute.fromJson(json['attribute'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$ProposeAttributeRequestItemToJson(
-  ProposeAttributeRequestItem instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$ProposeAttributeRequestItemToJson(ProposeAttributeRequestItem instance) => <String, dynamic>{
   '@type': instance.atType,
   'description': ?instance.description,
   'metadata': ?instance.metadata,

@@ -13,9 +13,7 @@ DeleteAttributeRequestItem _$DeleteAttributeRequestItemFromJson(Map<String, dyna
   attributeId: json['attributeId'] as String,
 );
 
-Map<String, dynamic> _$DeleteAttributeRequestItemToJson(
-  DeleteAttributeRequestItem instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$DeleteAttributeRequestItemToJson(DeleteAttributeRequestItem instance) => <String, dynamic>{
   '@type': instance.atType,
   'description': ?instance.description,
   'metadata': ?instance.metadata,

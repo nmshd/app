@@ -6,15 +6,10 @@ part of 'delete_attribute_accept_response_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DeleteAttributeAcceptResponseItem _$DeleteAttributeAcceptResponseItemFromJson(
-  Map<String, dynamic> json,
-) => DeleteAttributeAcceptResponseItem(
-  deletionDate: json['deletionDate'] as String,
-);
+DeleteAttributeAcceptResponseItem _$DeleteAttributeAcceptResponseItemFromJson(Map<String, dynamic> json) =>
+    DeleteAttributeAcceptResponseItem(deletionDate: json['deletionDate'] as String);
 
-Map<String, dynamic> _$DeleteAttributeAcceptResponseItemToJson(
-  DeleteAttributeAcceptResponseItem instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$DeleteAttributeAcceptResponseItemToJson(DeleteAttributeAcceptResponseItem instance) => <String, dynamic>{
   '@type': instance.atType,
   'result': _$ResponseItemResultEnumMap[instance.result]!,
   'deletionDate': instance.deletionDate,

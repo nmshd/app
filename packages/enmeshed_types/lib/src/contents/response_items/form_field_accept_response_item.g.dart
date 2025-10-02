@@ -6,15 +6,10 @@ part of 'form_field_accept_response_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-FormFieldAcceptResponseItem _$FormFieldAcceptResponseItemFromJson(
-  Map<String, dynamic> json,
-) => FormFieldAcceptResponseItem(
-  response: FormFieldAcceptResponseType.fromJson(json['response']),
-);
+FormFieldAcceptResponseItem _$FormFieldAcceptResponseItemFromJson(Map<String, dynamic> json) =>
+    FormFieldAcceptResponseItem(response: FormFieldAcceptResponseType.fromJson(json['response']));
 
-Map<String, dynamic> _$FormFieldAcceptResponseItemToJson(
-  FormFieldAcceptResponseItem instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$FormFieldAcceptResponseItemToJson(FormFieldAcceptResponseItem instance) => <String, dynamic>{
   '@type': instance.atType,
   'result': _$ResponseItemResultEnumMap[instance.result]!,
   'response': instance.response.toJson(),

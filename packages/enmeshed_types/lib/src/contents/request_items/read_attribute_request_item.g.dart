@@ -13,9 +13,7 @@ ReadAttributeRequestItem _$ReadAttributeRequestItemFromJson(Map<String, dynamic>
   query: AttributeQuery.fromJson(json['query'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$ReadAttributeRequestItemToJson(
-  ReadAttributeRequestItem instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$ReadAttributeRequestItemToJson(ReadAttributeRequestItem instance) => <String, dynamic>{
   '@type': instance.atType,
   'description': ?instance.description,
   'metadata': ?instance.metadata,
