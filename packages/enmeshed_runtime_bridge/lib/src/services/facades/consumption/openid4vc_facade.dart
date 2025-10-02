@@ -1,3 +1,4 @@
+import 'package:enmeshed_runtime_bridge/src/services/facades/utilities/runtime_error.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -133,5 +134,41 @@ class OpenId4VcFacade {
     );
     storeKeyStorageToPreferences(result.valueToMap()['keyStorage'].toString());
     return Result.success(result.valueToMap()['value']['status']);
+  }
+
+  Future<Result<List<VerifiableCredentialDTO>>> getAllStoredClaims() async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''
+      const result = await session.consumptionServices.openId4Vc.getVerifiableCredentials(undefined)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {'ids': 'undefined'},
+      },
+    );
+    return Result.fromJson(
+      result.valueToMap(),
+      (x) => List<VerifiableCredentialDTO>.from((x as List).map((e) => VerifiableCredentialDTO.fromJson(e as Map<String, dynamic>))),
+    );
+  }
+
+  Future<Result<VerifiableCredentialDTO>> getStoredClaimWithId(String id) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''
+      const result = await session.consumptionServices.openId4Vc.getVerifiableCredentials(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': [id],
+      },
+    );
+    if (result.valueToMap().isEmpty || result.valueToMap()['value'] == null || (result.valueToMap()['value'] as List).isEmpty) {
+      return Result.failure(RuntimeError(message: 'No stored claim found', code: '400'));
+    }
+    if ((result.valueToMap()['value'] as List).length > 1) {
+      return Result.failure(RuntimeError(message: 'Multiple stored claims found', code: '400'));
+    }
+    final claim = VerifiableCredentialDTO.fromJson((result.valueToMap()['value'] as List).first);
+    return Result.success(claim);
   }
 }

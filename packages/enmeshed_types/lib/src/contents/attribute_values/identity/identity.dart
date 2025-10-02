@@ -38,5 +38,6 @@ export 'statement.dart';
 export 'street.dart';
 export 'street_address.dart';
 export 'surname.dart';
+export 'verifiable_credential.dart';
 export 'website.dart';
 export 'zip_code.dart';

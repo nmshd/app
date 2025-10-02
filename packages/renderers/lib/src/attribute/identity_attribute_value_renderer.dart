@@ -103,6 +103,18 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       );
     }
 
+    if (value is VerifiableCredentialAttributeValue) {
+      final vc = value as VerifiableCredentialAttributeValue;
+      return CustomListTile(
+        title: vc.title,
+        description: vc.description,
+        extraLine: extraLine,
+        showTitle: showTitle,
+        valueTextStyle: valueTextStyle,
+        trailing: trailing,
+      );
+    }
+
     if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
