@@ -76,5 +76,9 @@
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="openid4vp" />
         </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="eid" />
+        </intent>
     </queries>
 </manifest>
