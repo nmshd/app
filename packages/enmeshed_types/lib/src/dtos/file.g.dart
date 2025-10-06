@@ -20,6 +20,7 @@ FileDTO _$FileDTOFromJson(Map<String, dynamic> json) => FileDTO(
   title: json['title'] as String,
   description: json['description'] as String?,
   reference: ObjectReferenceDTO.fromJson(json['reference'] as Map<String, dynamic>),
+  owner: json['owner'] as String,
 );
 
 Map<String, dynamic> _$FileDTOToJson(FileDTO instance) => <String, dynamic>{
@@ -36,4 +37,5 @@ Map<String, dynamic> _$FileDTOToJson(FileDTO instance) => <String, dynamic>{
   'title': instance.title,
   'description': ?instance.description,
   'reference': instance.reference.toJson(),
+  'owner': instance.owner,
 };

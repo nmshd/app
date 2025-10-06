@@ -131,7 +131,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      context.i18nTranslate(_fileDVO!.createdBy.name),
+                                      context.i18nTranslate(_fileDVO!.owner.name),
                                       style: Theme.of(context).textTheme.bodyMedium,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
