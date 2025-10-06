@@ -25,6 +25,7 @@ void main() {
             isOwn: true,
             title: 'aTitle',
             reference: ObjectReferenceDTO(truncated: 'aTruncatedReference', url: 'aUrl'),
+            owner: 'anOwner',
           ),
         ],
       );
@@ -54,6 +55,7 @@ void main() {
               isOwn: true,
               title: 'aTitle',
               reference: ObjectReferenceDTO(truncated: 'aTruncatedReference', url: 'aUrl'),
+              owner: 'anOwner',
             ).toJson(),
           ],
         }),
@@ -86,6 +88,7 @@ void main() {
             isOwn: true,
             title: 'aTitle',
             reference: ObjectReferenceDTO(truncated: 'aTruncatedReference', url: 'aUrl'),
+            owner: 'anOwner',
           ).toJson(),
         ],
       };
@@ -113,6 +116,7 @@ void main() {
                 isOwn: true,
                 title: 'aTitle',
                 reference: ObjectReferenceDTO(truncated: 'aTruncatedReference', url: 'aUrl'),
+                owner: 'anOwner',
               ),
             ],
           ),
