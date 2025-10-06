@@ -210,10 +210,11 @@ class _MailInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     final body = message.body
         .replaceAll(CustomRegExp.html, '')
-        .replaceAllMapped(RegExp(r'(eid:\/\/[^\s\\]+)'), (match) => '<link>${match.group(1)}</link>')
-        .replaceAllMapped(RegExp(r'(?<=^|\s)(https?:\/\/[^\s\\]+)'), (match) => '<link>${match.group(1)}</link>')
-        .replaceAllMapped(RegExp(r'(openid-credential-offer:\/\/[^\s\\]+)'), (match) => '<link>${match.group(1)}</link>')
-        .replaceAllMapped(RegExp(r'(openid4vp:\/\/[^\s\\]+)'), (match) => '<link>${match.group(1)}</link>');
+        .replaceAllMapped(
+          // https://regex101.com/r/DIGWy0/1
+          RegExp(r'(?<=^|\s)((https?|eid|openid-credential-offer|openid4vp):\/\/[^\s\\]+)'),
+          (match) => '<link>${match.group(1)}</link>',
+        );
 
     return Padding(
       padding: const EdgeInsets.all(16),
