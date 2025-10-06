@@ -38,7 +38,7 @@ dependencies:
   image: ^4.5.4
   image_picker: ^1.2.0
   intl: any
-  logger: ^2.6.1
+  logger: ^2.6.2
   mime_type: ^1.0.1
   mobile_scanner: ^7.0.1
   open_file: ^3.5.10
