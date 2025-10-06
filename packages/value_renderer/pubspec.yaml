@@ -17,4 +17,4 @@ dependencies:
   get_it: ^8.2.0
   i18n_translated_text: ^1.0.2
   intl: any
-  logger: ^2.6.1
+  logger: ^2.6.2
