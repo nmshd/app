@@ -227,10 +227,21 @@ class _MailInformation extends StatelessWidget {
   }
 
   Future<void> _launchUrl(String url) async {
-    final canLaunch = await url_launcher.canLaunchUrlString(url);
-    if (!canLaunch) return;
+    final logger = GetIt.I.get<Logger>()..d('Trying to launch URL: $url');
 
-    await url_launcher.launchUrlString(url);
+    final uri = Uri.tryParse(url);
+    if (uri == null) {
+      logger.w('Could not parse URL: $url');
+      return;
+    }
+
+    final canLaunch = await url_launcher.canLaunchUrl(uri);
+    if (!canLaunch) {
+      logger.d('Unable to launch URL, canLaunchUrl returned false: $url');
+      return;
+    }
+
+    await url_launcher.launchUrl(uri);
   }
 }
 
