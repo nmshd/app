@@ -232,7 +232,7 @@ class _MailInformation extends StatelessWidget {
 
     final uri = Uri.tryParse(url);
     if (uri == null) {
-      logger.w('Could not parse URL: $url');
+      logger.d('Could not parse URL: $url');
       return;
     }
 
