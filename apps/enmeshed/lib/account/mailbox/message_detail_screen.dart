@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:styled_text/styled_text.dart';
-import 'package:url_launcher/url_launcher_string.dart' as url_launcher;
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 import '/core/core.dart';
 import 'send_mail_screen/widgets/attachments_list.dart';
@@ -232,6 +233,11 @@ class _MailInformation extends StatelessWidget {
     final uri = Uri.tryParse(url);
     if (uri == null) {
       logger.w('Could not parse URL: $url');
+      return;
+    }
+
+    if (url.startsWith('eid://')) {
+      await url_launcher.launchUrl(uri);
       return;
     }
 
