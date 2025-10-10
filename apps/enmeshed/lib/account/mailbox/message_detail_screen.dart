@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:styled_text/styled_text.dart';
-import 'package:url_launcher/url_launcher_string.dart' as url_launcher;
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 import '/core/core.dart';
 import 'send_mail_screen/widgets/attachments_list.dart';
@@ -227,10 +228,26 @@ class _MailInformation extends StatelessWidget {
   }
 
   Future<void> _launchUrl(String url) async {
-    final canLaunch = await url_launcher.canLaunchUrlString(url);
-    if (!canLaunch) return;
+    final logger = GetIt.I.get<Logger>()..d('Trying to launch URL: $url');
 
-    await url_launcher.launchUrlString(url);
+    final uri = Uri.tryParse(url);
+    if (uri == null) {
+      logger.w('Could not parse URL: $url');
+      return;
+    }
+
+    if (url.startsWith('eid://')) {
+      await url_launcher.launchUrl(uri);
+      return;
+    }
+
+    final canLaunch = await url_launcher.canLaunchUrl(uri);
+    if (!canLaunch) {
+      logger.d('Unable to launch URL, canLaunchUrl returned false: $url');
+      return;
+    }
+
+    await url_launcher.launchUrl(uri);
   }
 }
 
