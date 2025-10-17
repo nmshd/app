@@ -17,6 +17,6 @@ dependencies:
   meta: any
 
 dev_dependencies:
-  build_runner: ^2.7.1
+  build_runner: ^2.8.0
   json_serializable: ^6.11.1
   test: any
