@@ -6,18 +6,12 @@ part of 'attribute_query.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-IdentityAttributeQuery _$IdentityAttributeQueryFromJson(Map<String, dynamic> json) => IdentityAttributeQuery(
-  valueType: json['valueType'] as String,
-  tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
-  validFrom: json['validFrom'] as String?,
-  validTo: json['validTo'] as String?,
-);
+IdentityAttributeQuery _$IdentityAttributeQueryFromJson(Map<String, dynamic> json) =>
+    IdentityAttributeQuery(valueType: json['valueType'] as String, tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList());
 
 Map<String, dynamic> _$IdentityAttributeQueryToJson(IdentityAttributeQuery instance) => <String, dynamic>{
   'valueType': instance.valueType,
   'tags': ?instance.tags,
-  'validFrom': ?instance.validFrom,
-  'validTo': ?instance.validTo,
 };
 
 IQLQuery _$IQLQueryFromJson(Map<String, dynamic> json) => IQLQuery(
@@ -60,16 +54,12 @@ RelationshipAttributeQuery _$RelationshipAttributeQueryFromJson(Map<String, dyna
   key: json['key'] as String,
   owner: json['owner'] as String,
   attributeCreationHints: RelationshipAttributeCreationHints.fromJson(json['attributeCreationHints'] as Map<String, dynamic>),
-  validFrom: json['validFrom'] as String?,
-  validTo: json['validTo'] as String?,
 );
 
 Map<String, dynamic> _$RelationshipAttributeQueryToJson(RelationshipAttributeQuery instance) => <String, dynamic>{
   'key': instance.key,
   'owner': instance.owner,
   'attributeCreationHints': instance.attributeCreationHints.toJson(),
-  'validFrom': ?instance.validFrom,
-  'validTo': ?instance.validTo,
 };
 
 ThirdPartyRelationshipAttributeQuery _$ThirdPartyRelationshipAttributeQueryFromJson(Map<String, dynamic> json) =>
@@ -77,16 +67,12 @@ ThirdPartyRelationshipAttributeQuery _$ThirdPartyRelationshipAttributeQueryFromJ
       key: json['key'] as String,
       owner: $enumDecode(_$ThirdPartyRelationshipAttributeQueryOwnerEnumMap, json['owner']),
       thirdParty: (json['thirdParty'] as List<dynamic>).map((e) => e as String).toList(),
-      validFrom: json['validFrom'] as String?,
-      validTo: json['validTo'] as String?,
     );
 
 Map<String, dynamic> _$ThirdPartyRelationshipAttributeQueryToJson(ThirdPartyRelationshipAttributeQuery instance) => <String, dynamic>{
   'key': instance.key,
   'owner': _$ThirdPartyRelationshipAttributeQueryOwnerEnumMap[instance.owner]!,
   'thirdParty': instance.thirdParty,
-  'validFrom': ?instance.validFrom,
-  'validTo': ?instance.validTo,
 };
 
 const _$ThirdPartyRelationshipAttributeQueryOwnerEnumMap = {

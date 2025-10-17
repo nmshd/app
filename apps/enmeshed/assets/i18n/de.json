@@ -1083,17 +1083,11 @@
       "DecidableFormFieldRequestItem": {
         "name": "Fordert über ein Formularfeld etwas an"
       },
-      "DecidableFreeTextRequestItem": {
-        "name": "Fordert etwas an"
-      },
       "DecidableProposeAttributeRequestItem": {
         "name": "Schlägt ein Attribut vor"
       },
       "DecidableReadAttributeRequestItem": {
         "name": "Fragt ein Attribut an"
-      },
-      "DecidableRegisterAttributeListenerRequestItem": {
-        "name": "Fragt ein zukünftiges Attribut an"
       },
       "DecidableShareAttributeRequestItem": {
         "name": "Möchte ein Attribut teilen"
@@ -1101,18 +1095,12 @@
       "FormFieldRequestItem": {
         "name": "Hat über ein Formularfeld etwas angefordert"
       },
-      "FreeTextRequestItem": {
-        "name": "Hat etwas angefordert"
-      },
       "name": "Anfrage",
       "ProposeAttributeRequestItem": {
         "name": "Schlug ein Attribut vor"
       },
       "ReadAttributeRequestItem": {
         "name": "Fragte ein Attribute an"
-      },
-      "RegisterAttributeListenerRequestItem": {
-        "name": "Hat ein zukünftiges Attribut angefragt"
       },
       "ShareAttributeRequestItem": {
         "name": "Teilte ein Attribut"
@@ -1138,17 +1126,11 @@
       "FormFieldAcceptResponseItem": {
         "acceptedName": "Das Formularfeld wurde ausgefüllt."
       },
-      "FreeTextAcceptResponseItem": {
-        "acceptedName": "Der Freitext wurde akzeptiert."
-      },
       "ProposeAttributeAcceptResponseItem": {
         "acceptedName": "Das vorgeschlagene Attribut wurde empfangen."
       },
       "ReadAttributeAcceptResponseItem": {
         "acceptedName": "Das angefragte Attribut wurde empfangen."
-      },
-      "RegisterAttributeListenerAcceptResponseItem": {
-        "acceptedName": "Das zukünftige Attribut wird geteilt."
       },
       "rejected": "Abgelehntes Element",
       "ShareAttributeAcceptResponseItem": {
@@ -1240,12 +1222,6 @@
             }
           }
         }
-      }
-    },
-    "manualDecisionRequired": {
-      "description": {
-        "attributes": "Ich bestätige, dass diese Information geteilt werden soll.",
-        "fileTransfer": "Ich bestätige, dass diese Datei in meine persönlichen Dokumente übernommen werden soll."
       }
     }
   },

@@ -15,8 +15,8 @@ RequestItemGroup _$RequestItemGroupFromJson(Map<String, dynamic> json) => Reques
 
 Map<String, dynamic> _$RequestItemGroupToJson(RequestItemGroup instance) => <String, dynamic>{
   '@type': instance.atType,
-  'title': ?instance.title,
   'description': ?instance.description,
   'metadata': ?instance.metadata,
+  'title': ?instance.title,
   'items': instance.items.map((e) => e.toJson()).toList(),
 };

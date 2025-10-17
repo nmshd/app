@@ -10,7 +10,6 @@ FormFieldRequestItem _$FormFieldRequestItemFromJson(Map<String, dynamic> json) =
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
   mustBeAccepted: json['mustBeAccepted'] as bool,
-  requireManualDecision: json['requireManualDecision'] as bool?,
   title: json['title'] as String,
   settings: FormFieldSettings.fromJson(json['settings'] as Map<String, dynamic>),
 );
@@ -20,7 +19,6 @@ Map<String, dynamic> _$FormFieldRequestItemToJson(FormFieldRequestItem instance)
   'description': ?instance.description,
   'metadata': ?instance.metadata,
   'mustBeAccepted': instance.mustBeAccepted,
-  'requireManualDecision': ?instance.requireManualDecision,
   'title': instance.title,
   'settings': instance.settings.toJson(),
 };

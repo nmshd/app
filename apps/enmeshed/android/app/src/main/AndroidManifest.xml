@@ -31,13 +31,6 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Handle all URLs starting with nmshd:// -->
-                <data android:scheme="nmshd" />
-            </intent-filter>
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="enmeshed"
                     android:host="pilot.enmeshed.eu"
                     android:pathPrefix="/r" />

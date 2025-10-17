@@ -20,28 +20,6 @@ void main() {
         }),
       );
     });
-
-    test('is correctly converted with properties "validFrom" and "validTo"', () {
-      const identityAttributeQuery = IdentityAttributeQuery(valueType: 'StreetAddress', validFrom: '1970', validTo: '1980');
-      expect(
-        identityAttributeQuery.toJson(),
-        equals({'@type': 'IdentityAttributeQuery', 'valueType': 'StreetAddress', 'validFrom': '1970', 'validTo': '1980'}),
-      );
-    });
-
-    test('is correctly converted with properties "validFrom", "validTo" and "tags"', () {
-      const identityAttributeQuery = IdentityAttributeQuery(valueType: 'StreetAddress', validFrom: '1970', validTo: '1980', tags: ['tag1', 'tag2']);
-      expect(
-        identityAttributeQuery.toJson(),
-        equals({
-          '@type': 'IdentityAttributeQuery',
-          'valueType': 'StreetAddress',
-          'validFrom': '1970',
-          'validTo': '1980',
-          'tags': ['tag1', 'tag2'],
-        }),
-      );
-    });
   });
 
   group('IdentityAttributeQuery fromJson', () {
@@ -57,29 +35,6 @@ void main() {
       };
 
       expect(IdentityAttributeQuery.fromJson(json), equals(const IdentityAttributeQuery(valueType: 'StreetAddress', tags: ['tag1', 'tag2'])));
-    });
-
-    test('is correctly converted with properties "validFrom" and "validTo"', () {
-      final json = {'valueType': 'StreetAddress', 'validFrom': '1970', 'validTo': '1970'};
-
-      expect(
-        IdentityAttributeQuery.fromJson(json),
-        equals(const IdentityAttributeQuery(valueType: 'StreetAddress', validFrom: '1970', validTo: '1970')),
-      );
-    });
-
-    test('is correctly converted with properties "validFrom", "validTo" and "tags"', () {
-      final json = {
-        'valueType': 'StreetAddress',
-        'tags': ['tag1', 'tag2'],
-        'validFrom': '1970',
-        'validTo': '1980',
-      };
-
-      expect(
-        IdentityAttributeQuery.fromJson(json),
-        equals(const IdentityAttributeQuery(valueType: 'StreetAddress', validFrom: '1970', validTo: '1980', tags: ['tag1', 'tag2'])),
-      );
     });
   });
 }

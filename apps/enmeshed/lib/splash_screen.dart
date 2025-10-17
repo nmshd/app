@@ -81,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen> {
         clientId: const String.fromEnvironment('app_clientId'),
         clientSecret: const String.fromEnvironment('app_clientSecret'),
         useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
-        databaseFolder: './database',
+        databaseBaseFolder: './database',
         deciderModuleConfig: null,
         androidNotificationColor: null,
       ),
@@ -102,7 +102,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (mounted) await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router, localizations: context.l10n));
 
-    await _registerWindowsSchemeForDebugMode('nmshd-dev');
+    await _registerWindowsSchemeForDebugMode('enmeshed-dev');
 
     final appLinks = AppLinks();
     appLinks.uriLinkStream.listen((link) => _processUri(link, router));
@@ -130,7 +130,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _processUri(Uri? uri, GoRouter router) async {
     if (uri == null) return;
 
-    final uriString = uri.toString().replaceAll('nmshd-dev://', 'nmshd://').replaceAll('qr/#', 'qr#').replaceAll('enmeshed://', 'https://');
+    final uriString = uri.toString().replaceAll('enmeshed-dev://', 'https://').replaceAll('qr/#', 'qr#').replaceAll('enmeshed://', 'https://');
     GetIt.I.get<Logger>().i("Processing URL '$uriString'");
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();

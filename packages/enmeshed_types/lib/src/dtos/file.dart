@@ -17,7 +17,7 @@ class FileDTO extends Equatable {
   final String expiresAt;
   final String mimetype;
   final bool isOwn;
-  final String title;
+  final String? title;
   final String? description;
   final ObjectReferenceDTO reference;
   final String owner;
@@ -33,7 +33,7 @@ class FileDTO extends Equatable {
     required this.expiresAt,
     required this.mimetype,
     required this.isOwn,
-    required this.title,
+    this.title,
     this.description,
     required this.reference,
     required this.owner,

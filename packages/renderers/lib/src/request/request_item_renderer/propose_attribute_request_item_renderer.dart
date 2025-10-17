@@ -7,7 +7,6 @@ import '../../custom_list_tile.dart';
 import '../open_attribute_switcher_function.dart';
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import 'extensions/extensions.dart';
 import 'widgets/validation_error_box.dart';
 
 class ProposeAttributeRequestItemRenderer extends StatefulWidget {
@@ -53,7 +52,7 @@ class _ProposeAttributeRequestItemRendererState extends State<ProposeAttributeRe
         _ => throw Exception('Unknown response type: ${widget.item.response.runtimeType}'),
       };
     } else {
-      _isChecked = widget.item.initiallyChecked;
+      _isChecked = widget.item.mustBeAccepted;
       _choice = _getInitialChoice();
     }
 
@@ -81,7 +80,7 @@ class _ProposeAttributeRequestItemRendererState extends State<ProposeAttributeRe
               children: [
                 Checkbox(
                   value: _isChecked,
-                  onChanged: widget.item.isDecidable && widget.item.checkboxEnabled && _getChoices().isNotEmpty ? _onUpdateCheckbox : null,
+                  onChanged: widget.item.isDecidable && widget.item.isDecidable && !widget.item.mustBeAccepted ? _onUpdateCheckbox : null,
                 ),
                 if (_choice.dvo != null || _getQueryValueHints() != null)
                   Expanded(

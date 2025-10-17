@@ -23,30 +23,6 @@ void main() {
       );
     });
 
-    test('is correctly converted with properties "validFrom" and "validTo"', () {
-      const relationshipAttribute = RelationshipAttribute(
-        owner: 'anOwner',
-        validFrom: '1970',
-        validTo: '1980',
-        value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-        key: 'aKey',
-        confidentiality: RelationshipAttributeConfidentiality.public,
-      );
-      final relationshipAttributeJson = relationshipAttribute.toJson();
-      expect(
-        relationshipAttributeJson,
-        equals({
-          '@type': 'RelationshipAttribute',
-          'owner': 'anOwner',
-          'validFrom': '1970',
-          'validTo': '1980',
-          'value': const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true).toJson(),
-          'key': 'aKey',
-          'confidentiality': 'public',
-        }),
-      );
-    });
-
     test('is correctly converted with property "isTechnical"', () {
       const relationshipAttribute = RelationshipAttribute(
         owner: 'anOwner',
@@ -61,32 +37,6 @@ void main() {
         equals({
           '@type': 'RelationshipAttribute',
           'owner': 'anOwner',
-          'value': const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true).toJson(),
-          'key': 'aKey',
-          'isTechnical': true,
-          'confidentiality': 'public',
-        }),
-      );
-    });
-
-    test('is correctly converted with properties "validFrom", "validTo" and "isTechnical"', () {
-      const relationshipAttribute = RelationshipAttribute(
-        owner: 'anOwner',
-        validFrom: '1970',
-        validTo: '1980',
-        value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-        key: 'aKey',
-        isTechnical: true,
-        confidentiality: RelationshipAttributeConfidentiality.public,
-      );
-      final relationshipAttributeJson = relationshipAttribute.toJson();
-      expect(
-        relationshipAttributeJson,
-        equals({
-          '@type': 'RelationshipAttribute',
-          'owner': 'anOwner',
-          'validFrom': '1970',
-          'validTo': '1980',
           'value': const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true).toJson(),
           'key': 'aKey',
           'isTechnical': true,
@@ -117,30 +67,6 @@ void main() {
       );
     });
 
-    test('is correctly converted with properties "validFrom" and "validTo"', () {
-      final json = {
-        'owner': 'anOwner',
-        'validFrom': '1970',
-        'validTo': '1980',
-        'value': const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true).toJson(),
-        'key': 'aKey',
-        'confidentiality': 'public',
-      };
-      expect(
-        RelationshipAttribute.fromJson(json),
-        equals(
-          const RelationshipAttribute(
-            owner: 'anOwner',
-            validFrom: '1970',
-            validTo: '1980',
-            value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-            key: 'aKey',
-            confidentiality: RelationshipAttributeConfidentiality.public,
-          ),
-        ),
-      );
-    });
-
     test('is correctly converted with property "isTechnical"', () {
       final json = {
         'owner': 'anOwner',
@@ -154,32 +80,6 @@ void main() {
         equals(
           const RelationshipAttribute(
             owner: 'anOwner',
-            value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-            key: 'aKey',
-            isTechnical: true,
-            confidentiality: RelationshipAttributeConfidentiality.public,
-          ),
-        ),
-      );
-    });
-
-    test('is correctly converted with properties "validFrom", "validTo" and "isTechnical"', () {
-      final json = {
-        'owner': 'anOwner',
-        'validFrom': '1970',
-        'validTo': '1980',
-        'value': const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true).toJson(),
-        'key': 'aKey',
-        'isTechnical': true,
-        'confidentiality': 'public',
-      };
-      expect(
-        RelationshipAttribute.fromJson(json),
-        equals(
-          const RelationshipAttribute(
-            owner: 'anOwner',
-            validFrom: '1970',
-            validTo: '1980',
             value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
             key: 'aKey',
             isTechnical: true,

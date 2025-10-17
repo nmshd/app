@@ -11,8 +11,6 @@ IdentityDeletionProcessDTO _$IdentityDeletionProcessDTOFromJson(Map<String, dyna
   status: $enumDecode(_$IdentityDeletionProcessStatusEnumMap, json['status']),
   createdAt: json['createdAt'] as String?,
   createdByDevice: json['createdByDevice'] as String?,
-  approvedAt: json['approvedAt'] as String?,
-  approvedByDevice: json['approvedByDevice'] as String?,
   gracePeriodEndsAt: json['gracePeriodEndsAt'] as String?,
   cancelledAt: json['cancelledAt'] as String?,
   cancelledByDevice: json['cancelledByDevice'] as String?,
@@ -23,14 +21,9 @@ Map<String, dynamic> _$IdentityDeletionProcessDTOToJson(IdentityDeletionProcessD
   'status': _$IdentityDeletionProcessStatusEnumMap[instance.status]!,
   'createdAt': ?instance.createdAt,
   'createdByDevice': ?instance.createdByDevice,
-  'approvedAt': ?instance.approvedAt,
-  'approvedByDevice': ?instance.approvedByDevice,
   'gracePeriodEndsAt': ?instance.gracePeriodEndsAt,
   'cancelledAt': ?instance.cancelledAt,
   'cancelledByDevice': ?instance.cancelledByDevice,
 };
 
-const _$IdentityDeletionProcessStatusEnumMap = {
-  IdentityDeletionProcessStatus.Approved: 'Approved',
-  IdentityDeletionProcessStatus.Cancelled: 'Cancelled',
-};
+const _$IdentityDeletionProcessStatusEnumMap = {IdentityDeletionProcessStatus.Active: 'Active', IdentityDeletionProcessStatus.Cancelled: 'Cancelled'};

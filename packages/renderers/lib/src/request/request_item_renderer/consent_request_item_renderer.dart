@@ -9,8 +9,11 @@ import 'package:styled_text/styled_text.dart';
 
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import 'extensions/extensions.dart';
 import 'widgets/validation_error_box.dart';
+
+extension on ConsentRequestItemDVO {
+  bool get initiallyChecked => mustBeAccepted && requiresInteraction != true;
+}
 
 class ConsentRequestItemRenderer extends StatefulWidget {
   final ConsentRequestItemDVO item;
